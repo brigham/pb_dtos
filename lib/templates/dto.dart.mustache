@@ -1,0 +1,158 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/patch_dto.dart';
+{{#imports}}
+import '{{import}}_dto.dart';
+{{/imports}}
+import '{{collection.name}}_dto_field_select.dart';
+import '{{collection.name}}_dto_filter.dart';
+import '{{collection.name}}_dto_meta.dart';
+import '{{collection.name}}_dto_sort.dart';
+import '{{collection.name}}_patch_dto.dart';
+{{#has_relations}}
+import '{{collection.name}}_dto_expand.dart';
+{{/has_relations}}
+
+part '{{collection.name}}_dto.freezed.dart';
+part '{{collection.name}}_dto.g.dart';
+
+{{#type_definitions}}
+{{{type_definition}}}
+{{/type_definitions}}
+
+enum {{class_name}}FieldEnum<V> implements DtoTypedField<{{class_name}}, V> {
+{{#fields}}
+    {{enum_name}}<{{filter_type}}>('{{name}}'),
+{{/fields}}
+    ;
+
+    const {{class_name}}FieldEnum(this.pbName);
+
+    @override
+    final String pbName;
+}
+
+@freezed
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class {{class_name}} with _${{class_name}} implements Dto<{{class_name}}> {
+  static {{class_name}}Meta meta() => const {{class_name}}Meta();
+
+  static {{class_name}}Sort<{{class_name}}> sort(void Function({{class_name}}Sort<{{class_name}}>) builder) {
+    var sort = {{class_name}}Sort<{{class_name}}>();
+    builder(sort);
+    return sort;
+  }
+
+  static {{class_name}}Filter filter(void Function({{class_name}}Filter) builder) {
+    var filter = {{class_name}}Filter();
+    builder(filter);
+    return filter;
+  }
+
+  {{#indexes}}
+  static {{class_name}}Filter filterBy{{name}}({{#parameters}}{{#is_optional}}[{{/is_optional}}{{type}} {{name}}{{#is_optional}}]{{/is_optional}}{{^is_last}}, {{/is_last}}{{/parameters}}) {
+    final f = {{class_name}}Filter();
+    {{#expressions}}
+    {{{code}}};
+    {{/expressions}}
+    return f;
+  }
+
+  static {{class_name}}Sort<{{class_name}}> sortBy{{name}}() {
+    final s = {{class_name}}Sort<{{class_name}}>();
+    {{#sort_expressions}}
+    {{{code}}};
+    {{/sort_expressions}}
+    return s;
+  }
+  {{/indexes}}
+
+
+  static {{patch_class_name}} patch(void Function({{patch_class_name}}) builder) {
+    var patch = {{patch_class_name}}();
+    builder(patch);
+    return patch;
+  }
+
+    @override
+    {{patch_class_name}} asPatch() => {{patch_class_name}}()
+    {{#fields}}{{#is_patchable}}
+        ..{{snake_name}} = {{snake_name}}
+    {{/is_patchable}}{{/fields}}
+    ;
+
+    @override
+    {{patch_class_name}} diff({{class_name}} newValue) => {{patch_class_name}}()
+    {{#fields}}{{#is_patchable}}
+        ..{{snake_name}} = {{snake_name}} != newValue.{{snake_name}} ? newValue.{{snake_name}} : null
+    {{/is_patchable}}{{/fields}}
+    ;
+
+    {{#has_relations}}
+    static {{dto_expand_class_name}}<{{class_name}}> expansions(void Function({{dto_expand_class_name}}) builder) {
+    var expansions = {{dto_expand_class_name}}<{{class_name}}>();
+    builder(expansions);
+    return expansions;
+    }
+    {{/has_relations}}
+
+    static {{class_name}}FieldSelect<{{class_name}}> fields(void Function({{class_name}}FieldSelect<{{class_name}}>) builder) {
+    var select = {{class_name}}FieldSelect<{{class_name}}>();
+    builder(select);
+    return select;
+    }
+
+
+  {{class_name}}({
+    {{#fields}}
+    {{maybe_required}}this.{{snake_name}}{{#default_value}} = {{{default_value}}}{{/default_value}},
+    {{/fields}}
+    {{#has_relations}}
+    this.expand,
+    {{/has_relations}}
+    {{#is_auth}}
+    this.passwordConfirm,
+    {{/is_auth}}
+  });
+
+  {{#fields}}
+  {{#has_json_key}}
+  @JsonKey({{#json_key_name}}name: '{{json_key_name}}', {{/json_key_name}}{{#to_json_function}}toJson: {{to_json_function}}{{/to_json_function}})
+  {{/has_json_key}}
+  @override
+  final {{{type}}} {{snake_name}};
+  {{/fields}}
+  {{#has_relations}}
+  @JsonKey(includeToJson: false)
+  @override
+  final {{expand_dto_class_name}}? expand;
+  {{/has_relations}}
+  {{#is_auth}}
+  @override
+  final String? passwordConfirm;
+  {{/is_auth}}
+
+  factory {{class_name}}.fromRecord(RecordModel record) =>
+      {{class_name}}.fromJson(record.toJson());
+
+  factory {{class_name}}.fromJson(Map<String, dynamic> json) =>
+      _${{class_name}}FromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _${{class_name}}ToJson(this);
+
+  @override
+  RelationDto<{{class_name}}> asRelation() => RelationDto(id);
+
+  {{#debug}}
+  final Map<String, dynamic> _definition = {{pb_definition}};
+  {{/debug}}
+}

@@ -1,0 +1,49 @@
+import 'package:pb_dtos/pb/dto/dto_filter.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_operand.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'posts_dto.dart';
+import 'posts_dto_expand.dart';
+import 'users_dto.dart';
+import 'users_dto_comparison_builder.dart';
+import 'permissions_dto.dart';
+import 'permissions_dto_comparison_builder.dart';
+import 'roles_dto.dart';
+import 'roles_dto_comparison_builder.dart';
+import 'follows_dto.dart';
+import 'follows_dto_comparison_builder.dart';
+import 'friends_dto.dart';
+import 'friends_dto_comparison_builder.dart';
+import 'blocks_dto.dart';
+import 'blocks_dto_comparison_builder.dart';
+import 'posts_dto.dart';
+import 'posts_dto_comparison_builder.dart';
+
+class PostsDtoFilter extends DtoFilter<PostsDto> {
+  UsersDtoComparisonBuilder<PostsDto> poster() =>
+      UsersDtoComparisonBuilder(SoloFieldPath(PostsDtoFieldEnum.poster), add);
+  ComparisonBuilder<PostsDto, String> message() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.message, add);
+  ComparisonBuilder<PostsDto, FileDto> photo() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.photo, add);
+  ComparisonBuilder<PostsDto, String> link() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.link, add);
+  ComparisonBuilder<PostsDto, Map<String, dynamic>> location() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.location, add);
+  ComparisonBuilder<PostsDto, num> reviewStars() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.reviewStars, add);
+  UsersDtoMultirelComparisonBuilder<PostsDto> tagged() =>
+      UsersDtoMultirelComparisonBuilder(
+        SoloFieldPath(PostsDtoFieldEnum.tagged),
+        add,
+      );
+  ComparisonBuilder<PostsDto, bool> draft() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.draft, add);
+  ComparisonBuilder<PostsDto, DateTime> scheduled() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.scheduled, add);
+  ComparisonBuilder<PostsDto, String> id() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.id, add);
+
+  // Back relations
+}

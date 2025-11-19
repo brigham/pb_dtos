@@ -1,0 +1,73 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/patch_dto.dart';
+{{#imports}}
+    import '{{import}}_dto.dart';
+{{/imports}}
+import '{{collection.name}}_dto_filter.dart';
+import '{{collection.name}}_dto_meta.dart';
+import '{{collection.name}}_dto_sort.dart';
+{{#has_relations}}
+    import '{{collection.name}}_dto_expand.dart';
+{{/has_relations}}
+
+part '{{collection.name}}_patch_dto.freezed.dart';
+part '{{collection.name}}_patch_dto.g.dart';
+
+@freezed
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class {{patch_class_name}} with _${{patch_class_name}} implements PatchDto<{{class_name}}> {
+{{patch_class_name}}({
+{{#fields}}{{#is_patchable}}
+    this.{{snake_name}},{{#has_multi}}
+    this.{{snake_name}}Removals,
+    this.{{snake_name}}Prefix,
+    this.{{snake_name}}Suffix,
+    {{/has_multi}}{{#is_num}}
+    this.{{snake_name}}Addend,
+    this.{{snake_name}}Subtrahend,
+    {{/is_num}}{{/is_patchable}}{{/fields}}
+});
+
+{{#fields}}{{#is_patchable}}
+    @override
+    {{#json_key_name}}
+    @JsonKey(name: '{{json_key_name}}')
+    {{/json_key_name}}
+    {{{patch_type}}} {{snake_name}};
+
+    {{#is_num}}
+    @override
+    @JsonKey(name: '{{name}}+')
+    {{{patch_type}}} {{snake_name}}Addend;
+
+    @override
+    @JsonKey(name: '{{name}}-')
+    {{{patch_type}}} {{snake_name}}Subtrahend;
+    {{/is_num}}
+
+    {{#has_multi}}
+    @override
+    @JsonKey(name: '{{name}}-')
+    {{{patch_type}}} {{snake_name}}Removals;
+
+    @override
+    @JsonKey(name: '+{{name}}')
+    {{{patch_type}}} {{snake_name}}Prefix;
+
+    @override
+    @JsonKey(name: '{{name}}+')
+    {{{patch_type}}} {{snake_name}}Suffix;
+    {{/has_multi}}
+{{/is_patchable}}{{/fields}}
+
+@override
+Map<String, dynamic> toJson() => _${{patch_class_name}}ToJson(this);
+}

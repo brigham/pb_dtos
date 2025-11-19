@@ -1,0 +1,67 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_filter.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'follows_dto.dart';
+import 'follows_dto_expand.dart';
+import 'users_dto.dart';
+import 'users_dto_comparison_builder.dart';
+import 'permissions_dto.dart';
+import 'permissions_dto_comparison_builder.dart';
+import 'roles_dto.dart';
+import 'roles_dto_comparison_builder.dart';
+import 'follows_dto.dart';
+import 'follows_dto_comparison_builder.dart';
+import 'friends_dto.dart';
+import 'friends_dto_comparison_builder.dart';
+import 'blocks_dto.dart';
+import 'blocks_dto_comparison_builder.dart';
+import 'posts_dto.dart';
+import 'posts_dto_comparison_builder.dart';
+
+class FollowsDtoComparisonBuilder<D extends Dto<D>>
+    extends RelationComparisonBuilder<D, FollowsDto> {
+  FollowsDtoComparisonBuilder(super.fieldPath, super.handler)
+    : super.fieldPath();
+
+  UsersDtoComparisonBuilder<D> follower() => UsersDtoComparisonBuilder(
+    fieldPath.extend(FollowsDtoFieldEnum.follower),
+    handler,
+  );
+  UsersDtoComparisonBuilder<D> following() => UsersDtoComparisonBuilder(
+    fieldPath.extend(FollowsDtoFieldEnum.following),
+    handler,
+  );
+  TerminalRelationComparisonBuilder<D, String> id() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(FollowsDtoFieldEnum.id),
+        handler,
+      );
+
+  // Back relations
+}
+
+class FollowsDtoMultirelComparisonBuilder<D extends Dto<D>>
+    extends MultirelComparisonBuilder<D, FollowsDto> {
+  FollowsDtoMultirelComparisonBuilder(super.fieldPath, super.handler)
+    : super.fieldPath();
+
+  UsersDtoMultirelComparisonBuilder<D> follower() =>
+      UsersDtoMultirelComparisonBuilder(
+        fieldPath.extend(FollowsDtoFieldEnum.follower),
+        handler,
+      );
+  UsersDtoMultirelComparisonBuilder<D> following() =>
+      UsersDtoMultirelComparisonBuilder(
+        fieldPath.extend(FollowsDtoFieldEnum.following),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, String> id() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(FollowsDtoFieldEnum.id),
+        handler,
+      );
+
+  // Back relations
+}

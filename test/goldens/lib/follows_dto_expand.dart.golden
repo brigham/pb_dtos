@@ -1,0 +1,65 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+import 'users_dto_expand.dart';
+import 'permissions_dto_expand.dart';
+import 'roles_dto_expand.dart';
+import 'follows_dto_expand.dart';
+import 'friends_dto_expand.dart';
+import 'blocks_dto_expand.dart';
+import 'posts_dto_expand.dart';
+import 'follows_dto_filter.dart';
+import 'follows_dto_meta.dart';
+import 'follows_dto_sort.dart';
+
+part 'follows_dto_expand.freezed.dart';
+part 'follows_dto_expand.g.dart';
+
+enum FollowsDtoExpandEnum<V>
+    implements DtoExpandEnum<FollowsDto>, DtoTypedField<FollowsDto, V> {
+  follower<RelationDto<UsersDto>>("follower"),
+  following<RelationDto<UsersDto>>("following");
+
+  const FollowsDtoExpandEnum(this.pbName);
+
+  @override
+  final String pbName;
+}
+
+class FollowsDtoExpand<D extends Dto<D>> extends DtoExpand<D, FollowsDto> {
+  FollowsDtoExpand() : super.root();
+
+  FollowsDtoExpand.from(super.delegate);
+
+  UsersDtoExpand<FollowsDto> follower() =>
+      UsersDtoExpand.from(addRelation(FollowsDtoFieldEnum.follower));
+
+  UsersDtoExpand<FollowsDto> following() =>
+      UsersDtoExpand.from(addRelation(FollowsDtoFieldEnum.following));
+}
+
+@freezed
+@JsonSerializable(createToJson: false)
+class FollowsExpandDto with _$FollowsExpandDto {
+  FollowsExpandDto({this.follower = null, this.following = null});
+
+  final UsersDto? follower;
+  final UsersDto? following;
+
+  factory FollowsExpandDto.fromJson(Map<String, dynamic> json) =>
+      _$FollowsExpandDtoFromJson(json);
+}

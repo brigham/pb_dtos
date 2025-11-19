@@ -1,0 +1,39 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/patch_dto.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+import 'follows_dto_filter.dart';
+import 'follows_dto_meta.dart';
+import 'follows_dto_sort.dart';
+import 'follows_dto_expand.dart';
+
+part 'follows_patch_dto.freezed.dart';
+part 'follows_patch_dto.g.dart';
+
+@freezed
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class FollowsPatchDto with _$FollowsPatchDto implements PatchDto<FollowsDto> {
+  FollowsPatchDto({this.follower, this.following});
+
+  @override
+  RelationDto<UsersDto>? follower;
+
+  @override
+  RelationDto<UsersDto>? following;
+
+  @override
+  Map<String, dynamic> toJson() => _$FollowsPatchDtoToJson(this);
+}

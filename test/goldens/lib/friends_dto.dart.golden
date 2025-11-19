@@ -1,0 +1,188 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/patch_dto.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+import 'friends_dto_field_select.dart';
+import 'friends_dto_filter.dart';
+import 'friends_dto_meta.dart';
+import 'friends_dto_sort.dart';
+import 'friends_patch_dto.dart';
+import 'friends_dto_expand.dart';
+
+part 'friends_dto.freezed.dart';
+part 'friends_dto.g.dart';
+
+enum FriendsStateEnum {
+  pending("pending"),
+  accepted("accepted"),
+  rejected("rejected");
+
+  final String value;
+  const FriendsStateEnum(this.value);
+  @override
+  String toString() => this.value;
+}
+
+enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
+  requester<RelationDto<UsersDto>>('requester'),
+  accepter<RelationDto<UsersDto>>('accepter'),
+  state<FriendsStateEnum>('state'),
+  id<String>('id');
+
+  const FriendsDtoFieldEnum(this.pbName);
+
+  @override
+  final String pbName;
+}
+
+@freezed
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class FriendsDto with _$FriendsDto implements Dto<FriendsDto> {
+  static FriendsDtoMeta meta() => const FriendsDtoMeta();
+
+  static FriendsDtoSort<FriendsDto> sort(
+    void Function(FriendsDtoSort<FriendsDto>) builder,
+  ) {
+    var sort = FriendsDtoSort<FriendsDto>();
+    builder(sort);
+    return sort;
+  }
+
+  static FriendsDtoFilter filter(void Function(FriendsDtoFilter) builder) {
+    var filter = FriendsDtoFilter();
+    builder(filter);
+    return filter;
+  }
+
+  static FriendsDtoFilter filterByIdxFriendsRequesterAccepter(
+    RelationDto<UsersDto> requester, [
+    RelationDto<UsersDto>? accepter,
+  ]) {
+    final f = FriendsDtoFilter();
+    f.requester().equal(requester);
+    if (accepter != null) f.accepter().equal(accepter);
+    return f;
+  }
+
+  static FriendsDtoSort<FriendsDto> sortByIdxFriendsRequesterAccepter() {
+    final s = FriendsDtoSort<FriendsDto>();
+    s.requester();
+    s.accepter();
+    return s;
+  }
+
+  static FriendsDtoFilter filterByIdxFriendsRequesterState(
+    RelationDto<UsersDto> requester, [
+    FriendsStateEnum? state,
+  ]) {
+    final f = FriendsDtoFilter();
+    f.requester().equal(requester);
+    if (state != null) f.state().equal(state);
+    return f;
+  }
+
+  static FriendsDtoSort<FriendsDto> sortByIdxFriendsRequesterState() {
+    final s = FriendsDtoSort<FriendsDto>();
+    s.requester();
+    s.state();
+    return s;
+  }
+
+  static FriendsDtoFilter filterByIdxFriendsAccepterState(
+    RelationDto<UsersDto> accepter, [
+    FriendsStateEnum? state,
+  ]) {
+    final f = FriendsDtoFilter();
+    f.accepter().equal(accepter);
+    if (state != null) f.state().equal(state);
+    return f;
+  }
+
+  static FriendsDtoSort<FriendsDto> sortByIdxFriendsAccepterState() {
+    final s = FriendsDtoSort<FriendsDto>();
+    s.accepter();
+    s.state();
+    return s;
+  }
+
+  static FriendsPatchDto patch(void Function(FriendsPatchDto) builder) {
+    var patch = FriendsPatchDto();
+    builder(patch);
+    return patch;
+  }
+
+  @override
+  FriendsPatchDto asPatch() => FriendsPatchDto()
+    ..requester = requester
+    ..accepter = accepter
+    ..state = state;
+
+  @override
+  FriendsPatchDto diff(FriendsDto newValue) => FriendsPatchDto()
+    ..requester = requester != newValue.requester ? newValue.requester : null
+    ..accepter = accepter != newValue.accepter ? newValue.accepter : null
+    ..state = state != newValue.state ? newValue.state : null;
+
+  static FriendsDtoExpand<FriendsDto> expansions(
+    void Function(FriendsDtoExpand) builder,
+  ) {
+    var expansions = FriendsDtoExpand<FriendsDto>();
+    builder(expansions);
+    return expansions;
+  }
+
+  static FriendsDtoFieldSelect<FriendsDto> fields(
+    void Function(FriendsDtoFieldSelect<FriendsDto>) builder,
+  ) {
+    var select = FriendsDtoFieldSelect<FriendsDto>();
+    builder(select);
+    return select;
+  }
+
+  FriendsDto({
+    this.requester = const RelationDto<UsersDto>(""),
+    this.accepter = const RelationDto<UsersDto>(""),
+    required this.state,
+    this.id = "",
+    this.expand,
+  });
+
+  @override
+  final RelationDto<UsersDto> requester;
+  @override
+  final RelationDto<UsersDto> accepter;
+  @override
+  final FriendsStateEnum state;
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String id;
+  @JsonKey(includeToJson: false)
+  @override
+  final FriendsExpandDto? expand;
+
+  factory FriendsDto.fromRecord(RecordModel record) =>
+      FriendsDto.fromJson(record.toJson());
+
+  factory FriendsDto.fromJson(Map<String, dynamic> json) =>
+      _$FriendsDtoFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$FriendsDtoToJson(this);
+
+  @override
+  RelationDto<FriendsDto> asRelation() => RelationDto(id);
+}

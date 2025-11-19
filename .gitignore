@@ -1,0 +1,61 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Dart/Pub related
+**/doc/api/
+.dart_tool/
+.pub-cache/
+.pub/
+/build/
+/coverage/
+/sample_coverage/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# OLD_COVERAGE.csv is just for analysis, so we want to avoid committing it.
+OLD_COVERAGE.csv
+
+# PocketBase data directory
+.pocketbase_data/
+
+.flutter-plugins-dependencies
+android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java
+android/local.properties
+ios/Flutter/Generated.xcconfig
+ios/Flutter/ephemeral/flutter_lldb_helper.py
+ios/Flutter/ephemeral/flutter_lldbinit
+ios/Flutter/flutter_export_environment.sh
+ios/Runner/GeneratedPluginRegistrant.h
+ios/Runner/GeneratedPluginRegistrant.m
+linux/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage_linux
+linux/flutter/ephemeral/.plugin_symlinks/path_provider_linux
+macos/Flutter/ephemeral/Flutter-Generated.xcconfig
+macos/Flutter/ephemeral/flutter_export_environment.sh
+windows/flutter/ephemeral/.plugin_symlinks/flutter_secure_storage_windows
+windows/flutter/ephemeral/.plugin_symlinks/path_provider_windows

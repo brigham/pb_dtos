@@ -1,0 +1,6 @@
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    unnecessary_breaks: true
+    unawaited_futures: true

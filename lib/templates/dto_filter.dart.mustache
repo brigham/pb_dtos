@@ -1,0 +1,35 @@
+import 'package:pb_dtos/pb/dto/dto_filter.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_operand.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import '{{collection.name}}_dto.dart';
+{{#has_relations}}
+import '{{collection.name}}_dto_expand.dart';
+{{/has_relations}}
+{{#imports}}
+import '{{import}}_dto.dart';
+import '{{import}}_dto_comparison_builder.dart';
+{{/imports}}
+
+class {{class_name}}Filter extends DtoFilter<{{class_name}}> {
+{{#fields}}
+    {{#is_relation}}
+    {{f_comparison_builder}}<{{class_name}}> {{snake_name}}() =>
+      {{f_comparison_builder}}(SoloFieldPath({{class_name}}FieldEnum.{{enum_name}}), add);
+    {{/is_relation}}
+    {{^is_relation}}
+    {{f_comparison_builder}}<{{class_name}}, {{filter_type}}> {{snake_name}}() =>
+      {{f_comparison_builder}}.field({{class_name}}FieldEnum.{{enum_name}}, add);
+    {{/is_relation}}
+{{/fields}}
+
+// Back relations
+{{#back_relations}}
+{{filter_type}}<{{class_name}}> {{snake_name}}() =>
+{{filter_type}}<{{class_name}}>(
+    SoloFieldPath({{class_name}}ExpandEnum.{{snake_name}}),
+    add,
+    );
+{{/back_relations}}
+}

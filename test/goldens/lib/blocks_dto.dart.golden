@@ -1,0 +1,153 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/patch_dto.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+import 'blocks_dto_field_select.dart';
+import 'blocks_dto_filter.dart';
+import 'blocks_dto_meta.dart';
+import 'blocks_dto_sort.dart';
+import 'blocks_patch_dto.dart';
+import 'blocks_dto_expand.dart';
+
+part 'blocks_dto.freezed.dart';
+part 'blocks_dto.g.dart';
+
+enum BlocksTypeEnum {
+  mute("mute"),
+  block("block");
+
+  final String value;
+  const BlocksTypeEnum(this.value);
+  @override
+  String toString() => this.value;
+}
+
+enum BlocksDtoFieldEnum<V> implements DtoTypedField<BlocksDto, V> {
+  blocker<RelationDto<UsersDto>>('blocker'),
+  blocked<RelationDto<UsersDto>>('blocked'),
+  type<BlocksTypeEnum>('type'),
+  id<String>('id');
+
+  const BlocksDtoFieldEnum(this.pbName);
+
+  @override
+  final String pbName;
+}
+
+@freezed
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class BlocksDto with _$BlocksDto implements Dto<BlocksDto> {
+  static BlocksDtoMeta meta() => const BlocksDtoMeta();
+
+  static BlocksDtoSort<BlocksDto> sort(
+    void Function(BlocksDtoSort<BlocksDto>) builder,
+  ) {
+    var sort = BlocksDtoSort<BlocksDto>();
+    builder(sort);
+    return sort;
+  }
+
+  static BlocksDtoFilter filter(void Function(BlocksDtoFilter) builder) {
+    var filter = BlocksDtoFilter();
+    builder(filter);
+    return filter;
+  }
+
+  static BlocksDtoFilter filterByIdxBlocksBlockerBlocked(
+    RelationDto<UsersDto> blocker, [
+    RelationDto<UsersDto>? blocked,
+  ]) {
+    final f = BlocksDtoFilter();
+    f.blocker().equal(blocker);
+    if (blocked != null) f.blocked().equal(blocked);
+    return f;
+  }
+
+  static BlocksDtoSort<BlocksDto> sortByIdxBlocksBlockerBlocked() {
+    final s = BlocksDtoSort<BlocksDto>();
+    s.blocker();
+    s.blocked();
+    return s;
+  }
+
+  static BlocksPatchDto patch(void Function(BlocksPatchDto) builder) {
+    var patch = BlocksPatchDto();
+    builder(patch);
+    return patch;
+  }
+
+  @override
+  BlocksPatchDto asPatch() => BlocksPatchDto()
+    ..blocker = blocker
+    ..blocked = blocked
+    ..type = type;
+
+  @override
+  BlocksPatchDto diff(BlocksDto newValue) => BlocksPatchDto()
+    ..blocker = blocker != newValue.blocker ? newValue.blocker : null
+    ..blocked = blocked != newValue.blocked ? newValue.blocked : null
+    ..type = type != newValue.type ? newValue.type : null;
+
+  static BlocksDtoExpand<BlocksDto> expansions(
+    void Function(BlocksDtoExpand) builder,
+  ) {
+    var expansions = BlocksDtoExpand<BlocksDto>();
+    builder(expansions);
+    return expansions;
+  }
+
+  static BlocksDtoFieldSelect<BlocksDto> fields(
+    void Function(BlocksDtoFieldSelect<BlocksDto>) builder,
+  ) {
+    var select = BlocksDtoFieldSelect<BlocksDto>();
+    builder(select);
+    return select;
+  }
+
+  BlocksDto({
+    this.blocker = const RelationDto<UsersDto>(""),
+    this.blocked = const RelationDto<UsersDto>(""),
+    required this.type,
+    this.id = "",
+    this.expand,
+  });
+
+  @override
+  final RelationDto<UsersDto> blocker;
+  @override
+  final RelationDto<UsersDto> blocked;
+  @override
+  final BlocksTypeEnum type;
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String id;
+  @JsonKey(includeToJson: false)
+  @override
+  final BlocksExpandDto? expand;
+
+  factory BlocksDto.fromRecord(RecordModel record) =>
+      BlocksDto.fromJson(record.toJson());
+
+  factory BlocksDto.fromJson(Map<String, dynamic> json) =>
+      _$BlocksDtoFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$BlocksDtoToJson(this);
+
+  @override
+  RelationDto<BlocksDto> asRelation() => RelationDto(id);
+}

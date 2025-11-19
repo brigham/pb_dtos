@@ -1,0 +1,69 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_filter.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'permissions_dto.dart';
+import 'permissions_dto_expand.dart';
+import 'users_dto.dart';
+import 'users_dto_comparison_builder.dart';
+import 'permissions_dto.dart';
+import 'permissions_dto_comparison_builder.dart';
+import 'roles_dto.dart';
+import 'roles_dto_comparison_builder.dart';
+import 'follows_dto.dart';
+import 'follows_dto_comparison_builder.dart';
+import 'friends_dto.dart';
+import 'friends_dto_comparison_builder.dart';
+import 'blocks_dto.dart';
+import 'blocks_dto_comparison_builder.dart';
+import 'posts_dto.dart';
+import 'posts_dto_comparison_builder.dart';
+
+class PermissionsDtoComparisonBuilder<D extends Dto<D>>
+    extends RelationComparisonBuilder<D, PermissionsDto> {
+  PermissionsDtoComparisonBuilder(super.fieldPath, super.handler)
+    : super.fieldPath();
+
+  TerminalRelationComparisonBuilder<D, String> name() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PermissionsDtoFieldEnum.name_),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, String> id() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PermissionsDtoFieldEnum.id),
+        handler,
+      );
+
+  // Back relations
+  RolesDtoMultirelComparisonBuilder<D> rolesViaPermissions() =>
+      RolesDtoMultirelComparisonBuilder<D>(
+        fieldPath.extend(PermissionsDtoExpandEnum.rolesViaPermissions),
+        handler,
+      );
+}
+
+class PermissionsDtoMultirelComparisonBuilder<D extends Dto<D>>
+    extends MultirelComparisonBuilder<D, PermissionsDto> {
+  PermissionsDtoMultirelComparisonBuilder(super.fieldPath, super.handler)
+    : super.fieldPath();
+
+  TerminalMultivalRelationComparisonBuilder<D, String> name() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PermissionsDtoFieldEnum.name_),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, String> id() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PermissionsDtoFieldEnum.id),
+        handler,
+      );
+
+  // Back relations
+  RolesDtoMultirelComparisonBuilder<D> rolesViaPermissions() =>
+      RolesDtoMultirelComparisonBuilder<D>(
+        fieldPath.extend(PermissionsDtoExpandEnum.rolesViaPermissions),
+        handler,
+      );
+}

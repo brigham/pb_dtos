@@ -1,0 +1,15 @@
+import 'package:pb_dtos/pb/dto/dto_meta.dart';
+import 'package:pocketbase/pocketbase.dart';
+{{#imports}}
+import '{{import}}_dto.dart';
+{{/imports}}
+
+class {{class_name}}Meta extends DtoMeta<{{class_name}}> {
+    const {{class_name}}Meta();
+
+    @override
+    final String collectionName = '{{collection.name}}';
+
+    @override
+    {{class_name}} fromRecord(RecordModel model) => {{class_name}}.fromRecord(model);
+}

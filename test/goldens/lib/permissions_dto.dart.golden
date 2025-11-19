@@ -1,0 +1,125 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/patch_dto.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+import 'permissions_dto_field_select.dart';
+import 'permissions_dto_filter.dart';
+import 'permissions_dto_meta.dart';
+import 'permissions_dto_sort.dart';
+import 'permissions_patch_dto.dart';
+import 'permissions_dto_expand.dart';
+
+part 'permissions_dto.freezed.dart';
+part 'permissions_dto.g.dart';
+
+enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
+  name_<String>('name'),
+  id<String>('id');
+
+  const PermissionsDtoFieldEnum(this.pbName);
+
+  @override
+  final String pbName;
+}
+
+@freezed
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class PermissionsDto with _$PermissionsDto implements Dto<PermissionsDto> {
+  static PermissionsDtoMeta meta() => const PermissionsDtoMeta();
+
+  static PermissionsDtoSort<PermissionsDto> sort(
+    void Function(PermissionsDtoSort<PermissionsDto>) builder,
+  ) {
+    var sort = PermissionsDtoSort<PermissionsDto>();
+    builder(sort);
+    return sort;
+  }
+
+  static PermissionsDtoFilter filter(
+    void Function(PermissionsDtoFilter) builder,
+  ) {
+    var filter = PermissionsDtoFilter();
+    builder(filter);
+    return filter;
+  }
+
+  static PermissionsDtoFilter filterByIdxPermissionsName(String name) {
+    final f = PermissionsDtoFilter();
+    f.name().equal(name);
+    return f;
+  }
+
+  static PermissionsDtoSort<PermissionsDto> sortByIdxPermissionsName() {
+    final s = PermissionsDtoSort<PermissionsDto>();
+    s.name();
+    return s;
+  }
+
+  static PermissionsPatchDto patch(void Function(PermissionsPatchDto) builder) {
+    var patch = PermissionsPatchDto();
+    builder(patch);
+    return patch;
+  }
+
+  @override
+  PermissionsPatchDto asPatch() => PermissionsPatchDto()..name = name;
+
+  @override
+  PermissionsPatchDto diff(PermissionsDto newValue) =>
+      PermissionsPatchDto()
+        ..name = name != newValue.name ? newValue.name : null;
+
+  static PermissionsDtoExpand<PermissionsDto> expansions(
+    void Function(PermissionsDtoExpand) builder,
+  ) {
+    var expansions = PermissionsDtoExpand<PermissionsDto>();
+    builder(expansions);
+    return expansions;
+  }
+
+  static PermissionsDtoFieldSelect<PermissionsDto> fields(
+    void Function(PermissionsDtoFieldSelect<PermissionsDto>) builder,
+  ) {
+    var select = PermissionsDtoFieldSelect<PermissionsDto>();
+    builder(select);
+    return select;
+  }
+
+  PermissionsDto({required this.name, this.id = "", this.expand});
+
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String name;
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String id;
+  @JsonKey(includeToJson: false)
+  @override
+  final PermissionsExpandDto? expand;
+
+  factory PermissionsDto.fromRecord(RecordModel record) =>
+      PermissionsDto.fromJson(record.toJson());
+
+  factory PermissionsDto.fromJson(Map<String, dynamic> json) =>
+      _$PermissionsDtoFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$PermissionsDtoToJson(this);
+
+  @override
+  RelationDto<PermissionsDto> asRelation() => RelationDto(id);
+}

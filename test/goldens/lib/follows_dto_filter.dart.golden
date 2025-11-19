@@ -1,0 +1,37 @@
+import 'package:pb_dtos/pb/dto/dto_filter.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_operand.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'follows_dto.dart';
+import 'follows_dto_expand.dart';
+import 'users_dto.dart';
+import 'users_dto_comparison_builder.dart';
+import 'permissions_dto.dart';
+import 'permissions_dto_comparison_builder.dart';
+import 'roles_dto.dart';
+import 'roles_dto_comparison_builder.dart';
+import 'follows_dto.dart';
+import 'follows_dto_comparison_builder.dart';
+import 'friends_dto.dart';
+import 'friends_dto_comparison_builder.dart';
+import 'blocks_dto.dart';
+import 'blocks_dto_comparison_builder.dart';
+import 'posts_dto.dart';
+import 'posts_dto_comparison_builder.dart';
+
+class FollowsDtoFilter extends DtoFilter<FollowsDto> {
+  UsersDtoComparisonBuilder<FollowsDto> follower() => UsersDtoComparisonBuilder(
+    SoloFieldPath(FollowsDtoFieldEnum.follower),
+    add,
+  );
+  UsersDtoComparisonBuilder<FollowsDto> following() =>
+      UsersDtoComparisonBuilder(
+        SoloFieldPath(FollowsDtoFieldEnum.following),
+        add,
+      );
+  ComparisonBuilder<FollowsDto, String> id() =>
+      ComparisonBuilder.field(FollowsDtoFieldEnum.id, add);
+
+  // Back relations
+}

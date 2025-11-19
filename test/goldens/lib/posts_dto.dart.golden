@@ -1,0 +1,168 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/patch_dto.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+import 'posts_dto_field_select.dart';
+import 'posts_dto_filter.dart';
+import 'posts_dto_meta.dart';
+import 'posts_dto_sort.dart';
+import 'posts_patch_dto.dart';
+import 'posts_dto_expand.dart';
+
+part 'posts_dto.freezed.dart';
+part 'posts_dto.g.dart';
+
+enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
+  poster<RelationDto<UsersDto>>('poster'),
+  message<String>('message'),
+  photo<FileDto>('photo'),
+  link<String>('link'),
+  location<Map<String, dynamic>>('location'),
+  reviewStars<num>('review_stars'),
+  tagged<RelationDto<UsersDto>>('tagged'),
+  draft<bool>('draft'),
+  scheduled<DateTime>('scheduled'),
+  id<String>('id');
+
+  const PostsDtoFieldEnum(this.pbName);
+
+  @override
+  final String pbName;
+}
+
+@freezed
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class PostsDto with _$PostsDto implements Dto<PostsDto> {
+  static PostsDtoMeta meta() => const PostsDtoMeta();
+
+  static PostsDtoSort<PostsDto> sort(
+    void Function(PostsDtoSort<PostsDto>) builder,
+  ) {
+    var sort = PostsDtoSort<PostsDto>();
+    builder(sort);
+    return sort;
+  }
+
+  static PostsDtoFilter filter(void Function(PostsDtoFilter) builder) {
+    var filter = PostsDtoFilter();
+    builder(filter);
+    return filter;
+  }
+
+  static PostsPatchDto patch(void Function(PostsPatchDto) builder) {
+    var patch = PostsPatchDto();
+    builder(patch);
+    return patch;
+  }
+
+  @override
+  PostsPatchDto asPatch() => PostsPatchDto()
+    ..poster = poster
+    ..message = message
+    ..photo = photo
+    ..link = link
+    ..location = location
+    ..reviewStars = reviewStars
+    ..tagged = tagged
+    ..draft = draft
+    ..scheduled = scheduled;
+
+  @override
+  PostsPatchDto diff(PostsDto newValue) => PostsPatchDto()
+    ..poster = poster != newValue.poster ? newValue.poster : null
+    ..message = message != newValue.message ? newValue.message : null
+    ..photo = photo != newValue.photo ? newValue.photo : null
+    ..link = link != newValue.link ? newValue.link : null
+    ..location = location != newValue.location ? newValue.location : null
+    ..reviewStars = reviewStars != newValue.reviewStars
+        ? newValue.reviewStars
+        : null
+    ..tagged = tagged != newValue.tagged ? newValue.tagged : null
+    ..draft = draft != newValue.draft ? newValue.draft : null
+    ..scheduled = scheduled != newValue.scheduled ? newValue.scheduled : null;
+
+  static PostsDtoExpand<PostsDto> expansions(
+    void Function(PostsDtoExpand) builder,
+  ) {
+    var expansions = PostsDtoExpand<PostsDto>();
+    builder(expansions);
+    return expansions;
+  }
+
+  static PostsDtoFieldSelect<PostsDto> fields(
+    void Function(PostsDtoFieldSelect<PostsDto>) builder,
+  ) {
+    var select = PostsDtoFieldSelect<PostsDto>();
+    builder(select);
+    return select;
+  }
+
+  PostsDto({
+    this.poster = const RelationDto<UsersDto>(""),
+    required this.message,
+    this.photo = null,
+    this.link = "",
+    this.location = null,
+    this.reviewStars = 0,
+    this.tagged = const [],
+    this.draft = false,
+    this.scheduled = null,
+    this.id = "",
+    this.expand,
+  });
+
+  @override
+  final RelationDto<UsersDto> poster;
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String message;
+  @override
+  final FileDto? photo;
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String link;
+  @override
+  final Map<String, dynamic>? location;
+  @JsonKey(name: 'review_stars', toJson: Dto.optionalNumToJson)
+  @override
+  final num reviewStars;
+  @override
+  final List<RelationDto<UsersDto>> tagged;
+  @JsonKey(toJson: Dto.optionalBoolToJson)
+  @override
+  final bool draft;
+  @override
+  final DateTime? scheduled;
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String id;
+  @JsonKey(includeToJson: false)
+  @override
+  final PostsExpandDto? expand;
+
+  factory PostsDto.fromRecord(RecordModel record) =>
+      PostsDto.fromJson(record.toJson());
+
+  factory PostsDto.fromJson(Map<String, dynamic> json) =>
+      _$PostsDtoFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$PostsDtoToJson(this);
+
+  @override
+  RelationDto<PostsDto> asRelation() => RelationDto(id);
+}

@@ -1,0 +1,65 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+import 'users_dto_expand.dart';
+import 'permissions_dto_expand.dart';
+import 'roles_dto_expand.dart';
+import 'follows_dto_expand.dart';
+import 'friends_dto_expand.dart';
+import 'blocks_dto_expand.dart';
+import 'posts_dto_expand.dart';
+import 'friends_dto_filter.dart';
+import 'friends_dto_meta.dart';
+import 'friends_dto_sort.dart';
+
+part 'friends_dto_expand.freezed.dart';
+part 'friends_dto_expand.g.dart';
+
+enum FriendsDtoExpandEnum<V>
+    implements DtoExpandEnum<FriendsDto>, DtoTypedField<FriendsDto, V> {
+  requester<RelationDto<UsersDto>>("requester"),
+  accepter<RelationDto<UsersDto>>("accepter");
+
+  const FriendsDtoExpandEnum(this.pbName);
+
+  @override
+  final String pbName;
+}
+
+class FriendsDtoExpand<D extends Dto<D>> extends DtoExpand<D, FriendsDto> {
+  FriendsDtoExpand() : super.root();
+
+  FriendsDtoExpand.from(super.delegate);
+
+  UsersDtoExpand<FriendsDto> requester() =>
+      UsersDtoExpand.from(addRelation(FriendsDtoFieldEnum.requester));
+
+  UsersDtoExpand<FriendsDto> accepter() =>
+      UsersDtoExpand.from(addRelation(FriendsDtoFieldEnum.accepter));
+}
+
+@freezed
+@JsonSerializable(createToJson: false)
+class FriendsExpandDto with _$FriendsExpandDto {
+  FriendsExpandDto({this.requester = null, this.accepter = null});
+
+  final UsersDto? requester;
+  final UsersDto? accepter;
+
+  factory FriendsExpandDto.fromJson(Map<String, dynamic> json) =>
+      _$FriendsExpandDtoFromJson(json);
+}

@@ -1,0 +1,61 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_filter.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import '{{collection.name}}_dto.dart';
+{{#has_relations}}
+    import '{{collection.name}}_dto_expand.dart';
+{{/has_relations}}
+{{#imports}}
+import '{{import}}_dto.dart';
+import '{{import}}_dto_comparison_builder.dart';
+{{/imports}}
+
+class {{class_name}}ComparisonBuilder<D extends Dto<D>> extends RelationComparisonBuilder<D, {{class_name}}> {
+  {{class_name}}ComparisonBuilder(super.fieldPath, super.handler) : super.fieldPath();
+
+{{#fields}}
+    {{#is_relation}}
+    {{cb_comparison_builder}}<D> {{snake_name}}() =>
+      {{cb_comparison_builder}}(fieldPath.extend({{class_name}}FieldEnum.{{enum_name}}), handler);
+    {{/is_relation}}
+    {{^is_relation}}
+    {{cb_comparison_builder}}<D, {{filter_type}}> {{snake_name}}() =>
+      {{cb_comparison_builder}}(fieldPath.terminate({{class_name}}FieldEnum.{{enum_name}}), handler);
+    {{/is_relation}}
+{{/fields}}
+
+// Back relations
+{{#back_relations}}
+    {{filter_type}}<D> {{snake_name}}() =>
+    {{filter_type}}<D>(
+    fieldPath.extend({{class_name}}ExpandEnum.{{snake_name}}),
+    handler,
+    );
+{{/back_relations}}
+}
+
+class {{class_name}}MultirelComparisonBuilder<D extends Dto<D>> extends MultirelComparisonBuilder<D, {{class_name}}> {
+    {{class_name}}MultirelComparisonBuilder(super.fieldPath, super.handler) : super.fieldPath();
+
+    {{#fields}}
+    {{#is_relation}}
+    {{mr_cb_comparison_builder}}<D> {{snake_name}}() =>
+        {{mr_cb_comparison_builder}}(fieldPath.extend({{class_name}}FieldEnum.{{enum_name}}), handler);
+    {{/is_relation}}
+    {{^is_relation}}
+    {{mr_cb_comparison_builder}}<D, {{filter_type}}> {{snake_name}}() =>
+        {{mr_cb_comparison_builder}}(fieldPath.terminate({{class_name}}FieldEnum.{{enum_name}}), handler);
+    {{/is_relation}}
+    {{/fields}}
+
+    // Back relations
+    {{#back_relations}}
+        {{mr_filter_type}}<D> {{snake_name}}() =>
+        {{mr_filter_type}}<D>(
+        fieldPath.extend({{class_name}}ExpandEnum.{{snake_name}}),
+        handler,
+        );
+    {{/back_relations}}
+}

@@ -1,0 +1,86 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+{{#imports}}
+import '{{import}}_dto.dart';
+{{/imports}}
+{{#expand_imports}}
+import '{{import}}_dto_expand.dart';
+{{/expand_imports}}
+import '{{collection.name}}_dto_filter.dart';
+import '{{collection.name}}_dto_meta.dart';
+import '{{collection.name}}_dto_sort.dart';
+
+part '{{collection.name}}_dto_expand.freezed.dart';
+part '{{collection.name}}_dto_expand.g.dart';
+
+{{#has_relations}}
+    enum {{dto_expand_class_name}}Enum<V> implements DtoExpandEnum<{{class_name}}>, DtoTypedField<{{class_name}}, V> {
+    {{#relations}}
+        {{snake_name}}<RelationDto<{{solo_type}}>>("{{name}}"),
+    {{/relations}}
+    {{#back_relations}}
+        {{snake_name}}<RelationDto<{{solo_type}}>>("{{name}}"),
+    {{/back_relations}}
+    ;
+
+    const {{dto_expand_class_name}}Enum(this.pbName);
+
+    @override
+    final String pbName;
+    }
+
+    class {{class_name}}Expand<D extends Dto<D>> extends DtoExpand<D, {{class_name}}> {
+        {{class_name}}Expand(): super.root();
+
+        {{class_name}}Expand.from(super.delegate);
+
+        {{#fields}}{{#is_relation}}
+            {{relation_class_name}}Expand<{{class_name}}> {{snake_name}}() =>
+            {{relation_class_name}}Expand.from(addRelation({{class_name}}FieldEnum.{{enum_name}}));
+        {{/is_relation}}{{/fields}}
+
+        {{#back_relations}}
+            {{solo_type}}Expand<{{class_name}}> {{snake_name}}() =>
+            {{solo_type}}Expand.from(addRelation({{dto_expand_class_name}}Enum.{{snake_name}}));
+        {{/back_relations}}
+    }
+
+    @freezed
+    @JsonSerializable(createToJson: false)
+    class {{expand_dto_class_name}} with _${{expand_dto_class_name}} {
+    {{expand_dto_class_name}}({
+    {{#relations}}
+        this.{{snake_name}} = null,
+    {{/relations}}
+    {{#back_relations}}
+        this.{{snake_name}} = null,
+    {{/back_relations}}
+    });
+
+    {{#relations}}
+        {{#has_json_key}}
+        @JsonKey(name: '{{name}}')
+        @override
+        {{/has_json_key}}
+        final {{{type}}}? {{snake_name}};
+    {{/relations}}
+    {{#back_relations}}
+        {{#has_json_key}}
+        @JsonKey(name: '{{name}}')
+        @override
+        {{/has_json_key}}
+        final {{{type}}}? {{snake_name}};
+    {{/back_relations}}
+
+    factory {{expand_dto_class_name}}.fromJson(Map<String, dynamic> json) =>
+    _${{expand_dto_class_name}}FromJson(json);
+    }
+{{/has_relations}}

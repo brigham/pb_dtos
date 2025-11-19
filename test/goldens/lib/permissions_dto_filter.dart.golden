@@ -1,0 +1,35 @@
+import 'package:pb_dtos/pb/dto/dto_filter.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_operand.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'permissions_dto.dart';
+import 'permissions_dto_expand.dart';
+import 'users_dto.dart';
+import 'users_dto_comparison_builder.dart';
+import 'permissions_dto.dart';
+import 'permissions_dto_comparison_builder.dart';
+import 'roles_dto.dart';
+import 'roles_dto_comparison_builder.dart';
+import 'follows_dto.dart';
+import 'follows_dto_comparison_builder.dart';
+import 'friends_dto.dart';
+import 'friends_dto_comparison_builder.dart';
+import 'blocks_dto.dart';
+import 'blocks_dto_comparison_builder.dart';
+import 'posts_dto.dart';
+import 'posts_dto_comparison_builder.dart';
+
+class PermissionsDtoFilter extends DtoFilter<PermissionsDto> {
+  ComparisonBuilder<PermissionsDto, String> name() =>
+      ComparisonBuilder.field(PermissionsDtoFieldEnum.name_, add);
+  ComparisonBuilder<PermissionsDto, String> id() =>
+      ComparisonBuilder.field(PermissionsDtoFieldEnum.id, add);
+
+  // Back relations
+  RolesDtoMultirelComparisonBuilder<PermissionsDto> rolesViaPermissions() =>
+      RolesDtoMultirelComparisonBuilder<PermissionsDto>(
+        SoloFieldPath(PermissionsDtoExpandEnum.rolesViaPermissions),
+        add,
+      );
+}

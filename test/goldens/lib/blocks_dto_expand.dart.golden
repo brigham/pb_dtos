@@ -1,0 +1,65 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+import 'users_dto_expand.dart';
+import 'permissions_dto_expand.dart';
+import 'roles_dto_expand.dart';
+import 'follows_dto_expand.dart';
+import 'friends_dto_expand.dart';
+import 'blocks_dto_expand.dart';
+import 'posts_dto_expand.dart';
+import 'blocks_dto_filter.dart';
+import 'blocks_dto_meta.dart';
+import 'blocks_dto_sort.dart';
+
+part 'blocks_dto_expand.freezed.dart';
+part 'blocks_dto_expand.g.dart';
+
+enum BlocksDtoExpandEnum<V>
+    implements DtoExpandEnum<BlocksDto>, DtoTypedField<BlocksDto, V> {
+  blocker<RelationDto<UsersDto>>("blocker"),
+  blocked<RelationDto<UsersDto>>("blocked");
+
+  const BlocksDtoExpandEnum(this.pbName);
+
+  @override
+  final String pbName;
+}
+
+class BlocksDtoExpand<D extends Dto<D>> extends DtoExpand<D, BlocksDto> {
+  BlocksDtoExpand() : super.root();
+
+  BlocksDtoExpand.from(super.delegate);
+
+  UsersDtoExpand<BlocksDto> blocker() =>
+      UsersDtoExpand.from(addRelation(BlocksDtoFieldEnum.blocker));
+
+  UsersDtoExpand<BlocksDto> blocked() =>
+      UsersDtoExpand.from(addRelation(BlocksDtoFieldEnum.blocked));
+}
+
+@freezed
+@JsonSerializable(createToJson: false)
+class BlocksExpandDto with _$BlocksExpandDto {
+  BlocksExpandDto({this.blocker = null, this.blocked = null});
+
+  final UsersDto? blocker;
+  final UsersDto? blocked;
+
+  factory BlocksExpandDto.fromJson(Map<String, dynamic> json) =>
+      _$BlocksExpandDtoFromJson(json);
+}

@@ -1,0 +1,19 @@
+import 'package:pb_dtos/pb/dto/dto_meta.dart';
+import 'package:pocketbase/pocketbase.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+
+class BlocksDtoMeta extends DtoMeta<BlocksDto> {
+  const BlocksDtoMeta();
+
+  @override
+  final String collectionName = 'blocks';
+
+  @override
+  BlocksDto fromRecord(RecordModel model) => BlocksDto.fromRecord(model);
+}
