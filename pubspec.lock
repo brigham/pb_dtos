@@ -26,7 +26,7 @@ packages:
     source: hosted
     version: "4.0.7"
   args:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: args
       sha256: d0481093c50b1da8910eb0bb301626d4d8eb7284aa739614d2b394ee09e3ea04
@@ -41,14 +41,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.13.0"
-  bisection:
-    dependency: "direct dev"
-    description:
-      name: bisection
-      sha256: "207d68e5168529adb5388c8cbb815a0cb00f51e3efc0c41c8ea91fd38ae6a357"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.4.3+1"
   boolean_selector:
     dependency: transitive
     description:
@@ -194,7 +186,7 @@ packages:
     source: hosted
     version: "3.0.7"
   csv:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: csv
       sha256: c6aa2679b2a18cb57652920f674488d89712efaf4d3fdf2e537215b35fc19d6c
@@ -210,7 +202,7 @@ packages:
     source: hosted
     version: "4.1.2"
   dart_style:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: dart_style
       sha256: a9c30492da18ff84efe2422ba2d319a89942d93e58eb0b73d32abe822ef54b7b
@@ -218,7 +210,7 @@ packages:
     source: hosted
     version: "3.1.3"
   dcli:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: dcli
       sha256: "67eb0be17fb552d3b24eb7749989601b9739eab584d1d007f4a60d1e4c23cae0"
@@ -466,7 +458,7 @@ packages:
     source: hosted
     version: "5.5.1"
   mustache_template:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: mustache_template
       sha256: daa42be75f2ccfb287c24a75e7ac594f2ea0b32bf9ebe7c15154aa45b2dfb2de
@@ -498,7 +490,7 @@ packages:
     source: hosted
     version: "2.2.0"
   path:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path
       sha256: "75cca69d1490965be98c73ceaea117e8a04dd21217b37b292c9ddbec0d955bc5"
@@ -562,7 +554,7 @@ packages:
     source: hosted
     version: "1.5.0"
   recase:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: recase
       sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
@@ -842,7 +834,7 @@ packages:
     source: hosted
     version: "5.15.0"
   yaml:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: yaml
       sha256: b9da305ac7c39faa3f030eccd175340f968459dae4af175130b3fc47e40d76ce

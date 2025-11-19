@@ -47,10 +47,6 @@ class _NestedExpandDelegate<D extends Dto<D>> extends DtoExpandDelegate<D> {
 
   _NestedExpandDelegate(this.parts, this.index);
 
-  _NestedExpandDelegate.from(DtoExpandDelegate<D> delegate)
-    : parts = delegate.parts,
-      index = delegate.nextIndex;
-
   @override
   @protected
   void add(String name, bool raw) {
