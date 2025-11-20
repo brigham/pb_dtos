@@ -1,6 +1,7 @@
 #!/bin/bash
 
 ### Setup script for agents.
+mkdir "$HOME/develop"
 
 # Set up Dart.
 sudo apt-get update -y && sudo apt-get upgrade -y
@@ -17,9 +18,8 @@ ARCH=$(uname -m)
 if [ "$ARCH" = "aarch64" ]; then
     POCKETBASE_URL="https://github.com/pocketbase/pocketbase/releases/download/v0.31.0/pocketbase_0.31.0_linux_arm64.zip"
 fi
-curl -L "$POCKETBASE_URL" -o $HOME/develop/pocketbase.zip
-unzip -o $HOME/develop/pocketbase.zip -d $HOME/develop/pocketbase
-rm $HOME/develop/pocketbase.zip
-mkdir -p $HOME/develop/pocketbase/pb_migrations
-cp /app/pocketbase/migrations/* $HOME/develop/pocketbase/pb_migrations/
-
+curl -L "$POCKETBASE_URL" -o "$HOME/develop/pocketbase.zip"
+unzip -o "$HOME/develop/pocketbase.zip" -d "$HOME/develop/pocketbase"
+rm "$HOME/develop/pocketbase.zip"
+mkdir -p "$HOME/develop/pocketbase/pb_migrations"
+cp /app/pocketbase/migrations/* "$HOME/develop/pocketbase/pb_migrations/"
