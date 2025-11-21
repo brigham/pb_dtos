@@ -1,0 +1,123 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto_field_select.dart';
+import 'roles_dto_filter.dart';
+import 'roles_dto_meta.dart';
+import 'roles_dto_sort.dart';
+import 'roles_patch_dto.dart';
+import 'roles_dto_expand.dart';
+
+part 'roles_dto.freezed.dart';
+part 'roles_dto.g.dart';
+
+enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
+  name_<String>('name'),
+  permissions<RelationDto<PermissionsDto>>('permissions'),
+  id<String>('id');
+
+  const RolesDtoFieldEnum(this.pbName);
+
+  @override
+  final String pbName;
+}
+
+@freezed
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class RolesDto with _$RolesDto implements Dto<RolesDto> {
+  static RolesDtoMeta meta() => const RolesDtoMeta();
+
+  static RolesDtoSort<RolesDto> sort(
+    void Function(RolesDtoSort<RolesDto>) builder,
+  ) {
+    var sort = RolesDtoSort<RolesDto>();
+    builder(sort);
+    return sort;
+  }
+
+  static RolesDtoFilter filter(void Function(RolesDtoFilter) builder) {
+    var filter = RolesDtoFilter();
+    builder(filter);
+    return filter;
+  }
+
+  static RolesDtoFilter filterByIdxRolesName(String name) {
+    final f = RolesDtoFilter();
+    f.name().equal(name);
+    return f;
+  }
+
+  static RolesDtoSort<RolesDto> sortByIdxRolesName() {
+    final s = RolesDtoSort<RolesDto>();
+    s.name();
+    return s;
+  }
+
+  static RolesPatchDto patch(void Function(RolesPatchDto) builder) {
+    var patch = RolesPatchDto();
+    builder(patch);
+    return patch;
+  }
+
+  @override
+  RolesPatchDto asPatch() => RolesPatchDto()
+    ..name = name
+    ..permissions = permissions;
+
+  @override
+  RolesPatchDto diff(RolesDto newValue) => RolesPatchDto()
+    ..name = name != newValue.name ? newValue.name : null
+    ..permissions = permissions != newValue.permissions
+        ? newValue.permissions
+        : null;
+
+  static RolesDtoExpand<RolesDto> expansions(
+    void Function(RolesDtoExpand) builder,
+  ) {
+    var expansions = RolesDtoExpand<RolesDto>();
+    builder(expansions);
+    return expansions;
+  }
+
+  static RolesDtoFieldSelect<RolesDto> fields(
+    void Function(RolesDtoFieldSelect<RolesDto>) builder,
+  ) {
+    var select = RolesDtoFieldSelect<RolesDto>();
+    builder(select);
+    return select;
+  }
+
+  RolesDto({
+    required this.name,
+    this.permissions = const [],
+    this.id = "",
+    this.expand,
+  });
+
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String name;
+  @override
+  final List<RelationDto<PermissionsDto>> permissions;
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String id;
+  @JsonKey(includeToJson: false)
+  @override
+  final RolesExpandDto? expand;
+
+  factory RolesDto.fromRecord(RecordModel record) =>
+      RolesDto.fromJson(record.toJson());
+
+  factory RolesDto.fromJson(Map<String, dynamic> json) =>
+      _$RolesDtoFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$RolesDtoToJson(this);
+
+  @override
+  RelationDto<RolesDto> asRelation() => RelationDto(id);
+}
