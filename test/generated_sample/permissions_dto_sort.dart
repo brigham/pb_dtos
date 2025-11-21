@@ -1,0 +1,21 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_sort.dart';
+import 'permissions_dto.dart';
+import 'roles_dto_sort.dart';
+import 'permissions_dto_expand.dart';
+
+class PermissionsDtoSort<D extends Dto<D>> extends DtoSort<D, PermissionsDto> {
+  PermissionsDtoSort() : super.root();
+
+  PermissionsDtoSort.from(super.delegate);
+
+  void name({bool desc = false}) =>
+      addField(PermissionsDtoFieldEnum.name_, desc);
+
+  void id({bool desc = false}) => addField(PermissionsDtoFieldEnum.id, desc);
+
+  RolesDtoSort<PermissionsDto> rolesViaPermissions({bool desc = false}) =>
+      RolesDtoSort.from(
+        addRelation(PermissionsDtoExpandEnum.rolesViaPermissions, desc),
+      );
+}
