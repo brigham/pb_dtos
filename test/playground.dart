@@ -1,9 +1,10 @@
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
-import 'package:pb_dtos/src/sample/friends_dto.dart';
-import 'package:pb_dtos/src/sample/posts_dto.dart';
-import 'package:pb_dtos/src/sample/posts_dto_expand.dart';
-import 'package:pb_dtos/src/sample/users_dto.dart';
-import 'package:pb_dtos/src/sample/users_dto_expand.dart';
+
+import 'generated_sample/friends_dto.dart';
+import 'generated_sample/posts_dto.dart';
+import 'generated_sample/posts_dto_expand.dart';
+import 'generated_sample/users_dto.dart';
+import 'generated_sample/users_dto_expand.dart';
 
 void filters() {
   var expression = PostsDto.filter(

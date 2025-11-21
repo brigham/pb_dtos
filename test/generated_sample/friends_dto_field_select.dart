@@ -1,0 +1,56 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'friends_dto.dart';
+import 'users_dto_field_select.dart';
+
+class FriendsDtoFieldSelect<D extends Dto<D>>
+    extends DtoRootFieldSelect<FriendsDto> {
+  FriendsDtoFieldSelect() : super.root();
+
+  void requester() => $addField(FriendsDtoFieldEnum.requester);
+
+  void accepter() => $addField(FriendsDtoFieldEnum.accepter);
+
+  void state() => $addField(FriendsDtoFieldEnum.state);
+
+  ModifiableStringField id() {
+    $addField(FriendsDtoFieldEnum.id);
+    return ModifiableStringField($parts, $nextIndex);
+  }
+
+  ({
+    UsersDtoNestedFieldSelect<FriendsDto> Function() requester,
+
+    UsersDtoNestedFieldSelect<FriendsDto> Function() accepter,
+  })
+  expand() => (
+    requester: () {
+      $addRelation(FriendsDtoFieldEnum.requester);
+      return UsersDtoNestedFieldSelect($parts, $nextIndex);
+    },
+
+    accepter: () {
+      $addRelation(FriendsDtoFieldEnum.accepter);
+      return UsersDtoNestedFieldSelect($parts, $nextIndex);
+    },
+  );
+}
+
+class FriendsDtoNestedFieldSelect<D extends Dto<D>>
+    extends DtoNestedFieldSelect<D, FriendsDto> {
+  FriendsDtoNestedFieldSelect(super.$parts, super.index);
+
+  UsersDtoNestedFieldSelect<FriendsDto> requester() {
+    $addRelation(FriendsDtoFieldEnum.requester);
+    return UsersDtoNestedFieldSelect($parts, $nextIndex);
+  }
+
+  UsersDtoNestedFieldSelect<FriendsDto> accepter() {
+    $addRelation(FriendsDtoFieldEnum.accepter);
+    return UsersDtoNestedFieldSelect($parts, $nextIndex);
+  }
+
+  void state() => $addField(FriendsDtoFieldEnum.state);
+
+  void id() => $addField(FriendsDtoFieldEnum.id);
+}

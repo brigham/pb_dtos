@@ -1,0 +1,121 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'posts_dto.dart';
+import 'users_dto_comparison_builder.dart';
+
+class PostsDtoComparisonBuilder<D extends Dto<D>>
+    extends RelationComparisonBuilder<D, PostsDto> {
+  PostsDtoComparisonBuilder(super.fieldPath, super.handler) : super.fieldPath();
+
+  UsersDtoComparisonBuilder<D> poster() => UsersDtoComparisonBuilder(
+    fieldPath.extend(PostsDtoFieldEnum.poster),
+    handler,
+  );
+  TerminalRelationComparisonBuilder<D, String> message() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.message),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, FileDto> photo() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.photo),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, String> link() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.link),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, Map<String, dynamic>> location() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.location),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, num> reviewStars() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.reviewStars),
+        handler,
+      );
+  UsersDtoMultirelComparisonBuilder<D> tagged() =>
+      UsersDtoMultirelComparisonBuilder(
+        fieldPath.extend(PostsDtoFieldEnum.tagged),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, bool> draft() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.draft),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, DateTime> scheduled() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.scheduled),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, String> id() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.id),
+        handler,
+      );
+
+  // Back relations
+}
+
+class PostsDtoMultirelComparisonBuilder<D extends Dto<D>>
+    extends MultirelComparisonBuilder<D, PostsDto> {
+  PostsDtoMultirelComparisonBuilder(super.fieldPath, super.handler)
+    : super.fieldPath();
+
+  UsersDtoMultirelComparisonBuilder<D> poster() =>
+      UsersDtoMultirelComparisonBuilder(
+        fieldPath.extend(PostsDtoFieldEnum.poster),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, String> message() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.message),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, FileDto> photo() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.photo),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, String> link() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.link),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, Map<String, dynamic>>
+  location() => TerminalMultivalRelationComparisonBuilder(
+    fieldPath.terminate(PostsDtoFieldEnum.location),
+    handler,
+  );
+  TerminalMultivalRelationComparisonBuilder<D, num> reviewStars() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.reviewStars),
+        handler,
+      );
+  UsersDtoMultirelComparisonBuilder<D> tagged() =>
+      UsersDtoMultirelComparisonBuilder(
+        fieldPath.extend(PostsDtoFieldEnum.tagged),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, bool> draft() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.draft),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, DateTime> scheduled() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.scheduled),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, String> id() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.id),
+        handler,
+      );
+
+  // Back relations
+}

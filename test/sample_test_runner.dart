@@ -87,7 +87,7 @@ Future<void> preWork() async {
   print('Running dart fix.');
   final fixResult = await Process.run(
     'dart',
-    ['fix', '--apply', 'lib/src/sample'],
+    ['fix', '--apply', 'test/generated_sample'],
     stdoutEncoding: .getByName("UTF-8"),
     stderrEncoding: .getByName("UTF-8"),
   );

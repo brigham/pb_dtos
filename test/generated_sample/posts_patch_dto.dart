@@ -1,0 +1,83 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/patch_dto.dart';
+import 'users_dto.dart';
+import 'posts_dto.dart';
+
+part 'posts_patch_dto.freezed.dart';
+part 'posts_patch_dto.g.dart';
+
+@freezed
+@JsonSerializable(explicitToJson: true, includeIfNull: false)
+class PostsPatchDto with _$PostsPatchDto implements PatchDto<PostsDto> {
+  PostsPatchDto({
+    this.poster,
+    this.message,
+    this.photo,
+    this.link,
+    this.location,
+    this.reviewStars,
+    this.reviewStarsAddend,
+    this.reviewStarsSubtrahend,
+
+    this.tagged,
+    this.taggedRemovals,
+    this.taggedPrefix,
+    this.taggedSuffix,
+
+    this.draft,
+    this.scheduled,
+  });
+
+  @override
+  RelationDto<UsersDto>? poster;
+
+  @override
+  String? message;
+
+  @override
+  FileDto? photo;
+
+  @override
+  String? link;
+
+  @override
+  Map<String, dynamic>? location;
+
+  @override
+  @JsonKey(name: 'review_stars')
+  num? reviewStars;
+
+  @override
+  @JsonKey(name: 'review_stars+')
+  num? reviewStarsAddend;
+
+  @override
+  @JsonKey(name: 'review_stars-')
+  num? reviewStarsSubtrahend;
+
+  @override
+  List<RelationDto<UsersDto>>? tagged;
+
+  @override
+  @JsonKey(name: 'tagged-')
+  List<RelationDto<UsersDto>>? taggedRemovals;
+
+  @override
+  @JsonKey(name: '+tagged')
+  List<RelationDto<UsersDto>>? taggedPrefix;
+
+  @override
+  @JsonKey(name: 'tagged+')
+  List<RelationDto<UsersDto>>? taggedSuffix;
+
+  @override
+  bool? draft;
+
+  @override
+  DateTime? scheduled;
+
+  @override
+  Map<String, dynamic> toJson() => _$PostsPatchDtoToJson(this);
+}

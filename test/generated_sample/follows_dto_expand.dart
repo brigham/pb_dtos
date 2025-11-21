@@ -1,0 +1,48 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'users_dto.dart';
+import 'follows_dto.dart';
+import 'users_dto_expand.dart';
+
+part 'follows_dto_expand.freezed.dart';
+part 'follows_dto_expand.g.dart';
+
+enum FollowsDtoExpandEnum<V>
+    implements DtoExpandEnum<FollowsDto>, DtoTypedField<FollowsDto, V> {
+  follower<RelationDto<UsersDto>>("follower"),
+  following<RelationDto<UsersDto>>("following");
+
+  const FollowsDtoExpandEnum(this.pbName);
+
+  @override
+  final String pbName;
+}
+
+class FollowsDtoExpand<D extends Dto<D>> extends DtoExpand<D, FollowsDto> {
+  FollowsDtoExpand() : super.root();
+
+  FollowsDtoExpand.from(super.delegate);
+
+  UsersDtoExpand<FollowsDto> follower() =>
+      UsersDtoExpand.from(addRelation(FollowsDtoFieldEnum.follower));
+
+  UsersDtoExpand<FollowsDto> following() =>
+      UsersDtoExpand.from(addRelation(FollowsDtoFieldEnum.following));
+}
+
+@freezed
+@JsonSerializable(createToJson: false)
+class FollowsExpandDto with _$FollowsExpandDto {
+  FollowsExpandDto({this.follower, this.following});
+
+  @override
+  final UsersDto? follower;
+  @override
+  final UsersDto? following;
+
+  factory FollowsExpandDto.fromJson(Map<String, dynamic> json) =>
+      _$FollowsExpandDtoFromJson(json);
+}

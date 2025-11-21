@@ -3,9 +3,10 @@ import 'dart:async';
 
 import 'package:http/http.dart' as http;
 import 'package:pb_dtos/pocketbase_api_client.dart';
-import 'package:pb_dtos/src/sample/friends_dto.dart';
-import 'package:pb_dtos/src/sample/users_dto.dart';
 import 'package:test/test.dart';
+
+import 'generated_sample/friends_dto.dart';
+import 'generated_sample/users_dto.dart';
 
 void main() {
   group('Sample tests', () {

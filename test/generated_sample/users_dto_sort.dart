@@ -1,0 +1,76 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_sort.dart';
+import 'users_dto.dart';
+import 'roles_dto_sort.dart';
+import 'follows_dto_sort.dart';
+import 'friends_dto_sort.dart';
+import 'blocks_dto_sort.dart';
+import 'posts_dto_sort.dart';
+import 'users_dto_expand.dart';
+
+class UsersDtoSort<D extends Dto<D>> extends DtoSort<D, UsersDto> {
+  UsersDtoSort() : super.root();
+
+  UsersDtoSort.from(super.delegate);
+
+  void id({bool desc = false}) => addField(UsersDtoFieldEnum.id, desc);
+
+  void password({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.password, desc);
+
+  void tokenKey({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.tokenKey, desc);
+
+  void email({bool desc = false}) => addField(UsersDtoFieldEnum.email, desc);
+
+  void emailVisibility({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.emailVisibility, desc);
+
+  void verified({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.verified, desc);
+
+  void name({bool desc = false}) => addField(UsersDtoFieldEnum.name_, desc);
+
+  void avatar({bool desc = false}) => addField(UsersDtoFieldEnum.avatar, desc);
+
+  RolesDtoSort<UsersDto> roles({bool desc = false}) =>
+      RolesDtoSort.from(addRelation(UsersDtoFieldEnum.roles, desc));
+
+  void birthday({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.birthday, desc);
+
+  void created({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.created, desc);
+
+  void updated({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.updated, desc);
+
+  FollowsDtoSort<UsersDto> followsViaFollower({bool desc = false}) =>
+      FollowsDtoSort.from(
+        addRelation(UsersDtoExpandEnum.followsViaFollower, desc),
+      );
+  FollowsDtoSort<UsersDto> followsViaFollowing({bool desc = false}) =>
+      FollowsDtoSort.from(
+        addRelation(UsersDtoExpandEnum.followsViaFollowing, desc),
+      );
+  FriendsDtoSort<UsersDto> friendsViaRequester({bool desc = false}) =>
+      FriendsDtoSort.from(
+        addRelation(UsersDtoExpandEnum.friendsViaRequester, desc),
+      );
+  FriendsDtoSort<UsersDto> friendsViaAccepter({bool desc = false}) =>
+      FriendsDtoSort.from(
+        addRelation(UsersDtoExpandEnum.friendsViaAccepter, desc),
+      );
+  BlocksDtoSort<UsersDto> blocksViaBlocker({bool desc = false}) =>
+      BlocksDtoSort.from(
+        addRelation(UsersDtoExpandEnum.blocksViaBlocker, desc),
+      );
+  BlocksDtoSort<UsersDto> blocksViaBlocked({bool desc = false}) =>
+      BlocksDtoSort.from(
+        addRelation(UsersDtoExpandEnum.blocksViaBlocked, desc),
+      );
+  PostsDtoSort<UsersDto> postsViaPoster({bool desc = false}) =>
+      PostsDtoSort.from(addRelation(UsersDtoExpandEnum.postsViaPoster, desc));
+  PostsDtoSort<UsersDto> postsViaTagged({bool desc = false}) =>
+      PostsDtoSort.from(addRelation(UsersDtoExpandEnum.postsViaTagged, desc));
+}

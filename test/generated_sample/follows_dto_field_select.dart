@@ -1,0 +1,52 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'follows_dto.dart';
+import 'users_dto_field_select.dart';
+
+class FollowsDtoFieldSelect<D extends Dto<D>>
+    extends DtoRootFieldSelect<FollowsDto> {
+  FollowsDtoFieldSelect() : super.root();
+
+  void follower() => $addField(FollowsDtoFieldEnum.follower);
+
+  void following() => $addField(FollowsDtoFieldEnum.following);
+
+  ModifiableStringField id() {
+    $addField(FollowsDtoFieldEnum.id);
+    return ModifiableStringField($parts, $nextIndex);
+  }
+
+  ({
+    UsersDtoNestedFieldSelect<FollowsDto> Function() follower,
+
+    UsersDtoNestedFieldSelect<FollowsDto> Function() following,
+  })
+  expand() => (
+    follower: () {
+      $addRelation(FollowsDtoFieldEnum.follower);
+      return UsersDtoNestedFieldSelect($parts, $nextIndex);
+    },
+
+    following: () {
+      $addRelation(FollowsDtoFieldEnum.following);
+      return UsersDtoNestedFieldSelect($parts, $nextIndex);
+    },
+  );
+}
+
+class FollowsDtoNestedFieldSelect<D extends Dto<D>>
+    extends DtoNestedFieldSelect<D, FollowsDto> {
+  FollowsDtoNestedFieldSelect(super.$parts, super.index);
+
+  UsersDtoNestedFieldSelect<FollowsDto> follower() {
+    $addRelation(FollowsDtoFieldEnum.follower);
+    return UsersDtoNestedFieldSelect($parts, $nextIndex);
+  }
+
+  UsersDtoNestedFieldSelect<FollowsDto> following() {
+    $addRelation(FollowsDtoFieldEnum.following);
+    return UsersDtoNestedFieldSelect($parts, $nextIndex);
+  }
+
+  void id() => $addField(FollowsDtoFieldEnum.id);
+}
