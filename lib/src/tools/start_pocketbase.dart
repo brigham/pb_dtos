@@ -8,7 +8,7 @@ import 'package:path/path.dart' as p;
 void copyDirectoryContents(String sourceDir, String destDir) {
   if (!exists(sourceDir)) return;
   find('*', workingDirectory: sourceDir, recursive: false).forEach((file) {
-    copy(file, destDir);
+    copy(file, destDir, overwrite: true);
   });
 }
 
@@ -26,6 +26,12 @@ class LaunchPocketBaseConfig {
     required this.detached,
     this.pocketBaseDataDirectory,
   });
+}
+
+void _createDirIfNotExists(String path, {bool recursive = false}) {
+  if (!exists(path)) {
+    createDir(path, recursive: recursive);
+  }
 }
 
 Future<Process> launchPocketbase(LaunchPocketBaseConfig config) async {
@@ -48,10 +54,10 @@ Future<Process> launchPocketbase(LaunchPocketBaseConfig config) async {
     print('Using PocketBase directory at $pbDir');
   }
 
-  createDir(p.join(pbDir, 'pb_data'), recursive: true);
-  createDir(p.join(pbDir, 'pb_hooks'), recursive: true);
-  createDir(p.join(pbDir, 'pb_public'), recursive: true);
-  createDir(p.join(pbDir, 'pb_migrations'), recursive: true);
+  _createDirIfNotExists(p.join(pbDir, 'pb_data'), recursive: true);
+  _createDirIfNotExists(p.join(pbDir, 'pb_hooks'), recursive: true);
+  _createDirIfNotExists(p.join(pbDir, 'pb_public'), recursive: true);
+  _createDirIfNotExists(p.join(pbDir, 'pb_migrations'), recursive: true);
 
   final pocketbaseLink = p.join(pbDir, 'pocketbase');
   if (exists(pocketbaseLink)) {
