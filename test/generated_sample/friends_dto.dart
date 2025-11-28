@@ -10,6 +10,7 @@ import 'friends_dto_meta.dart';
 import 'friends_dto_sort.dart';
 import 'friends_patch_dto.dart';
 import 'friends_dto_expand.dart';
+import 'package:http/http.dart' as http;
 
 part 'friends_dto.freezed.dart';
 part 'friends_dto.g.dart';
@@ -170,6 +171,9 @@ class FriendsDto with _$FriendsDto implements Dto<FriendsDto> {
 
   @override
   Map<String, dynamic> toJson() => _$FriendsDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => const [];
 
   @override
   RelationDto<FriendsDto> asRelation() => RelationDto(id);

@@ -22,6 +22,7 @@ import 'posts_dto_meta.dart';
 import 'posts_dto_sort.dart';
 import 'posts_patch_dto.dart';
 import 'posts_dto_expand.dart';
+import 'package:http/http.dart' as http;
 
 part 'posts_dto.freezed.dart';
 part 'posts_dto.g.dart';
@@ -162,6 +163,10 @@ class PostsDto with _$PostsDto implements Dto<PostsDto> {
 
   @override
   Map<String, dynamic> toJson() => _$PostsDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() =>
+      [photo?.toFile('photo')].whereType<Future<http.MultipartFile>>().toList();
 
   @override
   RelationDto<PostsDto> asRelation() => RelationDto(id);

@@ -4,6 +4,7 @@ import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'package:pb_dtos/pb/dto/patch_dto.dart';
 import 'users_dto.dart';
 import 'posts_dto.dart';
+import 'package:http/http.dart' as http;
 
 part 'posts_patch_dto.freezed.dart';
 part 'posts_patch_dto.g.dart';
@@ -80,4 +81,8 @@ class PostsPatchDto with _$PostsPatchDto implements PatchDto<PostsDto> {
 
   @override
   Map<String, dynamic> toJson() => _$PostsPatchDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() =>
+      [photo?.toFile('photo')].whereType<Future<http.MultipartFile>>().toList();
 }

@@ -10,6 +10,7 @@ import 'blocks_dto_meta.dart';
 import 'blocks_dto_sort.dart';
 import 'blocks_patch_dto.dart';
 import 'blocks_dto_expand.dart';
+import 'package:http/http.dart' as http;
 
 part 'blocks_dto.freezed.dart';
 part 'blocks_dto.g.dart';
@@ -135,6 +136,9 @@ class BlocksDto with _$BlocksDto implements Dto<BlocksDto> {
 
   @override
   Map<String, dynamic> toJson() => _$BlocksDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => const [];
 
   @override
   RelationDto<BlocksDto> asRelation() => RelationDto(id);

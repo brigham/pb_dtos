@@ -63,9 +63,13 @@ class DartDtoDumper extends Dumper {
     var collection = collectionSchema.model;
     var className = toClassName(collection.name);
 
-    var relations = _findRelations(collectionSchema).toList();
+    var relations = _findFieldsOfType(collectionSchema, 'relation').toList();
     var backRelations = _findBackRelations(collectionSchema).toList();
     var hasRelations = relations.isNotEmpty || backRelations.isNotEmpty;
+
+    var fileFields = _findFieldsOfType(collectionSchema, 'file').toList();
+    var hasFiles = fileFields.isNotEmpty;
+
     var expandDtoClassName = toClassName(collection.name, "Expand");
     var dtoExpandClassName = "${className}Expand";
     var patchClassName = toClassName(collection.name, "Patch");
@@ -87,7 +91,7 @@ class DartDtoDumper extends Dumper {
       'expand_imports': schema.collections
           .where(
             (coll) =>
-                _findRelations(coll).isNotEmpty ||
+                _findFieldsOfType(coll, 'relation').isNotEmpty ||
                 _findBackRelations(coll).isNotEmpty,
           )
           .map((c) => {'import': c.model.name})
@@ -274,6 +278,16 @@ class DartDtoDumper extends Dumper {
           'sort_expressions': sortExpressions,
         };
       }).toList(),
+      'has_files': hasFiles,
+      'file_fields': fileFields
+          .map(
+            (field) => {
+              'name': field.name,
+              'snake_name': lowerCamelize(field.name),
+              'multi': field.data['maxSelect']! > 1,
+            },
+          )
+          .toList(),
       'debug': debug ? {'pb_definition': toLiteral(collection.toJson())} : null,
     };
   }
@@ -282,9 +296,10 @@ class DartDtoDumper extends Dumper {
     CollectionSchema collectionSchema,
   ) => schema.backRelations[collectionSchema.model.id] ?? [];
 
-  Iterable<CollectionField> _findRelations(CollectionSchema collectionSchema) {
-    return collectionSchema.model.fields.where(
-      (coll) => coll.type == 'relation',
-    );
+  Iterable<CollectionField> _findFieldsOfType(
+    CollectionSchema collectionSchema,
+    String type,
+  ) {
+    return collectionSchema.model.fields.where((coll) => coll.type == type);
   }
 }

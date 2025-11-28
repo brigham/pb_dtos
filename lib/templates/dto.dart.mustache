@@ -20,6 +20,7 @@ import '{{collection.name}}_patch_dto.dart';
 {{#has_relations}}
 import '{{collection.name}}_dto_expand.dart';
 {{/has_relations}}
+import 'package:http/http.dart' as http;
 
 part '{{collection.name}}_dto.freezed.dart';
 part '{{collection.name}}_dto.g.dart';
@@ -148,6 +149,18 @@ class {{class_name}} with _${{class_name}} implements Dto<{{class_name}}> {
 
   @override
   Map<String, dynamic> toJson() => _${{class_name}}ToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => {{^has_files}}const{{/has_files}} [
+    {{#file_fields}}
+    {{#multi}}
+    ...{{snake_name}}.map((f) => f.toFile('{{name}}')),
+    {{/multi}}
+    {{^multi}}
+    {{snake_name}}?.toFile('{{name}}'),
+    {{/multi}}
+    {{/file_fields}}
+  ]{{#has_files}}.whereType<Future<http.MultipartFile>>().toList(){{/has_files}};
 
   @override
   RelationDto<{{class_name}}> asRelation() => RelationDto(id);

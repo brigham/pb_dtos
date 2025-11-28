@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import "package:http/http.dart" as http;
 import 'package:pocketbase/pocketbase.dart';
 
 import 'pb/dto/dto.dart';
@@ -229,7 +228,6 @@ class PocketBaseApiClient {
     DtoMeta<D> meta, {
     D? body,
     Map<String, dynamic> query = const {},
-    List<http.MultipartFile> files = const [],
     Map<String, String> headers = const {},
     DtoExpand<D, dynamic>? expand,
     DtoRootFieldSelect<D>? fields,
@@ -241,7 +239,7 @@ class PocketBaseApiClient {
         .create(
           body: body?.toJson() ?? const {},
           query: query,
-          files: files,
+          files: await Future.wait(body?.toFiles() ?? const []),
           headers: headers,
           expand: expand?.toString(),
           fields: fields?.toString(),
@@ -254,7 +252,6 @@ class PocketBaseApiClient {
     String id, {
     PatchDto<D>? body,
     Map<String, dynamic> query = const {},
-    List<http.MultipartFile> files = const [],
     Map<String, String> headers = const {},
     DtoExpand<D, dynamic>? expand,
     DtoRootFieldSelect<D>? fields,
@@ -267,7 +264,7 @@ class PocketBaseApiClient {
           id,
           body: body?.toJson() ?? const {},
           query: query,
-          files: files,
+          files: await Future.wait(body?.toFiles() ?? const []),
           headers: headers,
           expand: expand?.toString(),
           fields: fields?.toString(),

@@ -17,6 +17,7 @@ import '{{collection.name}}_dto_sort.dart';
 {{#has_relations}}
     import '{{collection.name}}_dto_expand.dart';
 {{/has_relations}}
+import 'package:http/http.dart' as http;
 
 part '{{collection.name}}_patch_dto.freezed.dart';
 part '{{collection.name}}_patch_dto.g.dart';
@@ -70,4 +71,19 @@ class {{patch_class_name}} with _${{patch_class_name}} implements PatchDto<{{cla
 
 @override
 Map<String, dynamic> toJson() => _${{patch_class_name}}ToJson(this);
+
+
+@override
+List<Future<http.MultipartFile>> toFiles() => {{^has_files}}const{{/has_files}} [
+    {{#file_fields}}
+        {{#multi}}
+            ...{{snake_name}}.map((f) => f.toFile('{{name}}')),
+            ...{{snake_name}}Prefix.map((f) => f.toFile('+{{name}}'),
+            ...{{snake_name}}Suffix.map((f) => f.toFile('{{name}}+')),
+        {{/multi}}
+        {{^multi}}
+            {{snake_name}}?.toFile('{{name}}'),
+        {{/multi}}
+    {{/file_fields}}
+    ]{{#has_files}}.whereType<Future<http.MultipartFile>>().toList(){{/has_files}};
 }

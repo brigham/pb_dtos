@@ -19,6 +19,7 @@ import 'follows_dto_filter.dart';
 import 'follows_dto_meta.dart';
 import 'follows_dto_sort.dart';
 import 'follows_dto_expand.dart';
+import 'package:http/http.dart' as http;
 
 part 'follows_patch_dto.freezed.dart';
 part 'follows_patch_dto.g.dart';
@@ -36,4 +37,7 @@ class FollowsPatchDto with _$FollowsPatchDto implements PatchDto<FollowsDto> {
 
   @override
   Map<String, dynamic> toJson() => _$FollowsPatchDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => const [];
 }

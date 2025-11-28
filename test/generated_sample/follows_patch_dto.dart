@@ -3,6 +3,7 @@ import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'package:pb_dtos/pb/dto/patch_dto.dart';
 import 'users_dto.dart';
 import 'follows_dto.dart';
+import 'package:http/http.dart' as http;
 
 part 'follows_patch_dto.freezed.dart';
 part 'follows_patch_dto.g.dart';
@@ -20,4 +21,7 @@ class FollowsPatchDto with _$FollowsPatchDto implements PatchDto<FollowsDto> {
 
   @override
   Map<String, dynamic> toJson() => _$FollowsPatchDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => const [];
 }

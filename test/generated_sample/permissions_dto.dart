@@ -9,6 +9,7 @@ import 'permissions_dto_meta.dart';
 import 'permissions_dto_sort.dart';
 import 'permissions_patch_dto.dart';
 import 'permissions_dto_expand.dart';
+import 'package:http/http.dart' as http;
 
 part 'permissions_dto.freezed.dart';
 part 'permissions_dto.g.dart';
@@ -106,6 +107,9 @@ class PermissionsDto with _$PermissionsDto implements Dto<PermissionsDto> {
 
   @override
   Map<String, dynamic> toJson() => _$PermissionsDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => const [];
 
   @override
   RelationDto<PermissionsDto> asRelation() => RelationDto(id);

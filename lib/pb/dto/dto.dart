@@ -1,3 +1,5 @@
+import 'package:http/http.dart' as http;
+
 import 'patch_dto.dart';
 import 'relation_dto.dart';
 
@@ -10,6 +12,8 @@ abstract class Dto<D extends Dto<D>> {
   static bool? optionalBoolToJson(bool value) => !value ? null : value;
 
   Map<String, dynamic> toJson();
+
+  List<Future<http.MultipartFile>> toFiles();
 
   RelationDto<D> asRelation();
 

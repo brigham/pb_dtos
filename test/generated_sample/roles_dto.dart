@@ -10,6 +10,7 @@ import 'roles_dto_meta.dart';
 import 'roles_dto_sort.dart';
 import 'roles_patch_dto.dart';
 import 'roles_dto_expand.dart';
+import 'package:http/http.dart' as http;
 
 part 'roles_dto.freezed.dart';
 part 'roles_dto.g.dart';
@@ -117,6 +118,9 @@ class RolesDto with _$RolesDto implements Dto<RolesDto> {
 
   @override
   Map<String, dynamic> toJson() => _$RolesDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => const [];
 
   @override
   RelationDto<RolesDto> asRelation() => RelationDto(id);

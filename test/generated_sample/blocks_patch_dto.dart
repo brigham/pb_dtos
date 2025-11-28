@@ -3,6 +3,7 @@ import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'package:pb_dtos/pb/dto/patch_dto.dart';
 import 'users_dto.dart';
 import 'blocks_dto.dart';
+import 'package:http/http.dart' as http;
 
 part 'blocks_patch_dto.freezed.dart';
 part 'blocks_patch_dto.g.dart';
@@ -23,4 +24,7 @@ class BlocksPatchDto with _$BlocksPatchDto implements PatchDto<BlocksDto> {
 
   @override
   Map<String, dynamic> toJson() => _$BlocksPatchDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => const [];
 }

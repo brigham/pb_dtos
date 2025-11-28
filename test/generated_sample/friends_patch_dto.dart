@@ -3,6 +3,7 @@ import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'package:pb_dtos/pb/dto/patch_dto.dart';
 import 'users_dto.dart';
 import 'friends_dto.dart';
+import 'package:http/http.dart' as http;
 
 part 'friends_patch_dto.freezed.dart';
 part 'friends_patch_dto.g.dart';
@@ -23,4 +24,7 @@ class FriendsPatchDto with _$FriendsPatchDto implements PatchDto<FriendsDto> {
 
   @override
   Map<String, dynamic> toJson() => _$FriendsPatchDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => const [];
 }

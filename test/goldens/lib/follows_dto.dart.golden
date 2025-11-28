@@ -22,6 +22,7 @@ import 'follows_dto_meta.dart';
 import 'follows_dto_sort.dart';
 import 'follows_patch_dto.dart';
 import 'follows_dto_expand.dart';
+import 'package:http/http.dart' as http;
 
 part 'follows_dto.freezed.dart';
 part 'follows_dto.g.dart';
@@ -131,6 +132,9 @@ class FollowsDto with _$FollowsDto implements Dto<FollowsDto> {
 
   @override
   Map<String, dynamic> toJson() => _$FollowsDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => const [];
 
   @override
   RelationDto<FollowsDto> asRelation() => RelationDto(id);

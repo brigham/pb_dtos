@@ -22,6 +22,7 @@ import 'users_dto_meta.dart';
 import 'users_dto_sort.dart';
 import 'users_patch_dto.dart';
 import 'users_dto_expand.dart';
+import 'package:http/http.dart' as http;
 
 part 'users_dto.freezed.dart';
 part 'users_dto.g.dart';
@@ -199,6 +200,11 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
 
   @override
   Map<String, dynamic> toJson() => _$UsersDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => [
+    avatar?.toFile('avatar'),
+  ].whereType<Future<http.MultipartFile>>().toList();
 
   @override
   RelationDto<UsersDto> asRelation() => RelationDto(id);

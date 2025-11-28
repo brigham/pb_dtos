@@ -4,6 +4,7 @@ import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'package:pb_dtos/pb/dto/patch_dto.dart';
 import 'users_dto.dart';
 import 'roles_dto.dart';
+import 'package:http/http.dart' as http;
 
 part 'users_patch_dto.freezed.dart';
 part 'users_patch_dto.g.dart';
@@ -68,4 +69,9 @@ class UsersPatchDto with _$UsersPatchDto implements PatchDto<UsersDto> {
 
   @override
   Map<String, dynamic> toJson() => _$UsersPatchDtoToJson(this);
+
+  @override
+  List<Future<http.MultipartFile>> toFiles() => [
+    avatar?.toFile('avatar'),
+  ].whereType<Future<http.MultipartFile>>().toList();
 }
