@@ -35,14 +35,28 @@ Future<Map<String, FileCoverage>> readCoverage(String filename) async {
     return results;
   }
 
-  final headers = rows.first.map((e) => e.toString()).toList();
+  var headerRowIndex = 0;
+  if (rows.isNotEmpty && (rows.first.isEmpty || rows.first[0].toString() != 'filepath')) {
+    headerRowIndex = rows
+        .indexWhere((row) => row.isNotEmpty && row[0].toString() == 'filepath');
+  }
+
+  if (headerRowIndex == -1) {
+    print('Warning: Could not find header in $filename');
+    return results;
+  }
+
+  final headers = rows[headerRowIndex].map((e) => e.toString()).toList();
   final filePathIndex = headers.indexOf('filepath');
   final totalLinesIndex = headers.indexOf('lines_of_code');
   final linesHitIndex = headers.indexOf('lines_of_code_hit');
 
-  for (var i = 1; i < rows.length; i++) {
+  for (var i = 0; i < rows.length; i++) {
+    if (i == headerRowIndex) continue;
     final row = rows[i];
+    if (row.length <= filePathIndex) continue;
     final filepath = row[filePathIndex].toString();
+    if (filepath.isEmpty) continue;
     final totalLines = int.parse(row[totalLinesIndex].toString());
     final linesHit = int.parse(row[linesHitIndex].toString());
     results[filepath] = FileCoverage(

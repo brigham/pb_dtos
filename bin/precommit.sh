@@ -41,7 +41,7 @@ analyze_coverage() {
       BEGIN {
         print "filepath,lines_of_code,lines_of_code_hit,coverage_percent,untested_code_lines\n";
       }
-      if (/^(SF):.*pb_dtos\/(.*)/) { $h{$1} = $2; }
+      if (/^(SF):.*(lib\/.*)/) { $h{$1} = $2; }
       elsif (/^(LF|LH):(.*)/) { $h{$1} = $2; }
       elsif (/^DA:(\d+),0/) { push @z, $1; }
       elsif (/^end_of_record/) {

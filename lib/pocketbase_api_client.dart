@@ -57,23 +57,38 @@ class PocketBaseApiClient {
   Future<void> clearAuth() async => _pb.authStore.clear();
 
   Stream<WatchEvent<D>> watch<D extends Dto<D>>(
-    DtoMeta<D> meta, [
+    DtoMeta<D> meta, {
     String topic = '*',
-  ]) {
+    DtoExpand<D, dynamic>? expand,
+    DtoFilter<D>? filter,
+    DtoRootFieldSelect<D>? fields,
+    Map<String, dynamic> query = const {},
+    Map<String, String> headers = const {},
+  }) {
     var collection = meta.collectionName;
     var converter = meta.fromRecord;
     late StreamController<WatchEvent<D>> controller;
     Future<UnsubscribeFunc>? unsubscribeFuture;
 
     void startListening() {
-      unsubscribeFuture = _pb.collection(collection).subscribe(topic, (event) {
-        controller.add(
-          WatchEvent(
-            event.action,
-            event.record != null ? converter(event.record!) : null,
-          ),
-        );
-      });
+      unsubscribeFuture = _pb
+          .collection(collection)
+          .subscribe(
+            topic,
+            (event) {
+              controller.add(
+                WatchEvent(
+                  event.action,
+                  event.record != null ? converter(event.record!) : null,
+                ),
+              );
+            },
+            expand: expand?.toString(),
+            filter: filter?.toString(),
+            fields: fields?.toString(),
+            query: query,
+            headers: headers,
+          );
     }
 
     void stopListening() async {
