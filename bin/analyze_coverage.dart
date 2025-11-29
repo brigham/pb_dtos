@@ -134,14 +134,11 @@ void main() async {
     if (!allCoveredPaths.contains(filepath)) {
       var oldc =
           oldCoverage[filepath] ?? FileCoverage(totalLines: 0, linesHit: 0);
-      // Only report as regression if it was covered before
-      if (oldc.ratio > 0) {
-        regressions[filepath] = Regression(
-          filepath: filepath,
-          oldCoverage: oldc,
-          newCoverage: FileCoverage(totalLines: oldc.totalLines, linesHit: 0),
-        );
-      }
+      regressions[filepath] = Regression(
+        filepath: filepath,
+        oldCoverage: oldc,
+        newCoverage: FileCoverage(totalLines: oldc.totalLines, linesHit: 0),
+      );
     }
   }
 
