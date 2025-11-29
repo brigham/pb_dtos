@@ -54,6 +54,24 @@ class PocketBaseApiClient {
     return meta.fromRecord(recordAuth.record);
   }
 
+  Future<D> authRefresh<D extends Dto<D>>(
+    DtoMeta<D> meta, {
+    DtoExpand<D, dynamic>? expand,
+    DtoRootFieldSelect<D>? fields,
+    Map<String, dynamic> query = const {},
+    Map<String, String> headers = const {},
+  }) async {
+    var recordAuth = await _pb
+        .collection(meta.collectionName)
+        .authRefresh(
+          expand: expand?.toString(),
+          fields: fields?.toString(),
+          query: query,
+          headers: headers,
+        );
+    return meta.fromRecord(recordAuth.record);
+  }
+
   Future<void> clearAuth() async => _pb.authStore.clear();
 
   Stream<WatchEvent<D>> watch<D extends Dto<D>>(
