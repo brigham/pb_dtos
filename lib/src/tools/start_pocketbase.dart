@@ -14,16 +14,16 @@ void copyDirectoryContents(String sourceDir, String destDir) {
 
 class LaunchPocketBaseConfig {
   final String configurationDirectory;
-  final String pocketBaseExecutable;
+  final String? pocketBaseExecutable;
   final String? pocketBaseDataDirectory;
   final int pocketBasePort;
   final bool detached;
 
   LaunchPocketBaseConfig({
     required this.configurationDirectory,
-    required this.pocketBaseExecutable,
     required this.pocketBasePort,
     required this.detached,
+    this.pocketBaseExecutable,
     this.pocketBaseDataDirectory,
   });
 }
@@ -39,6 +39,12 @@ Future<Process> launchPocketbase(LaunchPocketBaseConfig config) async {
   final pocketbaseConfig = config.configurationDirectory;
   final pocketbaseExecutable = config.pocketBaseExecutable;
   final pocketbaseDir = config.pocketBaseDataDirectory;
+
+  if (pocketbaseExecutable == null) {
+    throw ArgumentError(
+      'pocketBaseExecutable must be provided in LaunchPocketBaseConfig',
+    );
+  }
 
   String pbDir;
   bool tempDir = false;
