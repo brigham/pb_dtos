@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart' as http;
+
 import 'package:archive/archive.dart';
 import 'package:crypto/crypto.dart';
+import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 
 class ObtainPocketBaseConfig {
@@ -13,7 +14,7 @@ class ObtainPocketBaseConfig {
 }
 
 Future<String> obtainPocketBase(ObtainPocketBaseConfig config) async {
-  final downloadDir = Directory(config.downloadPath);
+  final downloadDir = Directory(p.join(config.downloadPath, config.githubTag));
   if (!downloadDir.existsSync()) {
     downloadDir.createSync(recursive: true);
   }

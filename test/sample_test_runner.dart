@@ -6,22 +6,24 @@ import 'package:dcli/dcli.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
 import 'package:pb_dtos/src/tools/dump_schema.dart';
+import 'package:pb_dtos/src/tools/obtain_pocketbase.dart';
 import 'package:pb_dtos/src/tools/start_pocketbase.dart';
 
 void fail(String message) => throw Exception(message);
 
 Future<Process> _startPocketBase() async {
+  // Get PocketBase.
+  var obtainConfig = ObtainPocketBaseConfig(
+    githubTag: "v0.29.3",
+    downloadPath: p.join(env['HOME']!, 'develop', 'pocketbase'),
+  );
+  var executable = await obtainPocketBase(obtainConfig);
+
   // Start PocketBase.
   print('Starting PocketBase...');
-  // Start PocketBase.
   var launchConfig = LaunchPocketBaseConfig(
     configurationDirectory: "test/test_schema",
-    pocketBaseExecutable: p.join(
-      env['HOME']!,
-      'develop',
-      'pocketbase',
-      'pocketbase',
-    ),
+    pocketBaseExecutable: executable,
     pocketBasePort: 8698,
     detached: true,
   );
