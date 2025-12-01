@@ -1,5 +1,6 @@
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pb/dto/filter_expression.dart';
 import 'posts_dto.dart';
 import 'users_dto_comparison_builder.dart';
@@ -27,7 +28,7 @@ class PostsDtoComparisonBuilder<D extends Dto<D>>
         fieldPath.terminate(PostsDtoFieldEnum.link),
         handler,
       );
-  TerminalRelationComparisonBuilder<D, dynamic> location() =>
+  TerminalRelationComparisonBuilder<D, GeopointDto> location() =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(PostsDtoFieldEnum.location),
         handler,
@@ -86,7 +87,7 @@ class PostsDtoMultirelComparisonBuilder<D extends Dto<D>>
         fieldPath.terminate(PostsDtoFieldEnum.link),
         handler,
       );
-  TerminalMultivalRelationComparisonBuilder<D, dynamic> location() =>
+  TerminalMultivalRelationComparisonBuilder<D, GeopointDto> location() =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(PostsDtoFieldEnum.location),
         handler,

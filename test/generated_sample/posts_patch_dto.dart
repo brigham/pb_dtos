@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'package:pb_dtos/pb/dto/patch_dto.dart';
 import 'users_dto.dart';
@@ -44,7 +45,7 @@ class PostsPatchDto with _$PostsPatchDto implements PatchDto<PostsDto> {
   String? link;
 
   @override
-  dynamic location;
+  GeopointDto? location;
 
   @override
   @JsonKey(name: 'review_stars')

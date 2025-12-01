@@ -12,7 +12,7 @@ void main() {
     setUpAll(() async {
       // Wait for the server to be healthy by polling the health endpoint.
       print('Waiting for PocketBase to become healthy...');
-      var pocketBaseUri = 'http://127.0.0.1:8099';
+      var pocketBaseUri = 'http://127.0.0.1:8698';
       final healthCheckUrl = Uri.parse('$pocketBaseUri/api/health');
       var serverReady = false;
       for (var i = 0; i < 20; i++) {

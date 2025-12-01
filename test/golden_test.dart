@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
+import 'package:pb_dtos/src/tools/dump_schema.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -13,7 +14,7 @@ void main() {
     Process? pbProcess;
     var testFailed = false;
 
-    setUpAll(() async {
+    Future<void> start() async {
       tempDir = Directory.systemTemp.createTempSync('golden_test_');
       tempGenPath = p.join(tempDir.path, 'gen');
       goldenDir = Directory(p.join('test', 'goldens'));
@@ -54,42 +55,23 @@ void main() {
       }
       await Future.delayed(const Duration(seconds: 3));
 
-      // Create a temporary config file
-      final configFile = File(p.join(tempDir.path, 'pb_dto_gen.yaml'));
-      await configFile.writeAsString('''
-pocketbase_url: http://127.0.0.1:8696
-output_dir: ${p.join(tempGenPath, 'lib')}
-test_output_dir: ${p.join(tempGenPath, 'test')}
-''');
-      print('Created temp config file at ${configFile.path}');
-
-      // Run the generator from the project root, passing the temp config path.
+      // Run the generator from the project root
       print('Running DTO generator...');
-      final generatorScript = p.join(
-        Directory.current.path,
-        'bin',
-        'dump_schema.dart',
-      );
-      final result = await Process.run(
-        'dart',
-        [
-          'run',
-          generatorScript,
-          '--config=${configFile.path}',
-          '--suffix=.golden',
-        ],
-        environment: {'PB_CREDS': 'test@example.com:1234567890'},
+      final generatorConfig = DumpSchemaConfig(
+        dtoOutputDir: p.join(tempGenPath, 'lib'),
+        pocketBaseSetup: PocketBaseUrl(url: "http://127.0.0.1:8696"),
+        suffix: '.golden',
+        credentials: PocketBaseCredentials(
+          email: "test@example.com",
+          password: "1234567890",
+        ),
       );
 
-      if (result.exitCode != 0) {
-        print('Generator stdout:\n${result.stdout}');
-        print('Generator stderr:\n${result.stderr}');
-        fail('Generator failed with exit code ${result.exitCode}');
-      }
+      await dumpSchema(generatorConfig);
       print('Generator finished successfully.');
-    });
+    }
 
-    tearDownAll(() {
+    Future<void> stop() async {
       print('Stopping PocketBase...');
       pbProcess?.kill(ProcessSignal.sigkill);
       if (!testFailed) {
@@ -100,10 +82,12 @@ test_output_dir: ${p.join(tempGenPath, 'test')}
           'Skipping deletion of temp directory due to test failure: ${tempDir.path}',
         );
       }
-    });
+    }
 
-    test('Generated DTOs match golden files', () {
+    test('Generated DTOs match golden files', () async {
       try {
+        await start();
+
         final generatedFiles = Directory(tempGenPath)
             .listSync(recursive: true)
             .whereType<File>()
@@ -188,6 +172,8 @@ test_output_dir: ${p.join(tempGenPath, 'test')}
       } catch (e) {
         testFailed = true;
         rethrow;
+      } finally {
+        await stop();
       }
     });
   });

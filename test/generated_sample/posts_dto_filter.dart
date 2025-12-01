@@ -1,5 +1,6 @@
 import 'package:pb_dtos/pb/dto/dto_filter.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pb/dto/filter_operand.dart';
 import 'package:pb_dtos/pb/dto/filter_expression.dart';
 import 'posts_dto.dart';
@@ -14,7 +15,7 @@ class PostsDtoFilter extends DtoFilter<PostsDto> {
       ComparisonBuilder.field(PostsDtoFieldEnum.photo, add);
   ComparisonBuilder<PostsDto, String> link() =>
       ComparisonBuilder.field(PostsDtoFieldEnum.link, add);
-  ComparisonBuilder<PostsDto, dynamic> location() =>
+  ComparisonBuilder<PostsDto, GeopointDto> location() =>
       ComparisonBuilder.field(PostsDtoFieldEnum.location, add);
   ComparisonBuilder<PostsDto, num> reviewStars() =>
       ComparisonBuilder.field(PostsDtoFieldEnum.reviewStars, add);

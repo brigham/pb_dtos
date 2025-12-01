@@ -15,7 +15,9 @@ PostsDto _$PostsDtoFromJson(Map<String, dynamic> json) => PostsDto(
       ? null
       : FileDto.fromJson(json['photo'] as String),
   link: json['link'] as String? ?? "",
-  location: json['location'] ?? null,
+  location: json['location'] == null
+      ? const GeopointDto(lat: 0, lon: 0)
+      : GeopointDto.fromJson(json['location'] as Map<String, dynamic>),
   reviewStars: json['review_stars'] as num? ?? 0,
   tagged:
       (json['tagged'] as List<dynamic>?)
@@ -37,7 +39,7 @@ Map<String, dynamic> _$PostsDtoToJson(PostsDto instance) => <String, dynamic>{
   'message': ?Dto.optionalStringToJson(instance.message),
   'photo': ?instance.photo?.toJson(),
   'link': ?Dto.optionalStringToJson(instance.link),
-  'location': ?instance.location,
+  'location': instance.location.toJson(),
   'review_stars': ?Dto.optionalNumToJson(instance.reviewStars),
   'tagged': instance.tagged.map((e) => e.toJson()).toList(),
   'draft': ?Dto.optionalBoolToJson(instance.draft),

@@ -59,7 +59,7 @@ migrate((app) => {
 
     collection.fields.addAt(4, new Field({
         "name": "location",
-        "type": "json",
+        "type": "geoPoint",
         "required": false,
         "system": false,
         "unique": false,

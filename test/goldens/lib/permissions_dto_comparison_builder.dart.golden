@@ -1,6 +1,7 @@
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_filter.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'package:pb_dtos/pb/dto/filter_expression.dart';
 import 'permissions_dto.dart';

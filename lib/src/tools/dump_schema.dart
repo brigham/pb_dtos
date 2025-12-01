@@ -36,15 +36,15 @@ class DumpSchemaConfig {
   final PocketBaseCredentials? credentials;
 
   DumpSchemaConfig({
-    required this.verbose,
-    required this.suffix,
+    this.verbose = false,
+    this.suffix = '',
     required this.pocketBaseSetup,
     required this.dtoOutputDir,
     this.credentials,
   });
 }
 
-void dumpSchema(DumpSchemaConfig config) async {
+Future<void> dumpSchema(DumpSchemaConfig config) async {
   final suffix = config.suffix;
 
   var email = '';

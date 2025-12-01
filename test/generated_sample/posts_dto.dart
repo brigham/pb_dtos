@@ -3,6 +3,7 @@ import "package:pocketbase/pocketbase.dart" show RecordModel;
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'users_dto.dart';
 import 'posts_dto_field_select.dart';
@@ -21,7 +22,7 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
   message<String>('message'),
   photo<FileDto>('photo'),
   link<String>('link'),
-  location<dynamic>('location'),
+  location<GeopointDto>('location'),
   reviewStars<num>('review_stars'),
   tagged<RelationDto<UsersDto>>('tagged'),
   draft<bool>('draft'),
@@ -106,7 +107,7 @@ class PostsDto with _$PostsDto implements Dto<PostsDto> {
     required this.message,
     this.photo,
     this.link = "",
-    this.location,
+    this.location = const GeopointDto(lat: 0, lon: 0),
     this.reviewStars = 0,
     this.tagged = const [],
     this.draft = false,
@@ -126,7 +127,7 @@ class PostsDto with _$PostsDto implements Dto<PostsDto> {
   @override
   final String link;
   @override
-  final dynamic location;
+  final GeopointDto location;
   @JsonKey(name: 'review_stars', toJson: Dto.optionalNumToJson)
   @override
   final num reviewStars;

@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PostsPatchDto {
 
- RelationDto<UsersDto>? get poster; set poster(RelationDto<UsersDto>? value); String? get message; set message(String? value); FileDto? get photo; set photo(FileDto? value); String? get link; set link(String? value); dynamic? get location; set location(dynamic? value); num? get reviewStars; set reviewStars(num? value); num? get reviewStarsAddend; set reviewStarsAddend(num? value); num? get reviewStarsSubtrahend; set reviewStarsSubtrahend(num? value); List<RelationDto<UsersDto>>? get tagged; set tagged(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedRemovals; set taggedRemovals(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedPrefix; set taggedPrefix(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedSuffix; set taggedSuffix(List<RelationDto<UsersDto>>? value); bool? get draft; set draft(bool? value); DateTime? get scheduled; set scheduled(DateTime? value);
+ RelationDto<UsersDto>? get poster; set poster(RelationDto<UsersDto>? value); String? get message; set message(String? value); FileDto? get photo; set photo(FileDto? value); String? get link; set link(String? value); GeopointDto? get location; set location(GeopointDto? value); num? get reviewStars; set reviewStars(num? value); num? get reviewStarsAddend; set reviewStarsAddend(num? value); num? get reviewStarsSubtrahend; set reviewStarsSubtrahend(num? value); List<RelationDto<UsersDto>>? get tagged; set tagged(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedRemovals; set taggedRemovals(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedPrefix; set taggedPrefix(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedSuffix; set taggedSuffix(List<RelationDto<UsersDto>>? value); bool? get draft; set draft(bool? value); DateTime? get scheduled; set scheduled(DateTime? value);
 /// Create a copy of PostsPatchDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,12 +25,12 @@ $PostsPatchDtoCopyWith<PostsPatchDto> get copyWith => _$PostsPatchDtoCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostsPatchDto&&(identical(other.poster, poster) || other.poster == poster)&&(identical(other.message, message) || other.message == message)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.link, link) || other.link == link)&&const DeepCollectionEquality().equals(other.location, location)&&(identical(other.reviewStars, reviewStars) || other.reviewStars == reviewStars)&&(identical(other.reviewStarsAddend, reviewStarsAddend) || other.reviewStarsAddend == reviewStarsAddend)&&(identical(other.reviewStarsSubtrahend, reviewStarsSubtrahend) || other.reviewStarsSubtrahend == reviewStarsSubtrahend)&&const DeepCollectionEquality().equals(other.tagged, tagged)&&const DeepCollectionEquality().equals(other.taggedRemovals, taggedRemovals)&&const DeepCollectionEquality().equals(other.taggedPrefix, taggedPrefix)&&const DeepCollectionEquality().equals(other.taggedSuffix, taggedSuffix)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.scheduled, scheduled) || other.scheduled == scheduled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostsPatchDto&&(identical(other.poster, poster) || other.poster == poster)&&(identical(other.message, message) || other.message == message)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.link, link) || other.link == link)&&(identical(other.location, location) || other.location == location)&&(identical(other.reviewStars, reviewStars) || other.reviewStars == reviewStars)&&(identical(other.reviewStarsAddend, reviewStarsAddend) || other.reviewStarsAddend == reviewStarsAddend)&&(identical(other.reviewStarsSubtrahend, reviewStarsSubtrahend) || other.reviewStarsSubtrahend == reviewStarsSubtrahend)&&const DeepCollectionEquality().equals(other.tagged, tagged)&&const DeepCollectionEquality().equals(other.taggedRemovals, taggedRemovals)&&const DeepCollectionEquality().equals(other.taggedPrefix, taggedPrefix)&&const DeepCollectionEquality().equals(other.taggedSuffix, taggedSuffix)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.scheduled, scheduled) || other.scheduled == scheduled));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,poster,message,photo,link,const DeepCollectionEquality().hash(location),reviewStars,reviewStarsAddend,reviewStarsSubtrahend,const DeepCollectionEquality().hash(tagged),const DeepCollectionEquality().hash(taggedRemovals),const DeepCollectionEquality().hash(taggedPrefix),const DeepCollectionEquality().hash(taggedSuffix),draft,scheduled);
+int get hashCode => Object.hash(runtimeType,poster,message,photo,link,location,reviewStars,reviewStarsAddend,reviewStarsSubtrahend,const DeepCollectionEquality().hash(tagged),const DeepCollectionEquality().hash(taggedRemovals),const DeepCollectionEquality().hash(taggedPrefix),const DeepCollectionEquality().hash(taggedSuffix),draft,scheduled);
 
 @override
 String toString() {
@@ -45,7 +45,7 @@ abstract mixin class $PostsPatchDtoCopyWith<$Res>  {
   factory $PostsPatchDtoCopyWith(PostsPatchDto value, $Res Function(PostsPatchDto) _then) = _$PostsPatchDtoCopyWithImpl;
 @useResult
 $Res call({
- RelationDto<UsersDto>? poster, String? message, FileDto? photo, String? link, dynamic location, num? reviewStars, num? reviewStarsAddend, num? reviewStarsSubtrahend, List<RelationDto<UsersDto>>? tagged, List<RelationDto<UsersDto>>? taggedRemovals, List<RelationDto<UsersDto>>? taggedPrefix, List<RelationDto<UsersDto>>? taggedSuffix, bool? draft, DateTime? scheduled
+ RelationDto<UsersDto>? poster, String? message, FileDto? photo, String? link, GeopointDto? location, num? reviewStars, num? reviewStarsAddend, num? reviewStarsSubtrahend, List<RelationDto<UsersDto>>? tagged, List<RelationDto<UsersDto>>? taggedRemovals, List<RelationDto<UsersDto>>? taggedPrefix, List<RelationDto<UsersDto>>? taggedSuffix, bool? draft, DateTime? scheduled
 });
 
 
@@ -69,7 +69,7 @@ as RelationDto<UsersDto>?,message: freezed == message ? _self.message : message 
 as String?,photo: freezed == photo ? _self.photo : photo // ignore: cast_nullable_to_non_nullable
 as FileDto?,link: freezed == link ? _self.link : link // ignore: cast_nullable_to_non_nullable
 as String?,location: freezed == location ? _self.location : location // ignore: cast_nullable_to_non_nullable
-as dynamic,reviewStars: freezed == reviewStars ? _self.reviewStars : reviewStars // ignore: cast_nullable_to_non_nullable
+as GeopointDto?,reviewStars: freezed == reviewStars ? _self.reviewStars : reviewStars // ignore: cast_nullable_to_non_nullable
 as num?,reviewStarsAddend: freezed == reviewStarsAddend ? _self.reviewStarsAddend : reviewStarsAddend // ignore: cast_nullable_to_non_nullable
 as num?,reviewStarsSubtrahend: freezed == reviewStarsSubtrahend ? _self.reviewStarsSubtrahend : reviewStarsSubtrahend // ignore: cast_nullable_to_non_nullable
 as num?,tagged: freezed == tagged ? _self.tagged : tagged // ignore: cast_nullable_to_non_nullable

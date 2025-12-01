@@ -16,7 +16,9 @@ PostsPatchDto _$PostsPatchDtoFromJson(Map<String, dynamic> json) =>
           ? null
           : FileDto.fromJson(json['photo'] as String),
       link: json['link'] as String?,
-      location: json['location'],
+      location: json['location'] == null
+          ? null
+          : GeopointDto.fromJson(json['location'] as Map<String, dynamic>),
       reviewStars: json['review_stars'] as num?,
       reviewStarsAddend: json['review_stars+'] as num?,
       reviewStarsSubtrahend: json['review_stars-'] as num?,
@@ -44,7 +46,7 @@ Map<String, dynamic> _$PostsPatchDtoToJson(PostsPatchDto instance) =>
       'message': ?instance.message,
       'photo': ?instance.photo?.toJson(),
       'link': ?instance.link,
-      'location': ?instance.location,
+      'location': ?instance.location?.toJson(),
       'review_stars': ?instance.reviewStars,
       'review_stars+': ?instance.reviewStarsAddend,
       'review_stars-': ?instance.reviewStarsSubtrahend,

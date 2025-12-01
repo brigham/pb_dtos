@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
+import 'package:pb_dtos/src/tools/dump_schema.dart';
 
 void fail(String message) => throw Exception(message);
 
@@ -47,28 +48,18 @@ Future<void> preWork() async {
   }
   await Future.delayed(const Duration(seconds: 3));
 
-  final configFile = File('test/test_schema/pb_dto_gen.yaml');
-
-  // Run the generator from the project root, passing the temp config path.
+  // Run the generator from the project root
   print('Running DTO generator...');
-  final generatorScript = p.join(
-    Directory.current.path,
-    'bin',
-    'dump_schema.dart',
-  );
-  final result = await Process.run(
-    'dart',
-    ['run', generatorScript, '--config=${configFile.path}'],
-    environment: {'PB_CREDS': 'test@example.com:1234567890'},
-    stdoutEncoding: .getByName("UTF-8"),
-    stderrEncoding: .getByName("UTF-8"),
+  final generatorConfig = DumpSchemaConfig(
+    dtoOutputDir: 'test/generated_sample',
+    pocketBaseSetup: PocketBaseUrl(url: "http://127.0.0.1:8698"),
+    credentials: PocketBaseCredentials(
+      email: "test@example.com",
+      password: "1234567890",
+    ),
   );
 
-  if (result.exitCode != 0) {
-    print('Generator stdout:\n${result.stdout}');
-    print('Generator stderr:\n${result.stderr}');
-    fail('Generator failed with exit code ${result.exitCode}');
-  }
+  await dumpSchema(generatorConfig);
   print('Generator finished successfully.');
 
   print('Running build_runner.');
