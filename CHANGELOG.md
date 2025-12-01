@@ -1,3 +1,8 @@
+# 0.4.0
+
+* Rely on `pb_obtain` for downloading and launching
+  PocketBase.
+
 # 0.3.0
 
 * PocketBase `json` fields are now typed as `dynamic` instead of

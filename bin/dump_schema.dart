@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:args/args.dart';
 import 'package:pb_dtos/src/tools/dump_schema.dart';
-import 'package:pb_dtos/src/tools/obtain_pocketbase.dart';
-import 'package:pb_dtos/src/tools/start_pocketbase.dart';
+import 'package:pb_obtain/pb_obtain.dart';
 import 'package:yaml/yaml.dart';
 
 void main(List<String> arguments) async {
@@ -14,8 +13,9 @@ void main(List<String> arguments) async {
       abbr: 's',
       defaultsTo: '',
       help:
-      'Suffix to append to generated files. Useful to avoid IDEs treating goldens as real Dart files.',
-    )..addOption(
+          'Suffix to append to generated files. Useful to avoid IDEs treating goldens as real Dart files.',
+    )
+    ..addOption(
       'config',
       help: 'Path to the config file.',
       defaultsTo: 'pb_dto_gen.yaml',
@@ -48,27 +48,34 @@ void main(List<String> arguments) async {
     var obtainSpec = pocketbaseSpec['obtain'] as YamlMap?;
     if ((pocketbaseExecutable == null) == (obtainSpec == null)) {
       print(
-          "Error: One and only one of 'executable' and 'obtain' must be specified in the config file");
+        "Error: One and only one of 'executable' and 'obtain' must be specified in the config file",
+      );
       exit(1);
     }
-    ObtainPocketBaseConfig? obtainConfig;
+    ObtainConfig? obtainConfig;
     if (obtainSpec != null) {
       var pocketbaseVersion = obtainSpec['version'] as String;
       var pocketbaseDownloadDirectory = obtainSpec['release_dir'] as String;
-      obtainConfig = ObtainPocketBaseConfig(
+      obtainConfig = ObtainConfig(
         githubTag: pocketbaseVersion,
-        downloadPath: pocketbaseDownloadDirectory,
+        downloadDir: pocketbaseDownloadDirectory,
       );
     }
     var pocketbasePort = pocketbaseSpec['port'] as int;
     pocketBaseSetup = PocketBaseSpec(
-      LaunchPocketBaseConfig(
-        configurationDirectory: pocketbaseConfig,
-        pocketBaseExecutable: pocketbaseExecutable,
-        pocketBasePort: pocketbasePort,
-        detached: true,
-      ),
-      obtainPocketBaseConfig: obtainConfig,
+      pocketbaseExecutable != null
+          ? LaunchConfig.executable(
+              templateDir: pocketbaseConfig,
+              executable: ExecutableConfig(path: pocketbaseExecutable),
+              port: pocketbasePort,
+              detached: true,
+            )
+          : LaunchConfig.obtain(
+              templateDir: pocketbaseConfig,
+              port: pocketbasePort,
+              detached: true,
+              obtain: obtainConfig!,
+            ),
     );
   } else {
     exit(1);

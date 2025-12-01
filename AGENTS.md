@@ -34,11 +34,11 @@ is the default for the script.
 
 * **Persistent Data:** To start the server with a persistent database, provide a directory path:
   ```bash
-  dart run bin/start_pocketbase.dart --config test/test_schema --output .pocketbase_data
+  dart run pb_obtain:start --config test/test_schema --output .pocketbase_data
   ```
 * **Temporary Data:** To start the server with a temporary database directory, run the script without any arguments:
   ```bash
-  dart run bin/start_pocketbase.dart --config test/test_schema
+  dart run pb_obtain:start --config test/test_schema
   ```
 
 ### Code Generation

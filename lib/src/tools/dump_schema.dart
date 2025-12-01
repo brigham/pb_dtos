@@ -2,8 +2,7 @@ import 'dart:io';
 
 import 'package:dcli/dcli.dart';
 import 'package:http/http.dart' as http;
-import 'package:pb_dtos/src/tools/obtain_pocketbase.dart';
-import 'package:pb_dtos/src/tools/start_pocketbase.dart';
+import 'package:pb_obtain/pb_obtain.dart';
 
 import '../dart_dto_dumper.dart';
 import '../pocket_base_schema.dart';
@@ -17,10 +16,9 @@ class PocketBaseUrl extends PocketBaseSetup {
 }
 
 class PocketBaseSpec extends PocketBaseSetup {
-  final ObtainPocketBaseConfig? obtainPocketBaseConfig;
-  final LaunchPocketBaseConfig launchPocketBaseConfig;
+  final LaunchConfig launchConfig;
 
-  PocketBaseSpec(this.launchPocketBaseConfig, {this.obtainPocketBaseConfig});
+  PocketBaseSpec(this.launchConfig);
 }
 
 class PocketBaseCredentials {
@@ -72,27 +70,9 @@ Future<void> dumpSchema(DumpSchemaConfig config) async {
     case PocketBaseUrl pbUrl:
       pocketbaseUrl = pbUrl.url;
     case PocketBaseSpec spec:
-      var launchConfig = spec.launchPocketBaseConfig;
-      if (spec.obtainPocketBaseConfig != null) {
-        if (launchConfig.pocketBaseExecutable != null) {
-          throw ArgumentError(
-            'Cannot specify both obtainPocketBaseConfig and pocketBaseExecutable',
-          );
-        }
-        final obtainedPath = await obtainPocketBase(
-          spec.obtainPocketBaseConfig!,
-        );
-        launchConfig = LaunchPocketBaseConfig(
-          configurationDirectory: launchConfig.configurationDirectory,
-          pocketBaseExecutable: obtainedPath,
-          pocketBasePort: launchConfig.pocketBasePort,
-          detached: launchConfig.detached,
-          pocketBaseDataDirectory: launchConfig.pocketBaseDataDirectory,
-        );
-      }
-      launched = await launchPocketbase(launchConfig);
-      pocketbaseUrl =
-          "http://127.0.0.1:${spec.launchPocketBaseConfig.pocketBasePort}";
+      var launchConfig = spec.launchConfig;
+      launched = await launch(launchConfig);
+      pocketbaseUrl = "http://127.0.0.1:${spec.launchConfig.port}";
   }
 
   try {
