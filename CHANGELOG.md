@@ -1,7 +1,9 @@
 # 0.4.0
 
 * Rely on `pb_obtain` for downloading and launching
-  PocketBase.
+  PocketBase during code generation and testing.
+* Simplified config code requires lowerCamelCase field names instead of
+  snake_case.
 
 # 0.3.0
 

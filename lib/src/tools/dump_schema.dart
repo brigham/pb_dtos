@@ -1,52 +1,13 @@
 import 'dart:io';
 
 import 'package:dcli/dcli.dart';
-import 'package:http/http.dart' as http;
 import 'package:pb_obtain/pb_obtain.dart';
 
 import '../dart_dto_dumper.dart';
 import '../pocket_base_schema.dart';
-
-sealed class PocketBaseSetup {}
-
-class PocketBaseUrl extends PocketBaseSetup {
-  final String url;
-
-  PocketBaseUrl({required this.url});
-}
-
-class PocketBaseSpec extends PocketBaseSetup {
-  final LaunchConfig launchConfig;
-
-  PocketBaseSpec(this.launchConfig);
-}
-
-class PocketBaseCredentials {
-  final String email;
-  final String password;
-
-  PocketBaseCredentials({required this.email, required this.password});
-}
-
-class DumpSchemaConfig {
-  final bool verbose;
-  final String suffix;
-  final PocketBaseSetup pocketBaseSetup;
-  final String dtoOutputDir;
-  final PocketBaseCredentials? credentials;
-
-  DumpSchemaConfig({
-    this.verbose = false,
-    this.suffix = '',
-    required this.pocketBaseSetup,
-    required this.dtoOutputDir,
-    this.credentials,
-  });
-}
+import 'dump_schema_config.dart';
 
 Future<void> dumpSchema(DumpSchemaConfig config) async {
-  final suffix = config.suffix;
-
   var email = '';
   var password = '';
 
@@ -65,39 +26,19 @@ Future<void> dumpSchema(DumpSchemaConfig config) async {
   }
 
   String pocketbaseUrl;
-  Process? launched;
-  switch (config.pocketBaseSetup) {
-    case PocketBaseUrl pbUrl:
-      pocketbaseUrl = pbUrl.url;
-    case PocketBaseSpec spec:
-      var launchConfig = spec.launchConfig;
-      launched = await launch(launchConfig);
-      pocketbaseUrl = "http://127.0.0.1:${spec.launchConfig.port}";
+  PocketBaseProcess? launched;
+  if (config.pocketbaseUrl != null) {
+    pocketbaseUrl = config.pocketbaseUrl!;
+  } else if (config.launch != null) {
+    var launchConfig = config.launch!;
+    launched = await launch(launchConfig);
+    pocketbaseUrl = "http://127.0.0.1:${launchConfig.port}";
+  } else {
+    stderr.writeln("No way to find PocketBase URL.");
+    exit(1);
   }
 
   try {
-    final healthCheckUrl = Uri.parse(
-      pocketbaseUrl,
-    ).replace(path: '/api/health');
-    var serverReady = false;
-    for (var i = 0; i < 10; i++) {
-      try {
-        final response = await http.get(healthCheckUrl);
-        if (response.statusCode == 200) {
-          serverReady = true;
-          break;
-        }
-      } catch (e) {
-        print('  Connection failed: $e');
-      }
-      await Future.delayed(Duration(seconds: 1));
-    }
-
-    if (!serverReady) {
-      print('Error: PocketBase server did not start up in time.');
-      exit(1);
-    }
-
     if (email.isEmpty) {
       email = ask('Superuser email:');
       password = ask('Password:', hidden: true);
@@ -110,8 +51,8 @@ Future<void> dumpSchema(DumpSchemaConfig config) async {
     );
     var libDumper = DartDtoDumper(
       schema,
-      outputDir: config.dtoOutputDir,
-      suffix: suffix,
+      outputDir: config.outputDir,
+      suffix: config.suffix ?? "",
     );
     await libDumper.process();
 
@@ -120,7 +61,7 @@ Future<void> dumpSchema(DumpSchemaConfig config) async {
     }
   } finally {
     if (launched != null) {
-      launched.kill();
+      await launched.stop();
     }
   }
 }

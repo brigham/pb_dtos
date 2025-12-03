@@ -2,11 +2,11 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:dcli/dcli.dart';
-import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
+import 'package:pb_dtos/src/tools/credentials_config.dart';
 import 'package:pb_dtos/src/tools/dump_schema.dart';
+import 'package:pb_dtos/src/tools/dump_schema_config.dart';
 import 'package:pb_obtain/pb_obtain.dart';
-import 'package:pocketbase/pocketbase.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -14,7 +14,7 @@ void main() {
     late final Directory tempDir;
     late final String tempGenPath;
     late final Directory goldenDir;
-    Process? pbProcess;
+    PocketBaseProcess? pbProcess;
     var testFailed = false;
 
     Future<void> start() async {
@@ -22,12 +22,6 @@ void main() {
       tempGenPath = p.join(tempDir.path, 'gen');
       goldenDir = Directory(p.join('test', 'goldens'));
       print('Temp directory for generated files: ${tempDir.path}');
-
-      expect(
-        await _isPocketBaseRunning(),
-        isFalse,
-        reason: "PocketBase server was already running.",
-      );
 
       // Start PocketBase.
       var launchConfig = LaunchConfig.obtain(
@@ -37,26 +31,17 @@ void main() {
           downloadDir: p.join(env['HOME']!, 'develop', 'pocketbase'),
         ),
         port: 8696,
-        detached: true,
+        detached: false,
       );
       pbProcess = await launch(launchConfig);
-
-      // Wait for the server to be healthy by polling the health endpoint.
-      print('Waiting for PocketBase to become healthy...');
-      bool serverReady = await _isPocketBaseRunning();
-
-      if (!serverReady) {
-        fail('PocketBase server did not become healthy in time.');
-      }
-      await Future.delayed(const Duration(seconds: 3));
 
       // Run the generator from the project root
       print('Running DTO generator...');
       final generatorConfig = DumpSchemaConfig(
-        dtoOutputDir: p.join(tempGenPath, 'lib'),
-        pocketBaseSetup: PocketBaseUrl(url: "http://127.0.0.1:8696"),
+        outputDir: p.join(tempGenPath, 'lib'),
+        pocketbaseUrl: "http://127.0.0.1:8696",
         suffix: '.golden',
-        credentials: PocketBaseCredentials(
+        credentials: CredentialsConfig(
           email: "test@example.com",
           password: "1234567890",
         ),
@@ -70,9 +55,8 @@ void main() {
       print('Stopping PocketBase...');
       var process = pbProcess;
       if (process != null) {
-        process.kill(ProcessSignal.sigkill);
         expect(
-          await _isPocketBaseStopped(),
+          await process.stop(),
           isTrue,
           reason: "Could not stop PocketBase server.",
         );
@@ -180,48 +164,4 @@ void main() {
       }
     });
   });
-}
-
-/// Waits up to 20 seconds until PocketBase is running.
-Future<bool> _isPocketBaseRunning() async {
-  final healthCheckUrl = Uri.parse('http://127.0.0.1:8696/api/health');
-  var serverReady = false;
-  for (var i = 0; i < 20; i++) {
-    // 20-second timeout
-    try {
-      final response = await http.get(healthCheckUrl);
-      if (response.statusCode == 200) {
-        print('PocketBase is healthy.');
-        serverReady = true;
-        break;
-      }
-    } catch (e) {
-      // Ignore connection errors
-    }
-    await Future.delayed(const Duration(seconds: 1));
-  }
-  return serverReady;
-}
-
-/// Waits up to 20 seconds until PocketBase is stopped.
-Future<bool> _isPocketBaseStopped() async {
-  final healthCheckUrl = Uri.parse('http://127.0.0.1:8696/api/health');
-  var serverReady = true;
-  for (var i = 0; i < 20; i++) {
-    // 20-second timeout
-    try {
-      final response = await http.get(healthCheckUrl);
-      if (response.statusCode == 200) {
-        print('PocketBase is healthy.');
-        serverReady = true;
-      }
-    } on ClientException {
-      // In this case, it's still running.
-    } catch (e) {
-      serverReady = false;
-      break;
-    }
-    await Future.delayed(const Duration(seconds: 1));
-  }
-  return !serverReady;
 }

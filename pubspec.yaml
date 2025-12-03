@@ -22,7 +22,7 @@ dependencies:
   json_serializable: ^6.11.2
   archive: ^4.0.7
   crypto: ^3.0.7
-  pb_obtain: ^0.4.1
+  pb_obtain: ^0.5.0
 
 dev_dependencies:
   lints: ^4.0.0
