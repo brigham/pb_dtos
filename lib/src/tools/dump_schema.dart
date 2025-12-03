@@ -7,6 +7,35 @@ import '../dart_dto_dumper.dart';
 import '../pocket_base_schema.dart';
 import 'dump_schema_config.dart';
 
+sealed class _Either<A, B> {
+  const _Either._();
+
+  factory _Either.from(A? a, B? b) {
+    if (a != null && b != null) {
+      throw Exception("Only one element should be set.");
+    }
+    if (a != null) {
+      return _First(a);
+    } else if (b != null) {
+      return _Second(b);
+    } else {
+      throw Exception("At least one element should be set.");
+    }
+  }
+}
+
+class _First<A, B> extends _Either<A, B> {
+  final A value;
+
+  const _First(this.value) : super._();
+}
+
+class _Second<A, B> extends _Either<A, B> {
+  final B value;
+
+  _Second(this.value) : super._();
+}
+
 Future<void> dumpSchema(DumpSchemaConfig config) async {
   var email = '';
   var password = '';
@@ -27,15 +56,14 @@ Future<void> dumpSchema(DumpSchemaConfig config) async {
 
   String pocketbaseUrl;
   PocketBaseProcess? launched;
-  if (config.pocketbaseUrl != null) {
-    pocketbaseUrl = config.pocketbaseUrl!;
-  } else if (config.launch != null) {
-    var launchConfig = config.launch!;
-    launched = await launch(launchConfig);
-    pocketbaseUrl = "http://127.0.0.1:${launchConfig.port}";
-  } else {
-    stderr.writeln("No way to find PocketBase URL.");
-    exit(1);
+  var oneOf = _Either.from(config.pocketbaseUrl, config.launch);
+  switch (oneOf) {
+    case _First(:final value):
+      pocketbaseUrl = value;
+    case _Second(:final value):
+      var launchConfig = value;
+      launched = await launch(launchConfig);
+      pocketbaseUrl = "http://127.0.0.1:${launchConfig.port}";
   }
 
   try {

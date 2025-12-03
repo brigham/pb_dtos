@@ -3,40 +3,42 @@ import 'dart:io';
 import 'package:args/args.dart';
 import 'package:pb_dtos/src/tools/dump_schema.dart';
 import 'package:pb_dtos/src/tools/dump_schema_config.dart';
-import 'package:yaml/yaml.dart';
+import 'package:pb_obtain/config.dart';
+
+class _DumpSchemaConfigBuilder extends ConfigBuilder<DumpSchemaConfig> {
+  _DumpSchemaConfigBuilder(): super('pb_dto_gen.yaml');
+
+  @override
+  void addOptions(ArgParser parser) {
+    DumpSchemaConfig.addOptions(parser);
+  }
+
+  @override
+  DumpSchemaConfig configFromJson(Map json) =>
+      DumpSchemaConfig.fromJson(json);
+
+  @override
+  ({DumpSchemaConfig? config, bool pickedAny}) merge(
+    DumpSchemaConfig? config,
+    ArgResults results,
+  ) {
+    return DumpSchemaConfig.merge(config, results);
+  }
+
+  @override
+  Map<String, dynamic> toJson(DumpSchemaConfig config) => config.toJson();
+}
 
 void main(List<String> arguments) async {
-  final parser = ArgParser()
-    ..addFlag('verbose', abbr: 'v', help: 'Show verbose output.')
-    ..addOption(
-      'suffix',
-      abbr: 's',
-      defaultsTo: '',
-      help:
-          'Suffix to append to generated files. Useful to avoid IDEs treating goldens as real Dart files.',
-    )
-    ..addOption(
-      'config',
-      help: 'Path to the config file.',
-      defaultsTo: 'pb_dto_gen.yaml',
-    );
+  var builder = _DumpSchemaConfigBuilder();
+  var config = builder.buildConfig(arguments);
 
-  final argResults = parser.parse(arguments);
-
-  final configFile = File(argResults['config'] as String);
-  if (!configFile.existsSync()) {
-    print('Error: Config file not found at ${configFile.path}');
-    exit(1);
-  }
-  final configDir = loadYaml(configFile.readAsStringSync());
-  final dumpSchemaConfig = DumpSchemaConfig.fromJson(configDir);
-  if ((dumpSchemaConfig.pocketbaseUrl == null) ==
-      (dumpSchemaConfig.launch == null)) {
+  if ((config.pocketbaseUrl == null) == (config.launch == null)) {
     print(
       "Error: One and only one of 'pocketbase_url' and 'pocketbase_spec' must be specified in the config file",
     );
     exit(1);
   }
 
-  await dumpSchema(dumpSchemaConfig);
+  await dumpSchema(config);
 }

@@ -6,21 +6,35 @@ part of 'dump_schema_config.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-DumpSchemaConfig _$DumpSchemaConfigFromJson(Map<String, dynamic> json) =>
-    DumpSchemaConfig(
-      pocketbaseUrl: json['pocketbaseUrl'] as String?,
-      launch: json['launch'] == null
-          ? null
-          : LaunchConfig.fromJson(json['launch'] as Map<String, dynamic>),
-      outputDir: json['outputDir'] as String,
-      credentials: json['credentials'] == null
-          ? null
-          : CredentialsConfig.fromJson(
-              json['credentials'] as Map<String, dynamic>,
-            ),
-      suffix: json['suffix'] as String?,
-      verbose: json['verbose'] as bool? ?? false,
-    );
+DumpSchemaConfig _$DumpSchemaConfigFromJson(Map json) =>
+    $checkedCreate('DumpSchemaConfig', json, ($checkedConvert) {
+      $checkKeys(
+        json,
+        allowedKeys: const [
+          'pocketbaseUrl',
+          'launch',
+          'outputDir',
+          'credentials',
+          'suffix',
+          'verbose',
+        ],
+      );
+      final val = DumpSchemaConfig(
+        pocketbaseUrl: $checkedConvert('pocketbaseUrl', (v) => v as String?),
+        launch: $checkedConvert(
+          'launch',
+          (v) => v == null ? null : LaunchConfig.fromJson(v as Map),
+        ),
+        outputDir: $checkedConvert('outputDir', (v) => v as String),
+        credentials: $checkedConvert(
+          'credentials',
+          (v) => v == null ? null : CredentialsConfig.fromJson(v as Map),
+        ),
+        suffix: $checkedConvert('suffix', (v) => v as String?),
+        verbose: $checkedConvert('verbose', (v) => v as bool? ?? false),
+      );
+      return val;
+    });
 
 Map<String, dynamic> _$DumpSchemaConfigToJson(DumpSchemaConfig instance) =>
     <String, dynamic>{
