@@ -118,7 +118,7 @@ class PostsDto with _$PostsDto implements Dto<PostsDto> {
 
   @override
   final RelationDto<UsersDto> poster;
-  @JsonKey(toJson: Dto.optionalStringToJson)
+  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: "")
   @override
   final String message;
   @override

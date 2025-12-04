@@ -17,7 +17,8 @@ part 'blocks_dto.g.dart';
 
 enum BlocksTypeEnum {
   mute("mute"),
-  block("block");
+  block("block"),
+  $unset("unset");
 
   final String value;
   const BlocksTypeEnum(this.value);
@@ -119,6 +120,7 @@ class BlocksDto with _$BlocksDto implements Dto<BlocksDto> {
   final RelationDto<UsersDto> blocker;
   @override
   final RelationDto<UsersDto> blocked;
+  @JsonKey(defaultValue: BlocksTypeEnum.$unset)
   @override
   final BlocksTypeEnum type;
   @JsonKey(toJson: Dto.optionalStringToJson)

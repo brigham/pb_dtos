@@ -89,7 +89,7 @@ class PermissionsDto with _$PermissionsDto implements Dto<PermissionsDto> {
 
   PermissionsDto({required this.name, this.id = "", this.expand});
 
-  @JsonKey(toJson: Dto.optionalStringToJson)
+  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: "")
   @override
   final String name;
   @JsonKey(toJson: Dto.optionalStringToJson)

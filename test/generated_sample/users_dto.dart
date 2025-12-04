@@ -153,7 +153,7 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
   @JsonKey(toJson: Dto.optionalStringToJson)
   @override
   final String tokenKey;
-  @JsonKey(toJson: Dto.optionalStringToJson)
+  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: "")
   @override
   final String email;
   @JsonKey(toJson: Dto.optionalBoolToJson)

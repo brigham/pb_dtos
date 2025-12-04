@@ -18,7 +18,8 @@ part 'friends_dto.g.dart';
 enum FriendsStateEnum {
   pending("pending"),
   accepted("accepted"),
-  rejected("rejected");
+  rejected("rejected"),
+  $unset("unset");
 
   final String value;
   const FriendsStateEnum(this.value);
@@ -154,6 +155,7 @@ class FriendsDto with _$FriendsDto implements Dto<FriendsDto> {
   final RelationDto<UsersDto> requester;
   @override
   final RelationDto<UsersDto> accepter;
+  @JsonKey(defaultValue: FriendsStateEnum.$unset)
   @override
   final FriendsStateEnum state;
   @JsonKey(toJson: Dto.optionalStringToJson)

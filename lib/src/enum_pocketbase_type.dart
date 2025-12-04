@@ -27,7 +27,7 @@ class EnumPocketbaseType extends PocketbaseTypeBase {
     return {
       enumName:
           "enum $enumName { "
-          "$enumValues; final String value; "
+          "$enumValues, \$unset(\"unset\"); final String value; "
           "const $enumName(this.value);"
           "@override String toString() => this.value;  }\n",
     };
@@ -67,7 +67,7 @@ class EnumPocketbaseType extends PocketbaseTypeBase {
   ) {
     if (field.data['maxSelect'] == 1) {
       if ((field.data['required'] ?? true)) {
-        return "${_enumName(collection, field)}.none";
+        return "${_enumName(collection, field)}.\$unset";
       } else {
         return "null";
       }

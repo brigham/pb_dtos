@@ -27,4 +27,5 @@ Map<String, dynamic> _$BlocksPatchDtoToJson(BlocksPatchDto instance) =>
 const _$BlocksTypeEnumEnumMap = {
   BlocksTypeEnum.mute: 'mute',
   BlocksTypeEnum.block: 'block',
+  BlocksTypeEnum.$unset: r'$unset',
 };
