@@ -42,8 +42,8 @@ migrate((app) => {
         "unique": false,
         "maxSelect": 1,
         "maxSize": 5242880,
-        "mimeTypes": [],
-        "thumbs": [],
+        "mimeTypes": ["image/jpeg", "image/png", "image/gif", "image/webp"],
+        "thumbs": ['50x50', '150x150'],
         "protected": false
     }));
 

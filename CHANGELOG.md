@@ -1,3 +1,7 @@
+# 0.4.2
+
+* Add `thumb` parameter to `toUri`.
+
 # 0.4.1
 
 * Fix CLI bug with mutually exclusive options.

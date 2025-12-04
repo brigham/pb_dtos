@@ -31,3 +31,4 @@ dev_dependencies:
   mockito: ^5.5.1
   build_runner: ^2.10.1
   freezed: ^3.2.3
+  image_size_getter: ^2.4.1
