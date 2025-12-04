@@ -116,6 +116,7 @@ Dumping the schema
     var (config: mergedLaunch, pickedAny: launchPickedAny) = LaunchConfig.merge(
       config?.launch,
       results,
+      required: false,
     );
 
     var pickedAny = picker.pickedAny || launchPickedAny;

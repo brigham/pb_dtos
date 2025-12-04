@@ -1,3 +1,7 @@
+# 0.4.1
+
+* Fix CLI bug with mutually exclusive options.
+
 # 0.4.0
 
 * Rely on `pb_obtain` for downloading and launching
