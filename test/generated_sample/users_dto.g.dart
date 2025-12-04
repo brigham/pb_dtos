@@ -9,7 +9,6 @@ part of 'users_dto.dart';
 UsersDto _$UsersDtoFromJson(Map<String, dynamic> json) => UsersDto(
   id: json['id'] as String? ?? "",
   password: json['password'] as String? ?? "",
-  tokenKey: json['tokenKey'] as String? ?? "",
   email: json['email'] as String? ?? '',
   emailVisibility: json['emailVisibility'] as bool? ?? false,
   verified: json['verified'] as bool? ?? false,
@@ -40,7 +39,6 @@ UsersDto _$UsersDtoFromJson(Map<String, dynamic> json) => UsersDto(
 Map<String, dynamic> _$UsersDtoToJson(UsersDto instance) => <String, dynamic>{
   'id': ?Dto.optionalStringToJson(instance.id),
   'password': ?Dto.optionalStringToJson(instance.password),
-  'tokenKey': ?Dto.optionalStringToJson(instance.tokenKey),
   'email': ?Dto.optionalStringToJson(instance.email),
   'emailVisibility': ?Dto.optionalBoolToJson(instance.emailVisibility),
   'verified': ?Dto.optionalBoolToJson(instance.verified),

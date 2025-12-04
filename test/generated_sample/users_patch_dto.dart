@@ -14,7 +14,6 @@ part 'users_patch_dto.g.dart';
 class UsersPatchDto with _$UsersPatchDto implements PatchDto<UsersDto> {
   UsersPatchDto({
     this.password,
-    this.tokenKey,
     this.email,
     this.emailVisibility,
     this.verified,
@@ -30,9 +29,6 @@ class UsersPatchDto with _$UsersPatchDto implements PatchDto<UsersDto> {
 
   @override
   String? password;
-
-  @override
-  String? tokenKey;
 
   @override
   String? email;

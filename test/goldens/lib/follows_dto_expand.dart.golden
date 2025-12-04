@@ -31,13 +31,19 @@ part 'follows_dto_expand.g.dart';
 
 enum FollowsDtoExpandEnum<V>
     implements DtoExpandEnum<FollowsDto>, DtoTypedField<FollowsDto, V> {
-  follower<RelationDto<UsersDto>>("follower"),
-  following<RelationDto<UsersDto>>("following");
+  follower<RelationDto<UsersDto>>('relation3117812038', "follower"),
+  following<RelationDto<UsersDto>>('relation1908379107', "following");
 
-  const FollowsDtoExpandEnum(this.pbName);
+  const FollowsDtoExpandEnum(this.pbId, this.pbName);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  DtoFieldSettings? get settings => null;
 }
 
 class FollowsDtoExpand<D extends Dto<D>> extends DtoExpand<D, FollowsDto> {

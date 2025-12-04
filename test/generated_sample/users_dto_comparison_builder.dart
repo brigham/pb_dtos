@@ -23,11 +23,6 @@ class UsersDtoComparisonBuilder<D extends Dto<D>>
         fieldPath.terminate(UsersDtoFieldEnum.password),
         handler,
       );
-  TerminalRelationComparisonBuilder<D, String> tokenKey() =>
-      TerminalRelationComparisonBuilder(
-        fieldPath.terminate(UsersDtoFieldEnum.tokenKey),
-        handler,
-      );
   TerminalRelationComparisonBuilder<D, String> email() =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(UsersDtoFieldEnum.email),
@@ -130,11 +125,6 @@ class UsersDtoMultirelComparisonBuilder<D extends Dto<D>>
   TerminalMultivalRelationComparisonBuilder<D, String> password() =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(UsersDtoFieldEnum.password),
-        handler,
-      );
-  TerminalMultivalRelationComparisonBuilder<D, String> tokenKey() =>
-      TerminalMultivalRelationComparisonBuilder(
-        fieldPath.terminate(UsersDtoFieldEnum.tokenKey),
         handler,
       );
   TerminalMultivalRelationComparisonBuilder<D, String> email() =>

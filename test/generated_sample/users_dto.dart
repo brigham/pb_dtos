@@ -17,23 +17,107 @@ part 'users_dto.freezed.dart';
 part 'users_dto.g.dart';
 
 enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
-  id<String>('id'),
-  password<String>('password'),
-  tokenKey<String>('tokenKey'),
-  email<String>('email'),
-  emailVisibility<bool>('emailVisibility'),
-  verified<bool>('verified'),
-  name_<String>('name'),
-  avatar<FileDto>('avatar'),
-  roles<RelationDto<RolesDto>>('roles'),
-  birthday<DateTime>('birthday'),
-  created<DateTime>('created'),
-  updated<DateTime>('updated');
+  id<String>(
+    'text3208210256',
+    'id',
+    DtoTextFieldSettings(
+      required: true,
+      autogeneratePattern: "[a-z0-9]{15}",
+      min: 15,
+      max: 15,
+      pattern: r"^[a-z0-9]+$",
+    ),
+  ),
+  password<String>(
+    'password901924565',
+    'password',
+    DtoPasswordFieldSettings(required: true, pattern: "", min: 8, max: 0),
+  ),
+  email<String>(
+    'email3885137012',
+    'email',
+    DtoEmailFieldSettings(
+      required: true,
+      exceptDomains: [],
+      onlyDomains: [],
+    ),
+  ),
+  emailVisibility<bool>(
+    'bool1547992806',
+    'emailVisibility',
+    DtoBoolFieldSettings(required: false),
+  ),
+  verified<bool>(
+    'bool256245529',
+    'verified',
+    DtoBoolFieldSettings(required: false),
+  ),
+  name_<String>(
+    'text1579384326',
+    'name',
+    DtoTextFieldSettings(
+      required: false,
+      autogeneratePattern: "",
+      min: 0,
+      max: 255,
+      pattern: "",
+    ),
+  ),
+  avatar<FileDto>(
+    'file376926767',
+    'avatar',
+    DtoFileFieldSettings(
+      required: false,
+      maxSize: 0,
+      maxSelect: 1,
+      mimeTypes: [
+        "image/jpeg",
+        "image/png",
+        "image/svg+xml",
+        "image/gif",
+        "image/webp",
+      ],
+      thumbs: [],
+      protected: false,
+    ),
+  ),
+  roles<RelationDto<RolesDto>>(
+    'relation3057528519',
+    'roles',
+    DtoRelationFieldSettings(
+      required: false,
+      collectionId: "pbc_2105053228",
+      cascadeDelete: false,
+      minSelect: 0,
+      maxSelect: 999,
+    ),
+  ),
+  birthday<DateTime>(
+    'date1191818290',
+    'birthday',
+    DtoDateFieldSettings(required: false, min: null, max: null),
+  ),
+  created<DateTime>(
+    'autodate2990389176',
+    'created',
+    DtoAutodateFieldSettings(onCreate: true, onUpdate: false),
+  ),
+  updated<DateTime>(
+    'autodate3332085495',
+    'updated',
+    DtoAutodateFieldSettings(onCreate: true, onUpdate: true),
+  );
 
-  const UsersDtoFieldEnum(this.pbName);
+  const UsersDtoFieldEnum(this.pbId, this.pbName, this.settings);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  final DtoFieldSettings settings;
 }
 
 @freezed
@@ -53,18 +137,6 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
     var filter = UsersDtoFilter();
     builder(filter);
     return filter;
-  }
-
-  static UsersDtoFilter filterByIdxTokenKeyPbUsersAuth(String tokenKey) {
-    final f = UsersDtoFilter();
-    f.tokenKey().equal(tokenKey);
-    return f;
-  }
-
-  static UsersDtoSort<UsersDto> sortByIdxTokenKeyPbUsersAuth() {
-    final s = UsersDtoSort<UsersDto>();
-    s.tokenKey();
-    return s;
   }
 
   static UsersDtoFilter filterByIdxEmailPbUsersAuth(String email) {
@@ -88,7 +160,6 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
   @override
   UsersPatchDto asPatch() => UsersPatchDto()
     ..password = password
-    ..tokenKey = tokenKey
     ..email = email
     ..emailVisibility = emailVisibility
     ..verified = verified
@@ -100,7 +171,6 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
   @override
   UsersPatchDto diff(UsersDto newValue) => UsersPatchDto()
     ..password = password != newValue.password ? newValue.password : null
-    ..tokenKey = tokenKey != newValue.tokenKey ? newValue.tokenKey : null
     ..email = email != newValue.email ? newValue.email : null
     ..emailVisibility = emailVisibility != newValue.emailVisibility
         ? newValue.emailVisibility
@@ -130,7 +200,6 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
   UsersDto({
     this.id = "",
     this.password = "",
-    this.tokenKey = "",
     required this.email,
     this.emailVisibility = false,
     this.verified = false,
@@ -150,9 +219,6 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
   @JsonKey(toJson: Dto.optionalStringToJson)
   @override
   final String password;
-  @JsonKey(toJson: Dto.optionalStringToJson)
-  @override
-  final String tokenKey;
   @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: "")
   @override
   final String email;

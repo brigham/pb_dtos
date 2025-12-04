@@ -19,11 +19,6 @@ class UsersDtoFieldSelect<D extends Dto<D>>
 
   void password() => $addField(UsersDtoFieldEnum.password);
 
-  ModifiableStringField tokenKey() {
-    $addField(UsersDtoFieldEnum.tokenKey);
-    return ModifiableStringField($parts, $nextIndex);
-  }
-
   void email() => $addField(UsersDtoFieldEnum.email);
 
   void emailVisibility() => $addField(UsersDtoFieldEnum.emailVisibility);
@@ -105,8 +100,6 @@ class UsersDtoNestedFieldSelect<D extends Dto<D>>
   void id() => $addField(UsersDtoFieldEnum.id);
 
   void password() => $addField(UsersDtoFieldEnum.password);
-
-  void tokenKey() => $addField(UsersDtoFieldEnum.tokenKey);
 
   void email() => $addField(UsersDtoFieldEnum.email);
 

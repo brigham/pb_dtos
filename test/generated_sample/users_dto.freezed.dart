@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UsersDto {
 
- String get id; String get password; String get tokenKey; String get email; bool get emailVisibility; bool get verified; String get name; FileDto? get avatar; List<RelationDto<RolesDto>> get roles; DateTime? get birthday; DateTime? get created; DateTime? get updated; UsersExpandDto? get expand; String? get passwordConfirm;
+ String get id; String get password; String get email; bool get emailVisibility; bool get verified; String get name; FileDto? get avatar; List<RelationDto<RolesDto>> get roles; DateTime? get birthday; DateTime? get created; DateTime? get updated; UsersExpandDto? get expand; String? get passwordConfirm;
 /// Create a copy of UsersDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $UsersDtoCopyWith<UsersDto> get copyWith => _$UsersDtoCopyWithImpl<UsersDto>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersDto&&(identical(other.id, id) || other.id == id)&&(identical(other.password, password) || other.password == password)&&(identical(other.tokenKey, tokenKey) || other.tokenKey == tokenKey)&&(identical(other.email, email) || other.email == email)&&(identical(other.emailVisibility, emailVisibility) || other.emailVisibility == emailVisibility)&&(identical(other.verified, verified) || other.verified == verified)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&const DeepCollectionEquality().equals(other.roles, roles)&&(identical(other.birthday, birthday) || other.birthday == birthday)&&(identical(other.created, created) || other.created == created)&&(identical(other.updated, updated) || other.updated == updated)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other.passwordConfirm, passwordConfirm) || other.passwordConfirm == passwordConfirm));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersDto&&(identical(other.id, id) || other.id == id)&&(identical(other.password, password) || other.password == password)&&(identical(other.email, email) || other.email == email)&&(identical(other.emailVisibility, emailVisibility) || other.emailVisibility == emailVisibility)&&(identical(other.verified, verified) || other.verified == verified)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&const DeepCollectionEquality().equals(other.roles, roles)&&(identical(other.birthday, birthday) || other.birthday == birthday)&&(identical(other.created, created) || other.created == created)&&(identical(other.updated, updated) || other.updated == updated)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other.passwordConfirm, passwordConfirm) || other.passwordConfirm == passwordConfirm));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,password,tokenKey,email,emailVisibility,verified,name,avatar,const DeepCollectionEquality().hash(roles),birthday,created,updated,expand,passwordConfirm);
+int get hashCode => Object.hash(runtimeType,id,password,email,emailVisibility,verified,name,avatar,const DeepCollectionEquality().hash(roles),birthday,created,updated,expand,passwordConfirm);
 
 @override
 String toString() {
-  return 'UsersDto(id: $id, password: $password, tokenKey: $tokenKey, email: $email, emailVisibility: $emailVisibility, verified: $verified, name: $name, avatar: $avatar, roles: $roles, birthday: $birthday, created: $created, updated: $updated, expand: $expand, passwordConfirm: $passwordConfirm)';
+  return 'UsersDto(id: $id, password: $password, email: $email, emailVisibility: $emailVisibility, verified: $verified, name: $name, avatar: $avatar, roles: $roles, birthday: $birthday, created: $created, updated: $updated, expand: $expand, passwordConfirm: $passwordConfirm)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $UsersDtoCopyWith<$Res>  {
   factory $UsersDtoCopyWith(UsersDto value, $Res Function(UsersDto) _then) = _$UsersDtoCopyWithImpl;
 @useResult
 $Res call({
- String id, String password, String tokenKey, String email, bool emailVisibility, bool verified, String name, FileDto? avatar, List<RelationDto<RolesDto>> roles, DateTime? birthday, DateTime? created, DateTime? updated, UsersExpandDto? expand, String? passwordConfirm
+ String id, String password, String email, bool emailVisibility, bool verified, String name, FileDto? avatar, List<RelationDto<RolesDto>> roles, DateTime? birthday, DateTime? created, DateTime? updated, UsersExpandDto? expand, String? passwordConfirm
 });
 
 
@@ -63,11 +63,10 @@ class _$UsersDtoCopyWithImpl<$Res>
 
 /// Create a copy of UsersDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? password = null,Object? tokenKey = null,Object? email = null,Object? emailVisibility = null,Object? verified = null,Object? name = null,Object? avatar = freezed,Object? roles = null,Object? birthday = freezed,Object? created = freezed,Object? updated = freezed,Object? expand = freezed,Object? passwordConfirm = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? password = null,Object? email = null,Object? emailVisibility = null,Object? verified = null,Object? name = null,Object? avatar = freezed,Object? roles = null,Object? birthday = freezed,Object? created = freezed,Object? updated = freezed,Object? expand = freezed,Object? passwordConfirm = freezed,}) {
   return _then(UsersDto(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,password: null == password ? _self.password : password // ignore: cast_nullable_to_non_nullable
-as String,tokenKey: null == tokenKey ? _self.tokenKey : tokenKey // ignore: cast_nullable_to_non_nullable
 as String,email: null == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
 as String,emailVisibility: null == emailVisibility ? _self.emailVisibility : emailVisibility // ignore: cast_nullable_to_non_nullable
 as bool,verified: null == verified ? _self.verified : verified // ignore: cast_nullable_to_non_nullable

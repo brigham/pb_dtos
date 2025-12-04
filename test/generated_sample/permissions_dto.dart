@@ -15,13 +15,39 @@ part 'permissions_dto.freezed.dart';
 part 'permissions_dto.g.dart';
 
 enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
-  name_<String>('name'),
-  id<String>('id');
+  name_<String>(
+    'text1579384326',
+    'name',
+    DtoTextFieldSettings(
+      required: true,
+      autogeneratePattern: "",
+      min: 1,
+      max: 0,
+      pattern: "",
+    ),
+  ),
+  id<String>(
+    'text3208210256',
+    'id',
+    DtoTextFieldSettings(
+      required: true,
+      autogeneratePattern: "[a-z0-9]{15}",
+      min: 15,
+      max: 15,
+      pattern: r"^[a-z0-9]+$",
+    ),
+  );
 
-  const PermissionsDtoFieldEnum(this.pbName);
+  const PermissionsDtoFieldEnum(this.pbId, this.pbName, this.settings);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  final DtoFieldSettings settings;
 }
 
 @freezed

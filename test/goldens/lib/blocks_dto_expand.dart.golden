@@ -31,13 +31,19 @@ part 'blocks_dto_expand.g.dart';
 
 enum BlocksDtoExpandEnum<V>
     implements DtoExpandEnum<BlocksDto>, DtoTypedField<BlocksDto, V> {
-  blocker<RelationDto<UsersDto>>("blocker"),
-  blocked<RelationDto<UsersDto>>("blocked");
+  blocker<RelationDto<UsersDto>>('relation780230353', "blocker"),
+  blocked<RelationDto<UsersDto>>('relation3663063936', "blocked");
 
-  const BlocksDtoExpandEnum(this.pbName);
+  const BlocksDtoExpandEnum(this.pbId, this.pbName);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  DtoFieldSettings? get settings => null;
 }
 
 class BlocksDtoExpand<D extends Dto<D>> extends DtoExpand<D, BlocksDto> {

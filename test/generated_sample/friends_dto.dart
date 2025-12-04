@@ -28,15 +28,59 @@ enum FriendsStateEnum {
 }
 
 enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
-  requester<RelationDto<UsersDto>>('requester'),
-  accepter<RelationDto<UsersDto>>('accepter'),
-  state<FriendsStateEnum>('state'),
-  id<String>('id');
+  requester<RelationDto<UsersDto>>(
+    'relation1820765950',
+    'requester',
+    DtoRelationFieldSettings(
+      required: true,
+      collectionId: "_pb_users_auth_",
+      cascadeDelete: false,
+      minSelect: 1,
+      maxSelect: 1,
+    ),
+  ),
+  accepter<RelationDto<UsersDto>>(
+    'relation2194227999',
+    'accepter',
+    DtoRelationFieldSettings(
+      required: true,
+      collectionId: "_pb_users_auth_",
+      cascadeDelete: false,
+      minSelect: 1,
+      maxSelect: 1,
+    ),
+  ),
+  state<FriendsStateEnum>(
+    'select2744374011',
+    'state',
+    DtoSelectFieldSettings(
+      required: true,
+      values: ["pending", "accepted", "rejected"],
+      maxSelect: 1,
+    ),
+  ),
+  id<String>(
+    'text3208210256',
+    'id',
+    DtoTextFieldSettings(
+      required: true,
+      autogeneratePattern: "[a-z0-9]{15}",
+      min: 15,
+      max: 15,
+      pattern: r"^[a-z0-9]+$",
+    ),
+  );
 
-  const FriendsDtoFieldEnum(this.pbName);
+  const FriendsDtoFieldEnum(this.pbId, this.pbName, this.settings);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  final DtoFieldSettings settings;
 }
 
 @freezed

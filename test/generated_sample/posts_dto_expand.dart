@@ -12,13 +12,19 @@ part 'posts_dto_expand.g.dart';
 
 enum PostsDtoExpandEnum<V>
     implements DtoExpandEnum<PostsDto>, DtoTypedField<PostsDto, V> {
-  poster<RelationDto<UsersDto>>("poster"),
-  tagged<RelationDto<UsersDto>>("tagged");
+  poster<RelationDto<UsersDto>>('relation762383602', "poster"),
+  tagged<RelationDto<UsersDto>>('relation1008703541', "tagged");
 
-  const PostsDtoExpandEnum(this.pbName);
+  const PostsDtoExpandEnum(this.pbId, this.pbName);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  DtoFieldSettings? get settings => null;
 }
 
 class PostsDtoExpand<D extends Dto<D>> extends DtoExpand<D, PostsDto> {

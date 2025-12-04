@@ -28,6 +28,9 @@ class DumpSchemaConfig with _$DumpSchemaConfig {
   @override
   final bool verbose;
 
+  @override
+  final bool debug;
+
   void _validate() {
     if ((pocketbaseUrl == null) == (launch == null)) {
       throw ArgumentError.value(
@@ -60,6 +63,7 @@ class DumpSchemaConfig with _$DumpSchemaConfig {
     this.credentials,
     this.suffix,
     this.verbose = false,
+    this.debug = false,
   }) {
     _validate();
   }
@@ -70,7 +74,8 @@ class DumpSchemaConfig with _$DumpSchemaConfig {
       outputDir = '',
       credentials = null,
       suffix = '',
-      verbose = false;
+      verbose = false,
+      debug = false;
 
   factory DumpSchemaConfig.fromJson(Map json) =>
       _$DumpSchemaConfigFromJson(json);
@@ -80,6 +85,7 @@ class DumpSchemaConfig with _$DumpSchemaConfig {
   static void addOptions(ArgParser parser) {
     parser
       ..addFlag('verbose', abbr: 'v', help: 'Enable verbose output.')
+      ..addFlag('debug', help: 'Enable debug output.')
       ..addSeparator(
         '''
 Dumping the schema
@@ -109,6 +115,7 @@ Dumping the schema
     var picker = ArgPicker(config, results);
 
     bool? verbose = picker.pickFlag('verbose');
+    bool? debug = picker.pickFlag('debug');
     String? instanceUrl = picker.pickString('url');
     String? outputDir = picker.pickString('output-dir');
     String? suffix = picker.pickString('suffix');
@@ -129,6 +136,7 @@ Dumping the schema
         outputDir: outputDir ?? config.outputDir,
         suffix: suffix ?? config.suffix,
         verbose: verbose ?? config.verbose,
+        debug: debug ?? config.debug,
       );
     }
 

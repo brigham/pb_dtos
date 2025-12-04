@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DumpSchemaConfig {
 
- String? get pocketbaseUrl; LaunchConfig? get launch; String get outputDir; CredentialsConfig? get credentials; String? get suffix; bool get verbose;
+ String? get pocketbaseUrl; LaunchConfig? get launch; String get outputDir; CredentialsConfig? get credentials; String? get suffix; bool get verbose; bool get debug;
 /// Create a copy of DumpSchemaConfig
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $DumpSchemaConfigCopyWith<DumpSchemaConfig> get copyWith => _$DumpSchemaConfigCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DumpSchemaConfig&&(identical(other.pocketbaseUrl, pocketbaseUrl) || other.pocketbaseUrl == pocketbaseUrl)&&(identical(other.launch, launch) || other.launch == launch)&&(identical(other.outputDir, outputDir) || other.outputDir == outputDir)&&(identical(other.credentials, credentials) || other.credentials == credentials)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.verbose, verbose) || other.verbose == verbose));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DumpSchemaConfig&&(identical(other.pocketbaseUrl, pocketbaseUrl) || other.pocketbaseUrl == pocketbaseUrl)&&(identical(other.launch, launch) || other.launch == launch)&&(identical(other.outputDir, outputDir) || other.outputDir == outputDir)&&(identical(other.credentials, credentials) || other.credentials == credentials)&&(identical(other.suffix, suffix) || other.suffix == suffix)&&(identical(other.verbose, verbose) || other.verbose == verbose)&&(identical(other.debug, debug) || other.debug == debug));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,pocketbaseUrl,launch,outputDir,credentials,suffix,verbose);
+int get hashCode => Object.hash(runtimeType,pocketbaseUrl,launch,outputDir,credentials,suffix,verbose,debug);
 
 @override
 String toString() {
-  return 'DumpSchemaConfig(pocketbaseUrl: $pocketbaseUrl, launch: $launch, outputDir: $outputDir, credentials: $credentials, suffix: $suffix, verbose: $verbose)';
+  return 'DumpSchemaConfig(pocketbaseUrl: $pocketbaseUrl, launch: $launch, outputDir: $outputDir, credentials: $credentials, suffix: $suffix, verbose: $verbose, debug: $debug)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $DumpSchemaConfigCopyWith<$Res>  {
   factory $DumpSchemaConfigCopyWith(DumpSchemaConfig value, $Res Function(DumpSchemaConfig) _then) = _$DumpSchemaConfigCopyWithImpl;
 @useResult
 $Res call({
- String? pocketbaseUrl, LaunchConfig? launch, String outputDir, CredentialsConfig? credentials, String? suffix, bool verbose
+ String? pocketbaseUrl, LaunchConfig? launch, String outputDir, CredentialsConfig? credentials, String? suffix, bool verbose, bool debug
 });
 
 
@@ -63,7 +63,7 @@ class _$DumpSchemaConfigCopyWithImpl<$Res>
 
 /// Create a copy of DumpSchemaConfig
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? pocketbaseUrl = freezed,Object? launch = freezed,Object? outputDir = null,Object? credentials = freezed,Object? suffix = freezed,Object? verbose = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? pocketbaseUrl = freezed,Object? launch = freezed,Object? outputDir = null,Object? credentials = freezed,Object? suffix = freezed,Object? verbose = null,Object? debug = null,}) {
   return _then(DumpSchemaConfig(
 pocketbaseUrl: freezed == pocketbaseUrl ? _self.pocketbaseUrl : pocketbaseUrl // ignore: cast_nullable_to_non_nullable
 as String?,launch: freezed == launch ? _self.launch : launch // ignore: cast_nullable_to_non_nullable
@@ -71,6 +71,7 @@ as LaunchConfig?,outputDir: null == outputDir ? _self.outputDir : outputDir // i
 as String,credentials: freezed == credentials ? _self.credentials : credentials // ignore: cast_nullable_to_non_nullable
 as CredentialsConfig?,suffix: freezed == suffix ? _self.suffix : suffix // ignore: cast_nullable_to_non_nullable
 as String?,verbose: null == verbose ? _self.verbose : verbose // ignore: cast_nullable_to_non_nullable
+as bool,debug: null == debug ? _self.debug : debug // ignore: cast_nullable_to_non_nullable
 as bool,
   ));
 }

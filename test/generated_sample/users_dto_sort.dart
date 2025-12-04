@@ -18,9 +18,6 @@ class UsersDtoSort<D extends Dto<D>> extends DtoSort<D, UsersDto> {
   void password({bool desc = false}) =>
       addField(UsersDtoFieldEnum.password, desc);
 
-  void tokenKey({bool desc = false}) =>
-      addField(UsersDtoFieldEnum.tokenKey, desc);
-
   void email({bool desc = false}) => addField(UsersDtoFieldEnum.email, desc);
 
   void emailVisibility({bool desc = false}) =>

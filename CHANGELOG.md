@@ -1,6 +1,8 @@
 # 0.4.2
 
 * Add `thumb` parameter to `toUri`.
+* Add `pbId` and `settings` to generated field enum.
+* Add `debug` options to dump_schema.
 
 # 0.4.1
 

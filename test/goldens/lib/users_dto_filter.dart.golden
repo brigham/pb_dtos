@@ -26,8 +26,6 @@ class UsersDtoFilter extends DtoFilter<UsersDto> {
       ComparisonBuilder.field(UsersDtoFieldEnum.id, add);
   ComparisonBuilder<UsersDto, String> password() =>
       ComparisonBuilder.field(UsersDtoFieldEnum.password, add);
-  ComparisonBuilder<UsersDto, String> tokenKey() =>
-      ComparisonBuilder.field(UsersDtoFieldEnum.tokenKey, add);
   ComparisonBuilder<UsersDto, String> email() =>
       ComparisonBuilder.field(UsersDtoFieldEnum.email, add);
   ComparisonBuilder<UsersDto, bool> emailVisibility() =>

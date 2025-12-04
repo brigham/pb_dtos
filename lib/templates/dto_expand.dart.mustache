@@ -24,17 +24,23 @@ part '{{collection.name}}_dto_expand.g.dart';
 {{#has_relations}}
     enum {{dto_expand_class_name}}Enum<V> implements DtoExpandEnum<{{class_name}}>, DtoTypedField<{{class_name}}, V> {
     {{#relations}}
-        {{snake_name}}<RelationDto<{{solo_type}}>>("{{name}}"),
+        {{snake_name}}<RelationDto<{{solo_type}}>>('{{id}}', "{{name}}"),
     {{/relations}}
     {{#back_relations}}
-        {{snake_name}}<RelationDto<{{solo_type}}>>("{{name}}"),
+        {{snake_name}}<RelationDto<{{solo_type}}>>('{{id}}', "{{name}}"),
     {{/back_relations}}
     ;
 
-    const {{dto_expand_class_name}}Enum(this.pbName);
+    const {{dto_expand_class_name}}Enum(this.pbId, this.pbName);
+
+    @override
+    final String pbId;
 
     @override
     final String pbName;
+
+    @override
+    DtoFieldSettings? get settings => null;
     }
 
     class {{class_name}}Expand<D extends Dto<D>> extends DtoExpand<D, {{class_name}}> {

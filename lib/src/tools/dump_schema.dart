@@ -81,6 +81,7 @@ Future<void> dumpSchema(DumpSchemaConfig config) async {
       schema,
       outputDir: config.outputDir,
       suffix: config.suffix ?? "",
+      debug: config.debug,
     );
     await libDumper.process();
 

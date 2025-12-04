@@ -9,7 +9,6 @@ part of 'users_patch_dto.dart';
 UsersPatchDto _$UsersPatchDtoFromJson(Map<String, dynamic> json) =>
     UsersPatchDto(
       password: json['password'] as String?,
-      tokenKey: json['tokenKey'] as String?,
       email: json['email'] as String?,
       emailVisibility: json['emailVisibility'] as bool?,
       verified: json['verified'] as bool?,
@@ -37,7 +36,6 @@ UsersPatchDto _$UsersPatchDtoFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$UsersPatchDtoToJson(UsersPatchDto instance) =>
     <String, dynamic>{
       'password': ?instance.password,
-      'tokenKey': ?instance.tokenKey,
       'email': ?instance.email,
       'emailVisibility': ?instance.emailVisibility,
       'verified': ?instance.verified,

@@ -5,6 +5,7 @@ import 'dart:math';
 
 import 'package:http/http.dart' as http;
 import 'package:image_size_getter/image_size_getter.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
 import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pocketbase_api_client.dart';
@@ -204,27 +205,25 @@ void main() {
         var bytes = await http.readBytes(uri);
         expect(bytes, decodedImage);
 
-        uri = post.photo!.toUri(PostsDto.meta(), post, thumb: '50x50')!;
-        expect(
-          uri.toString(),
-          startsWith('/api/files/posts/${post.id}/green_square_'),
-        );
-        expect(uri.toString(), endsWith('.png?thumb=50x50'));
-        uri = pocketBaseUri.resolve(uri.toString());
-        bytes = await http.readBytes(uri);
-        var imageSizeResult = ImageSizeGetter.getSizeResult(MemoryInput(bytes));
-        expect(imageSizeResult.size, Size(50, 50));
-
-        uri = post.photo!.toUri(PostsDto.meta(), post, thumb: '150x150')!;
-        expect(
-          uri.toString(),
-          startsWith('/api/files/posts/${post.id}/green_square_'),
-        );
-        expect(uri.toString(), endsWith('.png?thumb=150x150'));
-        uri = pocketBaseUri.resolve(uri.toString());
-        bytes = await http.readBytes(uri);
-        imageSizeResult = ImageSizeGetter.getSizeResult(MemoryInput(bytes));
-        expect(imageSizeResult.size, Size(150, 150));
+        var thumbs =
+            (PostsDtoFieldEnum.photo.settings as DtoFileFieldSettings).thumbs;
+        for (var thumb in thumbs) {
+          uri = post.photo!.toUri(PostsDto.meta(), post, thumb: thumb)!;
+          expect(
+            uri.toString(),
+            startsWith('/api/files/posts/${post.id}/green_square_'),
+          );
+          expect(uri.toString(), endsWith('.png?thumb=$thumb'));
+          uri = pocketBaseUri.resolve(uri.toString());
+          bytes = await http.readBytes(uri);
+          var imageSizeResult = ImageSizeGetter.getSizeResult(
+            MemoryInput(bytes),
+          );
+          expect(
+            "${imageSizeResult.size.width}x${imageSizeResult.size.height}",
+            thumb,
+          );
+        }
       });
 
       test('BlocksDto exercises Enum and Relation', () async {

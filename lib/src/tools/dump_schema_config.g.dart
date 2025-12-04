@@ -17,6 +17,7 @@ DumpSchemaConfig _$DumpSchemaConfigFromJson(Map json) =>
           'credentials',
           'suffix',
           'verbose',
+          'debug',
         ],
       );
       final val = DumpSchemaConfig(
@@ -32,6 +33,7 @@ DumpSchemaConfig _$DumpSchemaConfigFromJson(Map json) =>
         ),
         suffix: $checkedConvert('suffix', (v) => v as String?),
         verbose: $checkedConvert('verbose', (v) => v as bool? ?? false),
+        debug: $checkedConvert('debug', (v) => v as bool? ?? false),
       );
       return val;
     });
@@ -44,4 +46,5 @@ Map<String, dynamic> _$DumpSchemaConfigToJson(DumpSchemaConfig instance) =>
       'credentials': instance.credentials,
       'suffix': instance.suffix,
       'verbose': instance.verbose,
+      'debug': instance.debug,
     };

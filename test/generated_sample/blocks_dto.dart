@@ -27,15 +27,59 @@ enum BlocksTypeEnum {
 }
 
 enum BlocksDtoFieldEnum<V> implements DtoTypedField<BlocksDto, V> {
-  blocker<RelationDto<UsersDto>>('blocker'),
-  blocked<RelationDto<UsersDto>>('blocked'),
-  type<BlocksTypeEnum>('type'),
-  id<String>('id');
+  blocker<RelationDto<UsersDto>>(
+    'relation780230353',
+    'blocker',
+    DtoRelationFieldSettings(
+      required: true,
+      collectionId: "_pb_users_auth_",
+      cascadeDelete: false,
+      minSelect: 1,
+      maxSelect: 1,
+    ),
+  ),
+  blocked<RelationDto<UsersDto>>(
+    'relation3663063936',
+    'blocked',
+    DtoRelationFieldSettings(
+      required: true,
+      collectionId: "_pb_users_auth_",
+      cascadeDelete: false,
+      minSelect: 1,
+      maxSelect: 1,
+    ),
+  ),
+  type<BlocksTypeEnum>(
+    'select2363381545',
+    'type',
+    DtoSelectFieldSettings(
+      required: true,
+      values: ["mute", "block"],
+      maxSelect: 1,
+    ),
+  ),
+  id<String>(
+    'text3208210256',
+    'id',
+    DtoTextFieldSettings(
+      required: true,
+      autogeneratePattern: "[a-z0-9]{15}",
+      min: 15,
+      max: 15,
+      pattern: r"^[a-z0-9]+$",
+    ),
+  );
 
-  const BlocksDtoFieldEnum(this.pbName);
+  const BlocksDtoFieldEnum(this.pbId, this.pbName, this.settings);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  final DtoFieldSettings settings;
 }
 
 @freezed

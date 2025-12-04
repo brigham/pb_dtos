@@ -28,14 +28,50 @@ part 'roles_dto.freezed.dart';
 part 'roles_dto.g.dart';
 
 enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
-  name_<String>('name'),
-  permissions<RelationDto<PermissionsDto>>('permissions'),
-  id<String>('id');
+  name_<String>(
+    'text1579384326',
+    'name',
+    const DtoTextFieldSettings(
+      required: true,
+      autogeneratePattern: "",
+      min: 1,
+      max: 0,
+      pattern: "",
+    ),
+  ),
+  permissions<RelationDto<PermissionsDto>>(
+    'relation770559087',
+    'permissions',
+    const DtoRelationFieldSettings(
+      required: false,
+      collectionId: "pbc_3709660955",
+      cascadeDelete: false,
+      minSelect: 0,
+      maxSelect: 999,
+    ),
+  ),
+  id<String>(
+    'text3208210256',
+    'id',
+    const DtoTextFieldSettings(
+      required: true,
+      autogeneratePattern: "[a-z0-9]{15}",
+      min: 15,
+      max: 15,
+      pattern: r"^[a-z0-9]+$",
+    ),
+  );
 
-  const RolesDtoFieldEnum(this.pbName);
+  const RolesDtoFieldEnum(this.pbId, this.pbName, this.settings);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  final DtoFieldSettings settings;
 }
 
 @freezed

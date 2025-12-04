@@ -18,21 +18,105 @@ part 'posts_dto.freezed.dart';
 part 'posts_dto.g.dart';
 
 enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
-  poster<RelationDto<UsersDto>>('poster'),
-  message<String>('message'),
-  photo<FileDto>('photo'),
-  link<String>('link'),
-  location<GeopointDto>('location'),
-  reviewStars<num>('review_stars'),
-  tagged<RelationDto<UsersDto>>('tagged'),
-  draft<bool>('draft'),
-  scheduled<DateTime>('scheduled'),
-  id<String>('id');
+  poster<RelationDto<UsersDto>>(
+    'relation762383602',
+    'poster',
+    DtoRelationFieldSettings(
+      required: true,
+      collectionId: "_pb_users_auth_",
+      cascadeDelete: false,
+      minSelect: 1,
+      maxSelect: 1,
+    ),
+  ),
+  message<String>(
+    'editor3065852031',
+    'message',
+    DtoEditorFieldSettings(
+      required: true,
+      maxSize: 0,
+      convertURLs: false,
+    ),
+  ),
+  photo<FileDto>(
+    'file347571224',
+    'photo',
+    DtoFileFieldSettings(
+      required: false,
+      maxSize: 5242880,
+      maxSelect: 1,
+      mimeTypes: ["image/jpeg", "image/png", "image/gif", "image/webp"],
+      thumbs: ["50x50", "150x150"],
+      protected: false,
+    ),
+  ),
+  link<String>(
+    'url917281265',
+    'link',
+    DtoURLFieldSettings(
+      required: false,
+      exceptDomains: [],
+      onlyDomains: [],
+    ),
+  ),
+  location<GeopointDto>(
+    'geoPoint1587448267',
+    'location',
+    DtoGeoPointFieldSettings(required: false),
+  ),
+  reviewStars<num>(
+    'number311684151',
+    'review_stars',
+    DtoNumberFieldSettings(
+      required: false,
+      min: 0,
+      max: 5,
+      onlyInt: false,
+    ),
+  ),
+  tagged<RelationDto<UsersDto>>(
+    'relation1008703541',
+    'tagged',
+    DtoRelationFieldSettings(
+      required: false,
+      collectionId: "_pb_users_auth_",
+      cascadeDelete: false,
+      minSelect: 0,
+      maxSelect: 999,
+    ),
+  ),
+  draft<bool>(
+    'bool1182570132',
+    'draft',
+    DtoBoolFieldSettings(required: false),
+  ),
+  scheduled<DateTime>(
+    'date3001571657',
+    'scheduled',
+    DtoDateFieldSettings(required: false, min: null, max: null),
+  ),
+  id<String>(
+    'text3208210256',
+    'id',
+    DtoTextFieldSettings(
+      required: true,
+      autogeneratePattern: "[a-z0-9]{15}",
+      min: 15,
+      max: 15,
+      pattern: r"^[a-z0-9]+$",
+    ),
+  );
 
-  const PostsDtoFieldEnum(this.pbName);
+  const PostsDtoFieldEnum(this.pbId, this.pbName, this.settings);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  final DtoFieldSettings settings;
 }
 
 @freezed

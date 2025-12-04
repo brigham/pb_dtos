@@ -16,14 +16,50 @@ part 'follows_dto.freezed.dart';
 part 'follows_dto.g.dart';
 
 enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
-  follower<RelationDto<UsersDto>>('follower'),
-  following<RelationDto<UsersDto>>('following'),
-  id<String>('id');
+  follower<RelationDto<UsersDto>>(
+    'relation3117812038',
+    'follower',
+    DtoRelationFieldSettings(
+      required: true,
+      collectionId: "_pb_users_auth_",
+      cascadeDelete: false,
+      minSelect: 1,
+      maxSelect: 1,
+    ),
+  ),
+  following<RelationDto<UsersDto>>(
+    'relation1908379107',
+    'following',
+    DtoRelationFieldSettings(
+      required: true,
+      collectionId: "_pb_users_auth_",
+      cascadeDelete: false,
+      minSelect: 1,
+      maxSelect: 1,
+    ),
+  ),
+  id<String>(
+    'text3208210256',
+    'id',
+    DtoTextFieldSettings(
+      required: true,
+      autogeneratePattern: "[a-z0-9]{15}",
+      min: 15,
+      max: 15,
+      pattern: r"^[a-z0-9]+$",
+    ),
+  );
 
-  const FollowsDtoFieldEnum(this.pbName);
+  const FollowsDtoFieldEnum(this.pbId, this.pbName, this.settings);
+
+  @override
+  final String pbId;
 
   @override
   final String pbName;
+
+  @override
+  final DtoFieldSettings settings;
 }
 
 @freezed
