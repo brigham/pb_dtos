@@ -110,7 +110,7 @@ class RolesDto with _$RolesDto implements Dto<RolesDto> {
     this.expand,
   });
 
-  @JsonKey(toJson: Dto.optionalStringToJson)
+  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: "")
   @override
   final String name;
   @override

@@ -126,7 +126,7 @@ class {{class_name}} with _${{class_name}} implements Dto<{{class_name}}> {
 
   {{#fields}}
   {{#has_json_key}}
-  @JsonKey({{#json_key_name}}name: '{{json_key_name}}', {{/json_key_name}}{{#to_json_function}}toJson: {{to_json_function}}{{/to_json_function}})
+  @JsonKey({{#json_key_name}}name: '{{json_key_name}}', {{/json_key_name}}{{#to_json_function}}toJson: {{to_json_function}}, {{/to_json_function}}{{#json_default_value}}defaultValue: {{{json_default_value}}}{{/json_default_value}})
   {{/has_json_key}}
   @override
   final {{{type}}} {{snake_name}};

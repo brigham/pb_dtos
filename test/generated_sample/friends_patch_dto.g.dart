@@ -28,4 +28,5 @@ const _$FriendsStateEnumEnumMap = {
   FriendsStateEnum.pending: 'pending',
   FriendsStateEnum.accepted: 'accepted',
   FriendsStateEnum.rejected: 'rejected',
+  FriendsStateEnum.$unset: r'$unset',
 };

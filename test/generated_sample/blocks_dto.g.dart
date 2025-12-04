@@ -13,7 +13,9 @@ BlocksDto _$BlocksDtoFromJson(Map<String, dynamic> json) => BlocksDto(
   blocked: json['blocked'] == null
       ? const RelationDto<UsersDto>("")
       : RelationDto<UsersDto>.fromJson(json['blocked'] as String),
-  type: $enumDecode(_$BlocksTypeEnumEnumMap, json['type']),
+  type:
+      $enumDecodeNullable(_$BlocksTypeEnumEnumMap, json['type']) ??
+      BlocksTypeEnum.$unset,
   id: json['id'] as String? ?? "",
   expand: json['expand'] == null
       ? null
@@ -30,4 +32,5 @@ Map<String, dynamic> _$BlocksDtoToJson(BlocksDto instance) => <String, dynamic>{
 const _$BlocksTypeEnumEnumMap = {
   BlocksTypeEnum.mute: 'mute',
   BlocksTypeEnum.block: 'block',
+  BlocksTypeEnum.$unset: r'$unset',
 };

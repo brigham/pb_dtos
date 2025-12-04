@@ -10,7 +10,7 @@ PostsDto _$PostsDtoFromJson(Map<String, dynamic> json) => PostsDto(
   poster: json['poster'] == null
       ? const RelationDto<UsersDto>("")
       : RelationDto<UsersDto>.fromJson(json['poster'] as String),
-  message: json['message'] as String,
+  message: json['message'] as String? ?? '',
   photo: json['photo'] == null
       ? null
       : FileDto.fromJson(json['photo'] as String),

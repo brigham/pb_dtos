@@ -204,6 +204,35 @@ void main() {
         expect(block.blocker.id, poster.id);
         expect(block.blocked.id, blocked.id);
       });
+
+      test(
+        'Partial response with missing required field uses default',
+        () async {
+          // Create a user (email is required)
+          final id = _randomId();
+          final user = await createUser(
+            UsersDto(
+              email: "partial-$id@samplr.example.com",
+              name: "Partial User",
+              birthday: DateTime.utc(1990, 1, 1),
+            ),
+          );
+
+          // Fetch the user but request only 'name'
+          // 'email' is required but should be missing in response
+          final partialUser = await api.getOne(
+            UsersDto.meta(),
+            user.id,
+            fields: UsersDto.fields((f) => f.name()),
+          );
+
+          expect(partialUser.name, "Partial User");
+          expect(
+            partialUser.email,
+            "",
+          ); // Default value for missing required field
+        },
+      );
     });
   });
 }

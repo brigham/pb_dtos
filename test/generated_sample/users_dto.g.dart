@@ -10,7 +10,7 @@ UsersDto _$UsersDtoFromJson(Map<String, dynamic> json) => UsersDto(
   id: json['id'] as String? ?? "",
   password: json['password'] as String? ?? "",
   tokenKey: json['tokenKey'] as String? ?? "",
-  email: json['email'] as String,
+  email: json['email'] as String? ?? '',
   emailVisibility: json['emailVisibility'] as bool? ?? false,
   verified: json['verified'] as bool? ?? false,
   name: json['name'] as String? ?? "",

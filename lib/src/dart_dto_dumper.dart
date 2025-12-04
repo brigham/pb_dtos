@@ -118,6 +118,9 @@ class DartDtoDumper extends Dumper {
           collectionSchema,
           field,
         );
+        var defaultValueForJson = markRequired
+            ? _pocketbaseConverter.deriveDefaultValue(collectionSchema, field)
+            : null;
         var toJsonFunction = _pocketbaseConverter.deriveToJsonFunction(
           collectionSchema,
           field,
@@ -155,8 +158,12 @@ class DartDtoDumper extends Dumper {
           'index': idx,
           'snake_name': camelized,
           'enum_name': enumName,
-          'has_json_key': camelized != field.name || toJsonFunction != null,
+          'has_json_key':
+              camelized != field.name ||
+              toJsonFunction != null ||
+              defaultValueForJson != null,
           'json_key_name': camelized != field.name ? field.name : null,
+          'json_default_value': defaultValueForJson,
           'to_json_function': toJsonFunction,
           'maybe_required': markRequired ? "required " : "",
           'type': dartType,

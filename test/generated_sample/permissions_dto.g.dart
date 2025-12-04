@@ -8,7 +8,7 @@ part of 'permissions_dto.dart';
 
 PermissionsDto _$PermissionsDtoFromJson(Map<String, dynamic> json) =>
     PermissionsDto(
-      name: json['name'] as String,
+      name: json['name'] as String? ?? '',
       id: json['id'] as String? ?? "",
       expand: json['expand'] == null
           ? null

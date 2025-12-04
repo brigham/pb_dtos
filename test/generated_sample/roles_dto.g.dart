@@ -7,7 +7,7 @@ part of 'roles_dto.dart';
 // **************************************************************************
 
 RolesDto _$RolesDtoFromJson(Map<String, dynamic> json) => RolesDto(
-  name: json['name'] as String,
+  name: json['name'] as String? ?? '',
   permissions:
       (json['permissions'] as List<dynamic>?)
           ?.map((e) => RelationDto<PermissionsDto>.fromJson(e as String))
