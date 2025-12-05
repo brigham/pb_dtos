@@ -17,7 +17,6 @@ part 'follows_dto.g.dart';
 
 enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
   follower<RelationDto<UsersDto>>(
-    'relation3117812038',
     'follower',
     DtoRelationFieldSettings(
       required: true,
@@ -28,7 +27,6 @@ enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
     ),
   ),
   following<RelationDto<UsersDto>>(
-    'relation1908379107',
     'following',
     DtoRelationFieldSettings(
       required: true,
@@ -39,7 +37,6 @@ enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
     ),
   ),
   id<String>(
-    'text3208210256',
     'id',
     DtoTextFieldSettings(
       required: true,
@@ -50,10 +47,7 @@ enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
     ),
   );
 
-  const FollowsDtoFieldEnum(this.pbId, this.pbName, this.settings);
-
-  @override
-  final String pbId;
+  const FollowsDtoFieldEnum(this.pbName, this.settings);
 
   @override
   final String pbName;

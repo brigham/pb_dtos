@@ -17,7 +17,6 @@ part 'roles_dto.g.dart';
 
 enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
   name_<String>(
-    'text1579384326',
     'name',
     DtoTextFieldSettings(
       required: true,
@@ -28,7 +27,6 @@ enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
     ),
   ),
   permissions<RelationDto<PermissionsDto>>(
-    'relation770559087',
     'permissions',
     DtoRelationFieldSettings(
       required: false,
@@ -39,7 +37,6 @@ enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
     ),
   ),
   id<String>(
-    'text3208210256',
     'id',
     DtoTextFieldSettings(
       required: true,
@@ -50,10 +47,7 @@ enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
     ),
   );
 
-  const RolesDtoFieldEnum(this.pbId, this.pbName, this.settings);
-
-  @override
-  final String pbId;
+  const RolesDtoFieldEnum(this.pbName, this.settings);
 
   @override
   final String pbName;

@@ -5,8 +5,6 @@ import 'dto_sort.dart';
 import 'relation_dto.dart';
 
 abstract class DtoField<D extends Dto<D>> {
-  String get pbId;
-
   String get pbName;
 
   DtoFieldSettings? get settings;

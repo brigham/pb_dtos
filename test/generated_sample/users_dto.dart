@@ -18,7 +18,6 @@ part 'users_dto.g.dart';
 
 enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
   id<String>(
-    'text3208210256',
     'id',
     DtoTextFieldSettings(
       required: true,
@@ -29,12 +28,10 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
     ),
   ),
   password<String>(
-    'password901924565',
     'password',
     DtoPasswordFieldSettings(required: true, pattern: "", min: 8, max: 0),
   ),
   email<String>(
-    'email3885137012',
     'email',
     DtoEmailFieldSettings(
       required: true,
@@ -43,17 +40,11 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
     ),
   ),
   emailVisibility<bool>(
-    'bool1547992806',
     'emailVisibility',
     DtoBoolFieldSettings(required: false),
   ),
-  verified<bool>(
-    'bool256245529',
-    'verified',
-    DtoBoolFieldSettings(required: false),
-  ),
+  verified<bool>('verified', DtoBoolFieldSettings(required: false)),
   name_<String>(
-    'text1579384326',
     'name',
     DtoTextFieldSettings(
       required: false,
@@ -64,7 +55,6 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
     ),
   ),
   avatar<FileDto>(
-    'file376926767',
     'avatar',
     DtoFileFieldSettings(
       required: false,
@@ -82,7 +72,6 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
     ),
   ),
   roles<RelationDto<RolesDto>>(
-    'relation3057528519',
     'roles',
     DtoRelationFieldSettings(
       required: false,
@@ -93,25 +82,19 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
     ),
   ),
   birthday<DateTime>(
-    'date1191818290',
     'birthday',
     DtoDateFieldSettings(required: false, min: null, max: null),
   ),
   created<DateTime>(
-    'autodate2990389176',
     'created',
     DtoAutodateFieldSettings(onCreate: true, onUpdate: false),
   ),
   updated<DateTime>(
-    'autodate3332085495',
     'updated',
     DtoAutodateFieldSettings(onCreate: true, onUpdate: true),
   );
 
-  const UsersDtoFieldEnum(this.pbId, this.pbName, this.settings);
-
-  @override
-  final String pbId;
+  const UsersDtoFieldEnum(this.pbName, this.settings);
 
   @override
   final String pbName;

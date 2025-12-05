@@ -256,7 +256,6 @@ class DartDtoDumper extends Dumper {
                 filterComparisonBuilder = 'ComparisonBuilder';
             }
             return {
-              'id': field.id,
               'name': field.name,
               'index': idx,
               'snake_name': camelized,
@@ -324,7 +323,6 @@ class DartDtoDumper extends Dumper {
 
         return {
           'name': field.name,
-          'id': field.id,
           'snake_name': snaked,
           'has_json_key': snaked != field.name,
           'type': type,
@@ -343,7 +341,6 @@ class DartDtoDumper extends Dumper {
 
         return {
           'name': name,
-          'id': '',
           'snake_name': snaked,
           'has_json_key': snaked != name,
           'type': type,

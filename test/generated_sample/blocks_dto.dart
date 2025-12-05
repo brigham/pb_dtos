@@ -28,7 +28,6 @@ enum BlocksTypeEnum {
 
 enum BlocksDtoFieldEnum<V> implements DtoTypedField<BlocksDto, V> {
   blocker<RelationDto<UsersDto>>(
-    'relation780230353',
     'blocker',
     DtoRelationFieldSettings(
       required: true,
@@ -39,7 +38,6 @@ enum BlocksDtoFieldEnum<V> implements DtoTypedField<BlocksDto, V> {
     ),
   ),
   blocked<RelationDto<UsersDto>>(
-    'relation3663063936',
     'blocked',
     DtoRelationFieldSettings(
       required: true,
@@ -50,7 +48,6 @@ enum BlocksDtoFieldEnum<V> implements DtoTypedField<BlocksDto, V> {
     ),
   ),
   type<BlocksTypeEnum>(
-    'select2363381545',
     'type',
     DtoSelectFieldSettings(
       required: true,
@@ -59,7 +56,6 @@ enum BlocksDtoFieldEnum<V> implements DtoTypedField<BlocksDto, V> {
     ),
   ),
   id<String>(
-    'text3208210256',
     'id',
     DtoTextFieldSettings(
       required: true,
@@ -70,10 +66,7 @@ enum BlocksDtoFieldEnum<V> implements DtoTypedField<BlocksDto, V> {
     ),
   );
 
-  const BlocksDtoFieldEnum(this.pbId, this.pbName, this.settings);
-
-  @override
-  final String pbId;
+  const BlocksDtoFieldEnum(this.pbName, this.settings);
 
   @override
   final String pbName;

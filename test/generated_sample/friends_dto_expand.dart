@@ -12,13 +12,10 @@ part 'friends_dto_expand.g.dart';
 
 enum FriendsDtoExpandEnum<V>
     implements DtoExpandEnum<FriendsDto>, DtoTypedField<FriendsDto, V> {
-  requester<RelationDto<UsersDto>>('relation1820765950', "requester"),
-  accepter<RelationDto<UsersDto>>('relation2194227999', "accepter");
+  requester<RelationDto<UsersDto>>("requester"),
+  accepter<RelationDto<UsersDto>>("accepter");
 
-  const FriendsDtoExpandEnum(this.pbId, this.pbName);
-
-  @override
-  final String pbId;
+  const FriendsDtoExpandEnum(this.pbName);
 
   @override
   final String pbName;

@@ -1,3 +1,8 @@
+# 0.5.0
+
+* Removed `pbId` field as PocketBase view ids are not consistent
+  between migrations.
+
 # 0.4.2
 
 * Add `thumb` parameter to `toUri`.

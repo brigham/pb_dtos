@@ -29,7 +29,6 @@ enum FriendsStateEnum {
 
 enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
   requester<RelationDto<UsersDto>>(
-    'relation1820765950',
     'requester',
     DtoRelationFieldSettings(
       required: true,
@@ -40,7 +39,6 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
     ),
   ),
   accepter<RelationDto<UsersDto>>(
-    'relation2194227999',
     'accepter',
     DtoRelationFieldSettings(
       required: true,
@@ -51,7 +49,6 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
     ),
   ),
   state<FriendsStateEnum>(
-    'select2744374011',
     'state',
     DtoSelectFieldSettings(
       required: true,
@@ -60,7 +57,6 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
     ),
   ),
   id<String>(
-    'text3208210256',
     'id',
     DtoTextFieldSettings(
       required: true,
@@ -71,10 +67,7 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
     ),
   );
 
-  const FriendsDtoFieldEnum(this.pbId, this.pbName, this.settings);
-
-  @override
-  final String pbId;
+  const FriendsDtoFieldEnum(this.pbName, this.settings);
 
   @override
   final String pbName;

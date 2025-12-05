@@ -29,7 +29,6 @@ part 'posts_dto.g.dart';
 
 enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
   poster<RelationDto<UsersDto>>(
-    'relation762383602',
     'poster',
     const DtoRelationFieldSettings(
       required: true,
@@ -40,7 +39,6 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   message<String>(
-    'editor3065852031',
     'message',
     const DtoEditorFieldSettings(
       required: true,
@@ -49,7 +47,6 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   photo<FileDto>(
-    'file347571224',
     'photo',
     const DtoFileFieldSettings(
       required: false,
@@ -61,7 +58,6 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   link<String>(
-    'url917281265',
     'link',
     const DtoURLFieldSettings(
       required: false,
@@ -70,12 +66,10 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   location<GeopointDto>(
-    'geoPoint1587448267',
     'location',
     const DtoGeoPointFieldSettings(required: false),
   ),
   reviewStars<num>(
-    'number311684151',
     'review_stars',
     const DtoNumberFieldSettings(
       required: false,
@@ -85,7 +79,6 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   tagged<RelationDto<UsersDto>>(
-    'relation1008703541',
     'tagged',
     const DtoRelationFieldSettings(
       required: false,
@@ -95,18 +88,12 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
       maxSelect: 999,
     ),
   ),
-  draft<bool>(
-    'bool1182570132',
-    'draft',
-    const DtoBoolFieldSettings(required: false),
-  ),
+  draft<bool>('draft', const DtoBoolFieldSettings(required: false)),
   scheduled<DateTime>(
-    'date3001571657',
     'scheduled',
     const DtoDateFieldSettings(required: false, min: null, max: null),
   ),
   id<String>(
-    'text3208210256',
     'id',
     const DtoTextFieldSettings(
       required: true,
@@ -117,10 +104,7 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   );
 
-  const PostsDtoFieldEnum(this.pbId, this.pbName, this.settings);
-
-  @override
-  final String pbId;
+  const PostsDtoFieldEnum(this.pbName, this.settings);
 
   @override
   final String pbName;

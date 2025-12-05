@@ -20,20 +20,17 @@ part 'users_dto_expand.g.dart';
 
 enum UsersDtoExpandEnum<V>
     implements DtoExpandEnum<UsersDto>, DtoTypedField<UsersDto, V> {
-  roles<RelationDto<RolesDto>>('relation3057528519', "roles"),
-  followsViaFollower<RelationDto<FollowsDto>>('', "follows_via_follower"),
-  followsViaFollowing<RelationDto<FollowsDto>>('', "follows_via_following"),
-  friendsViaRequester<RelationDto<FriendsDto>>('', "friends_via_requester"),
-  friendsViaAccepter<RelationDto<FriendsDto>>('', "friends_via_accepter"),
-  blocksViaBlocker<RelationDto<BlocksDto>>('', "blocks_via_blocker"),
-  blocksViaBlocked<RelationDto<BlocksDto>>('', "blocks_via_blocked"),
-  postsViaPoster<RelationDto<PostsDto>>('', "posts_via_poster"),
-  postsViaTagged<RelationDto<PostsDto>>('', "posts_via_tagged");
+  roles<RelationDto<RolesDto>>("roles"),
+  followsViaFollower<RelationDto<FollowsDto>>("follows_via_follower"),
+  followsViaFollowing<RelationDto<FollowsDto>>("follows_via_following"),
+  friendsViaRequester<RelationDto<FriendsDto>>("friends_via_requester"),
+  friendsViaAccepter<RelationDto<FriendsDto>>("friends_via_accepter"),
+  blocksViaBlocker<RelationDto<BlocksDto>>("blocks_via_blocker"),
+  blocksViaBlocked<RelationDto<BlocksDto>>("blocks_via_blocked"),
+  postsViaPoster<RelationDto<PostsDto>>("posts_via_poster"),
+  postsViaTagged<RelationDto<PostsDto>>("posts_via_tagged");
 
-  const UsersDtoExpandEnum(this.pbId, this.pbName);
-
-  @override
-  final String pbId;
+  const UsersDtoExpandEnum(this.pbName);
 
   @override
   final String pbName;

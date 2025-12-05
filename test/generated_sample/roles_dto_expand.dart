@@ -14,13 +14,10 @@ part 'roles_dto_expand.g.dart';
 
 enum RolesDtoExpandEnum<V>
     implements DtoExpandEnum<RolesDto>, DtoTypedField<RolesDto, V> {
-  permissions<RelationDto<PermissionsDto>>('relation770559087', "permissions"),
-  usersViaRoles<RelationDto<UsersDto>>('', "users_via_roles");
+  permissions<RelationDto<PermissionsDto>>("permissions"),
+  usersViaRoles<RelationDto<UsersDto>>("users_via_roles");
 
-  const RolesDtoExpandEnum(this.pbId, this.pbName);
-
-  @override
-  final String pbId;
+  const RolesDtoExpandEnum(this.pbName);
 
   @override
   final String pbName;

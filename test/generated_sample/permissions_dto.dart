@@ -16,7 +16,6 @@ part 'permissions_dto.g.dart';
 
 enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
   name_<String>(
-    'text1579384326',
     'name',
     DtoTextFieldSettings(
       required: true,
@@ -27,7 +26,6 @@ enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
     ),
   ),
   id<String>(
-    'text3208210256',
     'id',
     DtoTextFieldSettings(
       required: true,
@@ -38,10 +36,7 @@ enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
     ),
   );
 
-  const PermissionsDtoFieldEnum(this.pbId, this.pbName, this.settings);
-
-  @override
-  final String pbId;
+  const PermissionsDtoFieldEnum(this.pbName, this.settings);
 
   @override
   final String pbName;

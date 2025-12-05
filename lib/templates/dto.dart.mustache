@@ -31,14 +31,11 @@ part '{{collection.name}}_dto.g.dart';
 
 enum {{class_name}}FieldEnum<V> implements DtoTypedField<{{class_name}}, V> {
 {{#fields}}
-    {{enum_name}}<{{filter_type}}>('{{id}}', '{{name}}', {{enum_settings}}),
+    {{enum_name}}<{{filter_type}}>('{{name}}', {{enum_settings}}),
 {{/fields}}
     ;
 
-    const {{class_name}}FieldEnum(this.pbId, this.pbName, this.settings);
-
-    @override
-    final String pbId;
+    const {{class_name}}FieldEnum(this.pbName, this.settings);
 
     @override
     final String pbName;

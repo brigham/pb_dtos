@@ -19,7 +19,6 @@ part 'posts_dto.g.dart';
 
 enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
   poster<RelationDto<UsersDto>>(
-    'relation762383602',
     'poster',
     DtoRelationFieldSettings(
       required: true,
@@ -30,7 +29,6 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   message<String>(
-    'editor3065852031',
     'message',
     DtoEditorFieldSettings(
       required: true,
@@ -39,7 +37,6 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   photo<FileDto>(
-    'file347571224',
     'photo',
     DtoFileFieldSettings(
       required: false,
@@ -51,7 +48,6 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   link<String>(
-    'url917281265',
     'link',
     DtoURLFieldSettings(
       required: false,
@@ -60,12 +56,10 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   location<GeopointDto>(
-    'geoPoint1587448267',
     'location',
     DtoGeoPointFieldSettings(required: false),
   ),
   reviewStars<num>(
-    'number311684151',
     'review_stars',
     DtoNumberFieldSettings(
       required: false,
@@ -75,7 +69,6 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   ),
   tagged<RelationDto<UsersDto>>(
-    'relation1008703541',
     'tagged',
     DtoRelationFieldSettings(
       required: false,
@@ -85,18 +78,12 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
       maxSelect: 999,
     ),
   ),
-  draft<bool>(
-    'bool1182570132',
-    'draft',
-    DtoBoolFieldSettings(required: false),
-  ),
+  draft<bool>('draft', DtoBoolFieldSettings(required: false)),
   scheduled<DateTime>(
-    'date3001571657',
     'scheduled',
     DtoDateFieldSettings(required: false, min: null, max: null),
   ),
   id<String>(
-    'text3208210256',
     'id',
     DtoTextFieldSettings(
       required: true,
@@ -107,10 +94,7 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     ),
   );
 
-  const PostsDtoFieldEnum(this.pbId, this.pbName, this.settings);
-
-  @override
-  final String pbId;
+  const PostsDtoFieldEnum(this.pbName, this.settings);
 
   @override
   final String pbName;
