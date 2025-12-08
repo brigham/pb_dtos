@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:collection';
 
 import 'package:pocketbase/pocketbase.dart';
 
@@ -15,6 +16,80 @@ class WatchEvent<D extends Dto<D>> {
   final D? record;
 
   WatchEvent(this.action, this.record);
+}
+
+class PageRequest {
+  final int page;
+  final int? perPage;
+
+  PageRequest({required this.page, this.perPage});
+}
+
+class Page<D extends Dto<D>> extends ListBase<D> {
+  /// The page number of these results.
+  final int page;
+
+  /// The number of results per page.
+  final int perPage;
+
+  /// The total number of results across all pages.
+  final int? totalItems;
+
+  /// The total number of pages, given [perPage].
+  final int? totalPages;
+
+  final UnmodifiableListView<D> _delegate;
+
+  PageRequest? get nextPage {
+    var totalPages2 = totalPages;
+    if (totalPages2 == null) {
+      if (length == perPage) {
+        return PageRequest(page: page + 1, perPage: perPage);
+      }
+      return null;
+    }
+    return page < totalPages2
+        ? PageRequest(page: page + 1, perPage: perPage)
+        : null;
+  }
+
+  PageRequest? get previousPage =>
+      page > 1 ? PageRequest(page: page - 1, perPage: perPage) : null;
+
+  Page._fromResult(DtoMeta<D> meta, ResultList<RecordModel> result)
+    : _delegate = UnmodifiableListView(
+        result.items.map(meta.fromRecord).toList(),
+      ),
+      page = result.page,
+      perPage = result.perPage,
+      totalItems = result.totalItems == -1 ? null : result.totalItems,
+      totalPages = result.totalPages == -1 ? null : result.totalPages;
+
+  @override
+  D operator [](int index) => _delegate[index];
+
+  @override
+  int get length => _delegate.length;
+
+  @override
+  void operator []=(int index, D value) {
+    _delegate[index] = value;
+  }
+
+  @override
+  set length(int newLength) {
+    _delegate.length = newLength;
+  }
+
+  @override
+  void add(D element) {
+    _delegate.add(element);
+  }
+
+  @override
+  void addAll(Iterable<D> iterable) {
+    _delegate.addAll(iterable);
+  }
 }
 
 class PocketBaseApiClient {
@@ -170,10 +245,9 @@ class PocketBaseApiClient {
     return result.map(meta.fromRecord).cast<D>().toList();
   }
 
-  Future<List<D>> getList<D extends Dto<D>>(
+  Future<Page<D>> getList<D extends Dto<D>>(
     DtoMeta<D> meta, {
-    int page = 1,
-    int? perPage,
+    PageRequest? page,
     bool skipTotal = false,
     DtoExpand<D, dynamic>? expand,
     DtoFilter<D>? filter,
@@ -183,12 +257,12 @@ class PocketBaseApiClient {
     Map<String, String> headers = const {},
   }) async {
     var collection = meta.collectionName;
-    var converter = meta.fromRecord;
-    var result = perPage == null
+    var perPage = page?.perPage;
+    ResultList<RecordModel> result = perPage == null
         ? await _pb
               .collection(collection)
               .getList(
-                page: page,
+                page: page?.page ?? 1,
                 skipTotal: skipTotal,
                 expand: expand?.toString(),
                 filter: filter?.toString(),
@@ -200,7 +274,7 @@ class PocketBaseApiClient {
         : await _pb
               .collection(collection)
               .getList(
-                page: page,
+                page: page?.page ?? 1,
                 perPage: perPage,
                 skipTotal: skipTotal,
                 expand: expand?.toString(),
@@ -210,7 +284,7 @@ class PocketBaseApiClient {
                 query: query,
                 headers: headers,
               );
-    return result.items.map(converter).cast<D>().toList();
+    return Page._fromResult(meta, result);
   }
 
   Future<D> getOne<D extends Dto<D>>(

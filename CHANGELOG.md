@@ -1,3 +1,7 @@
+# 0.6.0
+
+* `getList` returns a `Page` instead of a `List`.
+
 # 0.5.0
 
 * Removed `pbId` field as PocketBase view ids are not consistent
