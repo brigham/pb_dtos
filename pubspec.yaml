@@ -1,6 +1,6 @@
 name: pb_dtos
 description: "A code generator for PocketBase DTOs."
-version: 0.6.0
+version: 0.7.0
 repository: "https://github.com/brigham/pb_dtos"
 
 environment:

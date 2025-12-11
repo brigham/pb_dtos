@@ -100,8 +100,8 @@ class FriendsDto with _$FriendsDto implements Dto<FriendsDto> {
     RelationDto<UsersDto>? accepter,
   ]) {
     final f = FriendsDtoFilter();
-    f.requester().equal(requester);
-    if (accepter != null) f.accepter().equal(accepter);
+    f.requester().equal(.val(requester));
+    if (accepter != null) f.accepter().equal(.val(accepter));
     return f;
   }
 
@@ -117,8 +117,8 @@ class FriendsDto with _$FriendsDto implements Dto<FriendsDto> {
     FriendsStateEnum? state,
   ]) {
     final f = FriendsDtoFilter();
-    f.requester().equal(requester);
-    if (state != null) f.state().equal(state);
+    f.requester().equal(.val(requester));
+    if (state != null) f.state().equal(.val(state));
     return f;
   }
 
@@ -134,8 +134,8 @@ class FriendsDto with _$FriendsDto implements Dto<FriendsDto> {
     FriendsStateEnum? state,
   ]) {
     final f = FriendsDtoFilter();
-    f.accepter().equal(accepter);
-    if (state != null) f.state().equal(state);
+    f.accepter().equal(.val(accepter));
+    if (state != null) f.state().equal(.val(state));
     return f;
   }
 

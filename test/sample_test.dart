@@ -134,8 +134,8 @@ void main() {
           expand: UsersDto.expansions((e) => e..friendsViaAccepter()),
           filter: UsersDto.filter(
             (f) => f
-              ..id().equal(user1.id)
-              ..friendsViaAccepter().state().equal(.accepted),
+              ..id().equal(.val(user1.id))
+              ..friendsViaAccepter().state().equal(.val(.accepted)),
           ),
         );
         var user1Friends = user1WithFriends

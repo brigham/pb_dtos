@@ -1,9 +1,13 @@
 import 'dto.dart';
 import 'dto_field.dart';
+import 'filter_expression.dart';
 import 'relation_dto.dart';
 
 sealed class FilterOperand<D extends Dto<D>, V> {
   const FilterOperand();
+
+  const factory FilterOperand.val(V? value) = LiteralOperand;
+  factory FilterOperand.field(ComparisonBuilder<D, V> field) => field.operand1;
 
   void include(StringBuffer buffer);
 }
@@ -205,7 +209,7 @@ class ModifiedDtoFieldOperand<D extends Dto<D>, V> extends FilterOperand<D, V> {
 class LiteralOperand<D extends Dto<D>, V> extends FilterOperand<D, V> {
   final V? value;
 
-  LiteralOperand(this.value);
+  const LiteralOperand(this.value);
 
   @override
   void include(StringBuffer buffer) {

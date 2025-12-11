@@ -8,31 +8,49 @@ import 'generated_sample/users_dto_expand.dart';
 
 void filters() {
   var expression = PostsDto.filter(
-    (f) => f.poster().roles().permissions().name().anyEqual("donuts.favorite"),
+    (f) => f.poster().roles().permissions().name().anyEqual(
+      .val("donuts.favorite"),
+    ),
   );
   var permissionsTerminalPath = PostsDto.filter(
-    (f) => f.poster().roles().permissions().anyEqual(RelationDto("abcdef")),
+    (f) =>
+        f.poster().roles().permissions().anyEqual(.val(RelationDto("abcdef"))),
   );
-  var usersWhoUploadedSixSeven = UsersDto.filter(
+  var usersWhoUploadedSixAndSeven = UsersDto.filter(
     (f) => f
-        .postsViaPoster()
-        .reviewStars()
-        .equal(6)
-        .and(
-          UsersDto.filter(
-            (f) => f.postsViaPoster().reviewStars().equal(7),
-          ).expression!,
-        ),
+      ..postsViaPoster().reviewStars().equal(.val(6))
+      ..postsViaPoster().reviewStars().equal(.val(7)),
+  );
+  var usersWhoUploadedSixOrSeven = UsersDto.filter(
+    (f) => f
+      ..postsViaPoster().reviewStars().equal(.val(6))
+      ..or(
+        UsersDto.filter(
+          (f) => f.postsViaPoster().reviewStars().equal(.val(7)),
+        ).expression!,
+      ),
   );
   var vote = FriendsDto.filter(
     (f) => f
-      ..requester().equal(RelationDto("abcdef"))
-      ..accepter().equal(RelationDto("ghijkl")),
+      ..requester().equal(.val(RelationDto("abcdef")))
+      ..accepter().equal(.val(RelationDto("ghijkl"))),
+  );
+  var likedOwnPost = PostsDto.filter(
+    (f) => f..tagged().anyEqual(.field(f.poster())),
+  );
+  var taggedFriends = FriendsDto.filter(
+    (f) => f
+      ..requester().postsViaPoster().tagged().anyEqual(
+        .field(f.accepter().blocksViaBlocked().blocker()),
+      ),
   );
   print(expression);
   print(permissionsTerminalPath);
-  print(usersWhoUploadedSixSeven);
+  print(usersWhoUploadedSixAndSeven);
+  print(usersWhoUploadedSixOrSeven);
   print(vote);
+  print(likedOwnPost);
+  print(taggedFriends);
 }
 
 void sorts() {

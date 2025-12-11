@@ -56,12 +56,11 @@ class ComparisonBuilder<D extends Dto<D>, V> {
   ComparisonBuilder.literal(V? value, [this.handler])
     : operand1 = LiteralOperand<D, V>(value);
 
-  Comparison<D, V> _makeComparison(FilterOperator operator, V value) {
-    var comparison = Comparison<D, V>(
-      operand1,
-      operator,
-      LiteralOperand<D, V>(value),
-    );
+  Comparison<D, V> _makeComparison(
+    FilterOperator operator,
+    FilterOperand<D, V> operand2,
+  ) {
+    var comparison = Comparison<D, V>(operand1, operator, operand2);
     var handler = this.handler;
     if (handler != null) {
       handler(comparison);
@@ -78,35 +77,37 @@ class ComparisonBuilder<D extends Dto<D>, V> {
     );
   }
 
-  Comparison<D, V> equal(V value) =>
-      _makeComparison(FilterOperator.equal, value);
+  Comparison<D, V> equal(FilterOperand<D, V> operand2) {
+    return _makeComparison(FilterOperator.equal, operand2);
+  }
 
   /// NOT equal
-  Comparison<D, V> notEqual(V value) =>
-      _makeComparison(FilterOperator.notEqual, value);
+  Comparison<D, V> notEqual(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.notEqual, operand2);
 
   /// Greater than
-  Comparison<D, V> greaterThan(V value) =>
-      _makeComparison(FilterOperator.greaterThan, value);
+  Comparison<D, V> greaterThan(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.greaterThan, operand2);
 
   /// Greater than or equal
-  Comparison<D, V> greaterThanOrEqual(V value) =>
-      _makeComparison(FilterOperator.greaterThanOrEqual, value);
+  Comparison<D, V> greaterThanOrEqual(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.greaterThanOrEqual, operand2);
 
   /// Less than
-  Comparison<D, V> lessThan(V value) =>
-      _makeComparison(FilterOperator.lessThan, value);
+  Comparison<D, V> lessThan(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.lessThan, operand2);
 
   /// Less than or equal
-  Comparison<D, V> lessThanOrEqual(V value) =>
-      _makeComparison(FilterOperator.lessThanOrEqual, value);
+  Comparison<D, V> lessThanOrEqual(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.lessThanOrEqual, operand2);
 
   /// Like/Contains (if not specified auto wraps the right string OPERAND in a "%" for wildcard match)
-  Comparison<D, V> like(V value) => _makeComparison(FilterOperator.like, value);
+  Comparison<D, V> like(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.like, operand2);
 
   /// NOT Like/Contains (if not specified auto wraps the right string OPERAND in a "%" for wildcard match)
-  Comparison<D, V> notLike(V value) =>
-      _makeComparison(FilterOperator.notLike, value);
+  Comparison<D, V> notLike(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.notLike, operand2);
 }
 
 class TerminalRelationComparisonBuilder<D extends Dto<D>, V>
@@ -160,36 +161,36 @@ class MultivalComparisonBuilder<D extends Dto<D>, V>
   }
 
   /// Any/At least one of Equal
-  Comparison<D, V> anyEqual(V value) =>
-      _makeComparison(FilterOperator.anyEqual, value);
+  Comparison<D, V> anyEqual(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.anyEqual, operand2);
 
   /// Any/At least one of NOT equal
-  Comparison<D, V> anyNotEqual(V value) =>
-      _makeComparison(FilterOperator.anyNotEqual, value);
+  Comparison<D, V> anyNotEqual(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.anyNotEqual, operand2);
 
   /// Any/At least one of Greater than
-  Comparison<D, V> anyGreaterThan(V value) =>
-      _makeComparison(FilterOperator.anyGreaterThan, value);
+  Comparison<D, V> anyGreaterThan(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.anyGreaterThan, operand2);
 
   /// Any/At least one of Greater than or equal
-  Comparison<D, V> anyGreaterThanOrEqual(V value) =>
-      _makeComparison(FilterOperator.anyGreaterThanOrEqual, value);
+  Comparison<D, V> anyGreaterThanOrEqual(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.anyGreaterThanOrEqual, operand2);
 
   /// Any/At least one of Less than
-  Comparison<D, V> anyLessThan(V value) =>
-      _makeComparison(FilterOperator.anyLessThan, value);
+  Comparison<D, V> anyLessThan(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.anyLessThan, operand2);
 
   /// Any/At least one of Less than or equal
-  Comparison<D, V> anyLessThanOrEqual(V value) =>
-      _makeComparison(FilterOperator.anyLessThanOrEqual, value);
+  Comparison<D, V> anyLessThanOrEqual(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.anyLessThanOrEqual, operand2);
 
   /// Any/At least one of Like/Contains (if not specified auto wraps the right string OPERAND in a "%" for wildcard match)
-  Comparison<D, V> anyLike(V value) =>
-      _makeComparison(FilterOperator.anyLike, value);
+  Comparison<D, V> anyLike(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.anyLike, operand2);
 
   /// Any/At least one of NOT Like/Contains (if not specified auto wraps the right string OPERAND in a "%" for wildcard match)
-  Comparison<D, V> anyNotLike(V value) =>
-      _makeComparison(FilterOperator.anyNotLike, value);
+  Comparison<D, V> anyNotLike(FilterOperand<D, V> operand2) =>
+      _makeComparison(FilterOperator.anyNotLike, operand2);
 }
 
 class MultirelComparisonBuilder<D extends Dto<D>, V extends Dto<V>>

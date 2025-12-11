@@ -31,6 +31,8 @@ abstract class DtoFilter<D extends Dto<D>> {
   /// Adds a new filter expression to the existing one using the OR operator.
   ///
   /// If no expression is set, the new expression becomes the current one.
+  // TODO: Syntax for this is hard to write correctly. Need to make it more
+  // intuitive. Same for and above, although that does work implicitly.
   void or(FilterExpression<D> expression) {
     if (_expression == null) {
       _expression = expression;

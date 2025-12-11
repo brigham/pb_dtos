@@ -1,3 +1,8 @@
+# 0.7.0
+
+* Filters support comparing to another field now, but this requires
+  wrapping literals in .val(...).
+
 # 0.6.0
 
 * `getList` returns a `Page` instead of a `List`.
