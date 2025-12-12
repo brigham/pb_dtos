@@ -112,18 +112,6 @@ class PocketbaseConverter {
     CollectionField pbField,
   ) => _getType(pbField).deriveDartDefaultValue(schema, collection, pbField);
 
-  String deriveTestingValue(
-    CollectionSchema collection,
-    CollectionField pbField,
-  ) => _getType(pbField).deriveDartValueForTesting(schema, collection, pbField);
-
-  String deriveJsonTestingValue(
-    CollectionSchema collection,
-    CollectionField pbField,
-  ) => _getType(
-    pbField,
-  ).deriveDartJsonValueForTesting(schema, collection, pbField);
-
   String deriveTypeDefinitions(
     CollectionSchema collection,
     CollectionField pbField,

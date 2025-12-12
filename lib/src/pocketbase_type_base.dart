@@ -32,18 +32,6 @@ abstract class PocketbaseTypeBase {
     CollectionField field,
   );
 
-  String deriveDartValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  );
-
-  String deriveDartJsonValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  );
-
   String? deriveToJsonFunction(
     PocketBaseSchema schema,
     CollectionSchema collection,

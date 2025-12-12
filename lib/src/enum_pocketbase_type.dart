@@ -73,32 +73,6 @@ class SelectPocketbaseType extends PocketbaseTypeBase {
   }
 
   @override
-  String deriveDartValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  ) {
-    if (field.data['maxSelect'] > 1) {
-      return '[${_enumName(collection, field)}.${field.data['values'][0]}]';
-    } else {
-      return "${_enumName(collection, field)}.${field.data['values'][0]}";
-    }
-  }
-
-  @override
-  String deriveDartJsonValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  ) {
-    if (field.data['maxSelect'] > 1) {
-      return '["${field.data['values'][0]}"]';
-    } else {
-      return '"${field.data['values'][0]}"';
-    }
-  }
-
-  @override
   String? deriveToJsonFunction(
     PocketBaseSchema schema,
     CollectionSchema collection,

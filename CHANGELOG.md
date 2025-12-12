@@ -1,3 +1,7 @@
+# 0.8.1
+
+* Fix bug with optional relations.
+
 # 0.8.0
 
 * Fixed lots of bugs with filtering pocketbase types.

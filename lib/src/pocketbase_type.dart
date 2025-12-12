@@ -68,20 +68,6 @@ class PocketbaseType extends PocketbaseTypeBase {
   ) => defaultValue;
 
   @override
-  String deriveDartValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  ) => testingValue;
-
-  @override
-  String deriveDartJsonValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  ) => jsonTestingValue;
-
-  @override
   String? deriveToJsonFunction(
     PocketBaseSchema schema,
     CollectionSchema collection,

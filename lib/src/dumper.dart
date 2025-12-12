@@ -101,7 +101,14 @@ abstract class Dumper {
           filepaths.add(path);
           final file = File(path);
           file.parent.createSync(recursive: true);
-          var formatted = formatter.format(rendered);
+          String formatted;
+          try {
+            formatted = formatter.format(rendered);
+          } catch (e, s) {
+            stderr.writeln('Could not format file: $path due to $e');
+            stderr.writeln(s.toString());
+            formatted = rendered;
+          }
           file.writeAsStringSync(formatted);
         } on TemplateException catch (e) {
           print(e.toString());

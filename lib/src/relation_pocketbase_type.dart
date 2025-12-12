@@ -48,7 +48,7 @@ class RelationPocketbaseType extends PocketbaseTypeBase {
     CollectionSchema collection,
     CollectionField field,
   ) {
-    if (field.data['maxSelect'] == 1) {
+    if ((field.data['maxSelect'] ?? 0) <= 1) {
       if ((field.data['required'] ?? false)) {
         return _typeName(schema, collection, field);
       } else {
@@ -65,40 +65,14 @@ class RelationPocketbaseType extends PocketbaseTypeBase {
     CollectionSchema collection,
     CollectionField field,
   ) {
-    if (field.data['maxSelect'] == 1) {
+    if ((field.data['maxSelect'] ?? 0) <= 1) {
       if ((field.data['required'] ?? false)) {
         return 'const ${_typeName(schema, collection, field)}("")';
       } else {
-        return "";
+        return "null";
       }
     } else {
       return 'const []';
-    }
-  }
-
-  @override
-  String deriveDartValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  ) {
-    if (field.data['maxSelect'] == 1) {
-      return "const ${_typeName(schema, collection, field)}('abc123')";
-    } else {
-      return "const [${_typeName(schema, collection, field)}('abc123')]";
-    }
-  }
-
-  @override
-  String deriveDartJsonValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  ) {
-    if (field.data['maxSelect'] == 1) {
-      return '"abc123"';
-    } else {
-      return '["abc123"]';
     }
   }
 

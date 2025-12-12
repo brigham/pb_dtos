@@ -55,32 +55,6 @@ class FilePocketbaseType extends PocketbaseTypeBase {
   }
 
   @override
-  String deriveDartValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  ) {
-    if (field.data['maxSelect'] == 1) {
-      return "const FileDto('abc123.jpeg')";
-    } else {
-      return "const [FileDto('abc123.jpeg')]";
-    }
-  }
-
-  @override
-  String deriveDartJsonValueForTesting(
-    PocketBaseSchema schema,
-    CollectionSchema collection,
-    CollectionField field,
-  ) {
-    if (field.data['maxSelect'] == 1) {
-      return '"abc123.jpeg"';
-    } else {
-      return '["abc123.jpeg"]';
-    }
-  }
-
-  @override
   String? deriveToJsonFunction(
     PocketBaseSchema schema,
     CollectionSchema collection,
