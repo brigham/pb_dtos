@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PostsPatchDto {
 
- RelationDto<UsersDto>? get poster; set poster(RelationDto<UsersDto>? value); String? get message; set message(String? value); FileDto? get photo; set photo(FileDto? value); String? get link; set link(String? value); GeopointDto? get location; set location(GeopointDto? value); num? get reviewStars; set reviewStars(num? value); num? get reviewStarsAddend; set reviewStarsAddend(num? value); num? get reviewStarsSubtrahend; set reviewStarsSubtrahend(num? value); List<RelationDto<UsersDto>>? get tagged; set tagged(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedRemovals; set taggedRemovals(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedPrefix; set taggedPrefix(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedSuffix; set taggedSuffix(List<RelationDto<UsersDto>>? value); bool? get draft; set draft(bool? value); DateTime? get scheduled; set scheduled(DateTime? value);
+ RelationDto<UsersDto>? get poster; set poster(RelationDto<UsersDto>? value); String? get message; set message(String? value); FileDto? get photo; set photo(FileDto? value); String? get link; set link(String? value); GeopointDto? get location; set location(GeopointDto? value); num? get reviewStars; set reviewStars(num? value); num? get reviewStarsAddend; set reviewStarsAddend(num? value); num? get reviewStarsSubtrahend; set reviewStarsSubtrahend(num? value); List<RelationDto<UsersDto>>? get tagged; set tagged(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedRemovals; set taggedRemovals(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedPrefix; set taggedPrefix(List<RelationDto<UsersDto>>? value); List<RelationDto<UsersDto>>? get taggedSuffix; set taggedSuffix(List<RelationDto<UsersDto>>? value); bool? get draft; set draft(bool? value); DateTime? get scheduled; set scheduled(DateTime? value); PostsVisibilityEnum? get visibility; set visibility(PostsVisibilityEnum? value); dynamic? get metadata; set metadata(dynamic? value);
 /// Create a copy of PostsPatchDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $PostsPatchDtoCopyWith<PostsPatchDto> get copyWith => _$PostsPatchDtoCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostsPatchDto&&(identical(other.poster, poster) || other.poster == poster)&&(identical(other.message, message) || other.message == message)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.link, link) || other.link == link)&&(identical(other.location, location) || other.location == location)&&(identical(other.reviewStars, reviewStars) || other.reviewStars == reviewStars)&&(identical(other.reviewStarsAddend, reviewStarsAddend) || other.reviewStarsAddend == reviewStarsAddend)&&(identical(other.reviewStarsSubtrahend, reviewStarsSubtrahend) || other.reviewStarsSubtrahend == reviewStarsSubtrahend)&&const DeepCollectionEquality().equals(other.tagged, tagged)&&const DeepCollectionEquality().equals(other.taggedRemovals, taggedRemovals)&&const DeepCollectionEquality().equals(other.taggedPrefix, taggedPrefix)&&const DeepCollectionEquality().equals(other.taggedSuffix, taggedSuffix)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.scheduled, scheduled) || other.scheduled == scheduled));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostsPatchDto&&(identical(other.poster, poster) || other.poster == poster)&&(identical(other.message, message) || other.message == message)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.link, link) || other.link == link)&&(identical(other.location, location) || other.location == location)&&(identical(other.reviewStars, reviewStars) || other.reviewStars == reviewStars)&&(identical(other.reviewStarsAddend, reviewStarsAddend) || other.reviewStarsAddend == reviewStarsAddend)&&(identical(other.reviewStarsSubtrahend, reviewStarsSubtrahend) || other.reviewStarsSubtrahend == reviewStarsSubtrahend)&&const DeepCollectionEquality().equals(other.tagged, tagged)&&const DeepCollectionEquality().equals(other.taggedRemovals, taggedRemovals)&&const DeepCollectionEquality().equals(other.taggedPrefix, taggedPrefix)&&const DeepCollectionEquality().equals(other.taggedSuffix, taggedSuffix)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.scheduled, scheduled) || other.scheduled == scheduled)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&const DeepCollectionEquality().equals(other.metadata, metadata));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,poster,message,photo,link,location,reviewStars,reviewStarsAddend,reviewStarsSubtrahend,const DeepCollectionEquality().hash(tagged),const DeepCollectionEquality().hash(taggedRemovals),const DeepCollectionEquality().hash(taggedPrefix),const DeepCollectionEquality().hash(taggedSuffix),draft,scheduled);
+int get hashCode => Object.hash(runtimeType,poster,message,photo,link,location,reviewStars,reviewStarsAddend,reviewStarsSubtrahend,const DeepCollectionEquality().hash(tagged),const DeepCollectionEquality().hash(taggedRemovals),const DeepCollectionEquality().hash(taggedPrefix),const DeepCollectionEquality().hash(taggedSuffix),draft,scheduled,visibility,const DeepCollectionEquality().hash(metadata));
 
 @override
 String toString() {
-  return 'PostsPatchDto(poster: $poster, message: $message, photo: $photo, link: $link, location: $location, reviewStars: $reviewStars, reviewStarsAddend: $reviewStarsAddend, reviewStarsSubtrahend: $reviewStarsSubtrahend, tagged: $tagged, taggedRemovals: $taggedRemovals, taggedPrefix: $taggedPrefix, taggedSuffix: $taggedSuffix, draft: $draft, scheduled: $scheduled)';
+  return 'PostsPatchDto(poster: $poster, message: $message, photo: $photo, link: $link, location: $location, reviewStars: $reviewStars, reviewStarsAddend: $reviewStarsAddend, reviewStarsSubtrahend: $reviewStarsSubtrahend, tagged: $tagged, taggedRemovals: $taggedRemovals, taggedPrefix: $taggedPrefix, taggedSuffix: $taggedSuffix, draft: $draft, scheduled: $scheduled, visibility: $visibility, metadata: $metadata)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $PostsPatchDtoCopyWith<$Res>  {
   factory $PostsPatchDtoCopyWith(PostsPatchDto value, $Res Function(PostsPatchDto) _then) = _$PostsPatchDtoCopyWithImpl;
 @useResult
 $Res call({
- RelationDto<UsersDto>? poster, String? message, FileDto? photo, String? link, GeopointDto? location, num? reviewStars, num? reviewStarsAddend, num? reviewStarsSubtrahend, List<RelationDto<UsersDto>>? tagged, List<RelationDto<UsersDto>>? taggedRemovals, List<RelationDto<UsersDto>>? taggedPrefix, List<RelationDto<UsersDto>>? taggedSuffix, bool? draft, DateTime? scheduled
+ RelationDto<UsersDto>? poster, String? message, FileDto? photo, String? link, GeopointDto? location, num? reviewStars, num? reviewStarsAddend, num? reviewStarsSubtrahend, List<RelationDto<UsersDto>>? tagged, List<RelationDto<UsersDto>>? taggedRemovals, List<RelationDto<UsersDto>>? taggedPrefix, List<RelationDto<UsersDto>>? taggedSuffix, bool? draft, DateTime? scheduled, PostsVisibilityEnum? visibility, dynamic metadata
 });
 
 
@@ -62,7 +62,7 @@ class _$PostsPatchDtoCopyWithImpl<$Res>
 
 /// Create a copy of PostsPatchDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? poster = freezed,Object? message = freezed,Object? photo = freezed,Object? link = freezed,Object? location = freezed,Object? reviewStars = freezed,Object? reviewStarsAddend = freezed,Object? reviewStarsSubtrahend = freezed,Object? tagged = freezed,Object? taggedRemovals = freezed,Object? taggedPrefix = freezed,Object? taggedSuffix = freezed,Object? draft = freezed,Object? scheduled = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? poster = freezed,Object? message = freezed,Object? photo = freezed,Object? link = freezed,Object? location = freezed,Object? reviewStars = freezed,Object? reviewStarsAddend = freezed,Object? reviewStarsSubtrahend = freezed,Object? tagged = freezed,Object? taggedRemovals = freezed,Object? taggedPrefix = freezed,Object? taggedSuffix = freezed,Object? draft = freezed,Object? scheduled = freezed,Object? visibility = freezed,Object? metadata = freezed,}) {
   return _then(PostsPatchDto(
 poster: freezed == poster ? _self.poster : poster // ignore: cast_nullable_to_non_nullable
 as RelationDto<UsersDto>?,message: freezed == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
@@ -78,7 +78,9 @@ as List<RelationDto<UsersDto>>?,taggedPrefix: freezed == taggedPrefix ? _self.ta
 as List<RelationDto<UsersDto>>?,taggedSuffix: freezed == taggedSuffix ? _self.taggedSuffix : taggedSuffix // ignore: cast_nullable_to_non_nullable
 as List<RelationDto<UsersDto>>?,draft: freezed == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
 as bool?,scheduled: freezed == scheduled ? _self.scheduled : scheduled // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as DateTime?,visibility: freezed == visibility ? _self.visibility : visibility // ignore: cast_nullable_to_non_nullable
+as PostsVisibilityEnum?,metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as dynamic,
   ));
 }
 

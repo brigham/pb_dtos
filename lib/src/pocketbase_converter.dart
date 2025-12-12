@@ -38,7 +38,7 @@ const List<PocketbaseTypeBase> _allTypes = [
     toJsonFunction: "Dto.optionalBoolToJson",
   ),
   FilePocketbaseType(),
-  EnumPocketbaseType(),
+  SelectPocketbaseType(),
   RelationPocketbaseType(),
   PocketbaseType(
     'autodate',

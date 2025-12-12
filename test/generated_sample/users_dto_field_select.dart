@@ -36,6 +36,16 @@ class UsersDtoFieldSelect<D extends Dto<D>>
 
   void birthday() => $addField(UsersDtoFieldEnum.birthday);
 
+  void homepage() => $addField(UsersDtoFieldEnum.homepage);
+
+  void metadata() => $addField(UsersDtoFieldEnum.metadata);
+
+  void biography() => $addField(UsersDtoFieldEnum.biography);
+
+  void hometown() => $addField(UsersDtoFieldEnum.hometown);
+
+  void zodiac() => $addField(UsersDtoFieldEnum.zodiac);
+
   void created() => $addField(UsersDtoFieldEnum.created);
 
   void updated() => $addField(UsersDtoFieldEnum.updated);
@@ -117,6 +127,16 @@ class UsersDtoNestedFieldSelect<D extends Dto<D>>
   }
 
   void birthday() => $addField(UsersDtoFieldEnum.birthday);
+
+  void homepage() => $addField(UsersDtoFieldEnum.homepage);
+
+  void metadata() => $addField(UsersDtoFieldEnum.metadata);
+
+  void biography() => $addField(UsersDtoFieldEnum.biography);
+
+  void hometown() => $addField(UsersDtoFieldEnum.hometown);
+
+  void zodiac() => $addField(UsersDtoFieldEnum.zodiac);
 
   void created() => $addField(UsersDtoFieldEnum.created);
 

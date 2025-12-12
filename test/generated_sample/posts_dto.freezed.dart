@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PostsDto {
 
- RelationDto<UsersDto> get poster; String get message; FileDto? get photo; String get link; GeopointDto get location; num get reviewStars; List<RelationDto<UsersDto>> get tagged; bool get draft; DateTime? get scheduled; String get id; PostsExpandDto? get expand;
+ RelationDto<UsersDto> get poster; String get message; FileDto? get photo; String get link; GeopointDto get location; num get reviewStars; List<RelationDto<UsersDto>> get tagged; bool get draft; DateTime? get scheduled; PostsVisibilityEnum? get visibility; DateTime? get created; dynamic get metadata; String get id; PostsExpandDto? get expand;
 /// Create a copy of PostsDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $PostsDtoCopyWith<PostsDto> get copyWith => _$PostsDtoCopyWithImpl<PostsDto>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostsDto&&(identical(other.poster, poster) || other.poster == poster)&&(identical(other.message, message) || other.message == message)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.link, link) || other.link == link)&&(identical(other.location, location) || other.location == location)&&(identical(other.reviewStars, reviewStars) || other.reviewStars == reviewStars)&&const DeepCollectionEquality().equals(other.tagged, tagged)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.scheduled, scheduled) || other.scheduled == scheduled)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostsDto&&(identical(other.poster, poster) || other.poster == poster)&&(identical(other.message, message) || other.message == message)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.link, link) || other.link == link)&&(identical(other.location, location) || other.location == location)&&(identical(other.reviewStars, reviewStars) || other.reviewStars == reviewStars)&&const DeepCollectionEquality().equals(other.tagged, tagged)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.scheduled, scheduled) || other.scheduled == scheduled)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&(identical(other.created, created) || other.created == created)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,poster,message,photo,link,location,reviewStars,const DeepCollectionEquality().hash(tagged),draft,scheduled,id,expand);
+int get hashCode => Object.hash(runtimeType,poster,message,photo,link,location,reviewStars,const DeepCollectionEquality().hash(tagged),draft,scheduled,visibility,created,const DeepCollectionEquality().hash(metadata),id,expand);
 
 @override
 String toString() {
-  return 'PostsDto(poster: $poster, message: $message, photo: $photo, link: $link, location: $location, reviewStars: $reviewStars, tagged: $tagged, draft: $draft, scheduled: $scheduled, id: $id, expand: $expand)';
+  return 'PostsDto(poster: $poster, message: $message, photo: $photo, link: $link, location: $location, reviewStars: $reviewStars, tagged: $tagged, draft: $draft, scheduled: $scheduled, visibility: $visibility, created: $created, metadata: $metadata, id: $id, expand: $expand)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $PostsDtoCopyWith<$Res>  {
   factory $PostsDtoCopyWith(PostsDto value, $Res Function(PostsDto) _then) = _$PostsDtoCopyWithImpl;
 @useResult
 $Res call({
- RelationDto<UsersDto> poster, String message, FileDto? photo, String link, GeopointDto location, num reviewStars, List<RelationDto<UsersDto>> tagged, bool draft, DateTime? scheduled, String id, PostsExpandDto? expand
+ RelationDto<UsersDto> poster, String message, FileDto? photo, String link, GeopointDto location, num reviewStars, List<RelationDto<UsersDto>> tagged, bool draft, DateTime? scheduled, PostsVisibilityEnum? visibility, DateTime? created, dynamic metadata, String id, PostsExpandDto? expand
 });
 
 
@@ -63,7 +63,7 @@ class _$PostsDtoCopyWithImpl<$Res>
 
 /// Create a copy of PostsDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? poster = null,Object? message = null,Object? photo = freezed,Object? link = null,Object? location = null,Object? reviewStars = null,Object? tagged = null,Object? draft = null,Object? scheduled = freezed,Object? id = null,Object? expand = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? poster = null,Object? message = null,Object? photo = freezed,Object? link = null,Object? location = null,Object? reviewStars = null,Object? tagged = null,Object? draft = null,Object? scheduled = freezed,Object? visibility = freezed,Object? created = freezed,Object? metadata = freezed,Object? id = null,Object? expand = freezed,}) {
   return _then(PostsDto(
 poster: null == poster ? _self.poster : poster // ignore: cast_nullable_to_non_nullable
 as RelationDto<UsersDto>,message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,10 @@ as GeopointDto,reviewStars: null == reviewStars ? _self.reviewStars : reviewStar
 as num,tagged: null == tagged ? _self.tagged : tagged // ignore: cast_nullable_to_non_nullable
 as List<RelationDto<UsersDto>>,draft: null == draft ? _self.draft : draft // ignore: cast_nullable_to_non_nullable
 as bool,scheduled: freezed == scheduled ? _self.scheduled : scheduled // ignore: cast_nullable_to_non_nullable
-as DateTime?,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as DateTime?,visibility: freezed == visibility ? _self.visibility : visibility // ignore: cast_nullable_to_non_nullable
+as PostsVisibilityEnum?,created: freezed == created ? _self.created : created // ignore: cast_nullable_to_non_nullable
+as DateTime?,metadata: freezed == metadata ? _self.metadata : metadata // ignore: cast_nullable_to_non_nullable
+as dynamic,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,expand: freezed == expand ? _self.expand : expand // ignore: cast_nullable_to_non_nullable
 as PostsExpandDto?,
   ));

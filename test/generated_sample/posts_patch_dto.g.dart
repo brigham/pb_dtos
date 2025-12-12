@@ -38,6 +38,11 @@ PostsPatchDto _$PostsPatchDtoFromJson(Map<String, dynamic> json) =>
       scheduled: json['scheduled'] == null
           ? null
           : DateTime.parse(json['scheduled'] as String),
+      visibility: $enumDecodeNullable(
+        _$PostsVisibilityEnumEnumMap,
+        json['visibility'],
+      ),
+      metadata: json['metadata'],
     );
 
 Map<String, dynamic> _$PostsPatchDtoToJson(PostsPatchDto instance) =>
@@ -56,4 +61,13 @@ Map<String, dynamic> _$PostsPatchDtoToJson(PostsPatchDto instance) =>
       'tagged+': ?instance.taggedSuffix?.map((e) => e.toJson()).toList(),
       'draft': ?instance.draft,
       'scheduled': ?instance.scheduled?.toIso8601String(),
+      'visibility': ?_$PostsVisibilityEnumEnumMap[instance.visibility],
+      'metadata': ?instance.metadata,
     };
+
+const _$PostsVisibilityEnumEnumMap = {
+  PostsVisibilityEnum.public: 'public',
+  PostsVisibilityEnum.private: 'private',
+  PostsVisibilityEnum.friends: 'friends',
+  PostsVisibilityEnum.$unset: r'$unset',
+};

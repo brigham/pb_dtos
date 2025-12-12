@@ -3,6 +3,7 @@ import "package:pocketbase/pocketbase.dart" show RecordModel;
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'roles_dto.dart';
 import 'users_dto_field_select.dart';
@@ -15,6 +16,19 @@ import 'package:http/http.dart' as http;
 
 part 'users_dto.freezed.dart';
 part 'users_dto.g.dart';
+
+enum UsersZodiacEnum {
+  aries("aries"),
+  taurus("taurus"),
+  gemini("gemini"),
+  cancer("cancer"),
+  $unset("");
+
+  final String value;
+  const UsersZodiacEnum(this.value);
+  @override
+  String toString() => value;
+}
 
 enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
   id<String>(
@@ -85,6 +99,34 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
     'birthday',
     DtoDateFieldSettings(required: false, min: null, max: null),
   ),
+  homepage<String>(
+    'homepage',
+    DtoURLFieldSettings(
+      required: false,
+      exceptDomains: [],
+      onlyDomains: [],
+    ),
+  ),
+  metadata<dynamic>(
+    'metadata',
+    DtoJSONFieldSettings(required: false, maxSize: 0),
+  ),
+  biography<dynamic>(
+    'biography',
+    DtoJSONFieldSettings(required: false, maxSize: 0),
+  ),
+  hometown<GeopointDto>(
+    'hometown',
+    DtoGeoPointFieldSettings(required: false),
+  ),
+  zodiac<UsersZodiacEnum>(
+    'zodiac',
+    DtoSelectFieldSettings(
+      required: false,
+      values: ["aries", "taurus", "gemini", "cancer"],
+      maxSelect: 0,
+    ),
+  ),
   created<DateTime>(
     'created',
     DtoAutodateFieldSettings(onCreate: true, onUpdate: false),
@@ -149,7 +191,12 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
     ..name = name
     ..avatar = avatar
     ..roles = roles
-    ..birthday = birthday;
+    ..birthday = birthday
+    ..homepage = homepage
+    ..metadata = metadata
+    ..biography = biography
+    ..hometown = hometown
+    ..zodiac = zodiac;
 
   @override
   UsersPatchDto diff(UsersDto newValue) => UsersPatchDto()
@@ -162,7 +209,12 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
     ..name = name != newValue.name ? newValue.name : null
     ..avatar = avatar != newValue.avatar ? newValue.avatar : null
     ..roles = roles != newValue.roles ? newValue.roles : null
-    ..birthday = birthday != newValue.birthday ? newValue.birthday : null;
+    ..birthday = birthday != newValue.birthday ? newValue.birthday : null
+    ..homepage = homepage != newValue.homepage ? newValue.homepage : null
+    ..metadata = metadata != newValue.metadata ? newValue.metadata : null
+    ..biography = biography != newValue.biography ? newValue.biography : null
+    ..hometown = hometown != newValue.hometown ? newValue.hometown : null
+    ..zodiac = zodiac != newValue.zodiac ? newValue.zodiac : null;
 
   static UsersDtoExpand<UsersDto> expansions(
     void Function(UsersDtoExpand) builder,
@@ -190,6 +242,11 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
     this.avatar,
     this.roles = const [],
     this.birthday,
+    this.homepage = "",
+    this.metadata,
+    this.biography,
+    this.hometown = const GeopointDto(lat: 0, lon: 0),
+    this.zodiac,
     this.created,
     this.updated,
     this.expand,
@@ -220,6 +277,18 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
   final List<RelationDto<RolesDto>> roles;
   @override
   final DateTime? birthday;
+  @JsonKey(toJson: Dto.optionalStringToJson)
+  @override
+  final String homepage;
+  @override
+  final dynamic metadata;
+  @override
+  final dynamic biography;
+  @override
+  final GeopointDto hometown;
+  @JsonKey(unknownEnumValue: UsersZodiacEnum.$unset)
+  @override
+  final UsersZodiacEnum? zodiac;
   @override
   final DateTime? created;
   @override

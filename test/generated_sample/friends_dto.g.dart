@@ -14,7 +14,11 @@ FriendsDto _$FriendsDtoFromJson(Map<String, dynamic> json) => FriendsDto(
       ? const RelationDto<UsersDto>("")
       : RelationDto<UsersDto>.fromJson(json['accepter'] as String),
   state:
-      $enumDecodeNullable(_$FriendsStateEnumEnumMap, json['state']) ??
+      $enumDecodeNullable(
+        _$FriendsStateEnumEnumMap,
+        json['state'],
+        unknownValue: FriendsStateEnum.$unset,
+      ) ??
       FriendsStateEnum.$unset,
   id: json['id'] as String? ?? "",
   expand: json['expand'] == null

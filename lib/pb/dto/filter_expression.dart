@@ -20,6 +20,8 @@ abstract class FilterExpression<D extends Dto<D>> {
   }
 }
 
+// TODO: PocketBase supports descending into JSON objects, so we should as well.
+
 /// A class representing a single `OPERAND OPERATOR OPERAND` expression.
 class Comparison<D extends Dto<D>, V> extends FilterExpression<D> {
   final FilterOperand<D, V> operand1;
@@ -44,12 +46,6 @@ class ComparisonBuilder<D extends Dto<D>, V> {
 
   ComparisonBuilder._(this.operand1, [this.handler]);
 
-  ComparisonBuilder._modifiedField(
-    DtoTypedField<D, V> field,
-    String modifier, [
-    this.handler,
-  ]) : operand1 = ModifiedDtoFieldOperand(field, modifier);
-
   ComparisonBuilder.field(DtoTypedField<D, V> field, [this.handler])
     : operand1 = DtoFieldOperand<D, V>(field);
 
@@ -68,11 +64,9 @@ class ComparisonBuilder<D extends Dto<D>, V> {
     return comparison;
   }
 
-  ComparisonBuilder<D, V> lower() {
-    // TODO: Make this type safe
-    return ComparisonBuilder._modifiedField(
-      (operand1 as DtoFieldOperand<D, V>).field,
-      "lower",
+  ComparisonBuilder<D, String> lower() {
+    return ComparisonBuilder._(
+      ModifiedDtoFieldOperand<D, V, String>(operand1, "lower"),
       handler,
     );
   }
@@ -142,22 +136,14 @@ class MultivalComparisonBuilder<D extends Dto<D>, V>
 
   MultivalComparisonBuilder._(super.operand1, [super.handler]) : super._();
 
-  ComparisonBuilder<D, V> length() {
-    // TODO: Make this type safe
-    return ComparisonBuilder._modifiedField(
-      (operand1 as DtoFieldOperand<D, V>).field,
-      "length",
-      handler,
-    );
+  ComparisonBuilder<D, num> length() {
+    var operand = ModifiedDtoFieldOperand<D, V, num>(operand1, "length");
+    return ComparisonBuilder._(operand, handler);
   }
 
   ComparisonBuilder<D, V> each() {
-    // TODO: Make this type safe
-    return ComparisonBuilder._modifiedField(
-      (operand1 as DtoFieldOperand<D, V>).field,
-      "each",
-      handler,
-    );
+    var operand = ModifiedDtoFieldOperand<D, V, V>(operand1, "each");
+    return ComparisonBuilder._(operand, handler);
   }
 
   /// Any/At least one of Equal
@@ -207,14 +193,43 @@ class MultirelComparisonBuilder<D extends Dto<D>, V extends Dto<V>>
 class And<D extends Dto<D>> extends FilterExpression<D> {
   final List<FilterExpression<D>> expressions;
 
-  And(this.expressions);
+  static List<FilterExpression<D>> _flatten<D extends Dto<D>>(
+    List<FilterExpression<D>> expressions,
+  ) {
+    if (expressions.every((e) => e is! And<D>)) {
+      return expressions;
+    }
+    return expressions.expand((e) {
+      switch (e) {
+        case And<D> o:
+          return o.expressions;
+        default:
+          {
+            return [e];
+          }
+      }
+    }).toList();
+  }
+
+  And(List<FilterExpression<D>> expressions)
+    : expressions = _flatten(expressions);
 
   @override
   void include(StringBuffer buffer) {
+    if (expressions.isEmpty) {
+      buffer.write('1 = 1');
+      return;
+    }
+    if (expressions.length == 1) {
+      expressions[0].include(buffer);
+      return;
+    }
+    buffer.write('(');
     for (var (index, e) in expressions.indexed) {
       if (index != 0) buffer.write(' && ');
       e.include(buffer);
     }
+    buffer.write(')');
   }
 }
 
@@ -222,13 +237,42 @@ class And<D extends Dto<D>> extends FilterExpression<D> {
 class Or<D extends Dto<D>> extends FilterExpression<D> {
   final List<FilterExpression<D>> expressions;
 
-  Or(this.expressions);
+  static List<FilterExpression<D>> _flatten<D extends Dto<D>>(
+    List<FilterExpression<D>> expressions,
+  ) {
+    if (expressions.every((e) => e is! Or)) {
+      return expressions;
+    }
+    return expressions.expand((e) {
+      switch (e) {
+        case Or<D> o:
+          return o.expressions;
+        default:
+          {
+            return [e];
+          }
+      }
+    }).toList();
+  }
+
+  Or(List<FilterExpression<D>> expressions)
+    : expressions = _flatten(expressions);
 
   @override
   void include(StringBuffer buffer) {
+    if (expressions.isEmpty) {
+      buffer.write('1 = 0');
+      return;
+    }
+    if (expressions.length == 1) {
+      expressions[0].include(buffer);
+      return;
+    }
+    buffer.write('(');
     for (var (index, e) in expressions.indexed) {
       if (index != 0) buffer.write(' || ');
       e.include(buffer);
     }
+    buffer.write(')');
   }
 }

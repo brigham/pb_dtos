@@ -20,6 +20,7 @@ Future<PocketBaseProcess> _startPocketBase() async {
       githubTag: "v0.29.3",
       downloadDir: p.join(env['HOME']!, 'develop', 'pocketbase'),
     ),
+    stdout: '/dev/null',
     port: 8698,
     detached: false,
   );

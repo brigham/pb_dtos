@@ -52,7 +52,6 @@ abstract class DtoFilter<D extends Dto<D>> {
     return buffer.toString();
   }
 
-  // Support filter field paths through back relations (yes, this does work).
   // TODO: Support @collection -- However, this is only available through the API rules, so not super important.
   // TODO: Support geoDistance function with geoPoint.
 }

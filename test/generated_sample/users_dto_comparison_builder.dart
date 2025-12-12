@@ -1,5 +1,6 @@
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pb/dto/filter_expression.dart';
 import 'users_dto.dart';
 import 'users_dto_expand.dart';
@@ -56,6 +57,31 @@ class UsersDtoComparisonBuilder<D extends Dto<D>>
   TerminalRelationComparisonBuilder<D, DateTime> birthday() =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(UsersDtoFieldEnum.birthday),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, String> homepage() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.homepage),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, dynamic> metadata() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.metadata),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, dynamic> biography() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.biography),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, GeopointDto> hometown() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.hometown),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, UsersZodiacEnum> zodiac() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.zodiac),
         handler,
       );
   TerminalRelationComparisonBuilder<D, DateTime> created() =>
@@ -160,6 +186,31 @@ class UsersDtoMultirelComparisonBuilder<D extends Dto<D>>
   TerminalMultivalRelationComparisonBuilder<D, DateTime> birthday() =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(UsersDtoFieldEnum.birthday),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, String> homepage() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.homepage),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, dynamic> metadata() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.metadata),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, dynamic> biography() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.biography),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, GeopointDto> hometown() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.hometown),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, UsersZodiacEnum> zodiac() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(UsersDtoFieldEnum.zodiac),
         handler,
       );
   TerminalMultivalRelationComparisonBuilder<D, DateTime> created() =>

@@ -43,6 +43,12 @@ class PostsDtoFilter extends DtoFilter<PostsDto> {
       ComparisonBuilder.field(PostsDtoFieldEnum.draft, add);
   ComparisonBuilder<PostsDto, DateTime> scheduled() =>
       ComparisonBuilder.field(PostsDtoFieldEnum.scheduled, add);
+  ComparisonBuilder<PostsDto, PostsVisibilityEnum> visibility() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.visibility, add);
+  ComparisonBuilder<PostsDto, DateTime> created() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.created, add);
+  ComparisonBuilder<PostsDto, dynamic> metadata() =>
+      ComparisonBuilder.field(PostsDtoFieldEnum.metadata, add);
   ComparisonBuilder<PostsDto, String> id() =>
       ComparisonBuilder.field(PostsDtoFieldEnum.id, add);
 

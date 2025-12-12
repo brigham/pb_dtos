@@ -38,6 +38,20 @@ class UsersDtoSort<D extends Dto<D>> extends DtoSort<D, UsersDto> {
   void birthday({bool desc = false}) =>
       addField(UsersDtoFieldEnum.birthday, desc);
 
+  void homepage({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.homepage, desc);
+
+  void metadata({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.metadata, desc);
+
+  void biography({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.biography, desc);
+
+  void hometown({bool desc = false}) =>
+      addField(UsersDtoFieldEnum.hometown, desc);
+
+  void zodiac({bool desc = false}) => addField(UsersDtoFieldEnum.zodiac, desc);
+
   void created({bool desc = false}) =>
       addField(UsersDtoFieldEnum.created, desc);
 

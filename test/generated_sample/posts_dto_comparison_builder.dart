@@ -53,6 +53,21 @@ class PostsDtoComparisonBuilder<D extends Dto<D>>
         fieldPath.terminate(PostsDtoFieldEnum.scheduled),
         handler,
       );
+  TerminalRelationComparisonBuilder<D, PostsVisibilityEnum> visibility() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.visibility),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, DateTime> created() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.created),
+        handler,
+      );
+  TerminalRelationComparisonBuilder<D, dynamic> metadata() =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.metadata),
+        handler,
+      );
   TerminalRelationComparisonBuilder<D, String> id() =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(PostsDtoFieldEnum.id),
@@ -110,6 +125,21 @@ class PostsDtoMultirelComparisonBuilder<D extends Dto<D>>
   TerminalMultivalRelationComparisonBuilder<D, DateTime> scheduled() =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(PostsDtoFieldEnum.scheduled),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, PostsVisibilityEnum>
+  visibility() => TerminalMultivalRelationComparisonBuilder(
+    fieldPath.terminate(PostsDtoFieldEnum.visibility),
+    handler,
+  );
+  TerminalMultivalRelationComparisonBuilder<D, DateTime> created() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.created),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, dynamic> metadata() =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PostsDtoFieldEnum.metadata),
         handler,
       );
   TerminalMultivalRelationComparisonBuilder<D, String> id() =>

@@ -43,6 +43,16 @@ class UsersDtoFilter extends DtoFilter<UsersDto> {
       );
   ComparisonBuilder<UsersDto, DateTime> birthday() =>
       ComparisonBuilder.field(UsersDtoFieldEnum.birthday, add);
+  ComparisonBuilder<UsersDto, String> homepage() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.homepage, add);
+  ComparisonBuilder<UsersDto, dynamic> metadata() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.metadata, add);
+  ComparisonBuilder<UsersDto, dynamic> biography() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.biography, add);
+  ComparisonBuilder<UsersDto, GeopointDto> hometown() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.hometown, add);
+  ComparisonBuilder<UsersDto, UsersZodiacEnum> zodiac() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.zodiac, add);
   ComparisonBuilder<UsersDto, DateTime> created() =>
       ComparisonBuilder.field(UsersDtoFieldEnum.created, add);
   ComparisonBuilder<UsersDto, DateTime> updated() =>

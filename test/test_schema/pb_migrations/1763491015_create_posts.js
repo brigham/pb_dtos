@@ -106,6 +106,35 @@ migrate((app) => {
         "max": ""
     }));
 
+    collection.fields.addAt(9, new SelectField({
+        "name": "visibility",
+        "type": "select",
+        "required": false,
+        "system": false,
+        "unique": false,
+        "values": [
+            "public", "private", "friends"
+        ],
+    }));
+
+    collection.fields.addAt(10, new AutodateField({
+        "name": "created",
+        "type": "autodate",
+        "required": true,
+        "system": false,
+        "unique": false,
+        "onCreate": true,
+        "onUpdate": false,
+    }));
+
+    collection.fields.addAt(11, new JSONField({
+        "name": "metadata",
+        "type": "json",
+        "required": false,
+        "system": false,
+        "unique": false,
+    }));
+
     return app.save(collection);
 }, (app) => {
     const collection = app.findCollectionByNameOrId("posts");

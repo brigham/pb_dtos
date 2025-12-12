@@ -255,6 +255,9 @@ class DartDtoDumper extends Dumper {
               case (false, false):
                 filterComparisonBuilder = 'ComparisonBuilder';
             }
+            var unknownEnumValue = field.type == 'select'
+                ? '$dartType.\$unset'
+                : null;
             return {
               'name': field.name,
               'index': idx,
@@ -264,9 +267,11 @@ class DartDtoDumper extends Dumper {
               'has_json_key':
                   camelized != field.name ||
                   toJsonFunction != null ||
-                  defaultValueForJson != null,
+                  defaultValueForJson != null ||
+                  unknownEnumValue != null,
               'json_key_name': camelized != field.name ? field.name : null,
               'json_default_value': defaultValueForJson,
+              'json_key_unknown_enum_value': unknownEnumValue,
               'to_json_function': toJsonFunction,
               'maybe_required': markRequired ? "required " : "",
               'type': dartType,

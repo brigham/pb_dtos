@@ -17,6 +17,18 @@ import 'package:http/http.dart' as http;
 part 'posts_dto.freezed.dart';
 part 'posts_dto.g.dart';
 
+enum PostsVisibilityEnum {
+  public("public"),
+  private("private"),
+  friends("friends"),
+  $unset("");
+
+  final String value;
+  const PostsVisibilityEnum(this.value);
+  @override
+  String toString() => value;
+}
+
 enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
   poster<RelationDto<UsersDto>>(
     'poster',
@@ -83,6 +95,22 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
     'scheduled',
     DtoDateFieldSettings(required: false, min: null, max: null),
   ),
+  visibility<PostsVisibilityEnum>(
+    'visibility',
+    DtoSelectFieldSettings(
+      required: false,
+      values: ["public", "private", "friends"],
+      maxSelect: 0,
+    ),
+  ),
+  created<DateTime>(
+    'created',
+    DtoAutodateFieldSettings(onCreate: true, onUpdate: false),
+  ),
+  metadata<dynamic>(
+    'metadata',
+    DtoJSONFieldSettings(required: false, maxSize: 0),
+  ),
   id<String>(
     'id',
     DtoTextFieldSettings(
@@ -138,7 +166,9 @@ class PostsDto with _$PostsDto implements Dto<PostsDto> {
     ..reviewStars = reviewStars
     ..tagged = tagged
     ..draft = draft
-    ..scheduled = scheduled;
+    ..scheduled = scheduled
+    ..visibility = visibility
+    ..metadata = metadata;
 
   @override
   PostsPatchDto diff(PostsDto newValue) => PostsPatchDto()
@@ -152,7 +182,11 @@ class PostsDto with _$PostsDto implements Dto<PostsDto> {
         : null
     ..tagged = tagged != newValue.tagged ? newValue.tagged : null
     ..draft = draft != newValue.draft ? newValue.draft : null
-    ..scheduled = scheduled != newValue.scheduled ? newValue.scheduled : null;
+    ..scheduled = scheduled != newValue.scheduled ? newValue.scheduled : null
+    ..visibility = visibility != newValue.visibility
+        ? newValue.visibility
+        : null
+    ..metadata = metadata != newValue.metadata ? newValue.metadata : null;
 
   static PostsDtoExpand<PostsDto> expansions(
     void Function(PostsDtoExpand) builder,
@@ -180,6 +214,9 @@ class PostsDto with _$PostsDto implements Dto<PostsDto> {
     this.tagged = const [],
     this.draft = false,
     this.scheduled,
+    this.visibility,
+    this.created,
+    this.metadata,
     this.id = "",
     this.expand,
   });
@@ -206,6 +243,13 @@ class PostsDto with _$PostsDto implements Dto<PostsDto> {
   final bool draft;
   @override
   final DateTime? scheduled;
+  @JsonKey(unknownEnumValue: PostsVisibilityEnum.$unset)
+  @override
+  final PostsVisibilityEnum? visibility;
+  @override
+  final DateTime? created;
+  @override
+  final dynamic metadata;
   @JsonKey(toJson: Dto.optionalStringToJson)
   @override
   final String id;

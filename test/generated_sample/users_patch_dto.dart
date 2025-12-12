@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
 import 'package:pb_dtos/pb/dto/patch_dto.dart';
 import 'users_dto.dart';
@@ -25,6 +26,11 @@ class UsersPatchDto with _$UsersPatchDto implements PatchDto<UsersDto> {
     this.rolesSuffix,
 
     this.birthday,
+    this.homepage,
+    this.metadata,
+    this.biography,
+    this.hometown,
+    this.zodiac,
   });
 
   @override
@@ -62,6 +68,21 @@ class UsersPatchDto with _$UsersPatchDto implements PatchDto<UsersDto> {
 
   @override
   DateTime? birthday;
+
+  @override
+  String? homepage;
+
+  @override
+  dynamic metadata;
+
+  @override
+  dynamic biography;
+
+  @override
+  GeopointDto? hometown;
+
+  @override
+  UsersZodiacEnum? zodiac;
 
   @override
   Map<String, dynamic> toJson() => _$UsersPatchDtoToJson(this);

@@ -31,6 +31,13 @@ UsersPatchDto _$UsersPatchDtoFromJson(Map<String, dynamic> json) =>
       birthday: json['birthday'] == null
           ? null
           : DateTime.parse(json['birthday'] as String),
+      homepage: json['homepage'] as String?,
+      metadata: json['metadata'],
+      biography: json['biography'],
+      hometown: json['hometown'] == null
+          ? null
+          : GeopointDto.fromJson(json['hometown'] as Map<String, dynamic>),
+      zodiac: $enumDecodeNullable(_$UsersZodiacEnumEnumMap, json['zodiac']),
     );
 
 Map<String, dynamic> _$UsersPatchDtoToJson(UsersPatchDto instance) =>
@@ -46,4 +53,17 @@ Map<String, dynamic> _$UsersPatchDtoToJson(UsersPatchDto instance) =>
       '+roles': ?instance.rolesPrefix?.map((e) => e.toJson()).toList(),
       'roles+': ?instance.rolesSuffix?.map((e) => e.toJson()).toList(),
       'birthday': ?instance.birthday?.toIso8601String(),
+      'homepage': ?instance.homepage,
+      'metadata': ?instance.metadata,
+      'biography': ?instance.biography,
+      'hometown': ?instance.hometown?.toJson(),
+      'zodiac': ?_$UsersZodiacEnumEnumMap[instance.zodiac],
     };
+
+const _$UsersZodiacEnumEnumMap = {
+  UsersZodiacEnum.aries: 'aries',
+  UsersZodiacEnum.taurus: 'taurus',
+  UsersZodiacEnum.gemini: 'gemini',
+  UsersZodiacEnum.cancer: 'cancer',
+  UsersZodiacEnum.$unset: r'$unset',
+};

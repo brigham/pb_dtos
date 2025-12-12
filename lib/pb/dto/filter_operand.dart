@@ -1,5 +1,11 @@
+import 'dart:collection';
+import 'dart:convert';
+
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+
 import 'dto.dart';
 import 'dto_field.dart';
+import 'file_dto.dart';
 import 'filter_expression.dart';
 import 'relation_dto.dart';
 
@@ -7,6 +13,7 @@ sealed class FilterOperand<D extends Dto<D>, V> {
   const FilterOperand();
 
   const factory FilterOperand.val(V? value) = LiteralOperand;
+
   factory FilterOperand.field(ComparisonBuilder<D, V> field) => field.operand1;
 
   void include(StringBuffer buffer);
@@ -194,15 +201,18 @@ class DtoTerminalFieldPathOperand<D extends Dto<D>, V>
   }
 }
 
-class ModifiedDtoFieldOperand<D extends Dto<D>, V> extends FilterOperand<D, V> {
-  final DtoTypedField<D, V> field;
+class ModifiedDtoFieldOperand<D extends Dto<D>, V, M>
+    extends FilterOperand<D, M> {
+  final FilterOperand<D, V> modified;
   final String modifier;
 
-  ModifiedDtoFieldOperand(this.field, this.modifier);
+  ModifiedDtoFieldOperand(this.modified, this.modifier);
 
   @override
   void include(StringBuffer buffer) {
-    buffer.write('${field.pbName}:$modifier');
+    modified.include(buffer);
+    buffer.write(':');
+    buffer.write(modifier);
   }
 }
 
@@ -217,10 +227,77 @@ class LiteralOperand<D extends Dto<D>, V> extends FilterOperand<D, V> {
       case null:
         buffer.write('null');
       case String _ || Enum _ || RelationDto _:
-        var escaped = value.toString().replaceAll("'", r"\'");
-        buffer.write("'$escaped'");
+        _includeString(buffer, value.toString());
+      case DateTime dt:
+        _includeString(buffer, dt.toUtc().toString());
+      case num _ || bool _:
+        buffer.write(value.toString());
+      case FileDto file:
+        var json = file.toJson();
+        if (json != null) {
+          _includeString(buffer, json);
+        } else {
+          throw ArgumentError.value(
+            file,
+            'operand2',
+            'FileDto must have a name.',
+          );
+        }
+      case Map _ || List _:
+        var asJson = json.encode(_encodeAsPocketbaseJson(value));
+        _includeString(buffer, asJson);
+      case GeopointDto g:
+        // Pocketbase always stores lon first.
+        // https://github.com/pocketbase/pocketbase/issues/21#issuecomment-2771957602
+        LinkedHashMap<String, num> asMap = LinkedHashMap<String, num>();
+        asMap['lon'] = g.lon;
+        asMap['lat'] = g.lat;
+        var asJson = json.encode(asMap);
+        _includeString(buffer, asJson);
       default:
         buffer.write(value.toString());
+    }
+  }
+
+  static void _includeString(StringBuffer buffer, String value) {
+    var escaped = value.toString().replaceAll("'", r"\'");
+    buffer.write("'");
+    buffer.write(escaped);
+    buffer.write("'");
+  }
+
+  static Object? _encodeAsPocketbaseJson(Object? obj) {
+    switch (obj) {
+      case List l:
+        if (l.isEmpty) return obj;
+        if (!l.any((item) => item is Map || item is List)) return obj;
+        return l.map((item) => _encodeAsPocketbaseJson(item)).toList();
+      case Map m:
+        if (m.isEmpty) return obj;
+        if (m is LinkedHashMap) {
+          var keys = m.keys.cast<String>().iterator;
+          if (!keys.moveNext()) return obj;
+          bool sorted = true;
+          var lastKey = keys.current;
+          while (keys.moveNext()) {
+            var key = keys.current;
+            if (key.compareTo(lastKey) < 0) {
+              sorted = false;
+              break;
+            }
+            lastKey = key;
+          }
+          if (sorted) return obj;
+        }
+        LinkedHashMap<String, dynamic> sortedMap = LinkedHashMap();
+        var sortedKeys = m.keys.cast<String>().toList();
+        sortedKeys.sort();
+        for (var key in sortedKeys) {
+          sortedMap[key] = _encodeAsPocketbaseJson(m[key]);
+        }
+        return sortedMap;
+      default:
+        return obj;
     }
   }
 }

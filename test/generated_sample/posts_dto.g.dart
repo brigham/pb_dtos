@@ -28,6 +28,17 @@ PostsDto _$PostsDtoFromJson(Map<String, dynamic> json) => PostsDto(
   scheduled: json['scheduled'] == null
       ? null
       : DateTime.parse(json['scheduled'] as String),
+  visibility:
+      $enumDecodeNullable(
+        _$PostsVisibilityEnumEnumMap,
+        json['visibility'],
+        unknownValue: PostsVisibilityEnum.$unset,
+      ) ??
+      null,
+  created: json['created'] == null
+      ? null
+      : DateTime.parse(json['created'] as String),
+  metadata: json['metadata'] ?? null,
   id: json['id'] as String? ?? "",
   expand: json['expand'] == null
       ? null
@@ -44,5 +55,15 @@ Map<String, dynamic> _$PostsDtoToJson(PostsDto instance) => <String, dynamic>{
   'tagged': instance.tagged.map((e) => e.toJson()).toList(),
   'draft': ?Dto.optionalBoolToJson(instance.draft),
   'scheduled': ?instance.scheduled?.toIso8601String(),
+  'visibility': ?_$PostsVisibilityEnumEnumMap[instance.visibility],
+  'created': ?instance.created?.toIso8601String(),
+  'metadata': ?instance.metadata,
   'id': ?Dto.optionalStringToJson(instance.id),
+};
+
+const _$PostsVisibilityEnumEnumMap = {
+  PostsVisibilityEnum.public: 'public',
+  PostsVisibilityEnum.private: 'private',
+  PostsVisibilityEnum.friends: 'friends',
+  PostsVisibilityEnum.$unset: r'$unset',
 };

@@ -1,5 +1,6 @@
 import 'package:pb_dtos/pb/dto/dto_filter.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
 import 'package:pb_dtos/pb/dto/filter_operand.dart';
 import 'package:pb_dtos/pb/dto/filter_expression.dart';
 import 'users_dto.dart';
@@ -32,6 +33,16 @@ class UsersDtoFilter extends DtoFilter<UsersDto> {
       );
   ComparisonBuilder<UsersDto, DateTime> birthday() =>
       ComparisonBuilder.field(UsersDtoFieldEnum.birthday, add);
+  ComparisonBuilder<UsersDto, String> homepage() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.homepage, add);
+  ComparisonBuilder<UsersDto, dynamic> metadata() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.metadata, add);
+  ComparisonBuilder<UsersDto, dynamic> biography() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.biography, add);
+  ComparisonBuilder<UsersDto, GeopointDto> hometown() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.hometown, add);
+  ComparisonBuilder<UsersDto, UsersZodiacEnum> zodiac() =>
+      ComparisonBuilder.field(UsersDtoFieldEnum.zodiac, add);
   ComparisonBuilder<UsersDto, DateTime> created() =>
       ComparisonBuilder.field(UsersDtoFieldEnum.created, add);
   ComparisonBuilder<UsersDto, DateTime> updated() =>

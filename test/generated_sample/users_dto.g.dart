@@ -24,6 +24,19 @@ UsersDto _$UsersDtoFromJson(Map<String, dynamic> json) => UsersDto(
   birthday: json['birthday'] == null
       ? null
       : DateTime.parse(json['birthday'] as String),
+  homepage: json['homepage'] as String? ?? "",
+  metadata: json['metadata'] ?? null,
+  biography: json['biography'] ?? null,
+  hometown: json['hometown'] == null
+      ? const GeopointDto(lat: 0, lon: 0)
+      : GeopointDto.fromJson(json['hometown'] as Map<String, dynamic>),
+  zodiac:
+      $enumDecodeNullable(
+        _$UsersZodiacEnumEnumMap,
+        json['zodiac'],
+        unknownValue: UsersZodiacEnum.$unset,
+      ) ??
+      null,
   created: json['created'] == null
       ? null
       : DateTime.parse(json['created'] as String),
@@ -46,7 +59,20 @@ Map<String, dynamic> _$UsersDtoToJson(UsersDto instance) => <String, dynamic>{
   'avatar': ?instance.avatar?.toJson(),
   'roles': instance.roles.map((e) => e.toJson()).toList(),
   'birthday': ?instance.birthday?.toIso8601String(),
+  'homepage': ?Dto.optionalStringToJson(instance.homepage),
+  'metadata': ?instance.metadata,
+  'biography': ?instance.biography,
+  'hometown': instance.hometown.toJson(),
+  'zodiac': ?_$UsersZodiacEnumEnumMap[instance.zodiac],
   'created': ?instance.created?.toIso8601String(),
   'updated': ?instance.updated?.toIso8601String(),
   'passwordConfirm': ?instance.passwordConfirm,
+};
+
+const _$UsersZodiacEnumEnumMap = {
+  UsersZodiacEnum.aries: 'aries',
+  UsersZodiacEnum.taurus: 'taurus',
+  UsersZodiacEnum.gemini: 'gemini',
+  UsersZodiacEnum.cancer: 'cancer',
+  UsersZodiacEnum.$unset: r'$unset',
 };

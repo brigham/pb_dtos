@@ -35,6 +35,12 @@ class PostsDtoFieldSelect<D extends Dto<D>>
 
   void scheduled() => $addField(PostsDtoFieldEnum.scheduled);
 
+  void visibility() => $addField(PostsDtoFieldEnum.visibility);
+
+  void created() => $addField(PostsDtoFieldEnum.created);
+
+  void metadata() => $addField(PostsDtoFieldEnum.metadata);
+
   ModifiableStringField id() {
     $addField(PostsDtoFieldEnum.id);
     return ModifiableStringField($parts, $nextIndex);
@@ -85,6 +91,12 @@ class PostsDtoNestedFieldSelect<D extends Dto<D>>
   void draft() => $addField(PostsDtoFieldEnum.draft);
 
   void scheduled() => $addField(PostsDtoFieldEnum.scheduled);
+
+  void visibility() => $addField(PostsDtoFieldEnum.visibility);
+
+  void created() => $addField(PostsDtoFieldEnum.created);
+
+  void metadata() => $addField(PostsDtoFieldEnum.metadata);
 
   void id() => $addField(PostsDtoFieldEnum.id);
 }

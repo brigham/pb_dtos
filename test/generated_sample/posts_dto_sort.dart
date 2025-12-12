@@ -32,5 +32,14 @@ class PostsDtoSort<D extends Dto<D>> extends DtoSort<D, PostsDto> {
   void scheduled({bool desc = false}) =>
       addField(PostsDtoFieldEnum.scheduled, desc);
 
+  void visibility({bool desc = false}) =>
+      addField(PostsDtoFieldEnum.visibility, desc);
+
+  void created({bool desc = false}) =>
+      addField(PostsDtoFieldEnum.created, desc);
+
+  void metadata({bool desc = false}) =>
+      addField(PostsDtoFieldEnum.metadata, desc);
+
   void id({bool desc = false}) => addField(PostsDtoFieldEnum.id, desc);
 }

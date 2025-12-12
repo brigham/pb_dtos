@@ -30,6 +30,8 @@ class PostsPatchDto with _$PostsPatchDto implements PatchDto<PostsDto> {
 
     this.draft,
     this.scheduled,
+    this.visibility,
+    this.metadata,
   });
 
   @override
@@ -79,6 +81,12 @@ class PostsPatchDto with _$PostsPatchDto implements PatchDto<PostsDto> {
 
   @override
   DateTime? scheduled;
+
+  @override
+  PostsVisibilityEnum? visibility;
+
+  @override
+  dynamic metadata;
 
   @override
   Map<String, dynamic> toJson() => _$PostsPatchDtoToJson(this);
