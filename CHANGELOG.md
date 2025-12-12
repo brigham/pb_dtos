@@ -1,3 +1,7 @@
+# 0.8.0
+
+* Fixed lots of bugs with filtering pocketbase types.
+
 # 0.7.0
 
 * Filters support comparing to another field now, but this requires
