@@ -69,6 +69,9 @@ abstract class _RemoteFileDto extends FileDto with _$RemoteFileDto {
 
   @override
   Uri? toUri<D extends Dto<D>>(DtoMeta<D> meta, D dto, {String? thumb}) {
+    if (name.isEmpty) {
+      return null;
+    }
     var result = Uri.parse('/api/files/${meta.collectionName}/${dto.id}/$name');
     if (thumb != null) {
       result = result.replace(queryParameters: {'thumb': thumb});

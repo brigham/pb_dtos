@@ -1,3 +1,7 @@
+# 0.8.1+1
+
+* Don't create URIs for missing images.
+
 # 0.8.1
 
 * Fix bug with optional relations.
