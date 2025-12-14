@@ -509,10 +509,10 @@ packages:
     dependency: "direct main"
     description:
       name: pb_obtain
-      sha256: "65233b0ee13bb4e2b4270bea40cf01299c222a5979076403a939bba2fdbe62b1"
+      sha256: "5272852b224df92d3b4ec2477f7a97f27a2bdd5c570a483dbd54d438b8463444"
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.2"
+    version: "0.7.3"
   pocketbase:
     dependency: "direct main"
     description:
@@ -805,10 +805,10 @@ packages:
     dependency: transitive
     description:
       name: watcher
-      sha256: "592ab6e2892f67760543fb712ff0177f4ec76c031f02f5b4ff8d3fc5eb9fb61a"
+      sha256: f52385d4f73589977c80797e60fe51014f7f2b957b5e9a62c3f6ada439889249
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.4"
+    version: "1.2.0"
   web:
     dependency: transitive
     description:
