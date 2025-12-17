@@ -194,10 +194,10 @@ class And<D extends Dto<D>> extends FilterExpression<D> {
   final List<FilterExpression<D>> expressions;
 
   static List<FilterExpression<D>> _flatten<D extends Dto<D>>(
-    List<FilterExpression<D>> expressions,
+    Iterable<FilterExpression<D>> expressions,
   ) {
     if (expressions.every((e) => e is! And<D>)) {
-      return expressions;
+      return expressions.toList();
     }
     return expressions.expand((e) {
       switch (e) {
@@ -211,7 +211,7 @@ class And<D extends Dto<D>> extends FilterExpression<D> {
     }).toList();
   }
 
-  And(List<FilterExpression<D>> expressions)
+  And(Iterable<FilterExpression<D>> expressions)
     : expressions = _flatten(expressions);
 
   @override
@@ -238,10 +238,10 @@ class Or<D extends Dto<D>> extends FilterExpression<D> {
   final List<FilterExpression<D>> expressions;
 
   static List<FilterExpression<D>> _flatten<D extends Dto<D>>(
-    List<FilterExpression<D>> expressions,
+    Iterable<FilterExpression<D>> expressions,
   ) {
     if (expressions.every((e) => e is! Or)) {
-      return expressions;
+      return expressions.toList();
     }
     return expressions.expand((e) {
       switch (e) {
@@ -255,7 +255,7 @@ class Or<D extends Dto<D>> extends FilterExpression<D> {
     }).toList();
   }
 
-  Or(List<FilterExpression<D>> expressions)
+  Or(Iterable<FilterExpression<D>> expressions)
     : expressions = _flatten(expressions);
 
   @override

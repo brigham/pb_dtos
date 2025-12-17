@@ -21,7 +21,11 @@ import 'blocks_dto_comparison_builder.dart';
 import 'posts_dto.dart';
 import 'posts_dto_comparison_builder.dart';
 
-class PermissionsDtoFilter extends DtoFilter<PermissionsDto> {
+class PermissionsDtoFilter
+    extends DtoFilterBase<PermissionsDto, PermissionsDtoFilter> {
+  @override
+  PermissionsDtoFilter empty() => PermissionsDtoFilter();
+
   ComparisonBuilder<PermissionsDto, String> name() =>
       ComparisonBuilder.field(PermissionsDtoFieldEnum.name_, add);
   ComparisonBuilder<PermissionsDto, String> id() =>

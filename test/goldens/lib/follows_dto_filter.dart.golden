@@ -21,7 +21,10 @@ import 'blocks_dto_comparison_builder.dart';
 import 'posts_dto.dart';
 import 'posts_dto_comparison_builder.dart';
 
-class FollowsDtoFilter extends DtoFilter<FollowsDto> {
+class FollowsDtoFilter extends DtoFilterBase<FollowsDto, FollowsDtoFilter> {
+  @override
+  FollowsDtoFilter empty() => FollowsDtoFilter();
+
   UsersDtoComparisonBuilder<FollowsDto> follower() => UsersDtoComparisonBuilder(
     SoloFieldPath(FollowsDtoFieldEnum.follower),
     add,

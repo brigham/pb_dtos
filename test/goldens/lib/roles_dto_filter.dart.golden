@@ -21,7 +21,10 @@ import 'blocks_dto_comparison_builder.dart';
 import 'posts_dto.dart';
 import 'posts_dto_comparison_builder.dart';
 
-class RolesDtoFilter extends DtoFilter<RolesDto> {
+class RolesDtoFilter extends DtoFilterBase<RolesDto, RolesDtoFilter> {
+  @override
+  RolesDtoFilter empty() => RolesDtoFilter();
+
   ComparisonBuilder<RolesDto, String> name() =>
       ComparisonBuilder.field(RolesDtoFieldEnum.name_, add);
   PermissionsDtoMultirelComparisonBuilder<RolesDto> permissions() =>

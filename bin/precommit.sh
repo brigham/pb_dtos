@@ -28,11 +28,11 @@ format_and_fix_files() {(
 )}
 run_command "format_and_fix_files" "precommit_format.log" "Formatting and fixing files"
 
-# --- Run Tests ---
-run_command "dart test --reporter failures-only --coverage-path=coverage/lcov.info -x postgen" "precommit_test.log" "Running Tests"
-
 # --- Run Sample Tests ---
 run_command "dart run test/sample_test_runner.dart --coverage-path=sample_coverage/lcov.info" "precommit_sample_test.log" "Running Sample Tests"
+
+# --- Run Tests ---
+run_command "dart test --reporter failures-only --coverage-path=coverage/lcov.info -x postgen" "precommit_test.log" "Running Tests"
 
 # --- Analyze Coverage ---
 analyze_coverage() {

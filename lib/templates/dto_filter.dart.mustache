@@ -13,7 +13,11 @@ import '{{import}}_dto.dart';
 import '{{import}}_dto_comparison_builder.dart';
 {{/imports}}
 
-class {{class_name}}Filter extends DtoFilter<{{class_name}}> {
+class {{class_name}}Filter extends DtoFilterBase<{{class_name}}, {{class_name}}Filter> {
+
+@override
+{{class_name}}Filter empty() => {{class_name}}Filter();
+
 {{#fields}}
     {{#is_relation}}
     {{f_comparison_builder}}<{{class_name}}> {{snake_name}}() =>

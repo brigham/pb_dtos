@@ -23,12 +23,10 @@ void filters() {
   );
   var usersWhoUploadedSixOrSeven = UsersDto.filter(
     (f) => f
-      ..postsViaPoster().reviewStars().equal(.val(6))
-      ..or(
-        UsersDto.filter(
-          (f) => f.postsViaPoster().reviewStars().equal(.val(7)),
-        ).expression!,
-      ),
+      ..or([
+        (f) => f..postsViaPoster().reviewStars().equal(.val(6)),
+        (f) => f.postsViaPoster().reviewStars().equal(.val(7)),
+      ]),
   );
   var vote = FriendsDto.filter(
     (f) => f

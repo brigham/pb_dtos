@@ -21,7 +21,10 @@ import 'blocks_dto_comparison_builder.dart';
 import 'posts_dto.dart';
 import 'posts_dto_comparison_builder.dart';
 
-class PostsDtoFilter extends DtoFilter<PostsDto> {
+class PostsDtoFilter extends DtoFilterBase<PostsDto, PostsDtoFilter> {
+  @override
+  PostsDtoFilter empty() => PostsDtoFilter();
+
   UsersDtoComparisonBuilder<PostsDto> poster() =>
       UsersDtoComparisonBuilder(SoloFieldPath(PostsDtoFieldEnum.poster), add);
   ComparisonBuilder<PostsDto, String> message() =>

@@ -4,7 +4,10 @@ import 'package:pb_dtos/pb/dto/filter_expression.dart';
 import 'follows_dto.dart';
 import 'users_dto_comparison_builder.dart';
 
-class FollowsDtoFilter extends DtoFilter<FollowsDto> {
+class FollowsDtoFilter extends DtoFilterBase<FollowsDto, FollowsDtoFilter> {
+  @override
+  FollowsDtoFilter empty() => FollowsDtoFilter();
+
   UsersDtoComparisonBuilder<FollowsDto> follower() => UsersDtoComparisonBuilder(
     SoloFieldPath(FollowsDtoFieldEnum.follower),
     add,

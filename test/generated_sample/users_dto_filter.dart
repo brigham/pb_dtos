@@ -11,7 +11,10 @@ import 'friends_dto_comparison_builder.dart';
 import 'blocks_dto_comparison_builder.dart';
 import 'posts_dto_comparison_builder.dart';
 
-class UsersDtoFilter extends DtoFilter<UsersDto> {
+class UsersDtoFilter extends DtoFilterBase<UsersDto, UsersDtoFilter> {
+  @override
+  UsersDtoFilter empty() => UsersDtoFilter();
+
   ComparisonBuilder<UsersDto, String> id() =>
       ComparisonBuilder.field(UsersDtoFieldEnum.id, add);
   ComparisonBuilder<UsersDto, String> password() =>

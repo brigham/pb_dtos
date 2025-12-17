@@ -1,3 +1,7 @@
+# 0.9.0
+
+* Improved interface for `and` and `or`.
+
 # 0.8.1+1
 
 * Don't create URIs for missing images.
