@@ -174,9 +174,16 @@ class DtoGeoPointFieldSettings extends DtoFieldSettings {
 
 abstract class DtoTypedField<D extends Dto<D>, V> extends DtoField<D> {}
 
-abstract class DtoRootFieldSelect<D extends Dto<D>> {
+abstract class DtoFieldSelect<D extends Dto<D>> {
+  @override
+  String toString();
+}
+
+abstract class DtoRootFieldSelect<D extends Dto<D>> extends DtoFieldSelect<D> {
+  @protected
   final List<FieldChain> $parts;
 
+  @protected
   int get $nextIndex => $parts.length - 1;
 
   DtoRootFieldSelect() : $parts = [];
@@ -208,9 +215,13 @@ abstract class DtoRootFieldSelect<D extends Dto<D>> {
 }
 
 abstract class DtoNestedFieldSelect<D extends Dto<D>, N extends Dto<N>> {
+  @protected
   final List<FieldChain> $parts;
+
+  @protected
   final int $index;
 
+  @protected
   int get $nextIndex => $parts.length - 1;
 
   DtoNestedFieldSelect(this.$parts, this.$index);
