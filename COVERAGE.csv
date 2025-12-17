@@ -1,6 +1,6 @@
 filepath,lines_of_code,lines_of_code_hit,coverage_percent,untested_code_lines
 lib/pb/dto/dto.dart,4,0,0.00,7;8;10;12
-lib/pb/dto/dto_expand.dart,21,0,0.00,25;26;28;30;33;36;37;45;46;48;50;54;56;64;65;67;69;73;74;77;78
+lib/pb/dto/dto_expand.dart,21,0,0.00,25;26;28;30;33;36;37;45;46;48;50;54;56;70;71;73;75;79;80;83;84
 lib/pb/dto/dto_sort.dart,43,0,0.00,18;20;21;23;24;26;27;29;30;36;38;40;44;45;47;48;50;51;67;68;70;72;75;78;79;87;88;90;92;96;98;106;107;109;111;113;115;120;121;124;126;128;129
 lib/src/back_relation.dart,1,0,0.00,10
 lib/src/collection_schema.dart,12,0,0.00,10;11;12;16;18;19;20;23;25;28;29;30

@@ -24,7 +24,7 @@ enum FollowsDtoExpandEnum<V>
   DtoFieldSettings? get settings => null;
 }
 
-class FollowsDtoExpand<D extends Dto<D>> extends DtoExpand<D, FollowsDto> {
+class FollowsDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, FollowsDto> {
   FollowsDtoExpand() : super.root();
 
   FollowsDtoExpand.from(super.delegate);

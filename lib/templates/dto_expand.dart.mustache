@@ -40,7 +40,7 @@ part '{{collection.name}}_dto_expand.g.dart';
     DtoFieldSettings? get settings => null;
     }
 
-    class {{class_name}}Expand<D extends Dto<D>> extends DtoExpand<D, {{class_name}}> {
+    class {{class_name}}Expand<D extends Dto<D>> extends DtoExpandBase<D, {{class_name}}> {
         {{class_name}}Expand(): super.root();
 
         {{class_name}}Expand.from(super.delegate);

@@ -57,14 +57,20 @@ class _NestedExpandDelegate<D extends Dto<D>> extends DtoExpandDelegate<D> {
   }
 }
 
-abstract class DtoExpand<D extends Dto<D>, N extends Dto<N>> {
+abstract class DtoExpand<D extends Dto<D>> {
+  @override
+  String toString();
+}
+
+abstract class DtoExpandBase<D extends Dto<D>, N extends Dto<N>>
+    extends DtoExpand<D> {
   @protected
   final DtoExpandDelegate<N> delegate;
 
   @protected
-  DtoExpand.root() : delegate = _RootExpandDelegate();
+  DtoExpandBase.root() : delegate = _RootExpandDelegate();
 
-  DtoExpand(this.delegate);
+  DtoExpandBase(this.delegate);
 
   @protected
   DtoExpandDelegate<V> addRelation<V extends Dto<V>>(

@@ -112,7 +112,7 @@ class PocketBaseApiClient {
     String username,
     String password, {
     DtoField<D>? identityField,
-    DtoExpand<D, dynamic>? expand,
+    DtoExpand<D>? expand,
     DtoRootFieldSelect<D>? fields,
   }) async {
     var recordAuth = await _pb
@@ -131,7 +131,7 @@ class PocketBaseApiClient {
 
   Future<D> authRefresh<D extends Dto<D>>(
     DtoMeta<D> meta, {
-    DtoExpand<D, dynamic>? expand,
+    DtoExpand<D>? expand,
     DtoRootFieldSelect<D>? fields,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
@@ -152,7 +152,7 @@ class PocketBaseApiClient {
   Stream<WatchEvent<D>> watch<D extends Dto<D>>(
     DtoMeta<D> meta, {
     String topic = '*',
-    DtoExpand<D, dynamic>? expand,
+    DtoExpand<D>? expand,
     DtoFilter<D>? filter,
     DtoRootFieldSelect<D>? fields,
     Map<String, dynamic> query = const {},
@@ -213,7 +213,7 @@ class PocketBaseApiClient {
   Future<List<D>> getFullList<D extends Dto<D>>(
     DtoMeta<D> meta, {
     int? batch,
-    DtoExpand<D, dynamic>? expand,
+    DtoExpand<D>? expand,
     DtoFilter<D>? filter,
     DtoSort<D, dynamic>? sort,
     DtoRootFieldSelect<D>? fields,
@@ -249,7 +249,7 @@ class PocketBaseApiClient {
     DtoMeta<D> meta, {
     PageRequest? page,
     bool skipTotal = false,
-    DtoExpand<D, dynamic>? expand,
+    DtoExpand<D>? expand,
     DtoFilter<D>? filter,
     DtoSort<D, dynamic>? sort,
     DtoRootFieldSelect<D>? fields,
@@ -290,7 +290,7 @@ class PocketBaseApiClient {
   Future<D> getOne<D extends Dto<D>>(
     DtoMeta<D> meta,
     String id, {
-    DtoExpand<D, dynamic>? expand,
+    DtoExpand<D>? expand,
     DtoRootFieldSelect<D>? fields,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
@@ -312,7 +312,7 @@ class PocketBaseApiClient {
   Future<D> getFirstListItem<D extends Dto<D>>(
     DtoMeta<D> meta,
     DtoFilter<D> filter, {
-    DtoExpand<D, dynamic>? expand,
+    DtoExpand<D>? expand,
     DtoRootFieldSelect<D>? fields,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
@@ -336,7 +336,7 @@ class PocketBaseApiClient {
     D? body,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
-    DtoExpand<D, dynamic>? expand,
+    DtoExpand<D>? expand,
     DtoRootFieldSelect<D>? fields,
   }) async {
     var collection = meta.collectionName;
@@ -360,7 +360,7 @@ class PocketBaseApiClient {
     PatchDto<D>? body,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
-    DtoExpand<D, dynamic>? expand,
+    DtoExpand<D>? expand,
     DtoRootFieldSelect<D>? fields,
   }) async {
     var collection = meta.collectionName;

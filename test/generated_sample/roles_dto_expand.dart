@@ -26,7 +26,7 @@ enum RolesDtoExpandEnum<V>
   DtoFieldSettings? get settings => null;
 }
 
-class RolesDtoExpand<D extends Dto<D>> extends DtoExpand<D, RolesDto> {
+class RolesDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, RolesDto> {
   RolesDtoExpand() : super.root();
 
   RolesDtoExpand.from(super.delegate);

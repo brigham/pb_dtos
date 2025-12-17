@@ -24,7 +24,7 @@ enum BlocksDtoExpandEnum<V>
   DtoFieldSettings? get settings => null;
 }
 
-class BlocksDtoExpand<D extends Dto<D>> extends DtoExpand<D, BlocksDto> {
+class BlocksDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, BlocksDto> {
   BlocksDtoExpand() : super.root();
 
   BlocksDtoExpand.from(super.delegate);

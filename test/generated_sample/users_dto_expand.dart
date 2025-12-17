@@ -39,7 +39,7 @@ enum UsersDtoExpandEnum<V>
   DtoFieldSettings? get settings => null;
 }
 
-class UsersDtoExpand<D extends Dto<D>> extends DtoExpand<D, UsersDto> {
+class UsersDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, UsersDto> {
   UsersDtoExpand() : super.root();
 
   UsersDtoExpand.from(super.delegate);

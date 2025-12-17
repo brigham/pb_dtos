@@ -24,7 +24,7 @@ enum PermissionsDtoExpandEnum<V>
 }
 
 class PermissionsDtoExpand<D extends Dto<D>>
-    extends DtoExpand<D, PermissionsDto> {
+    extends DtoExpandBase<D, PermissionsDto> {
   PermissionsDtoExpand() : super.root();
 
   PermissionsDtoExpand.from(super.delegate);

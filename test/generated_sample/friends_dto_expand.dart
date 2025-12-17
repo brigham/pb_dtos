@@ -24,7 +24,7 @@ enum FriendsDtoExpandEnum<V>
   DtoFieldSettings? get settings => null;
 }
 
-class FriendsDtoExpand<D extends Dto<D>> extends DtoExpand<D, FriendsDto> {
+class FriendsDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, FriendsDto> {
   FriendsDtoExpand() : super.root();
 
   FriendsDtoExpand.from(super.delegate);

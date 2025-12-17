@@ -24,7 +24,7 @@ enum PostsDtoExpandEnum<V>
   DtoFieldSettings? get settings => null;
 }
 
-class PostsDtoExpand<D extends Dto<D>> extends DtoExpand<D, PostsDto> {
+class PostsDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, PostsDto> {
   PostsDtoExpand() : super.root();
 
   PostsDtoExpand.from(super.delegate);
