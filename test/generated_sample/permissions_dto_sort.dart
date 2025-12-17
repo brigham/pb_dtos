@@ -4,7 +4,8 @@ import 'permissions_dto.dart';
 import 'roles_dto_sort.dart';
 import 'permissions_dto_expand.dart';
 
-class PermissionsDtoSort<D extends Dto<D>> extends DtoSort<D, PermissionsDto> {
+class PermissionsDtoSort<D extends Dto<D>>
+    extends DtoSortBase<D, PermissionsDto> {
   PermissionsDtoSort() : super.root();
 
   PermissionsDtoSort.from(super.delegate);

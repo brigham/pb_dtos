@@ -3,7 +3,7 @@ import 'package:pb_dtos/pb/dto/dto_sort.dart';
 import 'follows_dto.dart';
 import 'users_dto_sort.dart';
 
-class FollowsDtoSort<D extends Dto<D>> extends DtoSort<D, FollowsDto> {
+class FollowsDtoSort<D extends Dto<D>> extends DtoSortBase<D, FollowsDto> {
   FollowsDtoSort() : super.root();
 
   FollowsDtoSort.from(super.delegate);

@@ -99,14 +99,19 @@ class _NestedSortDelegate<D extends Dto<D>> extends DtoSortDelegate<D> {
   }
 }
 
-abstract class DtoSort<D extends Dto<D>, N extends Dto<N>> {
+abstract class DtoSort<D extends Dto<D>> {
+  @override
+  String toString();
+}
+
+abstract class DtoSortBase<D extends Dto<D>, N extends Dto<N>> {
   @protected
   final DtoSortDelegate<N> delegate;
 
   @protected
-  DtoSort.root() : delegate = _RootSortDelegate();
+  DtoSortBase.root() : delegate = _RootSortDelegate();
 
-  DtoSort(this.delegate);
+  DtoSortBase(this.delegate);
 
   @protected
   void addField<V>(DtoTypedField<N, V> field, bool desc) =>

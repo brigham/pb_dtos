@@ -10,7 +10,7 @@ import 'blocks_dto_sort.dart';
 import 'posts_dto_sort.dart';
 import 'roles_dto_expand.dart';
 
-class RolesDtoSort<D extends Dto<D>> extends DtoSort<D, RolesDto> {
+class RolesDtoSort<D extends Dto<D>> extends DtoSortBase<D, RolesDto> {
   RolesDtoSort() : super.root();
 
   RolesDtoSort.from(super.delegate);

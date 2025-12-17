@@ -8,7 +8,7 @@ import '{{collection.name}}_dto.dart';
 import '{{collection.name}}_dto_expand.dart';
 {{/has_relations}}
 
-class {{class_name}}Sort<D extends Dto<D>> extends DtoSort<D, {{class_name}}> {
+class {{class_name}}Sort<D extends Dto<D>> extends DtoSortBase<D, {{class_name}}> {
     {{class_name}}Sort(): super.root();
 
     {{class_name}}Sort.from(super.delegate);
