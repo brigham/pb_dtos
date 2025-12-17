@@ -104,7 +104,8 @@ abstract class DtoSort<D extends Dto<D>> {
   String toString();
 }
 
-abstract class DtoSortBase<D extends Dto<D>, N extends Dto<N>> {
+abstract class DtoSortBase<D extends Dto<D>, N extends Dto<N>>
+    extends DtoSort<D> {
   @protected
   final DtoSortDelegate<N> delegate;
 
