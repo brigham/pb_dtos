@@ -56,6 +56,10 @@ class RolesPatchDto with _$RolesPatchDto implements PatchDto<RolesDto> {
   @override
   Map<String, dynamic> toJson() => _$RolesPatchDtoToJson(this);
 
+  // ignore: unused_element
+  factory RolesPatchDto._fromJson(Map<String, dynamic> json) =>
+      _$RolesPatchDtoFromJson(json);
+
   @override
   List<Future<http.MultipartFile>> toFiles() => const [];
 }

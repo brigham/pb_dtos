@@ -19,6 +19,10 @@ class PermissionsPatchDto
   @override
   Map<String, dynamic> toJson() => _$PermissionsPatchDtoToJson(this);
 
+  // ignore: unused_element
+  factory PermissionsPatchDto._fromJson(Map<String, dynamic> json) =>
+      _$PermissionsPatchDtoFromJson(json);
+
   @override
   List<Future<http.MultipartFile>> toFiles() => const [];
 }

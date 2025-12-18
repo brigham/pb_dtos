@@ -91,6 +91,10 @@ class PostsPatchDto with _$PostsPatchDto implements PatchDto<PostsDto> {
   @override
   Map<String, dynamic> toJson() => _$PostsPatchDtoToJson(this);
 
+  // ignore: unused_element
+  factory PostsPatchDto._fromJson(Map<String, dynamic> json) =>
+      _$PostsPatchDtoFromJson(json);
+
   @override
   List<Future<http.MultipartFile>> toFiles() =>
       [photo?.toFile('photo')].whereType<Future<http.MultipartFile>>().toList();
