@@ -1,10 +1,12 @@
 import 'package:pb_dtos/pb/dto/dto_meta.dart';
 import 'package:pocketbase/pocketbase.dart';
-{{#imports}}
-import '{{import}}_dto.dart';
-{{/imports}}
+import '{{collection.name}}_dto.dart';
+import '{{collection.name}}_dto_filter.dart';
+import '{{collection.name}}_dto_expand.dart';
+import '{{collection.name}}_dto_sort.dart';
+import '{{collection.name}}_dto_field_select.dart';
 
-class {{class_name}}Meta extends DtoMeta<{{class_name}}> {
+class {{class_name}}Meta extends DtoMeta<{{class_name}}, {{class_name}}Filter, {{class_name}}Expand<{{class_name}}>, {{class_name}}Sort<{{class_name}}>, {{class_name}}FieldSelect<{{class_name}}>> {
     const {{class_name}}Meta();
 
     @override
@@ -12,4 +14,17 @@ class {{class_name}}Meta extends DtoMeta<{{class_name}}> {
 
     @override
     {{class_name}} fromRecord(RecordModel model) => {{class_name}}.fromRecord(model);
+
+    @override
+    {{class_name}}Expand<{{class_name}}> expansions() => {{class_name}}Expand();
+
+    @override
+    {{class_name}}FieldSelect<{{class_name}}> fields() => {{class_name}}FieldSelect();
+        
+    @override
+    {{class_name}}Filter filter() => {{class_name}}Filter();
+
+    @override
+    {{class_name}}Sort<{{class_name}}> sort() => {{class_name}}Sort();
+
 }

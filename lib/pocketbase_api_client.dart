@@ -56,7 +56,7 @@ class Page<D extends Dto<D>> extends ListBase<D> {
   PageRequest? get previousPage =>
       page > 1 ? PageRequest(page: page - 1, perPage: perPage) : null;
 
-  Page._fromResult(DtoMeta<D> meta, ResultList<RecordModel> result)
+  Page._fromResult(DtoSimpleMeta<D> meta, ResultList<RecordModel> result)
     : _delegate = UnmodifiableListView(
         result.items.map(meta.fromRecord).toList(),
       ),
@@ -92,6 +92,13 @@ class Page<D extends Dto<D>> extends ListBase<D> {
   }
 }
 
+R? _build<R>(R Function() maker, void Function(R)? builder) {
+  if (builder == null) return null;
+  var obj = maker();
+  builder(obj);
+  return obj;
+}
+
 class PocketBaseApiClient {
   final PocketBase _pb;
 
@@ -107,13 +114,19 @@ class PocketBaseApiClient {
 
   RecordModel? get authRecord => _pb.authStore.record;
 
-  Future<D> authWithPassword<D extends Dto<D>>(
-    DtoMeta<D> meta,
+  Future<D> authWithPassword<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta,
     String username,
     String password, {
     DtoField<D>? identityField,
-    DtoExpand<D>? expand,
-    DtoFieldSelect<D>? fields,
+    void Function(E)? expand,
+    void Function(F2)? fields,
   }) async {
     var recordAuth = await _pb
         .collection(meta.collectionName)
@@ -123,16 +136,22 @@ class PocketBaseApiClient {
           body: identityField != null
               ? {"identityField": identityField.pbName}
               : const {},
-          expand: expand?.toString(),
-          fields: fields?.toString(),
+          expand: _build(meta.expansions, expand)?.toString(),
+          fields: _build(meta.fields, fields)?.toString(),
         );
     return meta.fromRecord(recordAuth.record);
   }
 
-  Future<D> authRefresh<D extends Dto<D>>(
-    DtoMeta<D> meta, {
-    DtoExpand<D>? expand,
-    DtoFieldSelect<D>? fields,
+  Future<D> authRefresh<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta, {
+    void Function(E)? expand,
+    void Function(F2)? fields,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
   }) async {
@@ -149,12 +168,18 @@ class PocketBaseApiClient {
 
   Future<void> clearAuth() async => _pb.authStore.clear();
 
-  Stream<WatchEvent<D>> watch<D extends Dto<D>>(
-    DtoMeta<D> meta, {
+  Stream<WatchEvent<D>> watch<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta, {
     String topic = '*',
-    DtoExpand<D>? expand,
-    DtoFilter<D>? filter,
-    DtoFieldSelect<D>? fields,
+    void Function(E)? expand,
+    void Function(F)? filter,
+    void Function(F2)? fields,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
   }) {
@@ -210,13 +235,19 @@ class PocketBaseApiClient {
     return controller.stream;
   }
 
-  Future<List<D>> getFullList<D extends Dto<D>>(
-    DtoMeta<D> meta, {
+  Future<List<D>> getFullList<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta, {
     int? batch,
-    DtoExpand<D>? expand,
-    DtoFilter<D>? filter,
-    DtoSort<D>? sort,
-    DtoFieldSelect<D>? fields,
+    void Function(E)? expand,
+    void Function(F)? filter,
+    void Function(S)? sort,
+    void Function(F2)? fields,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
   }) async {
@@ -245,14 +276,20 @@ class PocketBaseApiClient {
     return result.map(meta.fromRecord).cast<D>().toList();
   }
 
-  Future<Page<D>> getList<D extends Dto<D>>(
-    DtoMeta<D> meta, {
+  Future<Page<D>> getList<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta, {
     PageRequest? page,
     bool skipTotal = false,
-    DtoExpand<D>? expand,
-    DtoFilter<D>? filter,
-    DtoSort<D>? sort,
-    DtoFieldSelect<D>? fields,
+    void Function(E)? expand,
+    void Function(F)? filter,
+    void Function(S)? sort,
+    void Function(F2)? fields,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
   }) async {
@@ -264,10 +301,10 @@ class PocketBaseApiClient {
               .getList(
                 page: page?.page ?? 1,
                 skipTotal: skipTotal,
-                expand: expand?.toString(),
-                filter: filter?.toString(),
-                sort: sort?.toString(),
-                fields: fields?.toString(),
+                expand: _build(meta.expansions, expand)?.toString(),
+                filter: _build(meta.filter, filter)?.toString(),
+                sort: _build(meta.sort, sort)?.toString(),
+                fields: _build(meta.fields, fields)?.toString(),
                 query: query,
                 headers: headers,
               )
@@ -277,21 +314,27 @@ class PocketBaseApiClient {
                 page: page?.page ?? 1,
                 perPage: perPage,
                 skipTotal: skipTotal,
-                expand: expand?.toString(),
-                filter: filter?.toString(),
-                sort: sort?.toString(),
-                fields: fields?.toString(),
+                expand: _build(meta.expansions, expand)?.toString(),
+                filter: _build(meta.filter, filter)?.toString(),
+                sort: _build(meta.sort, sort)?.toString(),
+                fields: _build(meta.fields, fields)?.toString(),
                 query: query,
                 headers: headers,
               );
     return Page._fromResult(meta, result);
   }
 
-  Future<D> getOne<D extends Dto<D>>(
-    DtoMeta<D> meta,
+  Future<D> getOne<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta,
     String id, {
-    DtoExpand<D>? expand,
-    DtoFieldSelect<D>? fields,
+    void Function(E)? expand,
+    void Function(F2)? fields,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
   }) async {
@@ -301,19 +344,25 @@ class PocketBaseApiClient {
         .collection(collection)
         .getOne(
           id,
-          expand: expand?.toString(),
-          fields: fields?.toString(),
+          expand: _build(meta.expansions, expand)?.toString(),
+          fields: _build(meta.fields, fields)?.toString(),
           query: query,
           headers: headers,
         );
     return converter(result);
   }
 
-  Future<D> getFirstListItem<D extends Dto<D>>(
-    DtoMeta<D> meta,
-    DtoFilter<D> filter, {
-    DtoExpand<D>? expand,
-    DtoFieldSelect<D>? fields,
+  Future<D> getFirstListItem<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta,
+    void Function(F) filter, {
+    void Function(E)? expand,
+    void Function(F2)? fields,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
   }) async {
@@ -322,22 +371,28 @@ class PocketBaseApiClient {
     var result = await _pb
         .collection(collection)
         .getFirstListItem(
-          filter.toString(),
-          expand: expand?.toString(),
-          fields: fields?.toString(),
+          _build(meta.filter, filter).toString(),
+          expand: _build(meta.expansions, expand)?.toString(),
+          fields: _build(meta.fields, fields)?.toString(),
           query: query,
           headers: headers,
         );
     return converter(result);
   }
 
-  Future<D> create<D extends Dto<D>>(
-    DtoMeta<D> meta, {
+  Future<D> create<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta, {
     D? body,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
-    DtoExpand<D>? expand,
-    DtoFieldSelect<D>? fields,
+    void Function(E)? expand,
+    void Function(F2)? fields,
   }) async {
     var collection = meta.collectionName;
     var converter = meta.fromRecord;
@@ -348,20 +403,26 @@ class PocketBaseApiClient {
           query: query,
           files: await Future.wait(body?.toFiles() ?? const []),
           headers: headers,
-          expand: expand?.toString(),
-          fields: fields?.toString(),
+          expand: _build(meta.expansions, expand)?.toString(),
+          fields: _build(meta.fields, fields)?.toString(),
         );
     return converter(created);
   }
 
-  Future<D> update<D extends Dto<D>>(
-    DtoMeta<D> meta,
+  Future<D> update<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta,
     String id, {
     PatchDto<D>? body,
     Map<String, dynamic> query = const {},
     Map<String, String> headers = const {},
-    DtoExpand<D>? expand,
-    DtoFieldSelect<D>? fields,
+    void Function(E)? expand,
+    void Function(F2)? fields,
   }) async {
     var collection = meta.collectionName;
     var converter = meta.fromRecord;
@@ -373,14 +434,20 @@ class PocketBaseApiClient {
           query: query,
           files: await Future.wait(body?.toFiles() ?? const []),
           headers: headers,
-          expand: expand?.toString(),
-          fields: fields?.toString(),
+          expand: _build(meta.expansions, expand)?.toString(),
+          fields: _build(meta.fields, fields)?.toString(),
         );
     return converter(updated);
   }
 
-  Future<void> delete<D extends Dto<D>>(
-    DtoMeta<D> meta,
+  Future<void> delete<
+    D extends Dto<D>,
+    F extends DtoFilter<D>,
+    E extends DtoExpand<D>,
+    S extends DtoSort<D>,
+    F2 extends DtoFieldSelect<D>
+  >(
+    DtoMeta<D, F, E, S, F2> meta,
     String id, {
     Map<String, dynamic> body = const {},
     Map<String, dynamic> query = const {},

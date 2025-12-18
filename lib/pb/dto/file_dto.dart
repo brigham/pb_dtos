@@ -48,7 +48,7 @@ sealed class FileDto with _$FileDto {
 
   Future<http.MultipartFile>? toFile(String field);
 
-  Uri? toUri<D extends Dto<D>>(DtoMeta<D> meta, D dto, {String? thumb});
+  Uri? toUri<D extends Dto<D>>(DtoSimpleMeta<D> meta, D dto, {String? thumb});
 }
 
 @freezed
@@ -68,7 +68,7 @@ abstract class _RemoteFileDto extends FileDto with _$RemoteFileDto {
   }
 
   @override
-  Uri? toUri<D extends Dto<D>>(DtoMeta<D> meta, D dto, {String? thumb}) {
+  Uri? toUri<D extends Dto<D>>(DtoSimpleMeta<D> meta, D dto, {String? thumb}) {
     if (name.isEmpty) {
       return null;
     }
@@ -108,7 +108,8 @@ abstract class _FromStreamFileDto extends FileDto with _$FromStreamFileDto {
   }
 
   @override
-  Uri? toUri<D extends Dto<D>>(DtoMeta<D> meta, D dto, {String? thumb}) => null;
+  Uri? toUri<D extends Dto<D>>(DtoSimpleMeta<D> meta, D dto, {String? thumb}) =>
+      null;
 }
 
 @freezed
@@ -137,7 +138,8 @@ abstract class _FromBytesFileDto extends FileDto with _$FromBytesFileDto {
   }
 
   @override
-  Uri? toUri<D extends Dto<D>>(DtoMeta<D> meta, D dto, {String? thumb}) => null;
+  Uri? toUri<D extends Dto<D>>(DtoSimpleMeta<D> meta, D dto, {String? thumb}) =>
+      null;
 }
 
 @freezed
@@ -166,7 +168,8 @@ abstract class _FromStringFileDto extends FileDto with _$FromStringFileDto {
   }
 
   @override
-  Uri? toUri<D extends Dto<D>>(DtoMeta<D> meta, D dto, {String? thumb}) => null;
+  Uri? toUri<D extends Dto<D>>(DtoSimpleMeta<D> meta, D dto, {String? thumb}) =>
+      null;
 }
 
 @freezed
@@ -196,5 +199,6 @@ abstract class _FromPathFileDto extends FileDto with _$FromPathFileDto {
   }
 
   @override
-  Uri? toUri<D extends Dto<D>>(DtoMeta<D> meta, D dto, {String? thumb}) => null;
+  Uri? toUri<D extends Dto<D>>(DtoSimpleMeta<D> meta, D dto, {String? thumb}) =>
+      null;
 }
