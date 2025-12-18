@@ -1,3 +1,7 @@
+# 0.9.0+1
+
+* Simplified some generics on some classes.
+
 # 0.9.0
 
 * Improved interface for `and` and `or`.
