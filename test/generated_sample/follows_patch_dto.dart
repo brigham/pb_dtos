@@ -22,6 +22,10 @@ class FollowsPatchDto with _$FollowsPatchDto implements PatchDto<FollowsDto> {
   @override
   Map<String, dynamic> toJson() => _$FollowsPatchDtoToJson(this);
 
+  // ignore: unused_element
+  factory FollowsPatchDto._fromJson(Map<String, dynamic> json) =>
+      _$FollowsPatchDtoFromJson(json);
+
   @override
   List<Future<http.MultipartFile>> toFiles() => const [];
 }

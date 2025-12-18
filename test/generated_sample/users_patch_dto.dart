@@ -87,6 +87,10 @@ class UsersPatchDto with _$UsersPatchDto implements PatchDto<UsersDto> {
   @override
   Map<String, dynamic> toJson() => _$UsersPatchDtoToJson(this);
 
+  // ignore: unused_element
+  factory UsersPatchDto._fromJson(Map<String, dynamic> json) =>
+      _$UsersPatchDtoFromJson(json);
+
   @override
   List<Future<http.MultipartFile>> toFiles() => [
     avatar?.toFile('avatar'),

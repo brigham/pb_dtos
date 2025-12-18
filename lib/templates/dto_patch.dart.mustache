@@ -72,6 +72,8 @@ class {{patch_class_name}} with _${{patch_class_name}} implements PatchDto<{{cla
 @override
 Map<String, dynamic> toJson() => _${{patch_class_name}}ToJson(this);
 
+// ignore: unused_element
+factory {{patch_class_name}}._fromJson(Map<String, dynamic> json) => _${{patch_class_name}}FromJson(json);
 
 @override
 List<Future<http.MultipartFile>> toFiles() => {{^has_files}}const{{/has_files}} [

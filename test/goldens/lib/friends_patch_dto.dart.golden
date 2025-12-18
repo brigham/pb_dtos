@@ -41,6 +41,10 @@ class FriendsPatchDto with _$FriendsPatchDto implements PatchDto<FriendsDto> {
   @override
   Map<String, dynamic> toJson() => _$FriendsPatchDtoToJson(this);
 
+  // ignore: unused_element
+  factory FriendsPatchDto._fromJson(Map<String, dynamic> json) =>
+      _$FriendsPatchDtoFromJson(json);
+
   @override
   List<Future<http.MultipartFile>> toFiles() => const [];
 }
