@@ -29,10 +29,14 @@ class BlocksDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, BlocksDto> {
 
   BlocksDtoExpand.from(super.delegate);
 
-  UsersDtoExpand<BlocksDto> blocker() =>
+  void call() {
+    finish();
+  }
+
+  UsersDtoExpand<BlocksDto> get blocker =>
       UsersDtoExpand.from(addRelation(BlocksDtoFieldEnum.blocker));
 
-  UsersDtoExpand<BlocksDto> blocked() =>
+  UsersDtoExpand<BlocksDto> get blocked =>
       UsersDtoExpand.from(addRelation(BlocksDtoFieldEnum.blocked));
 }
 

@@ -45,13 +45,17 @@ part '{{collection.name}}_dto_expand.g.dart';
 
         {{class_name}}Expand.from(super.delegate);
 
+        void call() {
+            finish();
+        }
+
         {{#fields}}{{#is_relation}}
-            {{relation_class_name}}Expand<{{class_name}}> {{snake_name}}() =>
+            {{relation_class_name}}Expand<{{class_name}}> get {{snake_name}} =>
             {{relation_class_name}}Expand.from(addRelation({{class_name}}FieldEnum.{{enum_name}}));
         {{/is_relation}}{{/fields}}
 
         {{#back_relations}}
-            {{solo_type}}Expand<{{class_name}}> {{snake_name}}() =>
+            {{solo_type}}Expand<{{class_name}}> get {{snake_name}} =>
             {{solo_type}}Expand.from(addRelation({{dto_expand_class_name}}Enum.{{snake_name}}));
         {{/back_relations}}
     }

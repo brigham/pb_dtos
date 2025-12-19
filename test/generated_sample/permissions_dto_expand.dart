@@ -29,7 +29,11 @@ class PermissionsDtoExpand<D extends Dto<D>>
 
   PermissionsDtoExpand.from(super.delegate);
 
-  RolesDtoExpand<PermissionsDto> rolesViaPermissions() => RolesDtoExpand.from(
+  void call() {
+    finish();
+  }
+
+  RolesDtoExpand<PermissionsDto> get rolesViaPermissions => RolesDtoExpand.from(
     addRelation(PermissionsDtoExpandEnum.rolesViaPermissions),
   );
 }

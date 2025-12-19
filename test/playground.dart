@@ -2,9 +2,7 @@ import 'package:pb_dtos/pb/dto/relation_dto.dart';
 
 import 'generated_sample/friends_dto.dart';
 import 'generated_sample/posts_dto.dart';
-import 'generated_sample/posts_dto_expand.dart';
 import 'generated_sample/users_dto.dart';
-import 'generated_sample/users_dto_expand.dart';
 
 void filters() {
   var expression = PostsDto.filter(
@@ -61,19 +59,24 @@ void sorts() {
   );
   print(
     PostsDto.sort((s) {
-      s.poster..name()..roles.permissions.name();
-    }));
+      s.poster
+        ..name()
+        ..roles.permissions.name();
+    }),
+  );
 }
 
 void expands() {
-  print(PostsDtoExpand<PostsDto>()..poster());
-  print(PostsDtoExpand<PostsDto>()..poster().roles().permissions());
+  print(PostsDto.expansions((e) => e..poster()));
+  print(PostsDto.expansions((e) => e..poster.roles.permissions()));
   print(
-    UsersDtoExpand<UsersDto>()
-      ..roles().permissions()
-      ..postsViaPoster()
-      ..postsViaTagged()
-      ..friendsViaRequester().requester(),
+    UsersDto.expansions(
+      (e) => e
+        ..roles.permissions()
+        ..postsViaPoster()
+        ..postsViaTagged()
+        ..friendsViaRequester.requester(),
+    ),
   );
 }
 

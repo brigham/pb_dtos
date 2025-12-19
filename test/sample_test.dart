@@ -132,7 +132,7 @@ void main() {
 
         var user1WithFriends = await api.getList(
           UsersDto.meta(),
-          expand: (e) => e..friendsViaAccepter(),
+          expand: (e) => e.friendsViaAccepter(),
           filter: (f) => f
             ..id.equal(.val(user1.id))
             ..friendsViaAccepter.state.equal(.val(.accepted)),

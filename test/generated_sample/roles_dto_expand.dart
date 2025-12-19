@@ -31,10 +31,14 @@ class RolesDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, RolesDto> {
 
   RolesDtoExpand.from(super.delegate);
 
-  PermissionsDtoExpand<RolesDto> permissions() =>
+  void call() {
+    finish();
+  }
+
+  PermissionsDtoExpand<RolesDto> get permissions =>
       PermissionsDtoExpand.from(addRelation(RolesDtoFieldEnum.permissions));
 
-  UsersDtoExpand<RolesDto> usersViaRoles() =>
+  UsersDtoExpand<RolesDto> get usersViaRoles =>
       UsersDtoExpand.from(addRelation(RolesDtoExpandEnum.usersViaRoles));
 }
 

@@ -48,10 +48,14 @@ class FollowsDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, FollowsDto> {
 
   FollowsDtoExpand.from(super.delegate);
 
-  UsersDtoExpand<FollowsDto> follower() =>
+  void call() {
+    finish();
+  }
+
+  UsersDtoExpand<FollowsDto> get follower =>
       UsersDtoExpand.from(addRelation(FollowsDtoFieldEnum.follower));
 
-  UsersDtoExpand<FollowsDto> following() =>
+  UsersDtoExpand<FollowsDto> get following =>
       UsersDtoExpand.from(addRelation(FollowsDtoFieldEnum.following));
 }
 

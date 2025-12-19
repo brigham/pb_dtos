@@ -29,10 +29,14 @@ class PostsDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, PostsDto> {
 
   PostsDtoExpand.from(super.delegate);
 
-  UsersDtoExpand<PostsDto> poster() =>
+  void call() {
+    finish();
+  }
+
+  UsersDtoExpand<PostsDto> get poster =>
       UsersDtoExpand.from(addRelation(PostsDtoFieldEnum.poster));
 
-  UsersDtoExpand<PostsDto> tagged() =>
+  UsersDtoExpand<PostsDto> get tagged =>
       UsersDtoExpand.from(addRelation(PostsDtoFieldEnum.tagged));
 }
 

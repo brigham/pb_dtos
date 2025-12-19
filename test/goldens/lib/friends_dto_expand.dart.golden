@@ -48,10 +48,14 @@ class FriendsDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, FriendsDto> {
 
   FriendsDtoExpand.from(super.delegate);
 
-  UsersDtoExpand<FriendsDto> requester() =>
+  void call() {
+    finish();
+  }
+
+  UsersDtoExpand<FriendsDto> get requester =>
       UsersDtoExpand.from(addRelation(FriendsDtoFieldEnum.requester));
 
-  UsersDtoExpand<FriendsDto> accepter() =>
+  UsersDtoExpand<FriendsDto> get accepter =>
       UsersDtoExpand.from(addRelation(FriendsDtoFieldEnum.accepter));
 }
 

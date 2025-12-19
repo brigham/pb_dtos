@@ -55,26 +55,30 @@ class UsersDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, UsersDto> {
 
   UsersDtoExpand.from(super.delegate);
 
-  RolesDtoExpand<UsersDto> roles() =>
+  void call() {
+    finish();
+  }
+
+  RolesDtoExpand<UsersDto> get roles =>
       RolesDtoExpand.from(addRelation(UsersDtoFieldEnum.roles));
 
-  FollowsDtoExpand<UsersDto> followsViaFollower() =>
+  FollowsDtoExpand<UsersDto> get followsViaFollower =>
       FollowsDtoExpand.from(addRelation(UsersDtoExpandEnum.followsViaFollower));
-  FollowsDtoExpand<UsersDto> followsViaFollowing() => FollowsDtoExpand.from(
+  FollowsDtoExpand<UsersDto> get followsViaFollowing => FollowsDtoExpand.from(
     addRelation(UsersDtoExpandEnum.followsViaFollowing),
   );
-  FriendsDtoExpand<UsersDto> friendsViaRequester() => FriendsDtoExpand.from(
+  FriendsDtoExpand<UsersDto> get friendsViaRequester => FriendsDtoExpand.from(
     addRelation(UsersDtoExpandEnum.friendsViaRequester),
   );
-  FriendsDtoExpand<UsersDto> friendsViaAccepter() =>
+  FriendsDtoExpand<UsersDto> get friendsViaAccepter =>
       FriendsDtoExpand.from(addRelation(UsersDtoExpandEnum.friendsViaAccepter));
-  BlocksDtoExpand<UsersDto> blocksViaBlocker() =>
+  BlocksDtoExpand<UsersDto> get blocksViaBlocker =>
       BlocksDtoExpand.from(addRelation(UsersDtoExpandEnum.blocksViaBlocker));
-  BlocksDtoExpand<UsersDto> blocksViaBlocked() =>
+  BlocksDtoExpand<UsersDto> get blocksViaBlocked =>
       BlocksDtoExpand.from(addRelation(UsersDtoExpandEnum.blocksViaBlocked));
-  PostsDtoExpand<UsersDto> postsViaPoster() =>
+  PostsDtoExpand<UsersDto> get postsViaPoster =>
       PostsDtoExpand.from(addRelation(UsersDtoExpandEnum.postsViaPoster));
-  PostsDtoExpand<UsersDto> postsViaTagged() =>
+  PostsDtoExpand<UsersDto> get postsViaTagged =>
       PostsDtoExpand.from(addRelation(UsersDtoExpandEnum.postsViaTagged));
 }
 

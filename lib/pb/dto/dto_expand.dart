@@ -12,25 +12,28 @@ abstract class DtoExpandEnum<D extends Dto<D>> {
 sealed class DtoExpandDelegate<N extends Dto<N>> {
   List<FieldChain> get parts;
 
-  int get nextIndex;
+  @protected
+  DtoExpandDelegate<V> add<V extends Dto<V>>(String name, bool raw);
 
   @protected
-  void add(String name, bool raw);
+  void complete();
 }
 
 class _RootExpandDelegate<N extends Dto<N>> extends DtoExpandDelegate<N> {
   @override
   final List<FieldChain> parts;
 
-  @override
-  int get nextIndex => parts.length - 1;
-
   _RootExpandDelegate() : parts = [];
 
   @override
   @protected
-  void add(String name, bool raw) {
-    parts.add(BaseFieldChain(name));
+  DtoExpandDelegate<V> add<V extends Dto<V>>(String name, bool raw) =>
+      _NestedExpandDelegate(parts, BaseFieldChain(name));
+
+  @override
+  @protected
+  void complete() {
+    // No reason this should ever be called.
   }
 
   @override
@@ -40,20 +43,24 @@ class _RootExpandDelegate<N extends Dto<N>> extends DtoExpandDelegate<N> {
 class _NestedExpandDelegate<D extends Dto<D>> extends DtoExpandDelegate<D> {
   @override
   final List<FieldChain> parts;
-  final int index;
 
-  @override
-  int get nextIndex => index;
+  final FieldChain fieldChain;
 
-  _NestedExpandDelegate(this.parts, this.index);
+  _NestedExpandDelegate(this.parts, this.fieldChain);
 
   @override
   @protected
-  void add(String name, bool raw) {
+  DtoExpandDelegate<V> add<V extends Dto<V>>(String name, bool raw) {
     if (raw) {
       throw Exception("Can't append raw to chain.");
     }
-    parts[index] = parts[index].extend(name);
+    return _NestedExpandDelegate(parts, fieldChain.extend(name));
+  }
+
+  @override
+  @protected
+  void complete() {
+    parts.add(fieldChain);
   }
 }
 
@@ -75,9 +82,11 @@ abstract class DtoExpandBase<D extends Dto<D>, N extends Dto<N>>
   @protected
   DtoExpandDelegate<V> addRelation<V extends Dto<V>>(
     DtoTypedField<N, RelationDto<V>> relation,
-  ) {
-    delegate.add(relation.pbName, false);
-    return _NestedExpandDelegate(delegate.parts, delegate.nextIndex);
+  ) => delegate.add<V>(relation.pbName, false);
+
+  @protected
+  void finish() {
+    delegate.complete();
   }
 
   @override
