@@ -372,13 +372,13 @@ class DartDtoDumper extends Dumper {
             if (parameters.isNotEmpty) {
               expressions.add({
                 'code':
-                    'f.${parameters[0]['name']}().equal(.val(${parameters[0]['name']}))',
+                    'f.${parameters[0]['name']}.equal(.val(${parameters[0]['name']}))',
               });
               for (var i = 1; i < parameters.length; i++) {
                 final p = parameters[i];
                 expressions.add({
                   'code':
-                      "if (${p['name']} != null) f.${p['name']}().equal(.val(${p['name']}))",
+                      "if (${p['name']} != null) f.${p['name']}.equal(.val(${p['name']}))",
                 });
               }
             }

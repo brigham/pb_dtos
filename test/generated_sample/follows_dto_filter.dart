@@ -8,16 +8,17 @@ class FollowsDtoFilter extends DtoFilterBase<FollowsDto, FollowsDtoFilter> {
   @override
   FollowsDtoFilter empty() => FollowsDtoFilter();
 
-  UsersDtoComparisonBuilder<FollowsDto> follower() => UsersDtoComparisonBuilder(
-    SoloFieldPath(FollowsDtoFieldEnum.follower),
-    add,
-  );
-  UsersDtoComparisonBuilder<FollowsDto> following() =>
+  UsersDtoComparisonBuilder<FollowsDto> get follower =>
+      UsersDtoComparisonBuilder(
+        SoloFieldPath(FollowsDtoFieldEnum.follower),
+        add,
+      );
+  UsersDtoComparisonBuilder<FollowsDto> get following =>
       UsersDtoComparisonBuilder(
         SoloFieldPath(FollowsDtoFieldEnum.following),
         add,
       );
-  ComparisonBuilder<FollowsDto, String> id() =>
+  ComparisonBuilder<FollowsDto, String> get id =>
       ComparisonBuilder.field(FollowsDtoFieldEnum.id, add);
 
   // Back relations

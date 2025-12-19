@@ -9,24 +9,24 @@ class RolesDtoComparisonBuilder<D extends Dto<D>>
     extends RelationComparisonBuilder<D, RolesDto> {
   RolesDtoComparisonBuilder(super.fieldPath, super.handler) : super.fieldPath();
 
-  TerminalRelationComparisonBuilder<D, String> name() =>
+  TerminalRelationComparisonBuilder<D, String> get name =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(RolesDtoFieldEnum.name_),
         handler,
       );
-  PermissionsDtoMultirelComparisonBuilder<D> permissions() =>
+  PermissionsDtoMultirelComparisonBuilder<D> get permissions =>
       PermissionsDtoMultirelComparisonBuilder(
         fieldPath.extend(RolesDtoFieldEnum.permissions),
         handler,
       );
-  TerminalRelationComparisonBuilder<D, String> id() =>
+  TerminalRelationComparisonBuilder<D, String> get id =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(RolesDtoFieldEnum.id),
         handler,
       );
 
   // Back relations
-  UsersDtoMultirelComparisonBuilder<D> usersViaRoles() =>
+  UsersDtoMultirelComparisonBuilder<D> get usersViaRoles =>
       UsersDtoMultirelComparisonBuilder<D>(
         fieldPath.extend(RolesDtoExpandEnum.usersViaRoles),
         handler,
@@ -38,24 +38,24 @@ class RolesDtoMultirelComparisonBuilder<D extends Dto<D>>
   RolesDtoMultirelComparisonBuilder(super.fieldPath, super.handler)
     : super.fieldPath();
 
-  TerminalMultivalRelationComparisonBuilder<D, String> name() =>
+  TerminalMultivalRelationComparisonBuilder<D, String> get name =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(RolesDtoFieldEnum.name_),
         handler,
       );
-  PermissionsDtoMultirelComparisonBuilder<D> permissions() =>
+  PermissionsDtoMultirelComparisonBuilder<D> get permissions =>
       PermissionsDtoMultirelComparisonBuilder(
         fieldPath.extend(RolesDtoFieldEnum.permissions),
         handler,
       );
-  TerminalMultivalRelationComparisonBuilder<D, String> id() =>
+  TerminalMultivalRelationComparisonBuilder<D, String> get id =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(RolesDtoFieldEnum.id),
         handler,
       );
 
   // Back relations
-  UsersDtoMultirelComparisonBuilder<D> usersViaRoles() =>
+  UsersDtoMultirelComparisonBuilder<D> get usersViaRoles =>
       UsersDtoMultirelComparisonBuilder<D>(
         fieldPath.extend(RolesDtoExpandEnum.usersViaRoles),
         handler,

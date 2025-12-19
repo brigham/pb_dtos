@@ -10,13 +10,13 @@ class PermissionsDtoFilter
   @override
   PermissionsDtoFilter empty() => PermissionsDtoFilter();
 
-  ComparisonBuilder<PermissionsDto, String> name() =>
+  ComparisonBuilder<PermissionsDto, String> get name =>
       ComparisonBuilder.field(PermissionsDtoFieldEnum.name_, add);
-  ComparisonBuilder<PermissionsDto, String> id() =>
+  ComparisonBuilder<PermissionsDto, String> get id =>
       ComparisonBuilder.field(PermissionsDtoFieldEnum.id, add);
 
   // Back relations
-  RolesDtoMultirelComparisonBuilder<PermissionsDto> rolesViaPermissions() =>
+  RolesDtoMultirelComparisonBuilder<PermissionsDto> get rolesViaPermissions =>
       RolesDtoMultirelComparisonBuilder<PermissionsDto>(
         SoloFieldPath(PermissionsDtoExpandEnum.rolesViaPermissions),
         add,

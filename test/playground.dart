@@ -8,38 +8,36 @@ import 'generated_sample/users_dto_expand.dart';
 
 void filters() {
   var expression = PostsDto.filter(
-    (f) => f.poster().roles().permissions().name().anyEqual(
-      .val("donuts.favorite"),
-    ),
+    (f) => f.poster.roles.permissions.name.anyEqual(.val("donuts.favorite")),
   );
   var permissionsTerminalPath = PostsDto.filter(
     (f) =>
-        f.poster().roles().permissions().anyEqual(.val(RelationDto("abcdef"))),
+        f.poster.roles.permissions.anyEqual(.val(RelationDto("abcdef"))),
   );
   var usersWhoUploadedSixAndSeven = UsersDto.filter(
     (f) => f
-      ..postsViaPoster().reviewStars().equal(.val(6))
-      ..postsViaPoster().reviewStars().equal(.val(7)),
+      ..postsViaPoster.reviewStars.equal(.val(6))
+      ..postsViaPoster.reviewStars.equal(.val(7)),
   );
   var usersWhoUploadedSixOrSeven = UsersDto.filter(
     (f) => f
       ..or([
-        (f) => f..postsViaPoster().reviewStars().equal(.val(6)),
-        (f) => f.postsViaPoster().reviewStars().equal(.val(7)),
+        (f) => f..postsViaPoster.reviewStars.equal(.val(6)),
+        (f) => f.postsViaPoster.reviewStars.equal(.val(7)),
       ]),
   );
   var vote = FriendsDto.filter(
     (f) => f
-      ..requester().equal(.val(RelationDto("abcdef")))
-      ..accepter().equal(.val(RelationDto("ghijkl"))),
+      ..requester.equal(.val(RelationDto("abcdef")))
+      ..accepter.equal(.val(RelationDto("ghijkl"))),
   );
   var likedOwnPost = PostsDto.filter(
-    (f) => f..tagged().anyEqual(.field(f.poster())),
+    (f) => f..tagged.anyEqual(.field(f.poster)),
   );
   var taggedFriends = FriendsDto.filter(
     (f) => f
-      ..requester().postsViaPoster().tagged().anyEqual(
-        .field(f.accepter().blocksViaBlocked().blocker()),
+      ..requester.postsViaPoster.tagged.anyEqual(
+        .field(f.accepter.blocksViaBlocked.blocker),
       ),
   );
   print(expression);

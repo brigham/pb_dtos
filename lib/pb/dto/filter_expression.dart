@@ -71,35 +71,38 @@ class ComparisonBuilder<D extends Dto<D>, V> {
     );
   }
 
+  /// Equal (=)
   Comparison<D, V> equal(FilterOperand<D, V> operand2) {
     return _makeComparison(FilterOperator.equal, operand2);
   }
 
-  /// NOT equal
+  /// NOT equal (!=)
   Comparison<D, V> notEqual(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.notEqual, operand2);
 
-  /// Greater than
+  /// Greater than (>)
   Comparison<D, V> greaterThan(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.greaterThan, operand2);
 
-  /// Greater than or equal
+  /// Greater than or equal (>=)
   Comparison<D, V> greaterThanOrEqual(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.greaterThanOrEqual, operand2);
 
-  /// Less than
+  /// Less than (<)
   Comparison<D, V> lessThan(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.lessThan, operand2);
 
-  /// Less than or equal
+  /// Less than or equal (<=)
   Comparison<D, V> lessThanOrEqual(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.lessThanOrEqual, operand2);
 
-  /// Like/Contains (if not specified auto wraps the right string OPERAND in a "%" for wildcard match)
+  /// Like/Contains (~, if not specified auto wraps the right string OPERAND in
+  /// a "%" for wildcard match)
   Comparison<D, V> like(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.like, operand2);
 
-  /// NOT Like/Contains (if not specified auto wraps the right string OPERAND in a "%" for wildcard match)
+  /// NOT Like/Contains (!~, if not specified auto wraps the right string
+  /// OPERAND in a "%" for wildcard match)
   Comparison<D, V> notLike(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.notLike, operand2);
 }
@@ -170,11 +173,13 @@ class MultivalComparisonBuilder<D extends Dto<D>, V>
   Comparison<D, V> anyLessThanOrEqual(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.anyLessThanOrEqual, operand2);
 
-  /// Any/At least one of Like/Contains (if not specified auto wraps the right string OPERAND in a "%" for wildcard match)
+  /// Any/At least one of Like/Contains (if not specified auto wraps the right
+  /// string OPERAND in a "%" for wildcard match)
   Comparison<D, V> anyLike(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.anyLike, operand2);
 
-  /// Any/At least one of NOT Like/Contains (if not specified auto wraps the right string OPERAND in a "%" for wildcard match)
+  /// Any/At least one of NOT Like/Contains (if not specified auto wraps the
+  /// right string OPERAND in a "%" for wildcard match)
   Comparison<D, V> anyNotLike(FilterOperand<D, V> operand2) =>
       _makeComparison(FilterOperator.anyNotLike, operand2);
 }

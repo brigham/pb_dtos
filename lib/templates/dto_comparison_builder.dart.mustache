@@ -18,18 +18,18 @@ class {{class_name}}ComparisonBuilder<D extends Dto<D>> extends RelationComparis
 
 {{#fields}}
     {{#is_relation}}
-    {{cb_comparison_builder}}<D> {{snake_name}}() =>
+    {{cb_comparison_builder}}<D> get {{snake_name}} =>
       {{cb_comparison_builder}}(fieldPath.extend({{class_name}}FieldEnum.{{enum_name}}), handler);
     {{/is_relation}}
     {{^is_relation}}
-    {{cb_comparison_builder}}<D, {{filter_type}}> {{snake_name}}() =>
+    {{cb_comparison_builder}}<D, {{filter_type}}> get {{snake_name}} =>
       {{cb_comparison_builder}}(fieldPath.terminate({{class_name}}FieldEnum.{{enum_name}}), handler);
     {{/is_relation}}
 {{/fields}}
 
 // Back relations
 {{#back_relations}}
-    {{filter_type}}<D> {{snake_name}}() =>
+    {{filter_type}}<D> get {{snake_name}} =>
     {{filter_type}}<D>(
     fieldPath.extend({{class_name}}ExpandEnum.{{snake_name}}),
     handler,
@@ -42,18 +42,18 @@ class {{class_name}}MultirelComparisonBuilder<D extends Dto<D>> extends Multirel
 
     {{#fields}}
     {{#is_relation}}
-    {{mr_cb_comparison_builder}}<D> {{snake_name}}() =>
+    {{mr_cb_comparison_builder}}<D> get {{snake_name}} =>
         {{mr_cb_comparison_builder}}(fieldPath.extend({{class_name}}FieldEnum.{{enum_name}}), handler);
     {{/is_relation}}
     {{^is_relation}}
-    {{mr_cb_comparison_builder}}<D, {{filter_type}}> {{snake_name}}() =>
+    {{mr_cb_comparison_builder}}<D, {{filter_type}}> get {{snake_name}} =>
         {{mr_cb_comparison_builder}}(fieldPath.terminate({{class_name}}FieldEnum.{{enum_name}}), handler);
     {{/is_relation}}
     {{/fields}}
 
     // Back relations
     {{#back_relations}}
-        {{mr_filter_type}}<D> {{snake_name}}() =>
+        {{mr_filter_type}}<D> get {{snake_name}} =>
         {{mr_filter_type}}<D>(
         fieldPath.extend({{class_name}}ExpandEnum.{{snake_name}}),
         handler,

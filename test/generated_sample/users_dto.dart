@@ -166,7 +166,7 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
 
   static UsersDtoFilter filterByIdxEmailPbUsersAuth(String email) {
     final f = UsersDtoFilter();
-    f.email().equal(.val(email));
+    f.email.equal(.val(email));
     return f;
   }
 

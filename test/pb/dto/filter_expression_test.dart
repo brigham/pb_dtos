@@ -20,7 +20,7 @@ void main() {
 
     test('single', () {
       And<FriendsDto> singleAnd = And([
-        FriendsDto.filter((f) => f..id().equal(.val('1'))).expression!,
+        FriendsDto.filter((f) => f..id.equal(.val('1'))).expression!,
       ]);
 
       expect(render(singleAnd), "id = '1'");
@@ -28,8 +28,8 @@ void main() {
 
     test('multiple', () {
       And<FriendsDto> singleAnd = And([
-        FriendsDto.filter((f) => f..id().equal(.val('1'))).expression!,
-        FriendsDto.filter((f) => f..id().equal(.val('2'))).expression!,
+        FriendsDto.filter((f) => f..id.equal(.val('1'))).expression!,
+        FriendsDto.filter((f) => f..id.equal(.val('2'))).expression!,
       ]);
 
       expect(render(singleAnd), "(id = '1' && id = '2')");
@@ -37,10 +37,10 @@ void main() {
 
     test('nested', () {
       And<FriendsDto> nestedAnd = And([
-        FriendsDto.filter((f) => f..id().equal(.val('1'))).expression!,
+        FriendsDto.filter((f) => f..id.equal(.val('1'))).expression!,
         And([
-          FriendsDto.filter((f) => f..id().equal(.val('2'))).expression!,
-          FriendsDto.filter((f) => f..id().equal(.val('3'))).expression!,
+          FriendsDto.filter((f) => f..id.equal(.val('2'))).expression!,
+          FriendsDto.filter((f) => f..id.equal(.val('3'))).expression!,
         ]),
       ]);
 
@@ -57,7 +57,7 @@ void main() {
 
     test('single', () {
       Or<FriendsDto> singleOr = Or([
-        FriendsDto.filter((f) => f..id().equal(.val('1'))).expression!,
+        FriendsDto.filter((f) => f..id.equal(.val('1'))).expression!,
       ]);
 
       expect(render(singleOr), "id = '1'");
@@ -65,8 +65,8 @@ void main() {
 
     test('multiple', () {
       Or<FriendsDto> singleOr = Or([
-        FriendsDto.filter((f) => f..id().equal(.val('1'))).expression!,
-        FriendsDto.filter((f) => f..id().equal(.val('2'))).expression!,
+        FriendsDto.filter((f) => f..id.equal(.val('1'))).expression!,
+        FriendsDto.filter((f) => f..id.equal(.val('2'))).expression!,
       ]);
 
       expect(render(singleOr), "(id = '1' || id = '2')");
@@ -74,10 +74,10 @@ void main() {
 
     test('nested', () {
       Or<FriendsDto> nestedOr = Or([
-        FriendsDto.filter((f) => f..id().equal(.val('1'))).expression!,
+        FriendsDto.filter((f) => f..id.equal(.val('1'))).expression!,
         Or([
-          FriendsDto.filter((f) => f..id().equal(.val('2'))).expression!,
-          FriendsDto.filter((f) => f..id().equal(.val('3'))).expression!,
+          FriendsDto.filter((f) => f..id.equal(.val('2'))).expression!,
+          FriendsDto.filter((f) => f..id.equal(.val('3'))).expression!,
         ]),
       ]);
 

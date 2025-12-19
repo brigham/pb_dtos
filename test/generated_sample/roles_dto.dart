@@ -77,7 +77,7 @@ class RolesDto with _$RolesDto implements Dto<RolesDto> {
 
   static RolesDtoFilter filterByIdxRolesName(String name) {
     final f = RolesDtoFilter();
-    f.name().equal(.val(name));
+    f.name.equal(.val(name));
     return f;
   }
 

@@ -8,20 +8,20 @@ class FriendsDtoComparisonBuilder<D extends Dto<D>>
   FriendsDtoComparisonBuilder(super.fieldPath, super.handler)
     : super.fieldPath();
 
-  UsersDtoComparisonBuilder<D> requester() => UsersDtoComparisonBuilder(
+  UsersDtoComparisonBuilder<D> get requester => UsersDtoComparisonBuilder(
     fieldPath.extend(FriendsDtoFieldEnum.requester),
     handler,
   );
-  UsersDtoComparisonBuilder<D> accepter() => UsersDtoComparisonBuilder(
+  UsersDtoComparisonBuilder<D> get accepter => UsersDtoComparisonBuilder(
     fieldPath.extend(FriendsDtoFieldEnum.accepter),
     handler,
   );
-  TerminalRelationComparisonBuilder<D, FriendsStateEnum> state() =>
+  TerminalRelationComparisonBuilder<D, FriendsStateEnum> get state =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(FriendsDtoFieldEnum.state),
         handler,
       );
-  TerminalRelationComparisonBuilder<D, String> id() =>
+  TerminalRelationComparisonBuilder<D, String> get id =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(FriendsDtoFieldEnum.id),
         handler,
@@ -35,22 +35,22 @@ class FriendsDtoMultirelComparisonBuilder<D extends Dto<D>>
   FriendsDtoMultirelComparisonBuilder(super.fieldPath, super.handler)
     : super.fieldPath();
 
-  UsersDtoMultirelComparisonBuilder<D> requester() =>
+  UsersDtoMultirelComparisonBuilder<D> get requester =>
       UsersDtoMultirelComparisonBuilder(
         fieldPath.extend(FriendsDtoFieldEnum.requester),
         handler,
       );
-  UsersDtoMultirelComparisonBuilder<D> accepter() =>
+  UsersDtoMultirelComparisonBuilder<D> get accepter =>
       UsersDtoMultirelComparisonBuilder(
         fieldPath.extend(FriendsDtoFieldEnum.accepter),
         handler,
       );
-  TerminalMultivalRelationComparisonBuilder<D, FriendsStateEnum> state() =>
+  TerminalMultivalRelationComparisonBuilder<D, FriendsStateEnum> get state =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(FriendsDtoFieldEnum.state),
         handler,
       );
-  TerminalMultivalRelationComparisonBuilder<D, String> id() =>
+  TerminalMultivalRelationComparisonBuilder<D, String> get id =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(FriendsDtoFieldEnum.id),
         handler,

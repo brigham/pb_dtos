@@ -8,15 +8,15 @@ class FollowsDtoComparisonBuilder<D extends Dto<D>>
   FollowsDtoComparisonBuilder(super.fieldPath, super.handler)
     : super.fieldPath();
 
-  UsersDtoComparisonBuilder<D> follower() => UsersDtoComparisonBuilder(
+  UsersDtoComparisonBuilder<D> get follower => UsersDtoComparisonBuilder(
     fieldPath.extend(FollowsDtoFieldEnum.follower),
     handler,
   );
-  UsersDtoComparisonBuilder<D> following() => UsersDtoComparisonBuilder(
+  UsersDtoComparisonBuilder<D> get following => UsersDtoComparisonBuilder(
     fieldPath.extend(FollowsDtoFieldEnum.following),
     handler,
   );
-  TerminalRelationComparisonBuilder<D, String> id() =>
+  TerminalRelationComparisonBuilder<D, String> get id =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(FollowsDtoFieldEnum.id),
         handler,
@@ -30,17 +30,17 @@ class FollowsDtoMultirelComparisonBuilder<D extends Dto<D>>
   FollowsDtoMultirelComparisonBuilder(super.fieldPath, super.handler)
     : super.fieldPath();
 
-  UsersDtoMultirelComparisonBuilder<D> follower() =>
+  UsersDtoMultirelComparisonBuilder<D> get follower =>
       UsersDtoMultirelComparisonBuilder(
         fieldPath.extend(FollowsDtoFieldEnum.follower),
         handler,
       );
-  UsersDtoMultirelComparisonBuilder<D> following() =>
+  UsersDtoMultirelComparisonBuilder<D> get following =>
       UsersDtoMultirelComparisonBuilder(
         fieldPath.extend(FollowsDtoFieldEnum.following),
         handler,
       );
-  TerminalMultivalRelationComparisonBuilder<D, String> id() =>
+  TerminalMultivalRelationComparisonBuilder<D, String> get id =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(FollowsDtoFieldEnum.id),
         handler,

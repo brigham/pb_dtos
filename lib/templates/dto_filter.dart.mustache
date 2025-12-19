@@ -20,18 +20,18 @@ class {{class_name}}Filter extends DtoFilterBase<{{class_name}}, {{class_name}}F
 
 {{#fields}}
     {{#is_relation}}
-    {{f_comparison_builder}}<{{class_name}}> {{snake_name}}() =>
+    {{f_comparison_builder}}<{{class_name}}> get {{snake_name}} =>
       {{f_comparison_builder}}(SoloFieldPath({{class_name}}FieldEnum.{{enum_name}}), add);
     {{/is_relation}}
     {{^is_relation}}
-    {{f_comparison_builder}}<{{class_name}}, {{filter_type}}> {{snake_name}}() =>
+    {{f_comparison_builder}}<{{class_name}}, {{filter_type}}> get {{snake_name}} =>
       {{f_comparison_builder}}.field({{class_name}}FieldEnum.{{enum_name}}, add);
     {{/is_relation}}
 {{/fields}}
 
 // Back relations
 {{#back_relations}}
-{{filter_type}}<{{class_name}}> {{snake_name}}() =>
+{{filter_type}}<{{class_name}}> get {{snake_name}} =>
 {{filter_type}}<{{class_name}}>(
     SoloFieldPath({{class_name}}ExpandEnum.{{snake_name}}),
     add,

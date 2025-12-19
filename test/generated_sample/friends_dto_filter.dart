@@ -8,18 +8,19 @@ class FriendsDtoFilter extends DtoFilterBase<FriendsDto, FriendsDtoFilter> {
   @override
   FriendsDtoFilter empty() => FriendsDtoFilter();
 
-  UsersDtoComparisonBuilder<FriendsDto> requester() =>
+  UsersDtoComparisonBuilder<FriendsDto> get requester =>
       UsersDtoComparisonBuilder(
         SoloFieldPath(FriendsDtoFieldEnum.requester),
         add,
       );
-  UsersDtoComparisonBuilder<FriendsDto> accepter() => UsersDtoComparisonBuilder(
-    SoloFieldPath(FriendsDtoFieldEnum.accepter),
-    add,
-  );
-  ComparisonBuilder<FriendsDto, FriendsStateEnum> state() =>
+  UsersDtoComparisonBuilder<FriendsDto> get accepter =>
+      UsersDtoComparisonBuilder(
+        SoloFieldPath(FriendsDtoFieldEnum.accepter),
+        add,
+      );
+  ComparisonBuilder<FriendsDto, FriendsStateEnum> get state =>
       ComparisonBuilder.field(FriendsDtoFieldEnum.state, add);
-  ComparisonBuilder<FriendsDto, String> id() =>
+  ComparisonBuilder<FriendsDto, String> get id =>
       ComparisonBuilder.field(FriendsDtoFieldEnum.id, add);
 
   // Back relations

@@ -80,8 +80,8 @@ class FollowsDto with _$FollowsDto implements Dto<FollowsDto> {
     RelationDto<UsersDto>? following,
   ]) {
     final f = FollowsDtoFilter();
-    f.follower().equal(.val(follower));
-    if (following != null) f.following().equal(.val(following));
+    f.follower.equal(.val(follower));
+    if (following != null) f.following.equal(.val(following));
     return f;
   }
 

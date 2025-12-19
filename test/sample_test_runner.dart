@@ -79,10 +79,10 @@ void main(List<String> arguments) async {
   final argResults = parser.parse(arguments);
 
   PocketBaseProcess pbProcess = await _startPocketBase();
-  await preWork();
 
   int exitCode;
   try {
+    await preWork();
     // Launch the tests
     final testArgs = ["test", "--tags", "postgen", "--run-skipped"];
     if (argResults.wasParsed('coverage-path')) {
