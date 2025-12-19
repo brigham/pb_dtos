@@ -12,9 +12,9 @@ void filters() {
     (f) => f.poster.roles.permissions.anyEqual(.val(RelationDto("abcdef"))),
   );
   var usersWhoUploadedSixAndSeven = UsersDto.filter(
-    (f) => f
-      ..postsViaPoster.reviewStars.equal(.val(6))
-      ..postsViaPoster.reviewStars.equal(.val(7)),
+    (f) => f.postsViaPoster.reviewStars
+      ..equal(.val(6))
+      ..equal(.val(7)),
   );
   var usersWhoUploadedSixOrSeven = UsersDto.filter(
     (f) => f
@@ -64,6 +64,13 @@ void sorts() {
         ..roles.permissions.name();
     }),
   );
+  print(
+    PostsDto.sort(
+      (s) => s.poster
+        ..roles.permissions.name()
+        ..name(),
+    ),
+  );
 }
 
 void expands() {
@@ -78,6 +85,13 @@ void expands() {
         ..friendsViaRequester.requester(),
     ),
   );
+  print(
+    UsersDto.expansions(
+      (e) => e.postsViaPoster
+        ..poster()
+        ..tagged.friendsViaAccepter.accepter(),
+    ),
+  );
 }
 
 void fields() {
@@ -85,15 +99,29 @@ void fields() {
     PostsDto.fields(
       (f) => f
         ..star_()
-        ..expand().poster().roles().permissions().name(),
+        ..expand.poster.expand.roles.expand.permissions.name(),
     ),
   );
-  print(PostsDto.fields((f) => f..message().excerpt(9, withEllipsis: true)));
+  print(
+    PostsDto.fields(
+      (f) => f.expand.poster.expand.roles.expand.permissions
+        ..name()
+        ..id(),
+    ),
+  );
+  print(PostsDto.fields((f) => f..message.excerpt(9, withEllipsis: true)));
 }
 
 void main() {
-  // filters();
+  print("Filters\n#######\n");
+  filters();
+
+  print("\nSorts\n#######\n");
   sorts();
-  // expands();
-  // fields();
+
+  print("\nExpands\n#######\n");
+  expands();
+
+  print("\nFields\n#######\n");
+  fields();
 }
