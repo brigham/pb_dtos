@@ -167,6 +167,7 @@ void main() {
             birthday: DateTime.utc(1990, 1, 1),
           ),
         );
+        others = [];
         for (int i = 0; i < 4; i++) {
           others.add(
             await createUser(
@@ -267,158 +268,212 @@ void main() {
             thumb,
           );
         }
+      });
 
+      test('Other field types', () async {
         // Yes, bool range comparisons work.
         var gtPosts = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.draft.greaterThan(.val(false)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..id.equal(.val(post.id))
+            ..draft.greaterThan(.val(false)),
         );
         expect(gtPosts, isNotEmpty);
 
         var ltPosts = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.draft.lessThan(.val(false)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..draft.lessThan(.val(false)),
         );
         expect(ltPosts, isEmpty);
 
         // Do file comparisons work?
         var eqPhoto = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.photo.equal(.val(post.photo!)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..photo.equal(.val(post.photo!)),
         );
         expect(eqPhoto, isNotEmpty);
 
         var nePhoto = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.photo.notEqual(.val(post.photo!)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..photo.notEqual(.val(post.photo!)),
         );
         expect(nePhoto, isEmpty);
 
         var gtPhoto = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.photo.greaterThan(.val(post.photo!)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..photo.greaterThan(.val(post.photo!)),
         );
         expect(gtPhoto, isEmpty);
 
         var gtePhoto = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.photo.greaterThanOrEqual(.val(post.photo!)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..photo.greaterThanOrEqual(.val(post.photo!)),
         );
         expect(gtePhoto, isNotEmpty);
 
         var ltPhoto = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.photo.lessThan(.val(post.photo!)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..photo.lessThan(.val(post.photo!)),
         );
         expect(ltPhoto, isEmpty);
 
         var ltePhoto = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.photo.lessThanOrEqual(.val(post.photo!)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..photo.lessThanOrEqual(.val(post.photo!)),
         );
         expect(ltePhoto, isNotEmpty);
 
         var likePhoto = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.photo.like(.val(post.photo!)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..photo.like(.val(post.photo!)),
         );
         expect(likePhoto, isNotEmpty);
 
         var notLikePhoto = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.photo.notLike(.val(post.photo!)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..photo.notLike(.val(post.photo!)),
         );
         expect(notLikePhoto, isEmpty);
 
         // Select comparisons
         var eqVisibility = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.visibility.equal(.val(.public)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..visibility.equal(.val(.public)),
         );
         expect(eqVisibility, isNotEmpty);
 
         var neVisibility = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.visibility.notEqual(.val(.public)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..visibility.notEqual(.val(.public)),
         );
         expect(neVisibility, isEmpty);
 
         var gtVisibility = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.visibility.greaterThan(.val(.public)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..visibility.greaterThan(.val(.public)),
         );
         expect(gtVisibility, isEmpty);
 
         var gteVisibility = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.visibility.greaterThanOrEqual(.val(.public)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..visibility.greaterThanOrEqual(.val(.public)),
         );
         expect(gteVisibility, isNotEmpty);
 
         var ltVisibility = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.visibility.lessThan(.val(.public)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..visibility.lessThan(.val(.public)),
         );
         expect(ltVisibility, isEmpty);
 
         var lteVisibility = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.visibility.lessThanOrEqual(.val(.public)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..visibility.lessThanOrEqual(.val(.public)),
         );
         expect(lteVisibility, isNotEmpty);
 
         var likeVisibility = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.visibility.like(.val(.public)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..visibility.like(.val(.public)),
         );
         expect(likeVisibility, isNotEmpty);
 
         var notLikeVisibility = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.visibility.notLike(.val(.public)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..visibility.notLike(.val(.public)),
         );
         expect(notLikeVisibility, isEmpty);
 
         // JSON
         var eqMetadata = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.metadata.equal(
-            .val({
-              'advertiserCategories': [
-                {'name': 'sports', 'score': 99},
-                {'name': 'electronics', 'score': 22},
-              ],
-              'riskProfile': 4,
-            }),
-          ),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..metadata.equal(
+              .val({
+                'advertiserCategories': [
+                  {'name': 'sports', 'score': 99},
+                  {'name': 'electronics', 'score': 22},
+                ],
+                'riskProfile': 4,
+              }),
+            ),
         );
         expect(eqMetadata, isNotEmpty);
 
         // Location
         var eqLocation = await api.getList(
           PostsDto.meta(),
-          filter: (f) =>
-              f.location.equal(.val(GeopointDto(lat: 34, lon: -118))),
+          filter: (f) =>f
+            ..id.equal(.val(post.id))
+            ..location.equal(.val(GeopointDto(lat: 34, lon: -118))),
         );
         expect(eqLocation, isNotEmpty);
+
+        print(eqLocation);
 
         // Modifiers
         var eqTaggedLength = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.tagged.length().equal(.val(4)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..tagged.length().equal(.val(4)),
         );
+        var eqTaggedLengthFilter = PostsDto.filter((f) => f
+          ..id.equal(.val(post.id))
+          ..tagged.length().equal(.val(4)),);
+        print(eqTaggedLengthFilter);
         expect(eqTaggedLength, isNotEmpty);
 
         var neZodiacEach = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.tagged.zodiac.each().notEqual(.val(.cancer)),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..tagged.zodiac.each().notEqual(.val(.cancer)),
         );
         expect(neZodiacEach, isNotEmpty);
 
         // Macros
         var beforeNow = await api.getList(
           PostsDto.meta(),
-          filter: (f) => f.scheduled.lessThan(MacroOperand.now()),
+          filter: (f) => f
+            ..id.equal(.val(post.id))
+            ..scheduled.lessThan(MacroOperand.now()),
         );
         expect(beforeNow, isNotEmpty);
       });
@@ -475,9 +530,7 @@ void main() {
         },
       );
 
-      test('Limiting nested fields in response', () {
-
-      });
+      test('Limiting nested fields in response', () {});
     });
   });
 }
