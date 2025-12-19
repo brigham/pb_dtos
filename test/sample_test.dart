@@ -2,6 +2,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:image_size_getter/image_size_getter.dart';
@@ -149,6 +150,13 @@ void main() {
     group('posting', () {
       late UsersDto poster;
       List<UsersDto> others = [];
+      late PostsDto post;
+      late Uint8List decodedImage;
+      late DateTime cleanScheduledTime;
+
+      setUpAll(() {
+        decodedImage = base64Decode(_imgBytes[0]);
+      });
 
       setUp(() async {
         final id = _randomId();
@@ -176,14 +184,10 @@ void main() {
             ),
           );
         }
-      });
-
-      test('PostsDto exercises all types', () async {
         // Create a Post with all fields populated
-        final cleanScheduledTime = DateTime.utc(2025, 1, 1, 12, 0, 0);
+        cleanScheduledTime = DateTime.utc(2025, 1, 1, 12, 0, 0);
 
-        var decodedImage = base64Decode(_imgBytes[0]);
-        final post = await api.create(
+        post = await api.create(
           PostsDto.meta(),
           body: PostsDto(
             message: "Hello World",
@@ -209,7 +213,9 @@ void main() {
             },
           ),
         );
+      });
 
+      test('PostsDto exercises all types', () {
         expect(post.message, "Hello World");
         expect(post.link, "https://example.com");
         expect(post.tagged.length, others.length);
@@ -228,7 +234,9 @@ void main() {
             {'score': 22, 'name': 'electronics'},
           ],
         });
+      });
 
+      test('Thumbs exist', () async {
         var uri = post.photo!.toUri(PostsDto.meta(), post)!;
         expect(
           uri.toString(),
@@ -466,6 +474,10 @@ void main() {
           ); // Default value for missing required field
         },
       );
+
+      test('Limiting nested fields in response', () {
+
+      });
     });
   });
 }
