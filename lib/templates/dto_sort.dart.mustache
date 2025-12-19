@@ -13,15 +13,19 @@ class {{class_name}}Sort<D extends Dto<D>> extends DtoSortBase<D, {{class_name}}
 
     {{class_name}}Sort.from(super.delegate);
 
+    void call({bool desc = false}) {
+      finish(desc);
+    }
+
     {{#fields}}{{#is_relation}}
-    {{relation_class_name}}Sort<{{class_name}}> {{snake_name}}({bool desc = false}) =>
-        {{relation_class_name}}Sort.from(addRelation({{class_name}}FieldEnum.{{enum_name}}, desc));
+    {{relation_class_name}}Sort<{{class_name}}> get {{snake_name}} =>
+        {{relation_class_name}}Sort.from(addRelation({{class_name}}FieldEnum.{{enum_name}}));
     {{/is_relation}}{{^is_relation}}
     void {{snake_name}}({bool desc = false}) => addField({{class_name}}FieldEnum.{{enum_name}}, desc);
     {{/is_relation}}{{/fields}}
 
     {{#back_relations}}
-    {{solo_type}}Sort<{{class_name}}> {{snake_name}}({bool desc = false}) =>
-        {{solo_type}}Sort.from(addRelation({{dto_expand_class_name}}Enum.{{snake_name}}, desc));
+    {{solo_type}}Sort<{{class_name}}> get {{snake_name}} =>
+        {{solo_type}}Sort.from(addRelation({{dto_expand_class_name}}Enum.{{snake_name}}));
     {{/back_relations}}
 }

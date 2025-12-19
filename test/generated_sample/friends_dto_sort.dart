@@ -8,11 +8,15 @@ class FriendsDtoSort<D extends Dto<D>> extends DtoSortBase<D, FriendsDto> {
 
   FriendsDtoSort.from(super.delegate);
 
-  UsersDtoSort<FriendsDto> requester({bool desc = false}) =>
-      UsersDtoSort.from(addRelation(FriendsDtoFieldEnum.requester, desc));
+  void call({bool desc = false}) {
+    finish(desc);
+  }
 
-  UsersDtoSort<FriendsDto> accepter({bool desc = false}) =>
-      UsersDtoSort.from(addRelation(FriendsDtoFieldEnum.accepter, desc));
+  UsersDtoSort<FriendsDto> get requester =>
+      UsersDtoSort.from(addRelation(FriendsDtoFieldEnum.requester));
+
+  UsersDtoSort<FriendsDto> get accepter =>
+      UsersDtoSort.from(addRelation(FriendsDtoFieldEnum.accepter));
 
   void state({bool desc = false}) => addField(FriendsDtoFieldEnum.state, desc);
 

@@ -25,34 +25,34 @@ class PostsDtoFilter extends DtoFilterBase<PostsDto, PostsDtoFilter> {
   @override
   PostsDtoFilter empty() => PostsDtoFilter();
 
-  UsersDtoComparisonBuilder<PostsDto> poster() =>
+  UsersDtoComparisonBuilder<PostsDto> get poster =>
       UsersDtoComparisonBuilder(SoloFieldPath(PostsDtoFieldEnum.poster), add);
-  ComparisonBuilder<PostsDto, String> message() =>
+  ComparisonBuilder<PostsDto, String> get message =>
       ComparisonBuilder.field(PostsDtoFieldEnum.message, add);
-  ComparisonBuilder<PostsDto, FileDto> photo() =>
+  ComparisonBuilder<PostsDto, FileDto> get photo =>
       ComparisonBuilder.field(PostsDtoFieldEnum.photo, add);
-  ComparisonBuilder<PostsDto, String> link() =>
+  ComparisonBuilder<PostsDto, String> get link =>
       ComparisonBuilder.field(PostsDtoFieldEnum.link, add);
-  ComparisonBuilder<PostsDto, GeopointDto> location() =>
+  ComparisonBuilder<PostsDto, GeopointDto> get location =>
       ComparisonBuilder.field(PostsDtoFieldEnum.location, add);
-  ComparisonBuilder<PostsDto, num> reviewStars() =>
+  ComparisonBuilder<PostsDto, num> get reviewStars =>
       ComparisonBuilder.field(PostsDtoFieldEnum.reviewStars, add);
-  UsersDtoMultirelComparisonBuilder<PostsDto> tagged() =>
+  UsersDtoMultirelComparisonBuilder<PostsDto> get tagged =>
       UsersDtoMultirelComparisonBuilder(
         SoloFieldPath(PostsDtoFieldEnum.tagged),
         add,
       );
-  ComparisonBuilder<PostsDto, bool> draft() =>
+  ComparisonBuilder<PostsDto, bool> get draft =>
       ComparisonBuilder.field(PostsDtoFieldEnum.draft, add);
-  ComparisonBuilder<PostsDto, DateTime> scheduled() =>
+  ComparisonBuilder<PostsDto, DateTime> get scheduled =>
       ComparisonBuilder.field(PostsDtoFieldEnum.scheduled, add);
-  ComparisonBuilder<PostsDto, PostsVisibilityEnum> visibility() =>
+  ComparisonBuilder<PostsDto, PostsVisibilityEnum> get visibility =>
       ComparisonBuilder.field(PostsDtoFieldEnum.visibility, add);
-  ComparisonBuilder<PostsDto, DateTime> created() =>
+  ComparisonBuilder<PostsDto, DateTime> get created =>
       ComparisonBuilder.field(PostsDtoFieldEnum.created, add);
-  ComparisonBuilder<PostsDto, dynamic> metadata() =>
+  ComparisonBuilder<PostsDto, dynamic> get metadata =>
       ComparisonBuilder.field(PostsDtoFieldEnum.metadata, add);
-  ComparisonBuilder<PostsDto, String> id() =>
+  ComparisonBuilder<PostsDto, String> get id =>
       ComparisonBuilder.field(PostsDtoFieldEnum.id, add);
 
   // Back relations

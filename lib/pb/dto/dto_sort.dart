@@ -51,28 +51,41 @@ class ExtendedFieldChain extends FieldChain {
   set last(String value) => names[names.length - 1] = value;
 }
 
-sealed class DtoSortDelegate<N extends Dto<N>> {
-  List<FieldChain> get parts;
+class DirectionalFieldChain {
+  final FieldChain chain;
+  final bool desc;
 
-  int get nextIndex;
+  DirectionalFieldChain(this.chain, this.desc);
+
+  @override
+  String toString() => desc ? '-${chain.toString()}' : chain.toString();
+}
+
+sealed class DtoSortDelegate<N extends Dto<N>> {
+  List<DirectionalFieldChain> get parts;
 
   @protected
-  void add(String name, bool desc, bool raw);
+  DtoSortDelegate<V> add<V extends Dto<V>>(String name, bool raw);
+
+  @protected
+  void complete(bool desc);
 }
 
 class _RootSortDelegate<N extends Dto<N>> extends DtoSortDelegate<N> {
   @override
-  final List<FieldChain> parts;
-
-  @override
-  int get nextIndex => parts.length - 1;
+  final List<DirectionalFieldChain> parts;
 
   _RootSortDelegate() : parts = [];
 
   @override
   @protected
-  void add(String name, bool desc, bool raw) {
-    parts.add(BaseFieldChain('${desc ? '-' : '+'}$name'));
+  DtoSortDelegate<V> add<V extends Dto<V>>(String name, bool raw) =>
+      _NestedSortDelegate(parts, BaseFieldChain(name));
+
+  @override
+  @protected
+  void complete(bool desc) {
+    // No reason this should ever be called.
   }
 
   @override
@@ -81,21 +94,25 @@ class _RootSortDelegate<N extends Dto<N>> extends DtoSortDelegate<N> {
 
 class _NestedSortDelegate<D extends Dto<D>> extends DtoSortDelegate<D> {
   @override
-  final List<FieldChain> parts;
-  final int index;
+  final List<DirectionalFieldChain> parts;
 
-  @override
-  int get nextIndex => index;
+  final FieldChain fieldChain;
 
-  _NestedSortDelegate(this.parts, this.index);
+  _NestedSortDelegate(this.parts, this.fieldChain);
 
   @override
   @protected
-  void add(String name, bool desc, bool raw) {
+  DtoSortDelegate<V> add<V extends Dto<V>>(String name, bool raw) {
     if (raw) {
       throw Exception("Can't append raw to chain.");
     }
-    parts[index] = parts[index].extend(name);
+    return _NestedSortDelegate(parts, fieldChain.extend(name));
+  }
+
+  @override
+  @protected
+  void complete(bool desc) {
+    parts.add(DirectionalFieldChain(fieldChain, desc));
   }
 }
 
@@ -115,21 +132,27 @@ abstract class DtoSortBase<D extends Dto<D>, N extends Dto<N>>
   DtoSortBase(this.delegate);
 
   @protected
-  void addField<V>(DtoTypedField<N, V> field, bool desc) =>
-      delegate.add(field.pbName, desc, false);
+  void addField<V>(DtoTypedField<N, V> field, bool desc) {
+    delegate.add<N>(field.pbName, false).complete(desc);
+  }
 
   @protected
   DtoSortDelegate<V> addRelation<V extends Dto<V>>(
     DtoTypedField<N, RelationDto<V>> relation,
-    bool desc,
   ) {
-    delegate.add(relation.pbName, desc, false);
-    return _NestedSortDelegate(delegate.parts, delegate.nextIndex);
+    return delegate.add(relation.pbName, false);
   }
 
-  void random({bool desc = false}) => delegate.add('@random', desc, true);
+  @protected
+  void finish(bool desc) {
+    delegate.complete(desc);
+  }
 
-  void rowid({bool desc = false}) => delegate.add('@rowid', desc, true);
+  void random({bool desc = false}) =>
+      delegate.add<D>('@random', true).complete(desc);
+
+  void rowid({bool desc = false}) =>
+      delegate.add<D>('@rowid', true).complete(desc);
 
   @override
   String toString() => delegate.toString();

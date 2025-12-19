@@ -11,8 +11,7 @@ void filters() {
     (f) => f.poster.roles.permissions.name.anyEqual(.val("donuts.favorite")),
   );
   var permissionsTerminalPath = PostsDto.filter(
-    (f) =>
-        f.poster.roles.permissions.anyEqual(.val(RelationDto("abcdef"))),
+    (f) => f.poster.roles.permissions.anyEqual(.val(RelationDto("abcdef"))),
   );
   var usersWhoUploadedSixAndSeven = UsersDto.filter(
     (f) => f
@@ -50,14 +49,14 @@ void filters() {
 }
 
 void sorts() {
-  print(PostsDto.sort((s) => s..poster().roles().permissions().name()));
+  print(PostsDto.sort((s) => s..poster.roles.permissions.name()));
   print(
     PostsDto.sort(
       (s) => s
         ..reviewStars()
         ..id()
-        ..poster().name()
-        ..poster().roles().permissions().name(),
+        ..poster.name()
+        ..poster.roles.permissions.name(),
     ),
   );
 }

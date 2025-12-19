@@ -25,18 +25,18 @@ class RolesDtoFilter extends DtoFilterBase<RolesDto, RolesDtoFilter> {
   @override
   RolesDtoFilter empty() => RolesDtoFilter();
 
-  ComparisonBuilder<RolesDto, String> name() =>
+  ComparisonBuilder<RolesDto, String> get name =>
       ComparisonBuilder.field(RolesDtoFieldEnum.name_, add);
-  PermissionsDtoMultirelComparisonBuilder<RolesDto> permissions() =>
+  PermissionsDtoMultirelComparisonBuilder<RolesDto> get permissions =>
       PermissionsDtoMultirelComparisonBuilder(
         SoloFieldPath(RolesDtoFieldEnum.permissions),
         add,
       );
-  ComparisonBuilder<RolesDto, String> id() =>
+  ComparisonBuilder<RolesDto, String> get id =>
       ComparisonBuilder.field(RolesDtoFieldEnum.id, add);
 
   // Back relations
-  UsersDtoMultirelComparisonBuilder<RolesDto> usersViaRoles() =>
+  UsersDtoMultirelComparisonBuilder<RolesDto> get usersViaRoles =>
       UsersDtoMultirelComparisonBuilder<RolesDto>(
         SoloFieldPath(RolesDtoExpandEnum.usersViaRoles),
         add,

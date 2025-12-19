@@ -15,11 +15,15 @@ class BlocksDtoSort<D extends Dto<D>> extends DtoSortBase<D, BlocksDto> {
 
   BlocksDtoSort.from(super.delegate);
 
-  UsersDtoSort<BlocksDto> blocker({bool desc = false}) =>
-      UsersDtoSort.from(addRelation(BlocksDtoFieldEnum.blocker, desc));
+  void call({bool desc = false}) {
+    finish(desc);
+  }
 
-  UsersDtoSort<BlocksDto> blocked({bool desc = false}) =>
-      UsersDtoSort.from(addRelation(BlocksDtoFieldEnum.blocked, desc));
+  UsersDtoSort<BlocksDto> get blocker =>
+      UsersDtoSort.from(addRelation(BlocksDtoFieldEnum.blocker));
+
+  UsersDtoSort<BlocksDto> get blocked =>
+      UsersDtoSort.from(addRelation(BlocksDtoFieldEnum.blocked));
 
   void type({bool desc = false}) => addField(BlocksDtoFieldEnum.type, desc);
 

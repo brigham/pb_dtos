@@ -81,7 +81,7 @@ class PermissionsDto with _$PermissionsDto implements Dto<PermissionsDto> {
 
   static PermissionsDtoFilter filterByIdxPermissionsName(String name) {
     final f = PermissionsDtoFilter();
-    f.name().equal(.val(name));
+    f.name.equal(.val(name));
     return f;
   }
 

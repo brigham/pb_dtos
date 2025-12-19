@@ -25,79 +25,79 @@ class UsersDtoFilter extends DtoFilterBase<UsersDto, UsersDtoFilter> {
   @override
   UsersDtoFilter empty() => UsersDtoFilter();
 
-  ComparisonBuilder<UsersDto, String> id() =>
+  ComparisonBuilder<UsersDto, String> get id =>
       ComparisonBuilder.field(UsersDtoFieldEnum.id, add);
-  ComparisonBuilder<UsersDto, String> password() =>
+  ComparisonBuilder<UsersDto, String> get password =>
       ComparisonBuilder.field(UsersDtoFieldEnum.password, add);
-  ComparisonBuilder<UsersDto, String> email() =>
+  ComparisonBuilder<UsersDto, String> get email =>
       ComparisonBuilder.field(UsersDtoFieldEnum.email, add);
-  ComparisonBuilder<UsersDto, bool> emailVisibility() =>
+  ComparisonBuilder<UsersDto, bool> get emailVisibility =>
       ComparisonBuilder.field(UsersDtoFieldEnum.emailVisibility, add);
-  ComparisonBuilder<UsersDto, bool> verified() =>
+  ComparisonBuilder<UsersDto, bool> get verified =>
       ComparisonBuilder.field(UsersDtoFieldEnum.verified, add);
-  ComparisonBuilder<UsersDto, String> name() =>
+  ComparisonBuilder<UsersDto, String> get name =>
       ComparisonBuilder.field(UsersDtoFieldEnum.name_, add);
-  ComparisonBuilder<UsersDto, FileDto> avatar() =>
+  ComparisonBuilder<UsersDto, FileDto> get avatar =>
       ComparisonBuilder.field(UsersDtoFieldEnum.avatar, add);
-  RolesDtoMultirelComparisonBuilder<UsersDto> roles() =>
+  RolesDtoMultirelComparisonBuilder<UsersDto> get roles =>
       RolesDtoMultirelComparisonBuilder(
         SoloFieldPath(UsersDtoFieldEnum.roles),
         add,
       );
-  ComparisonBuilder<UsersDto, DateTime> birthday() =>
+  ComparisonBuilder<UsersDto, DateTime> get birthday =>
       ComparisonBuilder.field(UsersDtoFieldEnum.birthday, add);
-  ComparisonBuilder<UsersDto, String> homepage() =>
+  ComparisonBuilder<UsersDto, String> get homepage =>
       ComparisonBuilder.field(UsersDtoFieldEnum.homepage, add);
-  ComparisonBuilder<UsersDto, dynamic> metadata() =>
+  ComparisonBuilder<UsersDto, dynamic> get metadata =>
       ComparisonBuilder.field(UsersDtoFieldEnum.metadata, add);
-  ComparisonBuilder<UsersDto, dynamic> biography() =>
+  ComparisonBuilder<UsersDto, dynamic> get biography =>
       ComparisonBuilder.field(UsersDtoFieldEnum.biography, add);
-  ComparisonBuilder<UsersDto, GeopointDto> hometown() =>
+  ComparisonBuilder<UsersDto, GeopointDto> get hometown =>
       ComparisonBuilder.field(UsersDtoFieldEnum.hometown, add);
-  ComparisonBuilder<UsersDto, UsersZodiacEnum> zodiac() =>
+  ComparisonBuilder<UsersDto, UsersZodiacEnum> get zodiac =>
       ComparisonBuilder.field(UsersDtoFieldEnum.zodiac, add);
-  ComparisonBuilder<UsersDto, DateTime> created() =>
+  ComparisonBuilder<UsersDto, DateTime> get created =>
       ComparisonBuilder.field(UsersDtoFieldEnum.created, add);
-  ComparisonBuilder<UsersDto, DateTime> updated() =>
+  ComparisonBuilder<UsersDto, DateTime> get updated =>
       ComparisonBuilder.field(UsersDtoFieldEnum.updated, add);
 
   // Back relations
-  FollowsDtoMultirelComparisonBuilder<UsersDto> followsViaFollower() =>
+  FollowsDtoMultirelComparisonBuilder<UsersDto> get followsViaFollower =>
       FollowsDtoMultirelComparisonBuilder<UsersDto>(
         SoloFieldPath(UsersDtoExpandEnum.followsViaFollower),
         add,
       );
-  FollowsDtoMultirelComparisonBuilder<UsersDto> followsViaFollowing() =>
+  FollowsDtoMultirelComparisonBuilder<UsersDto> get followsViaFollowing =>
       FollowsDtoMultirelComparisonBuilder<UsersDto>(
         SoloFieldPath(UsersDtoExpandEnum.followsViaFollowing),
         add,
       );
-  FriendsDtoMultirelComparisonBuilder<UsersDto> friendsViaRequester() =>
+  FriendsDtoMultirelComparisonBuilder<UsersDto> get friendsViaRequester =>
       FriendsDtoMultirelComparisonBuilder<UsersDto>(
         SoloFieldPath(UsersDtoExpandEnum.friendsViaRequester),
         add,
       );
-  FriendsDtoMultirelComparisonBuilder<UsersDto> friendsViaAccepter() =>
+  FriendsDtoMultirelComparisonBuilder<UsersDto> get friendsViaAccepter =>
       FriendsDtoMultirelComparisonBuilder<UsersDto>(
         SoloFieldPath(UsersDtoExpandEnum.friendsViaAccepter),
         add,
       );
-  BlocksDtoMultirelComparisonBuilder<UsersDto> blocksViaBlocker() =>
+  BlocksDtoMultirelComparisonBuilder<UsersDto> get blocksViaBlocker =>
       BlocksDtoMultirelComparisonBuilder<UsersDto>(
         SoloFieldPath(UsersDtoExpandEnum.blocksViaBlocker),
         add,
       );
-  BlocksDtoMultirelComparisonBuilder<UsersDto> blocksViaBlocked() =>
+  BlocksDtoMultirelComparisonBuilder<UsersDto> get blocksViaBlocked =>
       BlocksDtoMultirelComparisonBuilder<UsersDto>(
         SoloFieldPath(UsersDtoExpandEnum.blocksViaBlocked),
         add,
       );
-  PostsDtoMultirelComparisonBuilder<UsersDto> postsViaPoster() =>
+  PostsDtoMultirelComparisonBuilder<UsersDto> get postsViaPoster =>
       PostsDtoMultirelComparisonBuilder<UsersDto>(
         SoloFieldPath(UsersDtoExpandEnum.postsViaPoster),
         add,
       );
-  PostsDtoMultirelComparisonBuilder<UsersDto> postsViaTagged() =>
+  PostsDtoMultirelComparisonBuilder<UsersDto> get postsViaTagged =>
       PostsDtoMultirelComparisonBuilder<UsersDto>(
         SoloFieldPath(UsersDtoExpandEnum.postsViaTagged),
         add,

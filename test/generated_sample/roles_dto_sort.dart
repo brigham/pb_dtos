@@ -10,13 +10,17 @@ class RolesDtoSort<D extends Dto<D>> extends DtoSortBase<D, RolesDto> {
 
   RolesDtoSort.from(super.delegate);
 
+  void call({bool desc = false}) {
+    finish(desc);
+  }
+
   void name({bool desc = false}) => addField(RolesDtoFieldEnum.name_, desc);
 
-  PermissionsDtoSort<RolesDto> permissions({bool desc = false}) =>
-      PermissionsDtoSort.from(addRelation(RolesDtoFieldEnum.permissions, desc));
+  PermissionsDtoSort<RolesDto> get permissions =>
+      PermissionsDtoSort.from(addRelation(RolesDtoFieldEnum.permissions));
 
   void id({bool desc = false}) => addField(RolesDtoFieldEnum.id, desc);
 
-  UsersDtoSort<RolesDto> usersViaRoles({bool desc = false}) =>
-      UsersDtoSort.from(addRelation(RolesDtoExpandEnum.usersViaRoles, desc));
+  UsersDtoSort<RolesDto> get usersViaRoles =>
+      UsersDtoSort.from(addRelation(RolesDtoExpandEnum.usersViaRoles));
 }

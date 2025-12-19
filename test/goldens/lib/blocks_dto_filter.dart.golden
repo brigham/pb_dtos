@@ -25,13 +25,13 @@ class BlocksDtoFilter extends DtoFilterBase<BlocksDto, BlocksDtoFilter> {
   @override
   BlocksDtoFilter empty() => BlocksDtoFilter();
 
-  UsersDtoComparisonBuilder<BlocksDto> blocker() =>
+  UsersDtoComparisonBuilder<BlocksDto> get blocker =>
       UsersDtoComparisonBuilder(SoloFieldPath(BlocksDtoFieldEnum.blocker), add);
-  UsersDtoComparisonBuilder<BlocksDto> blocked() =>
+  UsersDtoComparisonBuilder<BlocksDto> get blocked =>
       UsersDtoComparisonBuilder(SoloFieldPath(BlocksDtoFieldEnum.blocked), add);
-  ComparisonBuilder<BlocksDto, BlocksTypeEnum> type() =>
+  ComparisonBuilder<BlocksDto, BlocksTypeEnum> get type =>
       ComparisonBuilder.field(BlocksDtoFieldEnum.type, add);
-  ComparisonBuilder<BlocksDto, String> id() =>
+  ComparisonBuilder<BlocksDto, String> get id =>
       ComparisonBuilder.field(BlocksDtoFieldEnum.id, add);
 
   // Back relations

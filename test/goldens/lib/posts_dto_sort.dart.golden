@@ -15,8 +15,12 @@ class PostsDtoSort<D extends Dto<D>> extends DtoSortBase<D, PostsDto> {
 
   PostsDtoSort.from(super.delegate);
 
-  UsersDtoSort<PostsDto> poster({bool desc = false}) =>
-      UsersDtoSort.from(addRelation(PostsDtoFieldEnum.poster, desc));
+  void call({bool desc = false}) {
+    finish(desc);
+  }
+
+  UsersDtoSort<PostsDto> get poster =>
+      UsersDtoSort.from(addRelation(PostsDtoFieldEnum.poster));
 
   void message({bool desc = false}) =>
       addField(PostsDtoFieldEnum.message, desc);
@@ -31,8 +35,8 @@ class PostsDtoSort<D extends Dto<D>> extends DtoSortBase<D, PostsDto> {
   void reviewStars({bool desc = false}) =>
       addField(PostsDtoFieldEnum.reviewStars, desc);
 
-  UsersDtoSort<PostsDto> tagged({bool desc = false}) =>
-      UsersDtoSort.from(addRelation(PostsDtoFieldEnum.tagged, desc));
+  UsersDtoSort<PostsDto> get tagged =>
+      UsersDtoSort.from(addRelation(PostsDtoFieldEnum.tagged));
 
   void draft({bool desc = false}) => addField(PostsDtoFieldEnum.draft, desc);
 

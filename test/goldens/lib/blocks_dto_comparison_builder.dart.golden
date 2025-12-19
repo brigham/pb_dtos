@@ -26,20 +26,20 @@ class BlocksDtoComparisonBuilder<D extends Dto<D>>
   BlocksDtoComparisonBuilder(super.fieldPath, super.handler)
     : super.fieldPath();
 
-  UsersDtoComparisonBuilder<D> blocker() => UsersDtoComparisonBuilder(
+  UsersDtoComparisonBuilder<D> get blocker => UsersDtoComparisonBuilder(
     fieldPath.extend(BlocksDtoFieldEnum.blocker),
     handler,
   );
-  UsersDtoComparisonBuilder<D> blocked() => UsersDtoComparisonBuilder(
+  UsersDtoComparisonBuilder<D> get blocked => UsersDtoComparisonBuilder(
     fieldPath.extend(BlocksDtoFieldEnum.blocked),
     handler,
   );
-  TerminalRelationComparisonBuilder<D, BlocksTypeEnum> type() =>
+  TerminalRelationComparisonBuilder<D, BlocksTypeEnum> get type =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(BlocksDtoFieldEnum.type),
         handler,
       );
-  TerminalRelationComparisonBuilder<D, String> id() =>
+  TerminalRelationComparisonBuilder<D, String> get id =>
       TerminalRelationComparisonBuilder(
         fieldPath.terminate(BlocksDtoFieldEnum.id),
         handler,
@@ -53,22 +53,22 @@ class BlocksDtoMultirelComparisonBuilder<D extends Dto<D>>
   BlocksDtoMultirelComparisonBuilder(super.fieldPath, super.handler)
     : super.fieldPath();
 
-  UsersDtoMultirelComparisonBuilder<D> blocker() =>
+  UsersDtoMultirelComparisonBuilder<D> get blocker =>
       UsersDtoMultirelComparisonBuilder(
         fieldPath.extend(BlocksDtoFieldEnum.blocker),
         handler,
       );
-  UsersDtoMultirelComparisonBuilder<D> blocked() =>
+  UsersDtoMultirelComparisonBuilder<D> get blocked =>
       UsersDtoMultirelComparisonBuilder(
         fieldPath.extend(BlocksDtoFieldEnum.blocked),
         handler,
       );
-  TerminalMultivalRelationComparisonBuilder<D, BlocksTypeEnum> type() =>
+  TerminalMultivalRelationComparisonBuilder<D, BlocksTypeEnum> get type =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(BlocksDtoFieldEnum.type),
         handler,
       );
-  TerminalMultivalRelationComparisonBuilder<D, String> id() =>
+  TerminalMultivalRelationComparisonBuilder<D, String> get id =>
       TerminalMultivalRelationComparisonBuilder(
         fieldPath.terminate(BlocksDtoFieldEnum.id),
         handler,

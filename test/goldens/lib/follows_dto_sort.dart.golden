@@ -15,11 +15,15 @@ class FollowsDtoSort<D extends Dto<D>> extends DtoSortBase<D, FollowsDto> {
 
   FollowsDtoSort.from(super.delegate);
 
-  UsersDtoSort<FollowsDto> follower({bool desc = false}) =>
-      UsersDtoSort.from(addRelation(FollowsDtoFieldEnum.follower, desc));
+  void call({bool desc = false}) {
+    finish(desc);
+  }
 
-  UsersDtoSort<FollowsDto> following({bool desc = false}) =>
-      UsersDtoSort.from(addRelation(FollowsDtoFieldEnum.following, desc));
+  UsersDtoSort<FollowsDto> get follower =>
+      UsersDtoSort.from(addRelation(FollowsDtoFieldEnum.follower));
+
+  UsersDtoSort<FollowsDto> get following =>
+      UsersDtoSort.from(addRelation(FollowsDtoFieldEnum.following));
 
   void id({bool desc = false}) => addField(FollowsDtoFieldEnum.id, desc);
 }

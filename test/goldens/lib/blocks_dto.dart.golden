@@ -111,8 +111,8 @@ class BlocksDto with _$BlocksDto implements Dto<BlocksDto> {
     RelationDto<UsersDto>? blocked,
   ]) {
     final f = BlocksDtoFilter();
-    f.blocker().equal(.val(blocker));
-    if (blocked != null) f.blocked().equal(.val(blocked));
+    f.blocker.equal(.val(blocker));
+    if (blocked != null) f.blocked.equal(.val(blocked));
     return f;
   }
 

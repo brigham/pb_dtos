@@ -60,9 +60,8 @@ void main() {
     });
     test('anyEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.poster.roles.permissions.name.anyEqual(
-          .val("donuts.favorite"),
-        ),
+        (f) =>
+            f.poster.roles.permissions.name.anyEqual(.val("donuts.favorite")),
       ).toString();
 
       expect(expr, "poster.roles.permissions.name ?= 'donuts.favorite'");
@@ -114,18 +113,15 @@ void main() {
     });
     test('anyLike', () {
       var expr = PostsDto.filter(
-        (f) => f.poster.roles.permissions.name.anyLike(
-          .val("donuts.favorite"),
-        ),
+        (f) => f.poster.roles.permissions.name.anyLike(.val("donuts.favorite")),
       ).toString();
 
       expect(expr, "poster.roles.permissions.name ?~ 'donuts.favorite'");
     });
     test('anyNotLike', () {
       var expr = PostsDto.filter(
-        (f) => f.poster.roles.permissions.name.anyNotLike(
-          .val("donuts.favorite"),
-        ),
+        (f) =>
+            f.poster.roles.permissions.name.anyNotLike(.val("donuts.favorite")),
       ).toString();
 
       expect(expr, "poster.roles.permissions.name ?!~ 'donuts.favorite'");
@@ -207,8 +203,7 @@ void main() {
     });
     test('anyGreaterThanOrEqual', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.email.anyGreaterThanOrEqual(.val("test@example.com")),
+        (f) => f.tagged.email.anyGreaterThanOrEqual(.val("test@example.com")),
       ).toString();
 
       expect(expr, "tagged.email ?>= 'test@example.com'");
@@ -285,9 +280,7 @@ void main() {
       expect(expr, r"draft ~ true");
     });
     test('notLike', () {
-      var expr = PostsDto.filter(
-        (f) => f.draft.notLike(.val(true)),
-      ).toString();
+      var expr = PostsDto.filter((f) => f.draft.notLike(.val(true))).toString();
 
       expect(expr, r"draft !~ true");
     });
@@ -410,17 +403,14 @@ void main() {
     });
     test('anyNotEqual', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.avatar.anyNotEqual(.val(FileDto.remote('test.jpg'))),
+        (f) => f.tagged.avatar.anyNotEqual(.val(FileDto.remote('test.jpg'))),
       ).toString();
 
       expect(expr, "tagged.avatar ?!= 'test.jpg'");
     });
     test('anyGreaterThan', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.avatar.anyGreaterThan(
-          .val(FileDto.remote('test.jpg')),
-        ),
+        (f) => f.tagged.avatar.anyGreaterThan(.val(FileDto.remote('test.jpg'))),
       ).toString();
 
       expect(expr, "tagged.avatar ?> 'test.jpg'");
@@ -436,8 +426,7 @@ void main() {
     });
     test('anyLessThan', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.avatar.anyLessThan(.val(FileDto.remote('test.jpg'))),
+        (f) => f.tagged.avatar.anyLessThan(.val(FileDto.remote('test.jpg'))),
       ).toString();
 
       expect(expr, "tagged.avatar ?< 'test.jpg'");
@@ -542,9 +531,8 @@ void main() {
     });
     test('anyGreaterThanOrEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.blocksViaBlocked.type.anyGreaterThanOrEqual(
-          .val(.mute),
-        ),
+        (f) =>
+            f.tagged.blocksViaBlocked.type.anyGreaterThanOrEqual(.val(.mute)),
       ).toString();
 
       expect(expr, "tagged.blocks_via_blocked.type ?>= 'mute'");
@@ -558,9 +546,7 @@ void main() {
     });
     test('anyLessThanOrEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.blocksViaBlocked.type.anyLessThanOrEqual(
-          .val(.mute),
-        ),
+        (f) => f.tagged.blocksViaBlocked.type.anyLessThanOrEqual(.val(.mute)),
       ).toString();
 
       expect(expr, "tagged.blocks_via_blocked.type ?<= 'mute'");
@@ -759,17 +745,14 @@ void main() {
     });
     test('anyNotEqual', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.created.anyNotEqual(.val(.utc(2025, 8, 4, 2, 3, 4))),
+        (f) => f.tagged.created.anyNotEqual(.val(.utc(2025, 8, 4, 2, 3, 4))),
       ).toString();
 
       expect(expr, "tagged.created ?!= '2025-08-04 02:03:04.000Z'");
     });
     test('anyGreaterThan', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.created.anyGreaterThan(
-          .val(.utc(2025, 8, 4, 2, 3, 4)),
-        ),
+        (f) => f.tagged.created.anyGreaterThan(.val(.utc(2025, 8, 4, 2, 3, 4))),
       ).toString();
 
       expect(expr, "tagged.created ?> '2025-08-04 02:03:04.000Z'");
@@ -785,8 +768,7 @@ void main() {
     });
     test('anyLessThan', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.created.anyLessThan(.val(.utc(2025, 8, 4, 2, 3, 4))),
+        (f) => f.tagged.created.anyLessThan(.val(.utc(2025, 8, 4, 2, 3, 4))),
       ).toString();
 
       expect(expr, "tagged.created ?< '2025-08-04 02:03:04.000Z'");
@@ -845,8 +827,7 @@ void main() {
     });
     test('greaterThanOrEqual', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.scheduled.greaterThanOrEqual(.val(.utc(2025, 8, 4, 2, 3, 4))),
+        (f) => f.scheduled.greaterThanOrEqual(.val(.utc(2025, 8, 4, 2, 3, 4))),
       ).toString();
       expect(expr, r"scheduled >= '2025-08-04 02:03:04.000Z'");
     });
@@ -885,17 +866,15 @@ void main() {
     });
     test('anyNotEqual', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.birthday.anyNotEqual(.val(.utc(2025, 8, 4, 2, 3, 4))),
+        (f) => f.tagged.birthday.anyNotEqual(.val(.utc(2025, 8, 4, 2, 3, 4))),
       ).toString();
 
       expect(expr, "tagged.birthday ?!= '2025-08-04 02:03:04.000Z'");
     });
     test('anyGreaterThan', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.birthday.anyGreaterThan(
-          .val(.utc(2025, 8, 4, 2, 3, 4)),
-        ),
+        (f) =>
+            f.tagged.birthday.anyGreaterThan(.val(.utc(2025, 8, 4, 2, 3, 4))),
       ).toString();
 
       expect(expr, "tagged.birthday ?> '2025-08-04 02:03:04.000Z'");
@@ -911,8 +890,7 @@ void main() {
     });
     test('anyLessThan', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.birthday.anyLessThan(.val(.utc(2025, 8, 4, 2, 3, 4))),
+        (f) => f.tagged.birthday.anyLessThan(.val(.utc(2025, 8, 4, 2, 3, 4))),
       ).toString();
 
       expect(expr, "tagged.birthday ?< '2025-08-04 02:03:04.000Z'");
@@ -935,8 +913,7 @@ void main() {
     });
     test('anyNotLike', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.birthday.anyNotLike(.val(.utc(2025, 8, 4, 2, 3, 4))),
+        (f) => f.tagged.birthday.anyNotLike(.val(.utc(2025, 8, 4, 2, 3, 4))),
       ).toString();
 
       expect(expr, "tagged.birthday ?!~ '2025-08-04 02:03:04.000Z'");
@@ -1004,17 +981,14 @@ void main() {
     });
     test('anyNotEqual', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.homepage.anyNotEqual(.val("https://www.google.com")),
+        (f) => f.tagged.homepage.anyNotEqual(.val("https://www.google.com")),
       ).toString();
 
       expect(expr, "tagged.homepage ?!= 'https://www.google.com'");
     });
     test('anyGreaterThan', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.homepage.anyGreaterThan(
-          .val("https://www.google.com"),
-        ),
+        (f) => f.tagged.homepage.anyGreaterThan(.val("https://www.google.com")),
       ).toString();
 
       expect(expr, "tagged.homepage ?> 'https://www.google.com'");
@@ -1030,8 +1004,7 @@ void main() {
     });
     test('anyLessThan', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.tagged.homepage.anyLessThan(.val("https://www.google.com")),
+        (f) => f.tagged.homepage.anyLessThan(.val("https://www.google.com")),
       ).toString();
 
       expect(expr, "tagged.homepage ?< 'https://www.google.com'");
@@ -1316,17 +1289,15 @@ void main() {
     });
     test('notEqual', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.message.notEqual(.val('<p><b>"For"</b> <i>\'sure\'</i></p>')),
+        (f) => f.message.notEqual(.val('<p><b>"For"</b> <i>\'sure\'</i></p>')),
       ).toString();
 
       expect(expr, "message != '<p><b>\"For\"</b> <i>\\'sure\\'</i></p>'");
     });
     test('greaterThan', () {
       var expr = PostsDto.filter(
-        (f) => f.message.greaterThan(
-          .val('<p><b>"For"</b> <i>\'sure\'</i></p>'),
-        ),
+        (f) =>
+            f.message.greaterThan(.val('<p><b>"For"</b> <i>\'sure\'</i></p>')),
       ).toString();
       expect(expr, "message > '<p><b>\"For\"</b> <i>\\'sure\\'</i></p>'");
     });
@@ -1340,8 +1311,7 @@ void main() {
     });
     test('lessThan', () {
       var expr = PostsDto.filter(
-        (f) =>
-            f.message.lessThan(.val('<p><b>"For"</b> <i>\'sure\'</i></p>')),
+        (f) => f.message.lessThan(.val('<p><b>"For"</b> <i>\'sure\'</i></p>')),
       ).toString();
       expect(expr, "message < '<p><b>\"For\"</b> <i>\\'sure\\'</i></p>'");
     });
@@ -1522,9 +1492,8 @@ void main() {
     });
     test('anyEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.hometown.anyEqual(
-          .val(GeopointDto(lat: 34, lon: -118)),
-        ),
+        (f) =>
+            f.tagged.hometown.anyEqual(.val(GeopointDto(lat: 34, lon: -118))),
       ).toString();
 
       expect(expr, "tagged.hometown ?= '{\"lon\":-118,\"lat\":34}'");
@@ -1576,18 +1545,15 @@ void main() {
     });
     test('anyLike', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.hometown.anyLike(
-          .val(GeopointDto(lat: 34, lon: -118)),
-        ),
+        (f) => f.tagged.hometown.anyLike(.val(GeopointDto(lat: 34, lon: -118))),
       ).toString();
 
       expect(expr, "tagged.hometown ?~ '{\"lon\":-118,\"lat\":34}'");
     });
     test('anyNotLike', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.hometown.anyNotLike(
-          .val(GeopointDto(lat: 34, lon: -118)),
-        ),
+        (f) =>
+            f.tagged.hometown.anyNotLike(.val(GeopointDto(lat: 34, lon: -118))),
       ).toString();
 
       expect(expr, "tagged.hometown ?!~ '{\"lon\":-118,\"lat\":34}'");

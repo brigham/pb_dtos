@@ -13,6 +13,10 @@ class UsersDtoSort<D extends Dto<D>> extends DtoSortBase<D, UsersDto> {
 
   UsersDtoSort.from(super.delegate);
 
+  void call({bool desc = false}) {
+    finish(desc);
+  }
+
   void id({bool desc = false}) => addField(UsersDtoFieldEnum.id, desc);
 
   void password({bool desc = false}) =>
@@ -30,8 +34,8 @@ class UsersDtoSort<D extends Dto<D>> extends DtoSortBase<D, UsersDto> {
 
   void avatar({bool desc = false}) => addField(UsersDtoFieldEnum.avatar, desc);
 
-  RolesDtoSort<UsersDto> roles({bool desc = false}) =>
-      RolesDtoSort.from(addRelation(UsersDtoFieldEnum.roles, desc));
+  RolesDtoSort<UsersDto> get roles =>
+      RolesDtoSort.from(addRelation(UsersDtoFieldEnum.roles));
 
   void birthday({bool desc = false}) =>
       addField(UsersDtoFieldEnum.birthday, desc);
@@ -56,32 +60,20 @@ class UsersDtoSort<D extends Dto<D>> extends DtoSortBase<D, UsersDto> {
   void updated({bool desc = false}) =>
       addField(UsersDtoFieldEnum.updated, desc);
 
-  FollowsDtoSort<UsersDto> followsViaFollower({bool desc = false}) =>
-      FollowsDtoSort.from(
-        addRelation(UsersDtoExpandEnum.followsViaFollower, desc),
-      );
-  FollowsDtoSort<UsersDto> followsViaFollowing({bool desc = false}) =>
-      FollowsDtoSort.from(
-        addRelation(UsersDtoExpandEnum.followsViaFollowing, desc),
-      );
-  FriendsDtoSort<UsersDto> friendsViaRequester({bool desc = false}) =>
-      FriendsDtoSort.from(
-        addRelation(UsersDtoExpandEnum.friendsViaRequester, desc),
-      );
-  FriendsDtoSort<UsersDto> friendsViaAccepter({bool desc = false}) =>
-      FriendsDtoSort.from(
-        addRelation(UsersDtoExpandEnum.friendsViaAccepter, desc),
-      );
-  BlocksDtoSort<UsersDto> blocksViaBlocker({bool desc = false}) =>
-      BlocksDtoSort.from(
-        addRelation(UsersDtoExpandEnum.blocksViaBlocker, desc),
-      );
-  BlocksDtoSort<UsersDto> blocksViaBlocked({bool desc = false}) =>
-      BlocksDtoSort.from(
-        addRelation(UsersDtoExpandEnum.blocksViaBlocked, desc),
-      );
-  PostsDtoSort<UsersDto> postsViaPoster({bool desc = false}) =>
-      PostsDtoSort.from(addRelation(UsersDtoExpandEnum.postsViaPoster, desc));
-  PostsDtoSort<UsersDto> postsViaTagged({bool desc = false}) =>
-      PostsDtoSort.from(addRelation(UsersDtoExpandEnum.postsViaTagged, desc));
+  FollowsDtoSort<UsersDto> get followsViaFollower =>
+      FollowsDtoSort.from(addRelation(UsersDtoExpandEnum.followsViaFollower));
+  FollowsDtoSort<UsersDto> get followsViaFollowing =>
+      FollowsDtoSort.from(addRelation(UsersDtoExpandEnum.followsViaFollowing));
+  FriendsDtoSort<UsersDto> get friendsViaRequester =>
+      FriendsDtoSort.from(addRelation(UsersDtoExpandEnum.friendsViaRequester));
+  FriendsDtoSort<UsersDto> get friendsViaAccepter =>
+      FriendsDtoSort.from(addRelation(UsersDtoExpandEnum.friendsViaAccepter));
+  BlocksDtoSort<UsersDto> get blocksViaBlocker =>
+      BlocksDtoSort.from(addRelation(UsersDtoExpandEnum.blocksViaBlocker));
+  BlocksDtoSort<UsersDto> get blocksViaBlocked =>
+      BlocksDtoSort.from(addRelation(UsersDtoExpandEnum.blocksViaBlocked));
+  PostsDtoSort<UsersDto> get postsViaPoster =>
+      PostsDtoSort.from(addRelation(UsersDtoExpandEnum.postsViaPoster));
+  PostsDtoSort<UsersDto> get postsViaTagged =>
+      PostsDtoSort.from(addRelation(UsersDtoExpandEnum.postsViaTagged));
 }
