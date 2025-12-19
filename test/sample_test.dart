@@ -270,7 +270,7 @@ void main() {
         }
       });
 
-      test('Other field types', () async {
+      test('bool filters', () async {
         // Yes, bool range comparisons work.
         var gtPosts = await api.getList(
           PostsDto.meta(),
@@ -288,7 +288,9 @@ void main() {
             ..draft.lessThan(.val(false)),
         );
         expect(ltPosts, isEmpty);
+      });
 
+      test('file filters', () async {
         // Do file comparisons work?
         var eqPhoto = await api.getList(
           PostsDto.meta(),
@@ -353,7 +355,9 @@ void main() {
             ..photo.notLike(.val(post.photo!)),
         );
         expect(notLikePhoto, isEmpty);
+      });
 
+      test('select filters', () async {
         // Select comparisons
         var eqVisibility = await api.getList(
           PostsDto.meta(),
@@ -418,7 +422,9 @@ void main() {
             ..visibility.notLike(.val(.public)),
         );
         expect(notLikeVisibility, isEmpty);
+      });
 
+      test('JSON filters', () async {
         // JSON
         var eqMetadata = await api.getList(
           PostsDto.meta(),
@@ -435,7 +441,9 @@ void main() {
             ),
         );
         expect(eqMetadata, isNotEmpty);
+      });
 
+      test('GeoPoint filters', () async {
         // Location
         var eqLocation = await api.getList(
           PostsDto.meta(),
@@ -444,9 +452,9 @@ void main() {
             ..location.equal(.val(GeopointDto(lat: 34, lon: -118))),
         );
         expect(eqLocation, isNotEmpty);
+      });
 
-        print(eqLocation);
-
+      test('modifiers', () async {
         // Modifiers
         var eqTaggedLength = await api.getList(
           PostsDto.meta(),
@@ -454,10 +462,6 @@ void main() {
             ..id.equal(.val(post.id))
             ..tagged.length().equal(.val(4)),
         );
-        var eqTaggedLengthFilter = PostsDto.filter((f) => f
-          ..id.equal(.val(post.id))
-          ..tagged.length().equal(.val(4)),);
-        print(eqTaggedLengthFilter);
         expect(eqTaggedLength, isNotEmpty);
 
         var neZodiacEach = await api.getList(
@@ -467,7 +471,9 @@ void main() {
             ..tagged.zodiac.each().notEqual(.val(.cancer)),
         );
         expect(neZodiacEach, isNotEmpty);
+      });
 
+      test('macros', () async {
         // Macros
         var beforeNow = await api.getList(
           PostsDto.meta(),
@@ -530,7 +536,9 @@ void main() {
         },
       );
 
-      test('Limiting nested fields in response', () {});
+      test('Limiting nested fields in response', () {
+
+      });
     });
   });
 }
