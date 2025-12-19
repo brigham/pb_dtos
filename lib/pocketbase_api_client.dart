@@ -124,20 +124,22 @@ class PocketBaseApiClient {
     DtoMeta<D, F, E, S, F2> meta,
     String username,
     String password, {
-    DtoField<D>? identityField,
     void Function(E)? expand,
     void Function(F2)? fields,
+    Map<String, dynamic> body = const {},
+    Map<String, dynamic> query = const {},
+    Map<String, String> headers = const {},
   }) async {
     var recordAuth = await _pb
         .collection(meta.collectionName)
         .authWithPassword(
           username,
           password,
-          body: identityField != null
-              ? {"identityField": identityField.pbName}
-              : const {},
+          body: body,
           expand: _build(meta.expansions, expand)?.toString(),
           fields: _build(meta.fields, fields)?.toString(),
+          query: query,
+          headers: headers,
         );
     return meta.fromRecord(recordAuth.record);
   }

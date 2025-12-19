@@ -1,3 +1,10 @@
+# 0.10.0
+
+* Can now just pass lambda to create filter, sort, field, and expand.
+* Intermediate fields in the chain are just property getters instead of
+  a method call. Also, cleaned up code to support more functional creation.
+* Fix unusual authWithPassword API.
+
 # 0.9.0+1
 
 * Simplified some generics on some classes.
