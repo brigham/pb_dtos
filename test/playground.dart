@@ -59,6 +59,10 @@ void sorts() {
         ..poster.roles.permissions.name(),
     ),
   );
+  print(
+    PostsDto.sort((s) {
+      s.poster..name()..roles.permissions.name();
+    }));
 }
 
 void expands() {
@@ -85,8 +89,8 @@ void fields() {
 }
 
 void main() {
-  filters();
+  // filters();
   sorts();
-  expands();
-  fields();
+  // expands();
+  // fields();
 }
