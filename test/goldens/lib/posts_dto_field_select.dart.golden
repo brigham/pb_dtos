@@ -11,15 +11,15 @@ import 'posts_dto_field_select.dart';
 import 'posts_dto_expand.dart';
 
 class PostsDtoFieldSelect<D extends Dto<D>>
-    extends DtoRootFieldSelect<PostsDto> {
-  PostsDtoFieldSelect() : super.root();
+    extends DtoFieldSelectBase<PostsDto> {
+  PostsDtoFieldSelect() : super();
+
+  PostsDtoFieldSelect.nested(super.$parts, super.$fieldChain) : super.nested();
 
   void poster() => $addField(PostsDtoFieldEnum.poster);
 
-  ModifiableStringField message() {
-    $addField(PostsDtoFieldEnum.message);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  ModifiableStringField get message =>
+      $addModifiableField(PostsDtoFieldEnum.message);
 
   void photo() => $addField(PostsDtoFieldEnum.photo);
 
@@ -41,62 +41,22 @@ class PostsDtoFieldSelect<D extends Dto<D>>
 
   void metadata() => $addField(PostsDtoFieldEnum.metadata);
 
-  ModifiableStringField id() {
-    $addField(PostsDtoFieldEnum.id);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  ModifiableStringField get id => $addModifiableField(PostsDtoFieldEnum.id);
 
-  ({
-    UsersDtoNestedFieldSelect<PostsDto> Function() poster,
-
-    UsersDtoNestedFieldSelect<PostsDto> Function() tagged,
-  })
-  expand() => (
-    poster: () {
-      $addRelation(PostsDtoFieldEnum.poster);
-      return UsersDtoNestedFieldSelect($parts, $nextIndex);
-    },
-
-    tagged: () {
-      $addRelation(PostsDtoFieldEnum.tagged);
-      return UsersDtoNestedFieldSelect($parts, $nextIndex);
-    },
-  );
+  PostsDtoExpandDtoFieldSelect<PostsDto> get expand =>
+      $addExpand<PostsDto, PostsDtoExpandDtoFieldSelect<PostsDto>>(
+        PostsDtoExpandDtoFieldSelect.new,
+      );
 }
 
-class PostsDtoNestedFieldSelect<D extends Dto<D>>
-    extends DtoNestedFieldSelect<D, PostsDto> {
-  PostsDtoNestedFieldSelect(super.$parts, super.index);
+class PostsDtoExpandDtoFieldSelect<D extends Dto<D>>
+    extends DtoFieldSelectBase<PostsDto> {
+  PostsDtoExpandDtoFieldSelect(super.$parts, super.$fieldChain)
+    : super.nested();
 
-  UsersDtoNestedFieldSelect<PostsDto> poster() {
-    $addRelation(PostsDtoFieldEnum.poster);
-    return UsersDtoNestedFieldSelect($parts, $nextIndex);
-  }
+  UsersDtoFieldSelect<PostsDto> get poster =>
+      $addRelation(UsersDtoFieldSelect.nested, PostsDtoFieldEnum.poster);
 
-  void message() => $addField(PostsDtoFieldEnum.message);
-
-  void photo() => $addField(PostsDtoFieldEnum.photo);
-
-  void link() => $addField(PostsDtoFieldEnum.link);
-
-  void location() => $addField(PostsDtoFieldEnum.location);
-
-  void reviewStars() => $addField(PostsDtoFieldEnum.reviewStars);
-
-  UsersDtoNestedFieldSelect<PostsDto> tagged() {
-    $addRelation(PostsDtoFieldEnum.tagged);
-    return UsersDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  void draft() => $addField(PostsDtoFieldEnum.draft);
-
-  void scheduled() => $addField(PostsDtoFieldEnum.scheduled);
-
-  void visibility() => $addField(PostsDtoFieldEnum.visibility);
-
-  void created() => $addField(PostsDtoFieldEnum.created);
-
-  void metadata() => $addField(PostsDtoFieldEnum.metadata);
-
-  void id() => $addField(PostsDtoFieldEnum.id);
+  UsersDtoFieldSelect<PostsDto> get tagged =>
+      $addRelation(UsersDtoFieldSelect.nested, PostsDtoFieldEnum.tagged);
 }

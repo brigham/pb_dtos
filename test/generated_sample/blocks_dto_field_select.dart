@@ -4,8 +4,10 @@ import 'blocks_dto.dart';
 import 'users_dto_field_select.dart';
 
 class BlocksDtoFieldSelect<D extends Dto<D>>
-    extends DtoRootFieldSelect<BlocksDto> {
-  BlocksDtoFieldSelect() : super.root();
+    extends DtoFieldSelectBase<BlocksDto> {
+  BlocksDtoFieldSelect() : super();
+
+  BlocksDtoFieldSelect.nested(super.$parts, super.$fieldChain) : super.nested();
 
   void blocker() => $addField(BlocksDtoFieldEnum.blocker);
 
@@ -13,44 +15,22 @@ class BlocksDtoFieldSelect<D extends Dto<D>>
 
   void type() => $addField(BlocksDtoFieldEnum.type);
 
-  ModifiableStringField id() {
-    $addField(BlocksDtoFieldEnum.id);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  ModifiableStringField get id => $addModifiableField(BlocksDtoFieldEnum.id);
 
-  ({
-    UsersDtoNestedFieldSelect<BlocksDto> Function() blocker,
-
-    UsersDtoNestedFieldSelect<BlocksDto> Function() blocked,
-  })
-  expand() => (
-    blocker: () {
-      $addRelation(BlocksDtoFieldEnum.blocker);
-      return UsersDtoNestedFieldSelect($parts, $nextIndex);
-    },
-
-    blocked: () {
-      $addRelation(BlocksDtoFieldEnum.blocked);
-      return UsersDtoNestedFieldSelect($parts, $nextIndex);
-    },
-  );
+  BlocksDtoExpandDtoFieldSelect<BlocksDto> get expand =>
+      $addExpand<BlocksDto, BlocksDtoExpandDtoFieldSelect<BlocksDto>>(
+        BlocksDtoExpandDtoFieldSelect.new,
+      );
 }
 
-class BlocksDtoNestedFieldSelect<D extends Dto<D>>
-    extends DtoNestedFieldSelect<D, BlocksDto> {
-  BlocksDtoNestedFieldSelect(super.$parts, super.index);
+class BlocksDtoExpandDtoFieldSelect<D extends Dto<D>>
+    extends DtoFieldSelectBase<BlocksDto> {
+  BlocksDtoExpandDtoFieldSelect(super.$parts, super.$fieldChain)
+    : super.nested();
 
-  UsersDtoNestedFieldSelect<BlocksDto> blocker() {
-    $addRelation(BlocksDtoFieldEnum.blocker);
-    return UsersDtoNestedFieldSelect($parts, $nextIndex);
-  }
+  UsersDtoFieldSelect<BlocksDto> get blocker =>
+      $addRelation(UsersDtoFieldSelect.nested, BlocksDtoFieldEnum.blocker);
 
-  UsersDtoNestedFieldSelect<BlocksDto> blocked() {
-    $addRelation(BlocksDtoFieldEnum.blocked);
-    return UsersDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  void type() => $addField(BlocksDtoFieldEnum.type);
-
-  void id() => $addField(BlocksDtoFieldEnum.id);
+  UsersDtoFieldSelect<BlocksDto> get blocked =>
+      $addRelation(UsersDtoFieldSelect.nested, BlocksDtoFieldEnum.blocked);
 }

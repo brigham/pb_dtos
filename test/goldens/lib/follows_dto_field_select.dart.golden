@@ -11,49 +11,32 @@ import 'posts_dto_field_select.dart';
 import 'follows_dto_expand.dart';
 
 class FollowsDtoFieldSelect<D extends Dto<D>>
-    extends DtoRootFieldSelect<FollowsDto> {
-  FollowsDtoFieldSelect() : super.root();
+    extends DtoFieldSelectBase<FollowsDto> {
+  FollowsDtoFieldSelect() : super();
+
+  FollowsDtoFieldSelect.nested(super.$parts, super.$fieldChain)
+    : super.nested();
 
   void follower() => $addField(FollowsDtoFieldEnum.follower);
 
   void following() => $addField(FollowsDtoFieldEnum.following);
 
-  ModifiableStringField id() {
-    $addField(FollowsDtoFieldEnum.id);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  ModifiableStringField get id => $addModifiableField(FollowsDtoFieldEnum.id);
 
-  ({
-    UsersDtoNestedFieldSelect<FollowsDto> Function() follower,
-
-    UsersDtoNestedFieldSelect<FollowsDto> Function() following,
-  })
-  expand() => (
-    follower: () {
-      $addRelation(FollowsDtoFieldEnum.follower);
-      return UsersDtoNestedFieldSelect($parts, $nextIndex);
-    },
-
-    following: () {
-      $addRelation(FollowsDtoFieldEnum.following);
-      return UsersDtoNestedFieldSelect($parts, $nextIndex);
-    },
-  );
+  FollowsDtoExpandDtoFieldSelect<FollowsDto> get expand =>
+      $addExpand<FollowsDto, FollowsDtoExpandDtoFieldSelect<FollowsDto>>(
+        FollowsDtoExpandDtoFieldSelect.new,
+      );
 }
 
-class FollowsDtoNestedFieldSelect<D extends Dto<D>>
-    extends DtoNestedFieldSelect<D, FollowsDto> {
-  FollowsDtoNestedFieldSelect(super.$parts, super.index);
+class FollowsDtoExpandDtoFieldSelect<D extends Dto<D>>
+    extends DtoFieldSelectBase<FollowsDto> {
+  FollowsDtoExpandDtoFieldSelect(super.$parts, super.$fieldChain)
+    : super.nested();
 
-  UsersDtoNestedFieldSelect<FollowsDto> follower() {
-    $addRelation(FollowsDtoFieldEnum.follower);
-    return UsersDtoNestedFieldSelect($parts, $nextIndex);
-  }
+  UsersDtoFieldSelect<FollowsDto> get follower =>
+      $addRelation(UsersDtoFieldSelect.nested, FollowsDtoFieldEnum.follower);
 
-  UsersDtoNestedFieldSelect<FollowsDto> following() {
-    $addRelation(FollowsDtoFieldEnum.following);
-    return UsersDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  void id() => $addField(FollowsDtoFieldEnum.id);
+  UsersDtoFieldSelect<FollowsDto> get following =>
+      $addRelation(UsersDtoFieldSelect.nested, FollowsDtoFieldEnum.following);
 }

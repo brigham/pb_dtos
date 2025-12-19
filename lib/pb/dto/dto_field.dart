@@ -175,90 +175,73 @@ class DtoGeoPointFieldSettings extends DtoFieldSettings {
 abstract class DtoTypedField<D extends Dto<D>, V> extends DtoField<D> {}
 
 abstract class DtoFieldSelect<D extends Dto<D>> {
+  const DtoFieldSelect();
+
   @override
   String toString();
 }
 
-abstract class DtoRootFieldSelect<D extends Dto<D>> extends DtoFieldSelect<D> {
+abstract class DtoFieldSelectBase<D extends Dto<D>> extends DtoFieldSelect<D> {
   @protected
   final List<FieldChain> $parts;
 
   @protected
-  int get $nextIndex => $parts.length - 1;
+  final FieldChain $fieldChain;
 
-  DtoRootFieldSelect() : $parts = [];
+  DtoFieldSelectBase() : $parts = [], $fieldChain = const EmptyFieldChain();
 
-  @protected
-  void $add(String name, {bool modifier = false}) {
-    if (modifier) {
-      throw Exception("Can't start with modifier.");
-    }
-    $parts.add(BaseFieldChain(name));
+  DtoFieldSelectBase.nested(this.$parts, this.$fieldChain);
+
+  void call() {
+    $parts.add($fieldChain);
   }
-
-  @override
-  String toString() => $parts.join(',');
-
-  DtoRootFieldSelect.root() : this();
 
   @protected
   void $addField<V>(DtoTypedField<D, V> field) => $add(field.pbName);
 
   @protected
-  void $addRelation<V extends Dto<V>>(
-    DtoTypedField<D, RelationDto<V>> relation,
-  ) {
-    $add("expand.${relation.pbName}");
+  ModifiableStringField $addModifiableField<V>(DtoTypedField<D, V> field) {
+    return ModifiableStringField($parts, $fieldChain.extend(field.pbName));
   }
 
-  void star_() => $add('*');
-}
-
-abstract class DtoNestedFieldSelect<D extends Dto<D>, N extends Dto<N>> {
   @protected
-  final List<FieldChain> $parts;
-
-  @protected
-  final int $index;
+  FS $addRelation<V extends Dto<V>, FS extends DtoFieldSelectBase<V>>(
+    FS Function(List<FieldChain> parts, FieldChain fieldChain) creator,
+    DtoTypedField<D, RelationDto<V>> relation,
+  ) {
+    return creator($parts, $fieldChain.extend(relation.pbName));
+  }
 
   @protected
-  int get $nextIndex => $parts.length - 1;
-
-  DtoNestedFieldSelect(this.$parts, this.$index);
-
-  @protected
-  void $add(String name, {bool modifier = false}) {
-    if (modifier) {
-      $parts[$index].last = $parts[$index].last + name;
-    }
-    $parts[$index] = $parts[$index].extend(name);
+  FS $addExpand<V extends Dto<V>, FS extends DtoFieldSelectBase<V>>(
+    FS Function(List<FieldChain> parts, FieldChain fieldChain) creator,
+  ) {
+    return creator($parts, $fieldChain.extend("expand"));
   }
 
   @override
   String toString() => $parts.join(',');
 
-  @protected
-  void $addField<V>(DtoTypedField<N, V> field) => $add(field.pbName);
-
-  @protected
-  void $addRelation<V extends Dto<V>>(
-    DtoTypedField<N, RelationDto<V>> relation,
-  ) => $add(relation.pbName);
-
   void star_() => $add('*');
+
+  void $add(String name) => $parts.add($fieldChain.extend(name));
 }
 
 class ModifiableStringField {
   final List<FieldChain> $parts;
-  final int $index;
+  final FieldChain $fieldChain;
 
-  ModifiableStringField(this.$parts, this.$index);
+  void call() {
+    $parts.add($fieldChain);
+  }
+
+  ModifiableStringField(this.$parts, this.$fieldChain);
 
   @protected
   void $add(String name) {
-    $parts[$index].last = $parts[$index].last + name;
+    $parts.add(ModifiedFieldChain($fieldChain, name));
   }
 
   void excerpt(int length, {bool withEllipsis = false}) =>
-      $add(':excerpt($length,$withEllipsis)');
+      $add('excerpt($length,$withEllipsis)');
 }

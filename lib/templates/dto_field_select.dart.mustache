@@ -8,57 +8,29 @@ import '{{collection.name}}_dto.dart';
     import '{{collection.name}}_dto_expand.dart';
 {{/has_relations}}
 
-class {{class_name}}FieldSelect<D extends Dto<D>> extends DtoRootFieldSelect<{{class_name}}> {
-    {{class_name}}FieldSelect(): super.root();
+class {{class_name}}FieldSelect<D extends Dto<D>> extends DtoFieldSelectBase<{{class_name}}> {
+    {{class_name}}FieldSelect(): super();
+
+    {{class_name}}FieldSelect.nested(super.$parts, super.$fieldChain): super.nested();
 
     {{#fields}}{{#is_field_modifiable}}
-        ModifiableStringField {{snake_name}}() {
-          $addField({{class_name}}FieldEnum.{{enum_name}});
-          return ModifiableStringField($parts, $nextIndex);
-        }
+        ModifiableStringField get {{snake_name}} => $addModifiableField({{class_name}}FieldEnum.{{enum_name}});
     {{/is_field_modifiable}}{{^is_field_modifiable}}
         void {{snake_name}}() => $addField({{class_name}}FieldEnum.{{enum_name}});
     {{/is_field_modifiable}}{{/fields}}
 
-    {{#has_relations}}({
-        {{#fields}}{{#is_relation}}
-            {{relation_class_name}}NestedFieldSelect<{{class_name}}> Function() {{snake_name}},
-        {{/is_relation}}{{/fields}}
-    {{#back_relations}}
-        {{solo_type}}NestedFieldSelect<{{class_name}}> Function() {{snake_name}},
-    {{/back_relations}}
-        }) expand() => (
-        {{#fields}}{{#is_relation}}
-            {{snake_name}}: () {
-            $addRelation({{class_name}}FieldEnum.{{enum_name}});
-            return {{relation_class_name}}NestedFieldSelect($parts, $nextIndex);
-            },
-        {{/is_relation}}{{/fields}}
-        {{#back_relations}}
-            {{snake_name}}: () {
-            $addRelation({{dto_expand_class_name}}Enum.{{snake_name}});
-            return {{solo_type}}NestedFieldSelect($parts, $nextIndex);
-            },
-        {{/back_relations}}
-        );
-    {{/has_relations}}
+    {{class_name}}ExpandDtoFieldSelect<{{class_name}}> get expand =>
+        $addExpand<{{class_name}}, {{class_name}}ExpandDtoFieldSelect<{{class_name}}>>({{class_name}}ExpandDtoFieldSelect.new);
 }
 
-class {{class_name}}NestedFieldSelect<D extends Dto<D>> extends DtoNestedFieldSelect<D, {{class_name}}> {
-    {{class_name}}NestedFieldSelect(super.$parts, super.index);
-
-    {{#fields}}{{#is_relation}}
-        {{relation_class_name}}NestedFieldSelect<{{class_name}}> {{snake_name}} () {
-        $addRelation({{class_name}}FieldEnum.{{enum_name}});
-        return {{relation_class_name}}NestedFieldSelect($parts, $nextIndex);
-        }
-    {{/is_relation}}{{^is_relation}}
-        void {{snake_name}}() => $addField({{class_name}}FieldEnum.{{enum_name}});
-    {{/is_relation}}{{/fields}}
-    {{#back_relations}}
-        {{solo_type}}NestedFieldSelect<{{class_name}}> {{snake_name}}() {
-        $addRelation({{dto_expand_class_name}}Enum.{{snake_name}});
-        return {{solo_type}}NestedFieldSelect($parts, $nextIndex);
-        }
-    {{/back_relations}}
+class {{class_name}}ExpandDtoFieldSelect<D extends Dto<D>> extends DtoFieldSelectBase<{{class_name}}> {
+    {{class_name}}ExpandDtoFieldSelect(super.$parts, super.$fieldChain): super.nested();
+        {{#fields}}{{#is_relation}}
+            {{relation_class_name}}FieldSelect<{{class_name}}> get {{snake_name}} =>
+            $addRelation({{relation_class_name}}FieldSelect.nested, {{class_name}}FieldEnum.{{enum_name}});
+        {{/is_relation}}{{/fields}}
+        {{#back_relations}}
+            {{solo_type}}FieldSelect<{{class_name}}> get {{snake_name}} =>
+            $addRelation({{solo_type}}FieldSelect.nested, {{dto_expand_class_name}}Enum.{{snake_name}});
+        {{/back_relations}}
 }

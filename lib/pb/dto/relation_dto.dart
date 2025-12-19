@@ -24,9 +24,6 @@ class RelationDto<O extends Dto<O>> with _$RelationDto<O> {
 
   @override
   String toString() {
-    if (id == "") {
-      throw Exception("Missing relation id.");
-    }
     return id;
   }
 }

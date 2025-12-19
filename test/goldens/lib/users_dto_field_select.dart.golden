@@ -11,13 +11,12 @@ import 'posts_dto_field_select.dart';
 import 'users_dto_expand.dart';
 
 class UsersDtoFieldSelect<D extends Dto<D>>
-    extends DtoRootFieldSelect<UsersDto> {
-  UsersDtoFieldSelect() : super.root();
+    extends DtoFieldSelectBase<UsersDto> {
+  UsersDtoFieldSelect() : super();
 
-  ModifiableStringField id() {
-    $addField(UsersDtoFieldEnum.id);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  UsersDtoFieldSelect.nested(super.$parts, super.$fieldChain) : super.nested();
+
+  ModifiableStringField get id => $addModifiableField(UsersDtoFieldEnum.id);
 
   void password() => $addField(UsersDtoFieldEnum.password);
 
@@ -27,10 +26,8 @@ class UsersDtoFieldSelect<D extends Dto<D>>
 
   void verified() => $addField(UsersDtoFieldEnum.verified);
 
-  ModifiableStringField name() {
-    $addField(UsersDtoFieldEnum.name_);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  ModifiableStringField get name =>
+      $addModifiableField(UsersDtoFieldEnum.name_);
 
   void avatar() => $addField(UsersDtoFieldEnum.avatar);
 
@@ -52,135 +49,50 @@ class UsersDtoFieldSelect<D extends Dto<D>>
 
   void updated() => $addField(UsersDtoFieldEnum.updated);
 
-  ({
-    RolesDtoNestedFieldSelect<UsersDto> Function() roles,
-
-    FollowsDtoNestedFieldSelect<UsersDto> Function() followsViaFollower,
-    FollowsDtoNestedFieldSelect<UsersDto> Function() followsViaFollowing,
-    FriendsDtoNestedFieldSelect<UsersDto> Function() friendsViaRequester,
-    FriendsDtoNestedFieldSelect<UsersDto> Function() friendsViaAccepter,
-    BlocksDtoNestedFieldSelect<UsersDto> Function() blocksViaBlocker,
-    BlocksDtoNestedFieldSelect<UsersDto> Function() blocksViaBlocked,
-    PostsDtoNestedFieldSelect<UsersDto> Function() postsViaPoster,
-    PostsDtoNestedFieldSelect<UsersDto> Function() postsViaTagged,
-  })
-  expand() => (
-    roles: () {
-      $addRelation(UsersDtoFieldEnum.roles);
-      return RolesDtoNestedFieldSelect($parts, $nextIndex);
-    },
-
-    followsViaFollower: () {
-      $addRelation(UsersDtoExpandEnum.followsViaFollower);
-      return FollowsDtoNestedFieldSelect($parts, $nextIndex);
-    },
-    followsViaFollowing: () {
-      $addRelation(UsersDtoExpandEnum.followsViaFollowing);
-      return FollowsDtoNestedFieldSelect($parts, $nextIndex);
-    },
-    friendsViaRequester: () {
-      $addRelation(UsersDtoExpandEnum.friendsViaRequester);
-      return FriendsDtoNestedFieldSelect($parts, $nextIndex);
-    },
-    friendsViaAccepter: () {
-      $addRelation(UsersDtoExpandEnum.friendsViaAccepter);
-      return FriendsDtoNestedFieldSelect($parts, $nextIndex);
-    },
-    blocksViaBlocker: () {
-      $addRelation(UsersDtoExpandEnum.blocksViaBlocker);
-      return BlocksDtoNestedFieldSelect($parts, $nextIndex);
-    },
-    blocksViaBlocked: () {
-      $addRelation(UsersDtoExpandEnum.blocksViaBlocked);
-      return BlocksDtoNestedFieldSelect($parts, $nextIndex);
-    },
-    postsViaPoster: () {
-      $addRelation(UsersDtoExpandEnum.postsViaPoster);
-      return PostsDtoNestedFieldSelect($parts, $nextIndex);
-    },
-    postsViaTagged: () {
-      $addRelation(UsersDtoExpandEnum.postsViaTagged);
-      return PostsDtoNestedFieldSelect($parts, $nextIndex);
-    },
-  );
+  UsersDtoExpandDtoFieldSelect<UsersDto> get expand =>
+      $addExpand<UsersDto, UsersDtoExpandDtoFieldSelect<UsersDto>>(
+        UsersDtoExpandDtoFieldSelect.new,
+      );
 }
 
-class UsersDtoNestedFieldSelect<D extends Dto<D>>
-    extends DtoNestedFieldSelect<D, UsersDto> {
-  UsersDtoNestedFieldSelect(super.$parts, super.index);
+class UsersDtoExpandDtoFieldSelect<D extends Dto<D>>
+    extends DtoFieldSelectBase<UsersDto> {
+  UsersDtoExpandDtoFieldSelect(super.$parts, super.$fieldChain)
+    : super.nested();
 
-  void id() => $addField(UsersDtoFieldEnum.id);
+  RolesDtoFieldSelect<UsersDto> get roles =>
+      $addRelation(RolesDtoFieldSelect.nested, UsersDtoFieldEnum.roles);
 
-  void password() => $addField(UsersDtoFieldEnum.password);
-
-  void email() => $addField(UsersDtoFieldEnum.email);
-
-  void emailVisibility() => $addField(UsersDtoFieldEnum.emailVisibility);
-
-  void verified() => $addField(UsersDtoFieldEnum.verified);
-
-  void name() => $addField(UsersDtoFieldEnum.name_);
-
-  void avatar() => $addField(UsersDtoFieldEnum.avatar);
-
-  RolesDtoNestedFieldSelect<UsersDto> roles() {
-    $addRelation(UsersDtoFieldEnum.roles);
-    return RolesDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  void birthday() => $addField(UsersDtoFieldEnum.birthday);
-
-  void homepage() => $addField(UsersDtoFieldEnum.homepage);
-
-  void metadata() => $addField(UsersDtoFieldEnum.metadata);
-
-  void biography() => $addField(UsersDtoFieldEnum.biography);
-
-  void hometown() => $addField(UsersDtoFieldEnum.hometown);
-
-  void zodiac() => $addField(UsersDtoFieldEnum.zodiac);
-
-  void created() => $addField(UsersDtoFieldEnum.created);
-
-  void updated() => $addField(UsersDtoFieldEnum.updated);
-
-  FollowsDtoNestedFieldSelect<UsersDto> followsViaFollower() {
-    $addRelation(UsersDtoExpandEnum.followsViaFollower);
-    return FollowsDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  FollowsDtoNestedFieldSelect<UsersDto> followsViaFollowing() {
-    $addRelation(UsersDtoExpandEnum.followsViaFollowing);
-    return FollowsDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  FriendsDtoNestedFieldSelect<UsersDto> friendsViaRequester() {
-    $addRelation(UsersDtoExpandEnum.friendsViaRequester);
-    return FriendsDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  FriendsDtoNestedFieldSelect<UsersDto> friendsViaAccepter() {
-    $addRelation(UsersDtoExpandEnum.friendsViaAccepter);
-    return FriendsDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  BlocksDtoNestedFieldSelect<UsersDto> blocksViaBlocker() {
-    $addRelation(UsersDtoExpandEnum.blocksViaBlocker);
-    return BlocksDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  BlocksDtoNestedFieldSelect<UsersDto> blocksViaBlocked() {
-    $addRelation(UsersDtoExpandEnum.blocksViaBlocked);
-    return BlocksDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  PostsDtoNestedFieldSelect<UsersDto> postsViaPoster() {
-    $addRelation(UsersDtoExpandEnum.postsViaPoster);
-    return PostsDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  PostsDtoNestedFieldSelect<UsersDto> postsViaTagged() {
-    $addRelation(UsersDtoExpandEnum.postsViaTagged);
-    return PostsDtoNestedFieldSelect($parts, $nextIndex);
-  }
+  FollowsDtoFieldSelect<UsersDto> get followsViaFollower => $addRelation(
+    FollowsDtoFieldSelect.nested,
+    UsersDtoExpandEnum.followsViaFollower,
+  );
+  FollowsDtoFieldSelect<UsersDto> get followsViaFollowing => $addRelation(
+    FollowsDtoFieldSelect.nested,
+    UsersDtoExpandEnum.followsViaFollowing,
+  );
+  FriendsDtoFieldSelect<UsersDto> get friendsViaRequester => $addRelation(
+    FriendsDtoFieldSelect.nested,
+    UsersDtoExpandEnum.friendsViaRequester,
+  );
+  FriendsDtoFieldSelect<UsersDto> get friendsViaAccepter => $addRelation(
+    FriendsDtoFieldSelect.nested,
+    UsersDtoExpandEnum.friendsViaAccepter,
+  );
+  BlocksDtoFieldSelect<UsersDto> get blocksViaBlocker => $addRelation(
+    BlocksDtoFieldSelect.nested,
+    UsersDtoExpandEnum.blocksViaBlocker,
+  );
+  BlocksDtoFieldSelect<UsersDto> get blocksViaBlocked => $addRelation(
+    BlocksDtoFieldSelect.nested,
+    UsersDtoExpandEnum.blocksViaBlocked,
+  );
+  PostsDtoFieldSelect<UsersDto> get postsViaPoster => $addRelation(
+    PostsDtoFieldSelect.nested,
+    UsersDtoExpandEnum.postsViaPoster,
+  );
+  PostsDtoFieldSelect<UsersDto> get postsViaTagged => $addRelation(
+    PostsDtoFieldSelect.nested,
+    UsersDtoExpandEnum.postsViaTagged,
+  );
 }

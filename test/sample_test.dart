@@ -1,4 +1,6 @@
 @Tags(["postgen"])
+library;
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
@@ -15,7 +17,9 @@ import 'package:test/test.dart';
 
 import 'generated_sample/blocks_dto.dart';
 import 'generated_sample/friends_dto.dart';
+import 'generated_sample/permissions_dto.dart';
 import 'generated_sample/posts_dto.dart';
+import 'generated_sample/roles_dto.dart';
 import 'generated_sample/users_dto.dart';
 
 String _randomId() {
@@ -38,6 +42,8 @@ void main() {
 
   group('Sample tests', () {
     late PocketBaseApiClient api;
+    late RolesDto posterRole;
+    late RolesDto viewerRole;
 
     setUpAll(() async {
       // Wait for the server to be healthy by polling the health endpoint.
@@ -70,6 +76,37 @@ void main() {
           .collection('_superusers')
           .authWithPassword('test@example.com', '1234567890');
       expect(authResult.record.data['email'], 'test@example.com');
+
+      // Create 'posts.create' and 'posts.view' permissions.
+      var postsCreatePerm = await api.create(
+        PermissionsDto.meta(),
+        body: PermissionsDto(name: 'posts.create'),
+      );
+      var postsViewPerm = await api.create(
+        PermissionsDto.meta(),
+        body: PermissionsDto(name: 'posts.view'),
+      );
+      expect(postsCreatePerm.name, 'posts.create');
+      expect(postsViewPerm.name, 'posts.view');
+
+      // Create `poster` and `viewer` roles.
+      posterRole = await api.create(
+        RolesDto.meta(),
+        body: RolesDto(
+          name: 'poster',
+          permissions: [
+            postsCreatePerm.asRelation(),
+            postsViewPerm.asRelation(),
+          ],
+        ),
+      );
+      viewerRole = await api.create(
+        RolesDto.meta(),
+        body: RolesDto(
+          name: 'viewer',
+          permissions: [postsViewPerm.asRelation()],
+        ),
+      );
     });
 
     Future<UsersDto> createUser(UsersDto user) {
@@ -165,6 +202,7 @@ void main() {
             email: "poster-$id@samplr.example.com",
             name: "Poster McPostface",
             birthday: DateTime.utc(1990, 1, 1),
+            roles: [posterRole.asRelation()],
           ),
         );
         others = [];
@@ -181,6 +219,7 @@ void main() {
                   UsersZodiacEnum.gemini,
                   null,
                 ][i],
+                roles: [viewerRole.asRelation()],
               ),
             ),
           );
@@ -447,7 +486,7 @@ void main() {
         // Location
         var eqLocation = await api.getList(
           PostsDto.meta(),
-          filter: (f) =>f
+          filter: (f) => f
             ..id.equal(.val(post.id))
             ..location.equal(.val(GeopointDto(lat: 34, lon: -118))),
         );
@@ -536,8 +575,20 @@ void main() {
         },
       );
 
-      test('Limiting nested fields in response', () {
-
+      test('Limiting nested fields in response', () async {
+        var taggedUserPermissions = await api.getList(
+          PostsDto.meta(),
+          filter: (f) => f..id.equal(.val(post.id)),
+          expand: (e) => e..tagged.roles.permissions(),
+          fields: (f) =>
+              f..expand.tagged.expand.roles.expand.permissions.name.excerpt(3),
+        );
+        var allPermissionNames = taggedUserPermissions
+            .expand((u) => u.expand?.tagged ?? [])
+            .expand((u) => u.expand?.roles ?? [])
+            .expand((u) => u.expand?.permissions ?? [])
+            .map((p) => p.name);
+        expect(allPermissionNames, everyElement(hasLength(3)));
       });
     });
   });

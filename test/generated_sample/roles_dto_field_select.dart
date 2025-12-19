@@ -6,54 +6,36 @@ import 'permissions_dto_field_select.dart';
 import 'roles_dto_expand.dart';
 
 class RolesDtoFieldSelect<D extends Dto<D>>
-    extends DtoRootFieldSelect<RolesDto> {
-  RolesDtoFieldSelect() : super.root();
+    extends DtoFieldSelectBase<RolesDto> {
+  RolesDtoFieldSelect() : super();
 
-  ModifiableStringField name() {
-    $addField(RolesDtoFieldEnum.name_);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  RolesDtoFieldSelect.nested(super.$parts, super.$fieldChain) : super.nested();
+
+  ModifiableStringField get name =>
+      $addModifiableField(RolesDtoFieldEnum.name_);
 
   void permissions() => $addField(RolesDtoFieldEnum.permissions);
 
-  ModifiableStringField id() {
-    $addField(RolesDtoFieldEnum.id);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  ModifiableStringField get id => $addModifiableField(RolesDtoFieldEnum.id);
 
-  ({
-    PermissionsDtoNestedFieldSelect<RolesDto> Function() permissions,
-
-    UsersDtoNestedFieldSelect<RolesDto> Function() usersViaRoles,
-  })
-  expand() => (
-    permissions: () {
-      $addRelation(RolesDtoFieldEnum.permissions);
-      return PermissionsDtoNestedFieldSelect($parts, $nextIndex);
-    },
-
-    usersViaRoles: () {
-      $addRelation(RolesDtoExpandEnum.usersViaRoles);
-      return UsersDtoNestedFieldSelect($parts, $nextIndex);
-    },
-  );
+  RolesDtoExpandDtoFieldSelect<RolesDto> get expand =>
+      $addExpand<RolesDto, RolesDtoExpandDtoFieldSelect<RolesDto>>(
+        RolesDtoExpandDtoFieldSelect.new,
+      );
 }
 
-class RolesDtoNestedFieldSelect<D extends Dto<D>>
-    extends DtoNestedFieldSelect<D, RolesDto> {
-  RolesDtoNestedFieldSelect(super.$parts, super.index);
+class RolesDtoExpandDtoFieldSelect<D extends Dto<D>>
+    extends DtoFieldSelectBase<RolesDto> {
+  RolesDtoExpandDtoFieldSelect(super.$parts, super.$fieldChain)
+    : super.nested();
 
-  void name() => $addField(RolesDtoFieldEnum.name_);
+  PermissionsDtoFieldSelect<RolesDto> get permissions => $addRelation(
+    PermissionsDtoFieldSelect.nested,
+    RolesDtoFieldEnum.permissions,
+  );
 
-  PermissionsDtoNestedFieldSelect<RolesDto> permissions() {
-    $addRelation(RolesDtoFieldEnum.permissions);
-    return PermissionsDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  void id() => $addField(RolesDtoFieldEnum.id);
-
-  UsersDtoNestedFieldSelect<RolesDto> usersViaRoles() {
-    $addRelation(RolesDtoExpandEnum.usersViaRoles);
-    return UsersDtoNestedFieldSelect($parts, $nextIndex);
-  }
+  UsersDtoFieldSelect<RolesDto> get usersViaRoles => $addRelation(
+    UsersDtoFieldSelect.nested,
+    RolesDtoExpandEnum.usersViaRoles,
+  );
 }

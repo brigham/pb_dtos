@@ -5,60 +5,64 @@ import 'dto_field.dart';
 import 'relation_dto.dart';
 
 sealed class FieldChain {
+  const FieldChain();
+
   FieldChain extend(String name);
+}
 
-  String get last;
+class EmptyFieldChain extends FieldChain {
+  const EmptyFieldChain();
 
-  set last(String value);
+  @override
+  FieldChain extend(String name) => BaseFieldChain(name);
 }
 
 class BaseFieldChain extends FieldChain {
-  String name;
+  final String name;
 
-  BaseFieldChain(this.name);
+  const BaseFieldChain(this.name);
 
   @override
   FieldChain extend(String name) => ExtendedFieldChain([this.name, name]);
 
   @override
   String toString() => name;
-
-  @override
-  String get last => name;
-
-  @override
-  set last(String value) => name = value;
 }
 
 class ExtendedFieldChain extends FieldChain {
-  List<String> names;
+  final List<String> names;
 
-  ExtendedFieldChain(this.names);
+  const ExtendedFieldChain(this.names);
 
   @override
-  FieldChain extend(String name) {
-    names.add(name);
-    return this;
-  }
+  FieldChain extend(String name) => ExtendedFieldChain([...names, name]);
 
   @override
   String toString() => names.join('.');
-
-  @override
-  String get last => names.last;
-
-  @override
-  set last(String value) => names[names.length - 1] = value;
 }
 
 class DirectionalFieldChain {
   final FieldChain chain;
   final bool desc;
 
-  DirectionalFieldChain(this.chain, this.desc);
+  const DirectionalFieldChain(this.chain, this.desc);
 
   @override
   String toString() => desc ? '-${chain.toString()}' : chain.toString();
+}
+
+class ModifiedFieldChain extends FieldChain {
+  final FieldChain chain;
+  final String modifier;
+
+  const ModifiedFieldChain(this.chain, this.modifier);
+
+  @override
+  FieldChain extend(String name) =>
+      throw StateError('Cannot extend modified field.');
+
+  @override
+  String toString() => '$chain:$modifier';
 }
 
 sealed class DtoSortDelegate<N extends Dto<N>> {

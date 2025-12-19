@@ -11,8 +11,11 @@ import 'posts_dto_field_select.dart';
 import 'friends_dto_expand.dart';
 
 class FriendsDtoFieldSelect<D extends Dto<D>>
-    extends DtoRootFieldSelect<FriendsDto> {
-  FriendsDtoFieldSelect() : super.root();
+    extends DtoFieldSelectBase<FriendsDto> {
+  FriendsDtoFieldSelect() : super();
+
+  FriendsDtoFieldSelect.nested(super.$parts, super.$fieldChain)
+    : super.nested();
 
   void requester() => $addField(FriendsDtoFieldEnum.requester);
 
@@ -20,44 +23,22 @@ class FriendsDtoFieldSelect<D extends Dto<D>>
 
   void state() => $addField(FriendsDtoFieldEnum.state);
 
-  ModifiableStringField id() {
-    $addField(FriendsDtoFieldEnum.id);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  ModifiableStringField get id => $addModifiableField(FriendsDtoFieldEnum.id);
 
-  ({
-    UsersDtoNestedFieldSelect<FriendsDto> Function() requester,
-
-    UsersDtoNestedFieldSelect<FriendsDto> Function() accepter,
-  })
-  expand() => (
-    requester: () {
-      $addRelation(FriendsDtoFieldEnum.requester);
-      return UsersDtoNestedFieldSelect($parts, $nextIndex);
-    },
-
-    accepter: () {
-      $addRelation(FriendsDtoFieldEnum.accepter);
-      return UsersDtoNestedFieldSelect($parts, $nextIndex);
-    },
-  );
+  FriendsDtoExpandDtoFieldSelect<FriendsDto> get expand =>
+      $addExpand<FriendsDto, FriendsDtoExpandDtoFieldSelect<FriendsDto>>(
+        FriendsDtoExpandDtoFieldSelect.new,
+      );
 }
 
-class FriendsDtoNestedFieldSelect<D extends Dto<D>>
-    extends DtoNestedFieldSelect<D, FriendsDto> {
-  FriendsDtoNestedFieldSelect(super.$parts, super.index);
+class FriendsDtoExpandDtoFieldSelect<D extends Dto<D>>
+    extends DtoFieldSelectBase<FriendsDto> {
+  FriendsDtoExpandDtoFieldSelect(super.$parts, super.$fieldChain)
+    : super.nested();
 
-  UsersDtoNestedFieldSelect<FriendsDto> requester() {
-    $addRelation(FriendsDtoFieldEnum.requester);
-    return UsersDtoNestedFieldSelect($parts, $nextIndex);
-  }
+  UsersDtoFieldSelect<FriendsDto> get requester =>
+      $addRelation(UsersDtoFieldSelect.nested, FriendsDtoFieldEnum.requester);
 
-  UsersDtoNestedFieldSelect<FriendsDto> accepter() {
-    $addRelation(FriendsDtoFieldEnum.accepter);
-    return UsersDtoNestedFieldSelect($parts, $nextIndex);
-  }
-
-  void state() => $addField(FriendsDtoFieldEnum.state);
-
-  void id() => $addField(FriendsDtoFieldEnum.id);
+  UsersDtoFieldSelect<FriendsDto> get accepter =>
+      $addRelation(UsersDtoFieldSelect.nested, FriendsDtoFieldEnum.accepter);
 }

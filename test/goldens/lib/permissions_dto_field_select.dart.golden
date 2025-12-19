@@ -11,38 +11,32 @@ import 'posts_dto_field_select.dart';
 import 'permissions_dto_expand.dart';
 
 class PermissionsDtoFieldSelect<D extends Dto<D>>
-    extends DtoRootFieldSelect<PermissionsDto> {
-  PermissionsDtoFieldSelect() : super.root();
+    extends DtoFieldSelectBase<PermissionsDto> {
+  PermissionsDtoFieldSelect() : super();
 
-  ModifiableStringField name() {
-    $addField(PermissionsDtoFieldEnum.name_);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  PermissionsDtoFieldSelect.nested(super.$parts, super.$fieldChain)
+    : super.nested();
 
-  ModifiableStringField id() {
-    $addField(PermissionsDtoFieldEnum.id);
-    return ModifiableStringField($parts, $nextIndex);
-  }
+  ModifiableStringField get name =>
+      $addModifiableField(PermissionsDtoFieldEnum.name_);
 
-  ({RolesDtoNestedFieldSelect<PermissionsDto> Function() rolesViaPermissions})
-  expand() => (
-    rolesViaPermissions: () {
-      $addRelation(PermissionsDtoExpandEnum.rolesViaPermissions);
-      return RolesDtoNestedFieldSelect($parts, $nextIndex);
-    },
-  );
+  ModifiableStringField get id =>
+      $addModifiableField(PermissionsDtoFieldEnum.id);
+
+  PermissionsDtoExpandDtoFieldSelect<PermissionsDto> get expand =>
+      $addExpand<
+        PermissionsDto,
+        PermissionsDtoExpandDtoFieldSelect<PermissionsDto>
+      >(PermissionsDtoExpandDtoFieldSelect.new);
 }
 
-class PermissionsDtoNestedFieldSelect<D extends Dto<D>>
-    extends DtoNestedFieldSelect<D, PermissionsDto> {
-  PermissionsDtoNestedFieldSelect(super.$parts, super.index);
+class PermissionsDtoExpandDtoFieldSelect<D extends Dto<D>>
+    extends DtoFieldSelectBase<PermissionsDto> {
+  PermissionsDtoExpandDtoFieldSelect(super.$parts, super.$fieldChain)
+    : super.nested();
 
-  void name() => $addField(PermissionsDtoFieldEnum.name_);
-
-  void id() => $addField(PermissionsDtoFieldEnum.id);
-
-  RolesDtoNestedFieldSelect<PermissionsDto> rolesViaPermissions() {
-    $addRelation(PermissionsDtoExpandEnum.rolesViaPermissions);
-    return RolesDtoNestedFieldSelect($parts, $nextIndex);
-  }
+  RolesDtoFieldSelect<PermissionsDto> get rolesViaPermissions => $addRelation(
+    RolesDtoFieldSelect.nested,
+    PermissionsDtoExpandEnum.rolesViaPermissions,
+  );
 }
