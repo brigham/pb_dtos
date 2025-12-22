@@ -17,6 +17,9 @@ enum PermissionsDtoExpandEnum<V>
   const PermissionsDtoExpandEnum(this.pbName);
 
   @override
+  V get(PermissionsDto dto) => throw UnimplementedError();
+
+  @override
   final String pbName;
 
   @override

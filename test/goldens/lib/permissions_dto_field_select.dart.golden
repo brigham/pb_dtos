@@ -8,6 +8,7 @@ import 'follows_dto_field_select.dart';
 import 'friends_dto_field_select.dart';
 import 'blocks_dto_field_select.dart';
 import 'posts_dto_field_select.dart';
+import 'private_profiles_dto_field_select.dart';
 import 'permissions_dto_expand.dart';
 
 class PermissionsDtoFieldSelect<D extends Dto<D>>

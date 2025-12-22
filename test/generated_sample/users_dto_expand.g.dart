@@ -53,4 +53,9 @@ UsersExpandDto _$UsersExpandDtoFromJson(Map<String, dynamic> json) =>
               ?.map((e) => PostsDto.fromJson(e as Map<String, dynamic>))
               .toList() ??
           null,
+      privateProfilesViaUser: json['private_profiles_via_user'] == null
+          ? null
+          : PrivateProfilesDto.fromJson(
+              json['private_profiles_via_user'] as Map<String, dynamic>,
+            ),
     );

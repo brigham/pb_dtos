@@ -6,6 +6,7 @@ import 'follows_dto_field_select.dart';
 import 'friends_dto_field_select.dart';
 import 'blocks_dto_field_select.dart';
 import 'posts_dto_field_select.dart';
+import 'private_profiles_dto_field_select.dart';
 import 'users_dto_expand.dart';
 
 class UsersDtoFieldSelect<D extends Dto<D>>
@@ -93,4 +94,9 @@ class UsersDtoExpandDtoFieldSelect<D extends Dto<D>>
     PostsDtoFieldSelect.nested,
     UsersDtoExpandEnum.postsViaTagged,
   );
+  PrivateProfilesDtoFieldSelect<UsersDto> get privateProfilesViaUser =>
+      $addRelation(
+        PrivateProfilesDtoFieldSelect.nested,
+        UsersDtoExpandEnum.privateProfilesViaUser,
+      );
 }

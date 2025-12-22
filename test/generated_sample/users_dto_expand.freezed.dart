@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UsersExpandDto {
 
- List<RolesDto>? get roles; List<FollowsDto>? get followsViaFollower; List<FollowsDto>? get followsViaFollowing; List<FriendsDto>? get friendsViaRequester; List<FriendsDto>? get friendsViaAccepter; List<BlocksDto>? get blocksViaBlocker; List<BlocksDto>? get blocksViaBlocked; List<PostsDto>? get postsViaPoster; List<PostsDto>? get postsViaTagged;
+ List<RolesDto>? get roles; List<FollowsDto>? get followsViaFollower; List<FollowsDto>? get followsViaFollowing; List<FriendsDto>? get friendsViaRequester; List<FriendsDto>? get friendsViaAccepter; List<BlocksDto>? get blocksViaBlocker; List<BlocksDto>? get blocksViaBlocked; List<PostsDto>? get postsViaPoster; List<PostsDto>? get postsViaTagged; PrivateProfilesDto? get privateProfilesViaUser;
 /// Create a copy of UsersExpandDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $UsersExpandDtoCopyWith<UsersExpandDto> get copyWith => _$UsersExpandDtoCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersExpandDto&&const DeepCollectionEquality().equals(other.roles, roles)&&const DeepCollectionEquality().equals(other.followsViaFollower, followsViaFollower)&&const DeepCollectionEquality().equals(other.followsViaFollowing, followsViaFollowing)&&const DeepCollectionEquality().equals(other.friendsViaRequester, friendsViaRequester)&&const DeepCollectionEquality().equals(other.friendsViaAccepter, friendsViaAccepter)&&const DeepCollectionEquality().equals(other.blocksViaBlocker, blocksViaBlocker)&&const DeepCollectionEquality().equals(other.blocksViaBlocked, blocksViaBlocked)&&const DeepCollectionEquality().equals(other.postsViaPoster, postsViaPoster)&&const DeepCollectionEquality().equals(other.postsViaTagged, postsViaTagged));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersExpandDto&&const DeepCollectionEquality().equals(other.roles, roles)&&const DeepCollectionEquality().equals(other.followsViaFollower, followsViaFollower)&&const DeepCollectionEquality().equals(other.followsViaFollowing, followsViaFollowing)&&const DeepCollectionEquality().equals(other.friendsViaRequester, friendsViaRequester)&&const DeepCollectionEquality().equals(other.friendsViaAccepter, friendsViaAccepter)&&const DeepCollectionEquality().equals(other.blocksViaBlocker, blocksViaBlocker)&&const DeepCollectionEquality().equals(other.blocksViaBlocked, blocksViaBlocked)&&const DeepCollectionEquality().equals(other.postsViaPoster, postsViaPoster)&&const DeepCollectionEquality().equals(other.postsViaTagged, postsViaTagged)&&(identical(other.privateProfilesViaUser, privateProfilesViaUser) || other.privateProfilesViaUser == privateProfilesViaUser));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(roles),const DeepCollectionEquality().hash(followsViaFollower),const DeepCollectionEquality().hash(followsViaFollowing),const DeepCollectionEquality().hash(friendsViaRequester),const DeepCollectionEquality().hash(friendsViaAccepter),const DeepCollectionEquality().hash(blocksViaBlocker),const DeepCollectionEquality().hash(blocksViaBlocked),const DeepCollectionEquality().hash(postsViaPoster),const DeepCollectionEquality().hash(postsViaTagged));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(roles),const DeepCollectionEquality().hash(followsViaFollower),const DeepCollectionEquality().hash(followsViaFollowing),const DeepCollectionEquality().hash(friendsViaRequester),const DeepCollectionEquality().hash(friendsViaAccepter),const DeepCollectionEquality().hash(blocksViaBlocker),const DeepCollectionEquality().hash(blocksViaBlocked),const DeepCollectionEquality().hash(postsViaPoster),const DeepCollectionEquality().hash(postsViaTagged),privateProfilesViaUser);
 
 @override
 String toString() {
-  return 'UsersExpandDto(roles: $roles, followsViaFollower: $followsViaFollower, followsViaFollowing: $followsViaFollowing, friendsViaRequester: $friendsViaRequester, friendsViaAccepter: $friendsViaAccepter, blocksViaBlocker: $blocksViaBlocker, blocksViaBlocked: $blocksViaBlocked, postsViaPoster: $postsViaPoster, postsViaTagged: $postsViaTagged)';
+  return 'UsersExpandDto(roles: $roles, followsViaFollower: $followsViaFollower, followsViaFollowing: $followsViaFollowing, friendsViaRequester: $friendsViaRequester, friendsViaAccepter: $friendsViaAccepter, blocksViaBlocker: $blocksViaBlocker, blocksViaBlocked: $blocksViaBlocked, postsViaPoster: $postsViaPoster, postsViaTagged: $postsViaTagged, privateProfilesViaUser: $privateProfilesViaUser)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $UsersExpandDtoCopyWith<$Res>  {
   factory $UsersExpandDtoCopyWith(UsersExpandDto value, $Res Function(UsersExpandDto) _then) = _$UsersExpandDtoCopyWithImpl;
 @useResult
 $Res call({
- List<RolesDto>? roles, List<FollowsDto>? followsViaFollower, List<FollowsDto>? followsViaFollowing, List<FriendsDto>? friendsViaRequester, List<FriendsDto>? friendsViaAccepter, List<BlocksDto>? blocksViaBlocker, List<BlocksDto>? blocksViaBlocked, List<PostsDto>? postsViaPoster, List<PostsDto>? postsViaTagged
+ List<RolesDto>? roles, List<FollowsDto>? followsViaFollower, List<FollowsDto>? followsViaFollowing, List<FriendsDto>? friendsViaRequester, List<FriendsDto>? friendsViaAccepter, List<BlocksDto>? blocksViaBlocker, List<BlocksDto>? blocksViaBlocked, List<PostsDto>? postsViaPoster, List<PostsDto>? postsViaTagged, PrivateProfilesDto? privateProfilesViaUser
 });
 
 
@@ -63,7 +63,7 @@ class _$UsersExpandDtoCopyWithImpl<$Res>
 
 /// Create a copy of UsersExpandDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? roles = freezed,Object? followsViaFollower = freezed,Object? followsViaFollowing = freezed,Object? friendsViaRequester = freezed,Object? friendsViaAccepter = freezed,Object? blocksViaBlocker = freezed,Object? blocksViaBlocked = freezed,Object? postsViaPoster = freezed,Object? postsViaTagged = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? roles = freezed,Object? followsViaFollower = freezed,Object? followsViaFollowing = freezed,Object? friendsViaRequester = freezed,Object? friendsViaAccepter = freezed,Object? blocksViaBlocker = freezed,Object? blocksViaBlocked = freezed,Object? postsViaPoster = freezed,Object? postsViaTagged = freezed,Object? privateProfilesViaUser = freezed,}) {
   return _then(UsersExpandDto(
 roles: freezed == roles ? _self.roles : roles // ignore: cast_nullable_to_non_nullable
 as List<RolesDto>?,followsViaFollower: freezed == followsViaFollower ? _self.followsViaFollower : followsViaFollower // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,8 @@ as List<FriendsDto>?,blocksViaBlocker: freezed == blocksViaBlocker ? _self.block
 as List<BlocksDto>?,blocksViaBlocked: freezed == blocksViaBlocked ? _self.blocksViaBlocked : blocksViaBlocked // ignore: cast_nullable_to_non_nullable
 as List<BlocksDto>?,postsViaPoster: freezed == postsViaPoster ? _self.postsViaPoster : postsViaPoster // ignore: cast_nullable_to_non_nullable
 as List<PostsDto>?,postsViaTagged: freezed == postsViaTagged ? _self.postsViaTagged : postsViaTagged // ignore: cast_nullable_to_non_nullable
-as List<PostsDto>?,
+as List<PostsDto>?,privateProfilesViaUser: freezed == privateProfilesViaUser ? _self.privateProfilesViaUser : privateProfilesViaUser // ignore: cast_nullable_to_non_nullable
+as PrivateProfilesDto?,
   ));
 }
 

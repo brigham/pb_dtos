@@ -15,6 +15,7 @@ import 'follows_dto.dart';
 import 'friends_dto.dart';
 import 'blocks_dto.dart';
 import 'posts_dto.dart';
+import 'private_profiles_dto.dart';
 import 'users_dto_expand.dart';
 import 'permissions_dto_expand.dart';
 import 'roles_dto_expand.dart';
@@ -22,6 +23,7 @@ import 'follows_dto_expand.dart';
 import 'friends_dto_expand.dart';
 import 'blocks_dto_expand.dart';
 import 'posts_dto_expand.dart';
+import 'private_profiles_dto_expand.dart';
 import 'friends_dto_filter.dart';
 import 'friends_dto_meta.dart';
 import 'friends_dto_sort.dart';
@@ -35,6 +37,9 @@ enum FriendsDtoExpandEnum<V>
   accepter<RelationDto<UsersDto>>("accepter");
 
   const FriendsDtoExpandEnum(this.pbName);
+
+  @override
+  V get(FriendsDto dto) => throw UnimplementedError();
 
   @override
   final String pbName;

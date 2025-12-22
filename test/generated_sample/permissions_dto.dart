@@ -39,6 +39,16 @@ enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
   const PermissionsDtoFieldEnum(this.pbName, this.settings);
 
   @override
+  V get(PermissionsDto dto) {
+    switch (this) {
+      case .name_:
+        return dto.name as V;
+      case .id:
+        return dto.id as V;
+    }
+  }
+
+  @override
   final String pbName;
 
   @override

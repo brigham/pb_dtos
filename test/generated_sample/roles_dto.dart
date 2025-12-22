@@ -50,6 +50,18 @@ enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
   const RolesDtoFieldEnum(this.pbName, this.settings);
 
   @override
+  V get(RolesDto dto) {
+    switch (this) {
+      case .name_:
+        return dto.name as V;
+      case .permissions:
+        return dto.permissions as V;
+      case .id:
+        return dto.id as V;
+    }
+  }
+
+  @override
   final String pbName;
 
   @override

@@ -8,6 +8,7 @@ import 'follows_dto_sort.dart';
 import 'friends_dto_sort.dart';
 import 'blocks_dto_sort.dart';
 import 'posts_dto_sort.dart';
+import 'private_profiles_dto_sort.dart';
 import 'blocks_dto_expand.dart';
 
 class BlocksDtoSort<D extends Dto<D>> extends DtoSortBase<D, BlocksDto> {

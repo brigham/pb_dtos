@@ -20,6 +20,9 @@ enum RolesDtoExpandEnum<V>
   const RolesDtoExpandEnum(this.pbName);
 
   @override
+  V get(RolesDto dto) => throw UnimplementedError();
+
+  @override
   final String pbName;
 
   @override

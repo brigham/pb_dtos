@@ -16,6 +16,7 @@ import 'follows_dto.dart';
 import 'friends_dto.dart';
 import 'blocks_dto.dart';
 import 'posts_dto.dart';
+import 'private_profiles_dto.dart';
 import 'follows_dto_field_select.dart';
 import 'follows_dto_filter.dart';
 import 'follows_dto_meta.dart';
@@ -60,6 +61,18 @@ enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
   );
 
   const FollowsDtoFieldEnum(this.pbName, this.settings);
+
+  @override
+  V get(FollowsDto dto) {
+    switch (this) {
+      case .follower:
+        return dto.follower as V;
+      case .following:
+        return dto.following as V;
+      case .id:
+        return dto.id as V;
+    }
+  }
 
   @override
   final String pbName;

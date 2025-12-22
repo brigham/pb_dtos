@@ -18,6 +18,9 @@ enum PostsDtoExpandEnum<V>
   const PostsDtoExpandEnum(this.pbName);
 
   @override
+  V get(PostsDto dto) => throw UnimplementedError();
+
+  @override
   final String pbName;
 
   @override

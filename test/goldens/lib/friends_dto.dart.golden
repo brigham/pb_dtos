@@ -16,6 +16,7 @@ import 'follows_dto.dart';
 import 'friends_dto.dart';
 import 'blocks_dto.dart';
 import 'posts_dto.dart';
+import 'private_profiles_dto.dart';
 import 'friends_dto_field_select.dart';
 import 'friends_dto_filter.dart';
 import 'friends_dto_meta.dart';
@@ -80,6 +81,20 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
   );
 
   const FriendsDtoFieldEnum(this.pbName, this.settings);
+
+  @override
+  V get(FriendsDto dto) {
+    switch (this) {
+      case .requester:
+        return dto.requester as V;
+      case .accepter:
+        return dto.accepter as V;
+      case .state:
+        return dto.state as V;
+      case .id:
+        return dto.id as V;
+    }
+  }
 
   @override
   final String pbName;

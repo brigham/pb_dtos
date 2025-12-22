@@ -18,6 +18,9 @@ enum FollowsDtoExpandEnum<V>
   const FollowsDtoExpandEnum(this.pbName);
 
   @override
+  V get(FollowsDto dto) => throw UnimplementedError();
+
+  @override
   final String pbName;
 
   @override

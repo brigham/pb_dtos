@@ -19,6 +19,7 @@ import 'generated_sample/blocks_dto.dart';
 import 'generated_sample/friends_dto.dart';
 import 'generated_sample/permissions_dto.dart';
 import 'generated_sample/posts_dto.dart';
+import 'generated_sample/private_profiles_dto.dart';
 import 'generated_sample/roles_dto.dart';
 import 'generated_sample/users_dto.dart';
 
@@ -113,6 +114,54 @@ void main() {
       user = user.copyWith(password: "hunter22", passwordConfirm: "hunter22");
       return api.create(UsersDto.meta(), body: user);
     }
+
+    group('unique back relation', () {
+      late UsersDto user;
+      late PrivateProfilesDto private;
+
+      setUp(() async {
+        final id = _randomId();
+        user = await createUser(
+          UsersDto(
+            email: "unique-$id@samplr.example.com",
+            birthday: DateTime.utc(1920, 4, 5),
+          ),
+        );
+        private = await api.create(
+          PrivateProfilesDto.meta(),
+          body: PrivateProfilesDto(
+            user: user.asRelation(),
+            note: 'Careful with this one.',
+          ),
+        );
+      });
+
+      test('relation is single', () async {
+        var privateExpandToUser = await api.getOne(
+          PrivateProfilesDto.meta(),
+          private.id,
+          expand: (e) => e.user(),
+        );
+        expect(privateExpandToUser.expand?.user, isNotNull);
+        expect(privateExpandToUser.expand?.user?.id, user.id);
+      });
+
+      test('back-relation is single', () async {
+        var userBackExpandToPrivate = await api.getOne(
+          UsersDto.meta(),
+          user.id,
+          expand: (e) => e.privateProfilesViaUser(),
+        );
+        expect(
+          userBackExpandToPrivate.expand?.privateProfilesViaUser,
+          isNotNull,
+        );
+        expect(
+          userBackExpandToPrivate.expand?.privateProfilesViaUser?.id,
+          private.id,
+        );
+      });
+    });
 
     group('two users', () {
       late UsersDto user1;

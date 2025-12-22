@@ -16,6 +16,7 @@ import 'follows_dto.dart';
 import 'friends_dto.dart';
 import 'blocks_dto.dart';
 import 'posts_dto.dart';
+import 'private_profiles_dto.dart';
 import 'permissions_dto_field_select.dart';
 import 'permissions_dto_filter.dart';
 import 'permissions_dto_meta.dart';
@@ -50,6 +51,16 @@ enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
   );
 
   const PermissionsDtoFieldEnum(this.pbName, this.settings);
+
+  @override
+  V get(PermissionsDto dto) {
+    switch (this) {
+      case .name_:
+        return dto.name as V;
+      case .id:
+        return dto.id as V;
+    }
+  }
 
   @override
   final String pbName;

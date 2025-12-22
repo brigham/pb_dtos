@@ -172,7 +172,9 @@ class DtoGeoPointFieldSettings extends DtoFieldSettings {
     : super('geoPoint', required: required);
 }
 
-abstract class DtoTypedField<D extends Dto<D>, V> extends DtoField<D> {}
+abstract class DtoTypedField<D extends Dto<D>, V> extends DtoField<D> {
+  V get(D dto);
+}
 
 abstract class DtoFieldSelect<D extends Dto<D>> {
   const DtoFieldSelect();

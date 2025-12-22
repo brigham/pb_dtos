@@ -34,6 +34,9 @@ part '{{collection.name}}_dto_expand.g.dart';
     const {{dto_expand_class_name}}Enum(this.pbName);
 
     @override
+    V get({{class_name}} dto) => throw UnimplementedError();
+
+    @override
     final String pbName;
 
     @override

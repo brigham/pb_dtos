@@ -1,0 +1,71 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_filter.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/filter_expression.dart';
+import 'private_profiles_dto.dart';
+import 'private_profiles_dto_expand.dart';
+import 'users_dto.dart';
+import 'users_dto_comparison_builder.dart';
+import 'permissions_dto.dart';
+import 'permissions_dto_comparison_builder.dart';
+import 'roles_dto.dart';
+import 'roles_dto_comparison_builder.dart';
+import 'follows_dto.dart';
+import 'follows_dto_comparison_builder.dart';
+import 'friends_dto.dart';
+import 'friends_dto_comparison_builder.dart';
+import 'blocks_dto.dart';
+import 'blocks_dto_comparison_builder.dart';
+import 'posts_dto.dart';
+import 'posts_dto_comparison_builder.dart';
+import 'private_profiles_dto.dart';
+import 'private_profiles_dto_comparison_builder.dart';
+
+class PrivateProfilesDtoComparisonBuilder<D extends Dto<D>>
+    extends RelationComparisonBuilder<D, PrivateProfilesDto> {
+  PrivateProfilesDtoComparisonBuilder(super.fieldPath, super.handler)
+    : super.fieldPath();
+
+  TerminalRelationComparisonBuilder<D, String> get id =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PrivateProfilesDtoFieldEnum.id),
+        handler,
+      );
+  UsersDtoComparisonBuilder<D> get user => UsersDtoComparisonBuilder(
+    fieldPath.extend(PrivateProfilesDtoFieldEnum.user),
+    handler,
+  );
+  TerminalRelationComparisonBuilder<D, String> get note =>
+      TerminalRelationComparisonBuilder(
+        fieldPath.terminate(PrivateProfilesDtoFieldEnum.note),
+        handler,
+      );
+
+  // Back relations
+}
+
+class PrivateProfilesDtoMultirelComparisonBuilder<D extends Dto<D>>
+    extends MultirelComparisonBuilder<D, PrivateProfilesDto> {
+  PrivateProfilesDtoMultirelComparisonBuilder(super.fieldPath, super.handler)
+    : super.fieldPath();
+
+  TerminalMultivalRelationComparisonBuilder<D, String> get id =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PrivateProfilesDtoFieldEnum.id),
+        handler,
+      );
+  UsersDtoMultirelComparisonBuilder<D> get user =>
+      UsersDtoMultirelComparisonBuilder(
+        fieldPath.extend(PrivateProfilesDtoFieldEnum.user),
+        handler,
+      );
+  TerminalMultivalRelationComparisonBuilder<D, String> get note =>
+      TerminalMultivalRelationComparisonBuilder(
+        fieldPath.terminate(PrivateProfilesDtoFieldEnum.note),
+        handler,
+      );
+
+  // Back relations
+}

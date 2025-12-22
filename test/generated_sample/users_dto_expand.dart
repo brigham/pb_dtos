@@ -9,11 +9,13 @@ import 'follows_dto.dart';
 import 'friends_dto.dart';
 import 'blocks_dto.dart';
 import 'posts_dto.dart';
+import 'private_profiles_dto.dart';
 import 'roles_dto_expand.dart';
 import 'follows_dto_expand.dart';
 import 'friends_dto_expand.dart';
 import 'blocks_dto_expand.dart';
 import 'posts_dto_expand.dart';
+import 'private_profiles_dto_expand.dart';
 
 part 'users_dto_expand.freezed.dart';
 part 'users_dto_expand.g.dart';
@@ -28,9 +30,15 @@ enum UsersDtoExpandEnum<V>
   blocksViaBlocker<RelationDto<BlocksDto>>("blocks_via_blocker"),
   blocksViaBlocked<RelationDto<BlocksDto>>("blocks_via_blocked"),
   postsViaPoster<RelationDto<PostsDto>>("posts_via_poster"),
-  postsViaTagged<RelationDto<PostsDto>>("posts_via_tagged");
+  postsViaTagged<RelationDto<PostsDto>>("posts_via_tagged"),
+  privateProfilesViaUser<RelationDto<PrivateProfilesDto>>(
+    "private_profiles_via_user",
+  );
 
   const UsersDtoExpandEnum(this.pbName);
+
+  @override
+  V get(UsersDto dto) => throw UnimplementedError();
 
   @override
   final String pbName;
@@ -69,6 +77,10 @@ class UsersDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, UsersDto> {
       PostsDtoExpand.from(addRelation(UsersDtoExpandEnum.postsViaPoster));
   PostsDtoExpand<UsersDto> get postsViaTagged =>
       PostsDtoExpand.from(addRelation(UsersDtoExpandEnum.postsViaTagged));
+  PrivateProfilesDtoExpand<UsersDto> get privateProfilesViaUser =>
+      PrivateProfilesDtoExpand.from(
+        addRelation(UsersDtoExpandEnum.privateProfilesViaUser),
+      );
 }
 
 @freezed
@@ -84,6 +96,7 @@ class UsersExpandDto with _$UsersExpandDto {
     this.blocksViaBlocked,
     this.postsViaPoster,
     this.postsViaTagged,
+    this.privateProfilesViaUser,
   });
 
   @override
@@ -112,6 +125,9 @@ class UsersExpandDto with _$UsersExpandDto {
   @JsonKey(name: 'posts_via_tagged')
   @override
   final List<PostsDto>? postsViaTagged;
+  @JsonKey(name: 'private_profiles_via_user')
+  @override
+  final PrivateProfilesDto? privateProfilesViaUser;
 
   factory UsersExpandDto.fromJson(Map<String, dynamic> json) =>
       _$UsersExpandDtoFromJson(json);

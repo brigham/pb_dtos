@@ -69,6 +69,20 @@ enum BlocksDtoFieldEnum<V> implements DtoTypedField<BlocksDto, V> {
   const BlocksDtoFieldEnum(this.pbName, this.settings);
 
   @override
+  V get(BlocksDto dto) {
+    switch (this) {
+      case .blocker:
+        return dto.blocker as V;
+      case .blocked:
+        return dto.blocked as V;
+      case .type:
+        return dto.type as V;
+      case .id:
+        return dto.id as V;
+    }
+  }
+
+  @override
   final String pbName;
 
   @override

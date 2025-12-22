@@ -18,6 +18,9 @@ enum BlocksDtoExpandEnum<V>
   const BlocksDtoExpandEnum(this.pbName);
 
   @override
+  V get(BlocksDto dto) => throw UnimplementedError();
+
+  @override
   final String pbName;
 
   @override

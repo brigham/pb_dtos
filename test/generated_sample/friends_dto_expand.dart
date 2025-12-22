@@ -18,6 +18,9 @@ enum FriendsDtoExpandEnum<V>
   const FriendsDtoExpandEnum(this.pbName);
 
   @override
+  V get(FriendsDto dto) => throw UnimplementedError();
+
+  @override
   final String pbName;
 
   @override

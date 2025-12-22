@@ -50,6 +50,18 @@ enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
   const FollowsDtoFieldEnum(this.pbName, this.settings);
 
   @override
+  V get(FollowsDto dto) {
+    switch (this) {
+      case .follower:
+        return dto.follower as V;
+      case .following:
+        return dto.following as V;
+      case .id:
+        return dto.id as V;
+    }
+  }
+
+  @override
   final String pbName;
 
   @override

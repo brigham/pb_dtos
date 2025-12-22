@@ -10,6 +10,7 @@ import 'follows_dto_comparison_builder.dart';
 import 'friends_dto_comparison_builder.dart';
 import 'blocks_dto_comparison_builder.dart';
 import 'posts_dto_comparison_builder.dart';
+import 'private_profiles_dto_comparison_builder.dart';
 
 class UsersDtoFilter extends DtoFilterBase<UsersDto, UsersDtoFilter> {
   @override
@@ -90,6 +91,11 @@ class UsersDtoFilter extends DtoFilterBase<UsersDto, UsersDtoFilter> {
   PostsDtoMultirelComparisonBuilder<UsersDto> get postsViaTagged =>
       PostsDtoMultirelComparisonBuilder<UsersDto>(
         SoloFieldPath(UsersDtoExpandEnum.postsViaTagged),
+        add,
+      );
+  PrivateProfilesDtoComparisonBuilder<UsersDto> get privateProfilesViaUser =>
+      PrivateProfilesDtoComparisonBuilder<UsersDto>(
+        SoloFieldPath(UsersDtoExpandEnum.privateProfilesViaUser),
         add,
       );
 }

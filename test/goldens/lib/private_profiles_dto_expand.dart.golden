@@ -1,0 +1,75 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:json_annotation/json_annotation.dart';
+import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+import 'package:pb_dtos/pb/dto/dto_field.dart';
+import 'package:pb_dtos/pb/dto/file_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'package:pb_dtos/pb/dto/geopoint_dto.dart';
+import 'package:pb_dtos/pb/dto/relation_dto.dart';
+import 'users_dto.dart';
+import 'permissions_dto.dart';
+import 'roles_dto.dart';
+import 'follows_dto.dart';
+import 'friends_dto.dart';
+import 'blocks_dto.dart';
+import 'posts_dto.dart';
+import 'private_profiles_dto.dart';
+import 'users_dto_expand.dart';
+import 'permissions_dto_expand.dart';
+import 'roles_dto_expand.dart';
+import 'follows_dto_expand.dart';
+import 'friends_dto_expand.dart';
+import 'blocks_dto_expand.dart';
+import 'posts_dto_expand.dart';
+import 'private_profiles_dto_expand.dart';
+import 'private_profiles_dto_filter.dart';
+import 'private_profiles_dto_meta.dart';
+import 'private_profiles_dto_sort.dart';
+
+part 'private_profiles_dto_expand.freezed.dart';
+part 'private_profiles_dto_expand.g.dart';
+
+enum PrivateProfilesDtoExpandEnum<V>
+    implements
+        DtoExpandEnum<PrivateProfilesDto>,
+        DtoTypedField<PrivateProfilesDto, V> {
+  user<RelationDto<UsersDto>>("user");
+
+  const PrivateProfilesDtoExpandEnum(this.pbName);
+
+  @override
+  V get(PrivateProfilesDto dto) => throw UnimplementedError();
+
+  @override
+  final String pbName;
+
+  @override
+  DtoFieldSettings? get settings => null;
+}
+
+class PrivateProfilesDtoExpand<D extends Dto<D>>
+    extends DtoExpandBase<D, PrivateProfilesDto> {
+  PrivateProfilesDtoExpand() : super.root();
+
+  PrivateProfilesDtoExpand.from(super.delegate);
+
+  void call() {
+    finish();
+  }
+
+  UsersDtoExpand<PrivateProfilesDto> get user =>
+      UsersDtoExpand.from(addRelation(PrivateProfilesDtoFieldEnum.user));
+}
+
+@freezed
+@JsonSerializable(createToJson: false)
+class PrivateProfilesExpandDto with _$PrivateProfilesExpandDto {
+  PrivateProfilesExpandDto({this.user = null});
+
+  final UsersDto? user;
+
+  factory PrivateProfilesExpandDto.fromJson(Map<String, dynamic> json) =>
+      _$PrivateProfilesExpandDtoFromJson(json);
+}

@@ -70,6 +70,20 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
   const FriendsDtoFieldEnum(this.pbName, this.settings);
 
   @override
+  V get(FriendsDto dto) {
+    switch (this) {
+      case .requester:
+        return dto.requester as V;
+      case .accepter:
+        return dto.accepter as V;
+      case .state:
+        return dto.state as V;
+      case .id:
+        return dto.id as V;
+    }
+  }
+
+  @override
   final String pbName;
 
   @override

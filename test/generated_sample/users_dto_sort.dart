@@ -6,6 +6,7 @@ import 'follows_dto_sort.dart';
 import 'friends_dto_sort.dart';
 import 'blocks_dto_sort.dart';
 import 'posts_dto_sort.dart';
+import 'private_profiles_dto_sort.dart';
 import 'users_dto_expand.dart';
 
 class UsersDtoSort<D extends Dto<D>> extends DtoSortBase<D, UsersDto> {
@@ -76,4 +77,8 @@ class UsersDtoSort<D extends Dto<D>> extends DtoSortBase<D, UsersDto> {
       PostsDtoSort.from(addRelation(UsersDtoExpandEnum.postsViaPoster));
   PostsDtoSort<UsersDto> get postsViaTagged =>
       PostsDtoSort.from(addRelation(UsersDtoExpandEnum.postsViaTagged));
+  PrivateProfilesDtoSort<UsersDto> get privateProfilesViaUser =>
+      PrivateProfilesDtoSort.from(
+        addRelation(UsersDtoExpandEnum.privateProfilesViaUser),
+      );
 }

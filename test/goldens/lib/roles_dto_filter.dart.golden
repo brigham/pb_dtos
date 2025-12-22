@@ -20,6 +20,8 @@ import 'blocks_dto.dart';
 import 'blocks_dto_comparison_builder.dart';
 import 'posts_dto.dart';
 import 'posts_dto_comparison_builder.dart';
+import 'private_profiles_dto.dart';
+import 'private_profiles_dto_comparison_builder.dart';
 
 class RolesDtoFilter extends DtoFilterBase<RolesDto, RolesDtoFilter> {
   @override

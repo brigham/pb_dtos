@@ -9,6 +9,7 @@ import 'follows_dto_comparison_builder.dart';
 import 'friends_dto_comparison_builder.dart';
 import 'blocks_dto_comparison_builder.dart';
 import 'posts_dto_comparison_builder.dart';
+import 'private_profiles_dto_comparison_builder.dart';
 
 class UsersDtoComparisonBuilder<D extends Dto<D>>
     extends RelationComparisonBuilder<D, UsersDto> {
@@ -134,6 +135,11 @@ class UsersDtoComparisonBuilder<D extends Dto<D>>
   PostsDtoMultirelComparisonBuilder<D> get postsViaTagged =>
       PostsDtoMultirelComparisonBuilder<D>(
         fieldPath.extend(UsersDtoExpandEnum.postsViaTagged),
+        handler,
+      );
+  PrivateProfilesDtoComparisonBuilder<D> get privateProfilesViaUser =>
+      PrivateProfilesDtoComparisonBuilder<D>(
+        fieldPath.extend(UsersDtoExpandEnum.privateProfilesViaUser),
         handler,
       );
 }
@@ -263,6 +269,11 @@ class UsersDtoMultirelComparisonBuilder<D extends Dto<D>>
   PostsDtoMultirelComparisonBuilder<D> get postsViaTagged =>
       PostsDtoMultirelComparisonBuilder<D>(
         fieldPath.extend(UsersDtoExpandEnum.postsViaTagged),
+        handler,
+      );
+  PrivateProfilesDtoMultirelComparisonBuilder<D> get privateProfilesViaUser =>
+      PrivateProfilesDtoMultirelComparisonBuilder<D>(
+        fieldPath.extend(UsersDtoExpandEnum.privateProfilesViaUser),
         handler,
       );
 }

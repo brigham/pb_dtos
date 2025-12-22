@@ -139,6 +139,44 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
   const UsersDtoFieldEnum(this.pbName, this.settings);
 
   @override
+  V get(UsersDto dto) {
+    switch (this) {
+      case .id:
+        return dto.id as V;
+      case .password:
+        return dto.password as V;
+      case .email:
+        return dto.email as V;
+      case .emailVisibility:
+        return dto.emailVisibility as V;
+      case .verified:
+        return dto.verified as V;
+      case .name_:
+        return dto.name as V;
+      case .avatar:
+        return dto.avatar as V;
+      case .roles:
+        return dto.roles as V;
+      case .birthday:
+        return dto.birthday as V;
+      case .homepage:
+        return dto.homepage as V;
+      case .metadata:
+        return dto.metadata as V;
+      case .biography:
+        return dto.biography as V;
+      case .hometown:
+        return dto.hometown as V;
+      case .zodiac:
+        return dto.zodiac as V;
+      case .created:
+        return dto.created as V;
+      case .updated:
+        return dto.updated as V;
+    }
+  }
+
+  @override
   final String pbName;
 
   @override

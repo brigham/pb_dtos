@@ -125,6 +125,38 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
   const PostsDtoFieldEnum(this.pbName, this.settings);
 
   @override
+  V get(PostsDto dto) {
+    switch (this) {
+      case .poster:
+        return dto.poster as V;
+      case .message:
+        return dto.message as V;
+      case .photo:
+        return dto.photo as V;
+      case .link:
+        return dto.link as V;
+      case .location:
+        return dto.location as V;
+      case .reviewStars:
+        return dto.reviewStars as V;
+      case .tagged:
+        return dto.tagged as V;
+      case .draft:
+        return dto.draft as V;
+      case .scheduled:
+        return dto.scheduled as V;
+      case .visibility:
+        return dto.visibility as V;
+      case .created:
+        return dto.created as V;
+      case .metadata:
+        return dto.metadata as V;
+      case .id:
+        return dto.id as V;
+    }
+  }
+
+  @override
   final String pbName;
 
   @override

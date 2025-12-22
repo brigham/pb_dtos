@@ -15,6 +15,7 @@ import 'follows_dto.dart';
 import 'friends_dto.dart';
 import 'blocks_dto.dart';
 import 'posts_dto.dart';
+import 'private_profiles_dto.dart';
 import 'permissions_dto_filter.dart';
 import 'permissions_dto_meta.dart';
 import 'permissions_dto_sort.dart';

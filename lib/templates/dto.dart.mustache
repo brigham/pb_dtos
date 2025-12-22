@@ -38,6 +38,15 @@ enum {{class_name}}FieldEnum<V> implements DtoTypedField<{{class_name}}, V> {
     const {{class_name}}FieldEnum(this.pbName, this.settings);
 
     @override
+    V get({{class_name}} dto) {
+        switch (this) {
+        {{#fields}}
+            case .{{enum_name}}: return dto.{{snake_name}} as V;
+        {{/fields}}
+        }
+    }
+
+    @override
     final String pbName;
 
     @override

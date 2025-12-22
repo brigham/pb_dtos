@@ -1,0 +1,24 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
+import 'package:pb_dtos/pb/dto/dto_sort.dart';
+import 'private_profiles_dto.dart';
+import 'users_dto_sort.dart';
+
+class PrivateProfilesDtoSort<D extends Dto<D>>
+    extends DtoSortBase<D, PrivateProfilesDto> {
+  PrivateProfilesDtoSort() : super.root();
+
+  PrivateProfilesDtoSort.from(super.delegate);
+
+  void call({bool desc = false}) {
+    finish(desc);
+  }
+
+  void id({bool desc = false}) =>
+      addField(PrivateProfilesDtoFieldEnum.id, desc);
+
+  UsersDtoSort<PrivateProfilesDto> get user =>
+      UsersDtoSort.from(addRelation(PrivateProfilesDtoFieldEnum.user));
+
+  void note({bool desc = false}) =>
+      addField(PrivateProfilesDtoFieldEnum.note, desc);
+}
