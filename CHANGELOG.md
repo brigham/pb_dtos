@@ -1,3 +1,9 @@
+# 0.11.0
+
+* Generic getter on DtoTypedField.
+* Pass arguments to sample test runner.
+* Refactor to remove unimplemented methods from expand enums.
+
 # 0.10.0
 
 * Can now just pass lambda to create filter, sort, field, and expand.
