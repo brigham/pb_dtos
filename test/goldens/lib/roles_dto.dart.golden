@@ -28,8 +28,8 @@ import 'package:http/http.dart' as http;
 part 'roles_dto.freezed.dart';
 part 'roles_dto.g.dart';
 
-enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
-  name_<String>(
+enum RolesDtoFieldEnum<V, A> implements DtoTypedField<RolesDto, V, A> {
+  name_<String, String>(
     'name',
     const DtoTextFieldSettings(
       required: true,
@@ -39,7 +39,7 @@ enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
       pattern: "",
     ),
   ),
-  permissions<RelationDto<PermissionsDto>>(
+  permissions<RelationDto<PermissionsDto>, List<RelationDto<PermissionsDto>>>(
     'permissions',
     const DtoRelationFieldSettings(
       required: false,
@@ -49,7 +49,7 @@ enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
       maxSelect: 999,
     ),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     const DtoTextFieldSettings(
       required: true,
@@ -63,14 +63,28 @@ enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
   const RolesDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(RolesDto dto) {
+  A get(RolesDto dto) {
     switch (this) {
       case .name_:
-        return dto.name as V;
+        return dto.name as A;
       case .permissions:
-        return dto.permissions as V;
+        return dto.permissions as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  RolesDto copyWith(RolesDto dto, A value) {
+    switch (this) {
+      case .name_:
+        return dto.copyWith(name: value as String);
+      case .permissions:
+        return dto.copyWith(
+          permissions: value as List<RelationDto<PermissionsDto>>,
+        );
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 

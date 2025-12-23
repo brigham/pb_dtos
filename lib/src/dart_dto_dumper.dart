@@ -11,8 +11,8 @@ import 'strings.dart';
 
 String _toOptionalDate(dynamic obj) {
   switch (obj) {
-    case "":
-      return "null";
+    case '':
+      return 'null';
     default:
       return toLiteral(obj);
   }
@@ -21,7 +21,7 @@ String _toOptionalDate(dynamic obj) {
 String _toOptionalList(dynamic obj) {
   switch (obj) {
     case null:
-      return toLiteral([]);
+      return toLiteral(<dynamic>[]);
     default:
       return toLiteral(obj);
   }
@@ -74,22 +74,22 @@ const Map<(String, String), JsonToDartConverter> _converterOverrides = {
 
 String _buildSettings(CollectionField field) {
   StringBuffer buffer = StringBuffer();
-  var (className, fieldSettings) = _fieldTypes[field.type] ?? ('', []);
+  var (className, fieldSettings) = _fieldTypes[field.type] ?? ('', <String>[]);
   if (className.isEmpty) {
-    return "null";
+    return 'null';
   }
-  buffer.write("const ");
+  buffer.write('const ');
   buffer.write(className);
-  buffer.write("(");
+  buffer.write('(');
   for (var fieldSettingName in fieldSettings) {
     buffer.write(fieldSettingName);
-    buffer.write(": ");
+    buffer.write(': ');
     JsonToDartConverter converter =
         _converterOverrides[(field.type, fieldSettingName)] ?? toLiteral;
     buffer.write(converter(field.data[fieldSettingName]));
-    buffer.write(", ");
+    buffer.write(', ');
   }
-  buffer.write(")");
+  buffer.write(')');
   return buffer.toString();
 }
 
@@ -109,7 +109,7 @@ class DartDtoDumper extends Dumper {
          config('lib/templates/dto_comparison_builder.dart.mustache'),
          config(
            'lib/templates/dto_expand.dart.mustache',
-           (ctx) => ctx['has_relations'],
+           (ctx) => ctx['has_relations'] as bool,
          ),
          config('lib/templates/dto_field_select.dart.mustache'),
          config('lib/templates/dto_filter.dart.mustache'),
@@ -122,21 +122,21 @@ class DartDtoDumper extends Dumper {
   String? getPath(String templatePath, CollectionSchema collectionSchema) {
     switch (templatePath) {
       case 'lib/templates/dto.dart.mustache':
-        return "$outputDir/${collectionSchema.model.name}_dto.dart";
+        return '$outputDir/${collectionSchema.model.name}_dto.dart';
       case 'lib/templates/dto_patch.dart.mustache':
-        return "$outputDir/${collectionSchema.model.name}_patch_dto.dart";
+        return '$outputDir/${collectionSchema.model.name}_patch_dto.dart';
       case 'lib/templates/dto_sort.dart.mustache':
-        return "$outputDir/${collectionSchema.model.name}_dto_sort.dart";
+        return '$outputDir/${collectionSchema.model.name}_dto_sort.dart';
       case 'lib/templates/dto_meta.dart.mustache':
-        return "$outputDir/${collectionSchema.model.name}_dto_meta.dart";
+        return '$outputDir/${collectionSchema.model.name}_dto_meta.dart';
       case 'lib/templates/dto_field_select.dart.mustache':
-        return "$outputDir/${collectionSchema.model.name}_dto_field_select.dart";
+        return '$outputDir/${collectionSchema.model.name}_dto_field_select.dart';
       case 'lib/templates/dto_filter.dart.mustache':
-        return "$outputDir/${collectionSchema.model.name}_dto_filter.dart";
+        return '$outputDir/${collectionSchema.model.name}_dto_filter.dart';
       case 'lib/templates/dto_comparison_builder.dart.mustache':
-        return "$outputDir/${collectionSchema.model.name}_dto_comparison_builder.dart";
+        return '$outputDir/${collectionSchema.model.name}_dto_comparison_builder.dart';
       case 'lib/templates/dto_expand.dart.mustache':
-        return "$outputDir/${collectionSchema.model.name}_dto_expand.dart";
+        return '$outputDir/${collectionSchema.model.name}_dto_expand.dart';
       default:
         return null;
     }
@@ -154,9 +154,9 @@ class DartDtoDumper extends Dumper {
     var fileFields = _findFieldsOfType(collectionSchema, 'file').toList();
     var hasFiles = fileFields.isNotEmpty;
 
-    var expandDtoClassName = toClassName(collection.name, "Expand");
-    var dtoExpandClassName = "${className}Expand";
-    var patchClassName = toClassName(collection.name, "Patch");
+    var expandDtoClassName = toClassName(collection.name, 'Expand');
+    var dtoExpandClassName = '${className}Expand';
+    var patchClassName = toClassName(collection.name, 'Patch');
     final fieldsByName = Map.fromEntries(
       collection.fields.map((f) => MapEntry(f.name, f)),
     );
@@ -226,23 +226,23 @@ class DartDtoDumper extends Dumper {
               collectionSchema,
               field,
             );
-            var dartPatchType = dartType.endsWith("?")
+            var dartPatchType = dartType.endsWith('?')
                 ? dartType
-                : "$dartType?";
-            var filterFieldType = dartType.endsWith("?")
-                ? dartType.replaceAll("?", "")
+                : '$dartType?';
+            var filterFieldType = dartType.endsWith('?')
+                ? dartType.replaceAll('?', '')
                 : dartType;
             filterFieldType = filterFieldType.replaceAllMapped(
-              RegExp(r"List<([^>]*)>"),
-              (match) => "${match.group(1)}",
+              RegExp(r'List<([^>]*)>'),
+              (match) => '${match.group(1)}',
             );
             var relationClassName = field.data['type'] == 'relation'
                 ? toClassName(
                     schema.byId[field.data['collectionId']]!.model.name,
                   )
                 : null;
-            String filterComparisonBuilder = "";
-            bool hasMulti = (field.data['maxSelect'] ?? 1) > 1;
+            String filterComparisonBuilder = '';
+            bool hasMulti = ((field.data['maxSelect'] as int?) ?? 1) > 1;
             switch ((relationClassName != null, hasMulti)) {
               case (true, true):
                 filterComparisonBuilder =
@@ -273,7 +273,7 @@ class DartDtoDumper extends Dumper {
               'json_default_value': defaultValueForJson,
               'json_key_unknown_enum_value': unknownEnumValue,
               'to_json_function': toJsonFunction,
-              'maybe_required': markRequired ? "required " : "",
+              'maybe_required': markRequired ? 'required ' : '',
               'type': dartType,
               'patch_type': dartPatchType,
               'filter_type': filterFieldType,
@@ -313,17 +313,17 @@ class DartDtoDumper extends Dumper {
         var relatedCollection = schema.byId[collectionId];
         if (relatedCollection == null) {
           throw Exception(
-            "Could not identify collection with id: $collectionId",
+            'Could not identify collection with id: $collectionId',
           );
         }
         var relatedClassName = toClassName(relatedCollection.model.name);
         var snaked = lowerCamelize(field.name);
 
-        var type = "";
+        var type = '';
         if (field.data['maxSelect'] == 1) {
           type = relatedClassName;
         } else {
-          type = "List<$relatedClassName>";
+          type = 'List<$relatedClassName>';
         }
 
         return {
@@ -338,10 +338,10 @@ class DartDtoDumper extends Dumper {
         var relatedClassName = toClassName(field.collection.model.name);
         var name = '${field.collection.model.name}_via_${field.field.name}';
         var snaked = lowerCamelize(name);
-        var type = field.unique ? relatedClassName : "List<$relatedClassName>";
-        var multirelFilterType = "${relatedClassName}MultirelComparisonBuilder";
+        var type = field.unique ? relatedClassName : 'List<$relatedClassName>';
+        var multirelFilterType = '${relatedClassName}MultirelComparisonBuilder';
         var filterType = field.unique
-            ? "${relatedClassName}ComparisonBuilder"
+            ? '${relatedClassName}ComparisonBuilder'
             : multirelFilterType;
 
         return {

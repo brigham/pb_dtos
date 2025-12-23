@@ -14,8 +14,8 @@ part 'roles_dto_expand.g.dart';
 
 enum RolesDtoExpandEnum<V>
     implements DtoExpandEnum<RolesDto>, DtoFilterableField<RolesDto, V> {
-  permissions<RelationDto<PermissionsDto>>("permissions"),
-  usersViaRoles<RelationDto<UsersDto>>("users_via_roles");
+  permissions<RelationDto<PermissionsDto>>('permissions'),
+  usersViaRoles<RelationDto<UsersDto>>('users_via_roles');
 
   const RolesDtoExpandEnum(this.pbName);
 

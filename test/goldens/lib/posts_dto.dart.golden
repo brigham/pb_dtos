@@ -40,8 +40,8 @@ enum PostsVisibilityEnum {
   String toString() => this.value;
 }
 
-enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
-  poster<RelationDto<UsersDto>>(
+enum PostsDtoFieldEnum<V, A> implements DtoTypedField<PostsDto, V, A> {
+  poster<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'poster',
     const DtoRelationFieldSettings(
       required: true,
@@ -51,7 +51,7 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
       maxSelect: 1,
     ),
   ),
-  message<String>(
+  message<String, String>(
     'message',
     const DtoEditorFieldSettings(
       required: true,
@@ -59,7 +59,7 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
       convertURLs: false,
     ),
   ),
-  photo<FileDto>(
+  photo<FileDto, FileDto?>(
     'photo',
     const DtoFileFieldSettings(
       required: false,
@@ -70,7 +70,7 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
       protected: false,
     ),
   ),
-  link<String>(
+  link<String, String>(
     'link',
     const DtoURLFieldSettings(
       required: false,
@@ -78,11 +78,11 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
       onlyDomains: [],
     ),
   ),
-  location<GeopointDto>(
+  location<GeopointDto, GeopointDto>(
     'location',
     const DtoGeoPointFieldSettings(required: false),
   ),
-  reviewStars<num>(
+  reviewStars<num, num>(
     'review_stars',
     const DtoNumberFieldSettings(
       required: false,
@@ -91,7 +91,7 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
       onlyInt: false,
     ),
   ),
-  tagged<RelationDto<UsersDto>>(
+  tagged<RelationDto<UsersDto>, List<RelationDto<UsersDto>>>(
     'tagged',
     const DtoRelationFieldSettings(
       required: false,
@@ -101,12 +101,12 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
       maxSelect: 999,
     ),
   ),
-  draft<bool>('draft', const DtoBoolFieldSettings(required: false)),
-  scheduled<DateTime>(
+  draft<bool, bool>('draft', const DtoBoolFieldSettings(required: false)),
+  scheduled<DateTime, DateTime?>(
     'scheduled',
     const DtoDateFieldSettings(required: false, min: null, max: null),
   ),
-  visibility<PostsVisibilityEnum>(
+  visibility<PostsVisibilityEnum, PostsVisibilityEnum?>(
     'visibility',
     const DtoSelectFieldSettings(
       required: false,
@@ -114,15 +114,15 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
       maxSelect: 0,
     ),
   ),
-  created<DateTime>(
+  created<DateTime, DateTime?>(
     'created',
     const DtoAutodateFieldSettings(onCreate: true, onUpdate: false),
   ),
-  metadata<dynamic>(
+  metadata<dynamic, dynamic>(
     'metadata',
     const DtoJSONFieldSettings(required: false, maxSize: 0),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     const DtoTextFieldSettings(
       required: true,
@@ -136,34 +136,66 @@ enum PostsDtoFieldEnum<V> implements DtoTypedField<PostsDto, V> {
   const PostsDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(PostsDto dto) {
+  A get(PostsDto dto) {
     switch (this) {
       case .poster:
-        return dto.poster as V;
+        return dto.poster as A;
       case .message:
-        return dto.message as V;
+        return dto.message as A;
       case .photo:
-        return dto.photo as V;
+        return dto.photo as A;
       case .link:
-        return dto.link as V;
+        return dto.link as A;
       case .location:
-        return dto.location as V;
+        return dto.location as A;
       case .reviewStars:
-        return dto.reviewStars as V;
+        return dto.reviewStars as A;
       case .tagged:
-        return dto.tagged as V;
+        return dto.tagged as A;
       case .draft:
-        return dto.draft as V;
+        return dto.draft as A;
       case .scheduled:
-        return dto.scheduled as V;
+        return dto.scheduled as A;
       case .visibility:
-        return dto.visibility as V;
+        return dto.visibility as A;
       case .created:
-        return dto.created as V;
+        return dto.created as A;
       case .metadata:
-        return dto.metadata as V;
+        return dto.metadata as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  PostsDto copyWith(PostsDto dto, A value) {
+    switch (this) {
+      case .poster:
+        return dto.copyWith(poster: value as RelationDto<UsersDto>);
+      case .message:
+        return dto.copyWith(message: value as String);
+      case .photo:
+        return dto.copyWith(photo: value as FileDto?);
+      case .link:
+        return dto.copyWith(link: value as String);
+      case .location:
+        return dto.copyWith(location: value as GeopointDto);
+      case .reviewStars:
+        return dto.copyWith(reviewStars: value as num);
+      case .tagged:
+        return dto.copyWith(tagged: value as List<RelationDto<UsersDto>>);
+      case .draft:
+        return dto.copyWith(draft: value as bool);
+      case .scheduled:
+        return dto.copyWith(scheduled: value as DateTime?);
+      case .visibility:
+        return dto.copyWith(visibility: value as PostsVisibilityEnum?);
+      case .created:
+        return dto.copyWith(created: value as DateTime?);
+      case .metadata:
+        return dto.copyWith(metadata: value as dynamic);
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 

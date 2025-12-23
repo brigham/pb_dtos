@@ -73,7 +73,7 @@ abstract class Dumper {
       }
       var templatePath = await _resolveTemplate(path);
       if (templatePath == null) {
-        throw Exception("Could not resolve template: $path");
+        throw Exception('Could not resolve template: $path');
       }
       var template = Template(
         File(templatePath).readAsStringSync(),

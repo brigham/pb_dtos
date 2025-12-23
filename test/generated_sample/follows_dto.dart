@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pocketbase/pocketbase.dart' show RecordModel;
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
@@ -15,49 +15,61 @@ import 'package:http/http.dart' as http;
 part 'follows_dto.freezed.dart';
 part 'follows_dto.g.dart';
 
-enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
-  follower<RelationDto<UsersDto>>(
+enum FollowsDtoFieldEnum<V, A> implements DtoTypedField<FollowsDto, V, A> {
+  follower<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'follower',
     DtoRelationFieldSettings(
       required: true,
-      collectionId: "_pb_users_auth_",
+      collectionId: '_pb_users_auth_',
       cascadeDelete: false,
       minSelect: 1,
       maxSelect: 1,
     ),
   ),
-  following<RelationDto<UsersDto>>(
+  following<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'following',
     DtoRelationFieldSettings(
       required: true,
-      collectionId: "_pb_users_auth_",
+      collectionId: '_pb_users_auth_',
       cascadeDelete: false,
       minSelect: 1,
       maxSelect: 1,
     ),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     DtoTextFieldSettings(
       required: true,
-      autogeneratePattern: "[a-z0-9]{15}",
+      autogeneratePattern: '[a-z0-9]{15}',
       min: 15,
       max: 15,
-      pattern: r"^[a-z0-9]+$",
+      pattern: r'^[a-z0-9]+$',
     ),
   );
 
   const FollowsDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(FollowsDto dto) {
+  A get(FollowsDto dto) {
     switch (this) {
       case .follower:
-        return dto.follower as V;
+        return dto.follower as A;
       case .following:
-        return dto.following as V;
+        return dto.following as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  FollowsDto copyWith(FollowsDto dto, A value) {
+    switch (this) {
+      case .follower:
+        return dto.copyWith(follower: value as RelationDto<UsersDto>);
+      case .following:
+        return dto.copyWith(following: value as RelationDto<UsersDto>);
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 
@@ -137,9 +149,9 @@ class FollowsDto with _$FollowsDto implements Dto<FollowsDto> {
   }
 
   FollowsDto({
-    this.follower = const RelationDto<UsersDto>(""),
-    this.following = const RelationDto<UsersDto>(""),
-    this.id = "",
+    this.follower = const RelationDto<UsersDto>(''),
+    this.following = const RelationDto<UsersDto>(''),
+    this.id = '',
     this.expand,
   });
 

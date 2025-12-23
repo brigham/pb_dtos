@@ -26,9 +26,9 @@ class FilePocketbaseType extends PocketbaseTypeBase {
     CollectionField field,
   ) {
     if (field.data['maxSelect'] == 1) {
-      return "FileDto?";
+      return 'FileDto?';
     } else {
-      return "List<FileDto>";
+      return 'List<FileDto>';
     }
   }
 
@@ -48,7 +48,7 @@ class FilePocketbaseType extends PocketbaseTypeBase {
     CollectionField field,
   ) {
     if (field.data['maxSelect'] == 1) {
-      return "null";
+      return 'null';
     } else {
       return 'const []';
     }

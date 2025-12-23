@@ -12,8 +12,8 @@ part 'blocks_dto_expand.g.dart';
 
 enum BlocksDtoExpandEnum<V>
     implements DtoExpandEnum<BlocksDto>, DtoFilterableField<BlocksDto, V> {
-  blocker<RelationDto<UsersDto>>("blocker"),
-  blocked<RelationDto<UsersDto>>("blocked");
+  blocker<RelationDto<UsersDto>>('blocker'),
+  blocked<RelationDto<UsersDto>>('blocked');
 
   const BlocksDtoExpandEnum(this.pbName);
 

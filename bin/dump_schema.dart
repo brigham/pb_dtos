@@ -14,7 +14,7 @@ class _DumpSchemaConfigBuilder extends ConfigBuilder<DumpSchemaConfig> {
   }
 
   @override
-  DumpSchemaConfig configFromJson(Map json) =>
+  DumpSchemaConfig configFromJson(Map<dynamic, dynamic> json) =>
       DumpSchemaConfig.fromJson(json);
 
   @override

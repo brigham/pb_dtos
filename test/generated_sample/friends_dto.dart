@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pocketbase/pocketbase.dart' show RecordModel;
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
@@ -16,10 +16,10 @@ part 'friends_dto.freezed.dart';
 part 'friends_dto.g.dart';
 
 enum FriendsStateEnum {
-  pending("pending"),
-  accepted("accepted"),
-  rejected("rejected"),
-  $unset("");
+  pending('pending'),
+  accepted('accepted'),
+  rejected('rejected'),
+  $unset('');
 
   final String value;
   const FriendsStateEnum(this.value);
@@ -27,59 +27,73 @@ enum FriendsStateEnum {
   String toString() => value;
 }
 
-enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
-  requester<RelationDto<UsersDto>>(
+enum FriendsDtoFieldEnum<V, A> implements DtoTypedField<FriendsDto, V, A> {
+  requester<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'requester',
     DtoRelationFieldSettings(
       required: true,
-      collectionId: "_pb_users_auth_",
+      collectionId: '_pb_users_auth_',
       cascadeDelete: false,
       minSelect: 1,
       maxSelect: 1,
     ),
   ),
-  accepter<RelationDto<UsersDto>>(
+  accepter<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'accepter',
     DtoRelationFieldSettings(
       required: true,
-      collectionId: "_pb_users_auth_",
+      collectionId: '_pb_users_auth_',
       cascadeDelete: false,
       minSelect: 1,
       maxSelect: 1,
     ),
   ),
-  state<FriendsStateEnum>(
+  state<FriendsStateEnum, FriendsStateEnum>(
     'state',
     DtoSelectFieldSettings(
       required: true,
-      values: ["pending", "accepted", "rejected"],
+      values: ['pending', 'accepted', 'rejected'],
       maxSelect: 1,
     ),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     DtoTextFieldSettings(
       required: true,
-      autogeneratePattern: "[a-z0-9]{15}",
+      autogeneratePattern: '[a-z0-9]{15}',
       min: 15,
       max: 15,
-      pattern: r"^[a-z0-9]+$",
+      pattern: r'^[a-z0-9]+$',
     ),
   );
 
   const FriendsDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(FriendsDto dto) {
+  A get(FriendsDto dto) {
     switch (this) {
       case .requester:
-        return dto.requester as V;
+        return dto.requester as A;
       case .accepter:
-        return dto.accepter as V;
+        return dto.accepter as A;
       case .state:
-        return dto.state as V;
+        return dto.state as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  FriendsDto copyWith(FriendsDto dto, A value) {
+    switch (this) {
+      case .requester:
+        return dto.copyWith(requester: value as RelationDto<UsersDto>);
+      case .accepter:
+        return dto.copyWith(accepter: value as RelationDto<UsersDto>);
+      case .state:
+        return dto.copyWith(state: value as FriendsStateEnum);
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 
@@ -195,10 +209,10 @@ class FriendsDto with _$FriendsDto implements Dto<FriendsDto> {
   }
 
   FriendsDto({
-    this.requester = const RelationDto<UsersDto>(""),
-    this.accepter = const RelationDto<UsersDto>(""),
+    this.requester = const RelationDto<UsersDto>(''),
+    this.accepter = const RelationDto<UsersDto>(''),
     required this.state,
-    this.id = "",
+    this.id = '',
     this.expand,
   });
 

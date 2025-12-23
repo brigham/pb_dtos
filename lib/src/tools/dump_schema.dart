@@ -12,14 +12,14 @@ sealed class _Either<A, B> {
 
   factory _Either.from(A? a, B? b) {
     if (a != null && b != null) {
-      throw Exception("Only one element should be set.");
+      throw Exception('Only one element should be set.');
     }
     if (a != null) {
       return _First(a);
     } else if (b != null) {
       return _Second(b);
     } else {
-      throw Exception("At least one element should be set.");
+      throw Exception('At least one element should be set.');
     }
   }
 }
@@ -63,7 +63,7 @@ Future<void> dumpSchema(DumpSchemaConfig config) async {
     case _Second(:final value):
       var launchConfig = value;
       launched = await launch(launchConfig);
-      pocketbaseUrl = "http://127.0.0.1:${launchConfig.port}";
+      pocketbaseUrl = 'http://127.0.0.1:${launchConfig.port}';
   }
 
   try {
@@ -80,7 +80,7 @@ Future<void> dumpSchema(DumpSchemaConfig config) async {
     var libDumper = DartDtoDumper(
       schema,
       outputDir: config.outputDir,
-      suffix: config.suffix ?? "",
+      suffix: config.suffix ?? '',
       debug: config.debug,
     );
     await libDumper.process();

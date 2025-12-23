@@ -1,4 +1,4 @@
-@Tags(["postgen"])
+@Tags(['postgen'])
 library;
 
 import 'dart:async';
@@ -64,7 +64,7 @@ void main() {
         } catch (e) {
           // Ignore connection errors
         }
-        await Future.delayed(const Duration(seconds: 1));
+        await Future<void>.delayed(const Duration(seconds: 1));
       }
 
       if (!serverReady) {
@@ -111,7 +111,7 @@ void main() {
     });
 
     Future<UsersDto> createUser(UsersDto user) {
-      user = user.copyWith(password: "hunter22", passwordConfirm: "hunter22");
+      user = user.copyWith(password: 'hunter22', passwordConfirm: 'hunter22');
       return api.create(UsersDto.meta(), body: user);
     }
 
@@ -123,7 +123,7 @@ void main() {
         final id = _randomId();
         user = await createUser(
           UsersDto(
-            email: "unique-$id@samplr.example.com",
+            email: 'unique-$id@samplr.example.com',
             birthday: DateTime.utc(1920, 4, 5),
           ),
         );
@@ -171,21 +171,21 @@ void main() {
         final id1 = _randomId();
         user1 = await createUser(
           UsersDto(
-            email: "zucchini-$id1@samplr.example.com",
+            email: 'zucchini-$id1@samplr.example.com',
             birthday: DateTime.utc(1984, 4, 29),
           ),
         );
-        expect(user1.email, "zucchini-$id1@samplr.example.com");
+        expect(user1.email, 'zucchini-$id1@samplr.example.com');
         expect(user1.birthday, DateTime.utc(1984, 4, 29));
 
         final id2 = _randomId();
         user2 = await createUser(
           UsersDto(
-            email: "lemon-$id2@samplr.example.com",
+            email: 'lemon-$id2@samplr.example.com',
             birthday: DateTime.utc(1982, 2, 1),
           ),
         );
-        expect(user2.email, "lemon-$id2@samplr.example.com");
+        expect(user2.email, 'lemon-$id2@samplr.example.com');
         expect(user2.birthday, DateTime.utc(1982, 2, 1));
       });
 
@@ -248,8 +248,8 @@ void main() {
         final id = _randomId();
         poster = await createUser(
           UsersDto(
-            email: "poster-$id@samplr.example.com",
-            name: "Poster McPostface",
+            email: 'poster-$id@samplr.example.com',
+            name: 'Poster McPostface',
             birthday: DateTime.utc(1990, 1, 1),
             roles: [posterRole.asRelation()],
           ),
@@ -259,8 +259,8 @@ void main() {
           others.add(
             await createUser(
               UsersDto(
-                email: "other-$id-$i@samplr.example.com",
-                name: "Taggee #$i",
+                email: 'other-$id-$i@samplr.example.com',
+                name: 'Taggee #$i',
                 birthday: DateTime.utc(1990, 1, i),
                 zodiac: [
                   UsersZodiacEnum.aries,
@@ -279,8 +279,8 @@ void main() {
         post = await api.create(
           PostsDto.meta(),
           body: PostsDto(
-            message: "Hello World",
-            link: "https://example.com",
+            message: 'Hello World',
+            link: 'https://example.com',
             tagged: others.map((u) => u.asRelation()).toList(),
             draft: true,
             reviewStars: 4.5,
@@ -288,7 +288,7 @@ void main() {
             location: const GeopointDto(lat: 34, lon: -118),
             photo: FileDto.fromBytes(
               decodedImage,
-              filename: "green_square.png",
+              filename: 'green_square.png',
               contentType: http.MediaType('image', 'png'),
             ),
             poster: poster.asRelation(),
@@ -305,8 +305,8 @@ void main() {
       });
 
       test('PostsDto exercises all types', () {
-        expect(post.message, "Hello World");
-        expect(post.link, "https://example.com");
+        expect(post.message, 'Hello World');
+        expect(post.link, 'https://example.com');
         expect(post.tagged.length, others.length);
         expect(post.draft, isTrue);
         expect(post.reviewStars, 4.5);
@@ -352,7 +352,7 @@ void main() {
             MemoryInput(bytes),
           );
           expect(
-            "${imageSizeResult.size.width}x${imageSizeResult.size.height}",
+            '${imageSizeResult.size.width}x${imageSizeResult.size.height}',
             thumb,
           );
         }
@@ -576,7 +576,7 @@ void main() {
         final id = _randomId();
         final blocked = await createUser(
           UsersDto(
-            email: "blocked-$id@samplr.example.com",
+            email: 'blocked-$id@samplr.example.com',
             birthday: DateTime.utc(1995, 5, 5),
           ),
         );
@@ -602,8 +602,8 @@ void main() {
           final id = _randomId();
           final user = await createUser(
             UsersDto(
-              email: "partial-$id@samplr.example.com",
-              name: "Partial User",
+              email: 'partial-$id@samplr.example.com',
+              name: 'Partial User',
               birthday: DateTime.utc(1990, 1, 1),
             ),
           );
@@ -616,10 +616,10 @@ void main() {
             fields: (f) => f.name(),
           );
 
-          expect(partialUser.name, "Partial User");
+          expect(partialUser.name, 'Partial User');
           expect(
             partialUser.email,
-            "",
+            '',
           ); // Default value for missing required field
         },
       );
@@ -633,9 +633,9 @@ void main() {
               f..expand.tagged.expand.roles.expand.permissions.name.excerpt(3),
         );
         var allPermissionNames = taggedUserPermissions
-            .expand((u) => u.expand?.tagged ?? [])
-            .expand((u) => u.expand?.roles ?? [])
-            .expand((u) => u.expand?.permissions ?? [])
+            .expand((u) => u.expand?.tagged ?? <UsersDto>[])
+            .expand((u) => u.expand?.roles ?? <RolesDto>[])
+            .expand((u) => u.expand?.permissions ?? <PermissionsDto>[])
             .map((p) => p.name);
         expect(allPermissionNames, everyElement(hasLength(3)));
       });

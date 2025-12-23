@@ -28,16 +28,16 @@ void main() {
 
   group('String', () {
     test('no specials', () {
-      expect(toLiteral("foo bar"), '"foo bar"');
+      expect(toLiteral('foo bar'), '"foo bar"');
     });
     test('newline', () {
-      expect(toLiteral("foo\nbar"), r'"foo\nbar"');
+      expect(toLiteral('foo\nbar'), r'"foo\nbar"');
     });
     test('carriage return', () {
-      expect(toLiteral("foo\rbar"), r'"foo\rbar"');
+      expect(toLiteral('foo\rbar'), r'"foo\rbar"');
     });
     test('tab', () {
-      expect(toLiteral("foo\tbar"), r'"foo\tbar"');
+      expect(toLiteral('foo\tbar'), r'"foo\tbar"');
     });
     test('double quote', () {
       expect(toLiteral('foo"bar'), "'foo\"bar'");
@@ -49,10 +49,10 @@ void main() {
       expect(toLiteral("foo\"'bar"), '"foo\\"\'bar"');
     });
     test('dollar sign', () {
-      expect(toLiteral("foo\$bar"), 'r"foo\$bar"');
+      expect(toLiteral('foo\$bar'), 'r"foo\$bar"');
     });
     test('backslash', () {
-      expect(toLiteral("foo\\bar"), r'"foo\\bar"');
+      expect(toLiteral('foo\\bar'), r'"foo\\bar"');
     });
   });
 
@@ -62,7 +62,7 @@ void main() {
         1,
         false,
         'abc',
-        [2, true, 'def', []],
+        [2, true, 'def', <dynamic>[]],
       ]),
       '[1, false, "abc", [2, true, "def", []]]',
     );
@@ -74,12 +74,12 @@ void main() {
         'a': 1,
         'b': true,
         'c': 'abc',
-        'd': [2, true, 'def', []],
+        'd': [2, true, 'def', <dynamic>[]],
         1: 'e',
         2: false,
         true: 'f',
         ['g']: 'h',
-        {'i': 3}: [],
+        {'i': 3}: <dynamic>[],
       }),
       '{"a": 1, "b": true, "c": "abc", "d": [2, true, "def", []], 1: "e", 2: false, true: "f", ["g"]: "h", {"i": 3}: []}',
     );

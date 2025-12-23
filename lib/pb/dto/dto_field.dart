@@ -172,9 +172,11 @@ class DtoGeoPointFieldSettings extends DtoFieldSettings {
 
 abstract class DtoFilterableField<D extends Dto<D>, V> extends DtoField<D> {}
 
-abstract class DtoTypedField<D extends Dto<D>, V>
+abstract class DtoTypedField<D extends Dto<D>, V, A>
     extends DtoFilterableField<D, V> {
-  V get(D dto);
+  A get(D dto);
+
+  D copyWith(D dto, A value);
 
   DtoFieldSettings? get settings;
 }
@@ -202,10 +204,10 @@ abstract class DtoFieldSelectBase<D extends Dto<D>> extends DtoFieldSelect<D> {
   }
 
   @protected
-  void $addField<V>(DtoTypedField<D, V> field) => $add(field.pbName);
+  void $addField<V>(DtoFilterableField<D, V> field) => $add(field.pbName);
 
   @protected
-  ModifiableStringField $addModifiableField<V>(DtoTypedField<D, V> field) {
+  ModifiableStringField $addModifiableField<V>(DtoFilterableField<D, V> field) {
     return ModifiableStringField($parts, $fieldChain.extend(field.pbName));
   }
 
@@ -221,7 +223,7 @@ abstract class DtoFieldSelectBase<D extends Dto<D>> extends DtoFieldSelect<D> {
   FS $addExpand<V extends Dto<V>, FS extends DtoFieldSelectBase<V>>(
     FS Function(List<FieldChain> parts, FieldChain fieldChain) creator,
   ) {
-    return creator($parts, $fieldChain.extend("expand"));
+    return creator($parts, $fieldChain.extend('expand'));
   }
 
   @override

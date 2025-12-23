@@ -40,8 +40,8 @@ enum FriendsStateEnum {
   String toString() => this.value;
 }
 
-enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
-  requester<RelationDto<UsersDto>>(
+enum FriendsDtoFieldEnum<V, A> implements DtoTypedField<FriendsDto, V, A> {
+  requester<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'requester',
     const DtoRelationFieldSettings(
       required: true,
@@ -51,7 +51,7 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
       maxSelect: 1,
     ),
   ),
-  accepter<RelationDto<UsersDto>>(
+  accepter<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'accepter',
     const DtoRelationFieldSettings(
       required: true,
@@ -61,7 +61,7 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
       maxSelect: 1,
     ),
   ),
-  state<FriendsStateEnum>(
+  state<FriendsStateEnum, FriendsStateEnum>(
     'state',
     const DtoSelectFieldSettings(
       required: true,
@@ -69,7 +69,7 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
       maxSelect: 1,
     ),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     const DtoTextFieldSettings(
       required: true,
@@ -83,16 +83,30 @@ enum FriendsDtoFieldEnum<V> implements DtoTypedField<FriendsDto, V> {
   const FriendsDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(FriendsDto dto) {
+  A get(FriendsDto dto) {
     switch (this) {
       case .requester:
-        return dto.requester as V;
+        return dto.requester as A;
       case .accepter:
-        return dto.accepter as V;
+        return dto.accepter as A;
       case .state:
-        return dto.state as V;
+        return dto.state as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  FriendsDto copyWith(FriendsDto dto, A value) {
+    switch (this) {
+      case .requester:
+        return dto.copyWith(requester: value as RelationDto<UsersDto>);
+      case .accepter:
+        return dto.copyWith(accepter: value as RelationDto<UsersDto>);
+      case .state:
+        return dto.copyWith(state: value as FriendsStateEnum);
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 

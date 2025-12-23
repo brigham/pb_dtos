@@ -14,28 +14,28 @@ const List<PocketbaseTypeBase> _allTypes = [
     'String',
     '""',
     '"foo bar"',
-    toJsonFunction: "Dto.optionalStringToJson",
+    toJsonFunction: 'Dto.optionalStringToJson',
   ),
   PocketbaseType(
     'email',
     'String',
     '""',
     '"foobar@example.com"',
-    toJsonFunction: "Dto.optionalStringToJson",
+    toJsonFunction: 'Dto.optionalStringToJson',
   ),
   PocketbaseType(
     'password',
     'String',
     '""',
     '"hunter2"',
-    toJsonFunction: "Dto.optionalStringToJson",
+    toJsonFunction: 'Dto.optionalStringToJson',
   ),
   PocketbaseType(
     'bool',
     'bool',
     'false',
     'true',
-    toJsonFunction: "Dto.optionalBoolToJson",
+    toJsonFunction: 'Dto.optionalBoolToJson',
   ),
   FilePocketbaseType(),
   SelectPocketbaseType(),
@@ -44,7 +44,7 @@ const List<PocketbaseTypeBase> _allTypes = [
     'autodate',
     'DateTime?',
     'null',
-    "DateTime(2023, 1, 1, 12, 12, 12)",
+    'DateTime(2023, 1, 1, 12, 12, 12)',
     jsonTestingValue: '"2023-01-01T12:12:12.000"',
     patchable: false,
   ),
@@ -52,7 +52,7 @@ const List<PocketbaseTypeBase> _allTypes = [
     'date',
     'DateTime?',
     'null',
-    "DateTime(2023, 1, 1, 12, 12, 12)",
+    'DateTime(2023, 1, 1, 12, 12, 12)',
     jsonTestingValue: '"2023-01-01T12:12:12.000"',
   ),
   PocketbaseType(
@@ -60,7 +60,7 @@ const List<PocketbaseTypeBase> _allTypes = [
     'String',
     '""',
     '"https://www.google.com/"',
-    toJsonFunction: "Dto.optionalStringToJson",
+    toJsonFunction: 'Dto.optionalStringToJson',
   ),
   PocketbaseType('json', 'dynamic', 'null', '{"a": 5}'),
   PocketbaseType(
@@ -68,7 +68,7 @@ const List<PocketbaseTypeBase> _allTypes = [
     'String',
     '""',
     '"<p><b>foo</b> <i>bar</i></p>"',
-    toJsonFunction: "Dto.optionalStringToJson",
+    toJsonFunction: 'Dto.optionalStringToJson',
   ),
   PocketbaseType(
     'geoPoint',
@@ -82,7 +82,7 @@ const List<PocketbaseTypeBase> _allTypes = [
     'num',
     '0',
     '1',
-    toJsonFunction: "Dto.optionalNumToJson",
+    toJsonFunction: 'Dto.optionalNumToJson',
   ),
 ];
 
@@ -117,7 +117,7 @@ class PocketbaseConverter {
     CollectionField pbField,
   ) => _getType(
     pbField,
-  ).getTypeDefinitions(schema, collection, pbField).values.join("\n\n");
+  ).getTypeDefinitions(schema, collection, pbField).values.join('\n\n');
 
   bool deriveRequiredMarker(
     CollectionSchema collectionSchema,

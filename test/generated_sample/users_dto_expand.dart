@@ -22,17 +22,17 @@ part 'users_dto_expand.g.dart';
 
 enum UsersDtoExpandEnum<V>
     implements DtoExpandEnum<UsersDto>, DtoFilterableField<UsersDto, V> {
-  roles<RelationDto<RolesDto>>("roles"),
-  followsViaFollower<RelationDto<FollowsDto>>("follows_via_follower"),
-  followsViaFollowing<RelationDto<FollowsDto>>("follows_via_following"),
-  friendsViaRequester<RelationDto<FriendsDto>>("friends_via_requester"),
-  friendsViaAccepter<RelationDto<FriendsDto>>("friends_via_accepter"),
-  blocksViaBlocker<RelationDto<BlocksDto>>("blocks_via_blocker"),
-  blocksViaBlocked<RelationDto<BlocksDto>>("blocks_via_blocked"),
-  postsViaPoster<RelationDto<PostsDto>>("posts_via_poster"),
-  postsViaTagged<RelationDto<PostsDto>>("posts_via_tagged"),
+  roles<RelationDto<RolesDto>>('roles'),
+  followsViaFollower<RelationDto<FollowsDto>>('follows_via_follower'),
+  followsViaFollowing<RelationDto<FollowsDto>>('follows_via_following'),
+  friendsViaRequester<RelationDto<FriendsDto>>('friends_via_requester'),
+  friendsViaAccepter<RelationDto<FriendsDto>>('friends_via_accepter'),
+  blocksViaBlocker<RelationDto<BlocksDto>>('blocks_via_blocker'),
+  blocksViaBlocked<RelationDto<BlocksDto>>('blocks_via_blocked'),
+  postsViaPoster<RelationDto<PostsDto>>('posts_via_poster'),
+  postsViaTagged<RelationDto<PostsDto>>('posts_via_tagged'),
   privateProfilesViaUser<RelationDto<PrivateProfilesDto>>(
-    "private_profiles_via_user",
+    'private_profiles_via_user',
   );
 
   const UsersDtoExpandEnum(this.pbName);

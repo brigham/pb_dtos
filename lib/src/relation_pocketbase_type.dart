@@ -19,9 +19,9 @@ class RelationPocketbaseType extends PocketbaseTypeBase {
     var collectionId = field.data['collectionId'];
     var relatedCollection = schema.byId[collectionId];
     if (relatedCollection == null) {
-      throw Exception("Could not identify collection with id: $collectionId");
+      throw Exception('Could not identify collection with id: $collectionId');
     }
-    return "RelationDto<${toClassName(relatedCollection.model.name)}>";
+    return 'RelationDto<${toClassName(relatedCollection.model.name)}>';
   }
 
   @override
@@ -48,14 +48,14 @@ class RelationPocketbaseType extends PocketbaseTypeBase {
     CollectionSchema collection,
     CollectionField field,
   ) {
-    if ((field.data['maxSelect'] ?? 0) <= 1) {
-      if ((field.data['required'] ?? false)) {
+    if (((field.data['maxSelect'] as num?) ?? 0) <= 1) {
+      if (((field.data['required'] as bool?) ?? false)) {
         return _typeName(schema, collection, field);
       } else {
-        return "${_typeName(schema, collection, field)}?";
+        return '${_typeName(schema, collection, field)}?';
       }
     } else {
-      return "List<${_typeName(schema, collection, field)}>";
+      return 'List<${_typeName(schema, collection, field)}>';
     }
   }
 
@@ -65,11 +65,11 @@ class RelationPocketbaseType extends PocketbaseTypeBase {
     CollectionSchema collection,
     CollectionField field,
   ) {
-    if ((field.data['maxSelect'] ?? 0) <= 1) {
-      if ((field.data['required'] ?? false)) {
+    if (((field.data['maxSelect'] as num?) ?? 0) <= 1) {
+      if (((field.data['required'] as bool?) ?? false)) {
         return 'const ${_typeName(schema, collection, field)}("")';
       } else {
-        return "null";
+        return 'null';
       }
     } else {
       return 'const []';

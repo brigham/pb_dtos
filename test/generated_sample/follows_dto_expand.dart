@@ -12,8 +12,8 @@ part 'follows_dto_expand.g.dart';
 
 enum FollowsDtoExpandEnum<V>
     implements DtoExpandEnum<FollowsDto>, DtoFilterableField<FollowsDto, V> {
-  follower<RelationDto<UsersDto>>("follower"),
-  following<RelationDto<UsersDto>>("following");
+  follower<RelationDto<UsersDto>>('follower'),
+  following<RelationDto<UsersDto>>('following');
 
   const FollowsDtoExpandEnum(this.pbName);
 

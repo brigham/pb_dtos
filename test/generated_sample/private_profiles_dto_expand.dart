@@ -14,7 +14,7 @@ enum PrivateProfilesDtoExpandEnum<V>
     implements
         DtoExpandEnum<PrivateProfilesDto>,
         DtoFilterableField<PrivateProfilesDto, V> {
-  user<RelationDto<UsersDto>>("user");
+  user<RelationDto<UsersDto>>('user');
 
   const PrivateProfilesDtoExpandEnum(this.pbName);
 

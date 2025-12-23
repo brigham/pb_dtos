@@ -243,7 +243,7 @@ class LiteralOperand<D extends Dto<D>, V> extends FilterOperand<D, V> {
             'FileDto must have a name.',
           );
         }
-      case Map _ || List _:
+      case Map<String, dynamic> _ || List<dynamic> _:
         var asJson = json.encode(_encodeAsPocketbaseJson(value));
         _includeString(buffer, asJson);
       case GeopointDto g:
@@ -268,11 +268,11 @@ class LiteralOperand<D extends Dto<D>, V> extends FilterOperand<D, V> {
 
   static Object? _encodeAsPocketbaseJson(Object? obj) {
     switch (obj) {
-      case List l:
+      case List<dynamic> l:
         if (l.isEmpty) return obj;
         if (!l.any((item) => item is Map || item is List)) return obj;
         return l.map((item) => _encodeAsPocketbaseJson(item)).toList();
-      case Map m:
+      case Map<String, dynamic> m:
         if (m.isEmpty) return obj;
         if (m is LinkedHashMap) {
           var keys = m.keys.cast<String>().iterator;
@@ -323,7 +323,7 @@ class Func4Operand<D extends Dto<D>, V1, V2, V3, V4, R>
     FilterOperand<D, num> latA,
     FilterOperand<D, num> lonB,
     FilterOperand<D, num> latB,
-  ) => Func4Operand("geoDistance", lonA, latA, lonB, latB);
+  ) => Func4Operand('geoDistance', lonA, latA, lonB, latB);
 
   @override
   void include(StringBuffer buffer) {
@@ -347,67 +347,67 @@ class MacroOperand<D extends Dto<D>, V> extends FilterOperand<D, V> {
 
   /// @now        - the current datetime as string
   static MacroOperand<D, DateTime> now<D extends Dto<D>>() =>
-      MacroOperand<D, DateTime>._("@now");
+      MacroOperand<D, DateTime>._('@now');
 
   /// @second     - @now second number (0-59)
   static MacroOperand<D, num> second<D extends Dto<D>>() =>
-      MacroOperand<D, num>._("@second");
+      MacroOperand<D, num>._('@second');
 
   /// @minute     - @now minute number (0-59)
   static MacroOperand<D, num> minute<D extends Dto<D>>() =>
-      MacroOperand<D, num>._("@minute");
+      MacroOperand<D, num>._('@minute');
 
   /// @hour       - @now hour number (0-23)
   static MacroOperand<D, num> hour<D extends Dto<D>>() =>
-      MacroOperand<D, num>._("@hour");
+      MacroOperand<D, num>._('@hour');
 
   /// @weekday    - @now weekday number (0-6)
   static MacroOperand<D, num> weekday<D extends Dto<D>>() =>
-      MacroOperand<D, num>._("@weekday");
+      MacroOperand<D, num>._('@weekday');
 
   /// @day        - @now day number
   static MacroOperand<D, num> day<D extends Dto<D>>() =>
-      MacroOperand<D, num>._("@day");
+      MacroOperand<D, num>._('@day');
 
   /// @month      - @now month number
   static MacroOperand<D, num> month<D extends Dto<D>>() =>
-      MacroOperand<D, num>._("@month");
+      MacroOperand<D, num>._('@month');
 
   /// @year       - @now year number
   static MacroOperand<D, num> year<D extends Dto<D>>() =>
-      MacroOperand<D, num>._("@year");
+      MacroOperand<D, num>._('@year');
 
   /// @yesterday  - the yesterday datetime relative to @now as string
   static MacroOperand<D, DateTime> yesterday<D extends Dto<D>>() =>
-      MacroOperand<D, DateTime>._("@yesterday");
+      MacroOperand<D, DateTime>._('@yesterday');
 
   /// @tomorrow   - the tomorrow datetime relative to @now as string
   static MacroOperand<D, DateTime> tomorrow<D extends Dto<D>>() =>
-      MacroOperand<D, DateTime>._("@tomorrow");
+      MacroOperand<D, DateTime>._('@tomorrow');
 
   /// @todayStart - beginning of the current day as datetime string
   static MacroOperand<D, DateTime> todayStart<D extends Dto<D>>() =>
-      MacroOperand<D, DateTime>._("@todayStart");
+      MacroOperand<D, DateTime>._('@todayStart');
 
   /// @todayEnd   - end of the current day as datetime string
   static MacroOperand<D, DateTime> todayEnd<D extends Dto<D>>() =>
-      MacroOperand<D, DateTime>._("@todayEnd");
+      MacroOperand<D, DateTime>._('@todayEnd');
 
   /// @monthStart - beginning of the current month as datetime string
   static MacroOperand<D, DateTime> monthStart<D extends Dto<D>>() =>
-      MacroOperand<D, DateTime>._("@monthStart");
+      MacroOperand<D, DateTime>._('@monthStart');
 
   /// @monthEnd   - end of the current month as datetime string
   static MacroOperand<D, DateTime> monthEnd<D extends Dto<D>>() =>
-      MacroOperand<D, DateTime>._("@monthEnd");
+      MacroOperand<D, DateTime>._('@monthEnd');
 
   /// @yearStart  - beginning of the current year as datetime string
   static MacroOperand<D, DateTime> yearStart<D extends Dto<D>>() =>
-      MacroOperand<D, DateTime>._("@yearStart");
+      MacroOperand<D, DateTime>._('@yearStart');
 
   /// @yearEnd    - end of the current year as datetime string
   static MacroOperand<D, DateTime> yearEnd<D extends Dto<D>>() =>
-      MacroOperand<D, DateTime>._("@yearEnd");
+      MacroOperand<D, DateTime>._('@yearEnd');
 
   @override
   void include(StringBuffer buffer) {

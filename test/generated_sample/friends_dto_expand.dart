@@ -12,8 +12,8 @@ part 'friends_dto_expand.g.dart';
 
 enum FriendsDtoExpandEnum<V>
     implements DtoExpandEnum<FriendsDto>, DtoFilterableField<FriendsDto, V> {
-  requester<RelationDto<UsersDto>>("requester"),
-  accepter<RelationDto<UsersDto>>("accepter");
+  requester<RelationDto<UsersDto>>('requester'),
+  accepter<RelationDto<UsersDto>>('accepter');
 
   const FriendsDtoExpandEnum(this.pbName);
 

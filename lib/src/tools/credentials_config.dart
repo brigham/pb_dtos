@@ -22,7 +22,7 @@ class CredentialsConfig with _$CredentialsConfig {
 
   CredentialsConfig({required this.email, required this.password});
 
-  factory CredentialsConfig.fromJson(Map json) =>
+  factory CredentialsConfig.fromJson(Map<dynamic, dynamic> json) =>
       _$CredentialsConfigFromJson(json);
 
   Map<String, dynamic> toJson() => _$CredentialsConfigToJson(this);

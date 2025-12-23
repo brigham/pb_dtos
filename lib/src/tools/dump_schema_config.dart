@@ -37,7 +37,7 @@ class DumpSchemaConfig with _$DumpSchemaConfig {
         pocketbaseUrl,
         'pocketbaseUrl',
         "One and only one of 'pocketbaseUrl' and 'launch' "
-            "can be set",
+            'can be set',
       );
     }
     if (pocketbaseUrl != null) {
@@ -77,7 +77,7 @@ class DumpSchemaConfig with _$DumpSchemaConfig {
       verbose = false,
       debug = false;
 
-  factory DumpSchemaConfig.fromJson(Map json) =>
+  factory DumpSchemaConfig.fromJson(Map<dynamic, dynamic> json) =>
       _$DumpSchemaConfigFromJson(json);
 
   Map<String, dynamic> toJson() => _$DumpSchemaConfigToJson(this);

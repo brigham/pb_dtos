@@ -25,9 +25,9 @@ void main() {
 
       // Start PocketBase.
       var launchConfig = LaunchConfig.obtain(
-        templateDir: "test/test_schema",
+        templateDir: 'test/test_schema',
         obtain: ObtainConfig(
-          githubTag: "v0.29.3",
+          githubTag: 'v0.29.3',
           downloadDir: p.join(env['HOME']!, 'develop', 'pocketbase'),
         ),
         port: 8696,
@@ -39,11 +39,11 @@ void main() {
       print('Running DTO generator...');
       final generatorConfig = DumpSchemaConfig(
         outputDir: p.join(tempGenPath, 'lib'),
-        pocketbaseUrl: "http://127.0.0.1:8696",
+        pocketbaseUrl: 'http://127.0.0.1:8696',
         suffix: '.golden',
         credentials: CredentialsConfig(
-          email: "test@example.com",
-          password: "1234567890",
+          email: 'test@example.com',
+          password: '1234567890',
         ),
       );
 
@@ -58,7 +58,7 @@ void main() {
         expect(
           await process.stop(),
           isTrue,
-          reason: "Could not stop PocketBase server.",
+          reason: 'Could not stop PocketBase server.',
         );
       }
       if (!testFailed) {

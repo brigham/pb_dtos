@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pocketbase/pocketbase.dart' show RecordModel;
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/file_dto.dart';
@@ -18,11 +18,11 @@ part 'users_dto.freezed.dart';
 part 'users_dto.g.dart';
 
 enum UsersZodiacEnum {
-  aries("aries"),
-  taurus("taurus"),
-  gemini("gemini"),
-  cancer("cancer"),
-  $unset("");
+  aries('aries'),
+  taurus('taurus'),
+  gemini('gemini'),
+  cancer('cancer'),
+  $unset('');
 
   final String value;
   const UsersZodiacEnum(this.value);
@@ -30,22 +30,22 @@ enum UsersZodiacEnum {
   String toString() => value;
 }
 
-enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
-  id<String>(
+enum UsersDtoFieldEnum<V, A> implements DtoTypedField<UsersDto, V, A> {
+  id<String, String>(
     'id',
     DtoTextFieldSettings(
       required: true,
-      autogeneratePattern: "[a-z0-9]{15}",
+      autogeneratePattern: '[a-z0-9]{15}',
       min: 15,
       max: 15,
-      pattern: r"^[a-z0-9]+$",
+      pattern: r'^[a-z0-9]+$',
     ),
   ),
-  password<String>(
+  password<String, String>(
     'password',
-    DtoPasswordFieldSettings(required: true, pattern: "", min: 8, max: 0),
+    DtoPasswordFieldSettings(required: true, pattern: '', min: 8, max: 0),
   ),
-  email<String>(
+  email<String, String>(
     'email',
     DtoEmailFieldSettings(
       required: true,
@@ -53,53 +53,53 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
       onlyDomains: [],
     ),
   ),
-  emailVisibility<bool>(
+  emailVisibility<bool, bool>(
     'emailVisibility',
     DtoBoolFieldSettings(required: false),
   ),
-  verified<bool>('verified', DtoBoolFieldSettings(required: false)),
-  name_<String>(
+  verified<bool, bool>('verified', DtoBoolFieldSettings(required: false)),
+  name_<String, String>(
     'name',
     DtoTextFieldSettings(
       required: false,
-      autogeneratePattern: "",
+      autogeneratePattern: '',
       min: 0,
       max: 255,
-      pattern: "",
+      pattern: '',
     ),
   ),
-  avatar<FileDto>(
+  avatar<FileDto, FileDto?>(
     'avatar',
     DtoFileFieldSettings(
       required: false,
       maxSize: 0,
       maxSelect: 1,
       mimeTypes: [
-        "image/jpeg",
-        "image/png",
-        "image/svg+xml",
-        "image/gif",
-        "image/webp",
+        'image/jpeg',
+        'image/png',
+        'image/svg+xml',
+        'image/gif',
+        'image/webp',
       ],
       thumbs: [],
       protected: false,
     ),
   ),
-  roles<RelationDto<RolesDto>>(
+  roles<RelationDto<RolesDto>, List<RelationDto<RolesDto>>>(
     'roles',
     DtoRelationFieldSettings(
       required: false,
-      collectionId: "pbc_2105053228",
+      collectionId: 'pbc_2105053228',
       cascadeDelete: false,
       minSelect: 0,
       maxSelect: 999,
     ),
   ),
-  birthday<DateTime>(
+  birthday<DateTime, DateTime?>(
     'birthday',
     DtoDateFieldSettings(required: false, min: null, max: null),
   ),
-  homepage<String>(
+  homepage<String, String>(
     'homepage',
     DtoURLFieldSettings(
       required: false,
@@ -107,31 +107,31 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
       onlyDomains: [],
     ),
   ),
-  metadata<dynamic>(
+  metadata<dynamic, dynamic>(
     'metadata',
     DtoJSONFieldSettings(required: false, maxSize: 0),
   ),
-  biography<dynamic>(
+  biography<dynamic, dynamic>(
     'biography',
     DtoJSONFieldSettings(required: false, maxSize: 0),
   ),
-  hometown<GeopointDto>(
+  hometown<GeopointDto, GeopointDto>(
     'hometown',
     DtoGeoPointFieldSettings(required: false),
   ),
-  zodiac<UsersZodiacEnum>(
+  zodiac<UsersZodiacEnum, UsersZodiacEnum?>(
     'zodiac',
     DtoSelectFieldSettings(
       required: false,
-      values: ["aries", "taurus", "gemini", "cancer"],
+      values: ['aries', 'taurus', 'gemini', 'cancer'],
       maxSelect: 0,
     ),
   ),
-  created<DateTime>(
+  created<DateTime, DateTime?>(
     'created',
     DtoAutodateFieldSettings(onCreate: true, onUpdate: false),
   ),
-  updated<DateTime>(
+  updated<DateTime, DateTime?>(
     'updated',
     DtoAutodateFieldSettings(onCreate: true, onUpdate: true),
   );
@@ -139,40 +139,78 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
   const UsersDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(UsersDto dto) {
+  A get(UsersDto dto) {
     switch (this) {
       case .id:
-        return dto.id as V;
+        return dto.id as A;
       case .password:
-        return dto.password as V;
+        return dto.password as A;
       case .email:
-        return dto.email as V;
+        return dto.email as A;
       case .emailVisibility:
-        return dto.emailVisibility as V;
+        return dto.emailVisibility as A;
       case .verified:
-        return dto.verified as V;
+        return dto.verified as A;
       case .name_:
-        return dto.name as V;
+        return dto.name as A;
       case .avatar:
-        return dto.avatar as V;
+        return dto.avatar as A;
       case .roles:
-        return dto.roles as V;
+        return dto.roles as A;
       case .birthday:
-        return dto.birthday as V;
+        return dto.birthday as A;
       case .homepage:
-        return dto.homepage as V;
+        return dto.homepage as A;
       case .metadata:
-        return dto.metadata as V;
+        return dto.metadata as A;
       case .biography:
-        return dto.biography as V;
+        return dto.biography as A;
       case .hometown:
-        return dto.hometown as V;
+        return dto.hometown as A;
       case .zodiac:
-        return dto.zodiac as V;
+        return dto.zodiac as A;
       case .created:
-        return dto.created as V;
+        return dto.created as A;
       case .updated:
-        return dto.updated as V;
+        return dto.updated as A;
+    }
+  }
+
+  @override
+  UsersDto copyWith(UsersDto dto, A value) {
+    switch (this) {
+      case .id:
+        return dto.copyWith(id: value as String);
+      case .password:
+        return dto.copyWith(password: value as String);
+      case .email:
+        return dto.copyWith(email: value as String);
+      case .emailVisibility:
+        return dto.copyWith(emailVisibility: value as bool);
+      case .verified:
+        return dto.copyWith(verified: value as bool);
+      case .name_:
+        return dto.copyWith(name: value as String);
+      case .avatar:
+        return dto.copyWith(avatar: value as FileDto?);
+      case .roles:
+        return dto.copyWith(roles: value as List<RelationDto<RolesDto>>);
+      case .birthday:
+        return dto.copyWith(birthday: value as DateTime?);
+      case .homepage:
+        return dto.copyWith(homepage: value as String);
+      case .metadata:
+        return dto.copyWith(metadata: value as dynamic);
+      case .biography:
+        return dto.copyWith(biography: value as dynamic);
+      case .hometown:
+        return dto.copyWith(hometown: value as GeopointDto);
+      case .zodiac:
+        return dto.copyWith(zodiac: value as UsersZodiacEnum?);
+      case .created:
+        return dto.copyWith(created: value as DateTime?);
+      case .updated:
+        return dto.copyWith(updated: value as DateTime?);
     }
   }
 
@@ -271,16 +309,16 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
   }
 
   UsersDto({
-    this.id = "",
-    this.password = "",
+    this.id = '',
+    this.password = '',
     required this.email,
     this.emailVisibility = false,
     this.verified = false,
-    this.name = "",
+    this.name = '',
     this.avatar,
     this.roles = const [],
     this.birthday,
-    this.homepage = "",
+    this.homepage = '',
     this.metadata,
     this.biography,
     this.hometown = const GeopointDto(lat: 0, lon: 0),
@@ -297,7 +335,7 @@ class UsersDto with _$UsersDto implements Dto<UsersDto> {
   @JsonKey(toJson: Dto.optionalStringToJson)
   @override
   final String password;
-  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: "")
+  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: '')
   @override
   final String email;
   @JsonKey(toJson: Dto.optionalBoolToJson)

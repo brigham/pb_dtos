@@ -43,6 +43,6 @@ abstract class PocketbaseTypeBase {
     CollectionSchema collectionSchema,
     CollectionField field,
   ) {
-    return !(field.data['primaryKey'] ?? false);
+    return !((field.data['primaryKey'] as bool?) ?? false);
   }
 }

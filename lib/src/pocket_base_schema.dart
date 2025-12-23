@@ -20,7 +20,7 @@ class PocketBaseSchema {
         if (field.type != 'relation') {
           continue;
         }
-        final relatedCollectionId = field.data['collectionId'];
+        String relatedCollectionId = field.data['collectionId'] as String;
         if (result[relatedCollectionId] == null) {
           result[relatedCollectionId] = [];
         }

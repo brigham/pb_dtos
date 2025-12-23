@@ -61,7 +61,7 @@ void main() {
     test('anyEqual', () {
       var expr = PostsDto.filter(
         (f) =>
-            f.poster.roles.permissions.name.anyEqual(.val("donuts.favorite")),
+            f.poster.roles.permissions.name.anyEqual(.val('donuts.favorite')),
       ).toString();
 
       expect(expr, "poster.roles.permissions.name ?= 'donuts.favorite'");
@@ -69,7 +69,7 @@ void main() {
     test('anyNotEqual', () {
       var expr = PostsDto.filter(
         (f) => f.poster.roles.permissions.name.anyNotEqual(
-          .val("donuts.favorite"),
+          .val('donuts.favorite'),
         ),
       ).toString();
 
@@ -78,7 +78,7 @@ void main() {
     test('anyGreaterThan', () {
       var expr = PostsDto.filter(
         (f) => f.poster.roles.permissions.name.anyGreaterThan(
-          .val("donuts.favorite"),
+          .val('donuts.favorite'),
         ),
       ).toString();
 
@@ -87,7 +87,7 @@ void main() {
     test('anyGreaterThanOrEqual', () {
       var expr = PostsDto.filter(
         (f) => f.poster.roles.permissions.name.anyGreaterThanOrEqual(
-          .val("donuts.favorite"),
+          .val('donuts.favorite'),
         ),
       ).toString();
 
@@ -96,7 +96,7 @@ void main() {
     test('anyLessThan', () {
       var expr = PostsDto.filter(
         (f) => f.poster.roles.permissions.name.anyLessThan(
-          .val("donuts.favorite"),
+          .val('donuts.favorite'),
         ),
       ).toString();
 
@@ -105,7 +105,7 @@ void main() {
     test('anyLessThanOrEqual', () {
       var expr = PostsDto.filter(
         (f) => f.poster.roles.permissions.name.anyLessThanOrEqual(
-          .val("donuts.favorite"),
+          .val('donuts.favorite'),
         ),
       ).toString();
 
@@ -113,7 +113,7 @@ void main() {
     });
     test('anyLike', () {
       var expr = PostsDto.filter(
-        (f) => f.poster.roles.permissions.name.anyLike(.val("donuts.favorite")),
+        (f) => f.poster.roles.permissions.name.anyLike(.val('donuts.favorite')),
       ).toString();
 
       expect(expr, "poster.roles.permissions.name ?~ 'donuts.favorite'");
@@ -121,7 +121,7 @@ void main() {
     test('anyNotLike', () {
       var expr = PostsDto.filter(
         (f) =>
-            f.poster.roles.permissions.name.anyNotLike(.val("donuts.favorite")),
+            f.poster.roles.permissions.name.anyNotLike(.val('donuts.favorite')),
       ).toString();
 
       expect(expr, "poster.roles.permissions.name ?!~ 'donuts.favorite'");
@@ -182,56 +182,56 @@ void main() {
     });
     test('anyEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.email.anyEqual(.val("test@example.com")),
+        (f) => f.tagged.email.anyEqual(.val('test@example.com')),
       ).toString();
 
       expect(expr, "tagged.email ?= 'test@example.com'");
     });
     test('anyNotEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.email.anyNotEqual(.val("test@example.com")),
+        (f) => f.tagged.email.anyNotEqual(.val('test@example.com')),
       ).toString();
 
       expect(expr, "tagged.email ?!= 'test@example.com'");
     });
     test('anyGreaterThan', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.email.anyGreaterThan(.val("test@example.com")),
+        (f) => f.tagged.email.anyGreaterThan(.val('test@example.com')),
       ).toString();
 
       expect(expr, "tagged.email ?> 'test@example.com'");
     });
     test('anyGreaterThanOrEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.email.anyGreaterThanOrEqual(.val("test@example.com")),
+        (f) => f.tagged.email.anyGreaterThanOrEqual(.val('test@example.com')),
       ).toString();
 
       expect(expr, "tagged.email ?>= 'test@example.com'");
     });
     test('anyLessThan', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.email.anyLessThan(.val("test@example.com")),
+        (f) => f.tagged.email.anyLessThan(.val('test@example.com')),
       ).toString();
 
       expect(expr, "tagged.email ?< 'test@example.com'");
     });
     test('anyLessThanOrEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.email.anyLessThanOrEqual(.val("test@example.com")),
+        (f) => f.tagged.email.anyLessThanOrEqual(.val('test@example.com')),
       ).toString();
 
       expect(expr, "tagged.email ?<= 'test@example.com'");
     });
     test('anyLike', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.email.anyLike(.val("test@example.com")),
+        (f) => f.tagged.email.anyLike(.val('test@example.com')),
       ).toString();
 
       expect(expr, "tagged.email ?~ 'test@example.com'");
     });
     test('anyNotLike', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.email.anyNotLike(.val("test@example.com")),
+        (f) => f.tagged.email.anyNotLike(.val('test@example.com')),
       ).toString();
 
       expect(expr, "tagged.email ?!~ 'test@example.com'");
@@ -241,104 +241,104 @@ void main() {
   group('operators (bool)', () {
     test('equal', () {
       var expr = PostsDto.filter((f) => f.draft.equal(.val(true))).toString();
-      expect(expr, r"draft = true");
+      expect(expr, r'draft = true');
     });
     test('notEqual', () {
       var expr = PostsDto.filter(
         (f) => f.draft.notEqual(.val(true)),
       ).toString();
 
-      expect(expr, r"draft != true");
+      expect(expr, r'draft != true');
     });
     test('greaterThan', () {
       var expr = PostsDto.filter(
         (f) => f.draft.greaterThan(.val(true)),
       ).toString();
-      expect(expr, r"draft > true");
+      expect(expr, r'draft > true');
     });
     test('greaterThanOrEqual', () {
       var expr = PostsDto.filter(
         (f) => f.draft.greaterThanOrEqual(.val(true)),
       ).toString();
-      expect(expr, r"draft >= true");
+      expect(expr, r'draft >= true');
     });
     test('lessThan', () {
       var expr = PostsDto.filter(
         (f) => f.draft.lessThan(.val(true)),
       ).toString();
-      expect(expr, r"draft < true");
+      expect(expr, r'draft < true');
     });
     test('lessThanOrEqual', () {
       var expr = PostsDto.filter(
         (f) => f.draft.lessThanOrEqual(.val(true)),
       ).toString();
-      expect(expr, r"draft <= true");
+      expect(expr, r'draft <= true');
     });
     test('like', () {
       var expr = PostsDto.filter((f) => f.draft.like(.val(true))).toString();
 
-      expect(expr, r"draft ~ true");
+      expect(expr, r'draft ~ true');
     });
     test('notLike', () {
       var expr = PostsDto.filter((f) => f.draft.notLike(.val(true))).toString();
 
-      expect(expr, r"draft !~ true");
+      expect(expr, r'draft !~ true');
     });
     test('anyEqual', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.verified.anyEqual(.val(true)),
       ).toString();
 
-      expect(expr, "tagged.verified ?= true");
+      expect(expr, 'tagged.verified ?= true');
     });
     test('anyNotEqual', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.verified.anyNotEqual(.val(true)),
       ).toString();
 
-      expect(expr, "tagged.verified ?!= true");
+      expect(expr, 'tagged.verified ?!= true');
     });
     test('anyGreaterThan', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.verified.anyGreaterThan(.val(true)),
       ).toString();
 
-      expect(expr, "tagged.verified ?> true");
+      expect(expr, 'tagged.verified ?> true');
     });
     test('anyGreaterThanOrEqual', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.verified.anyGreaterThanOrEqual(.val(true)),
       ).toString();
 
-      expect(expr, "tagged.verified ?>= true");
+      expect(expr, 'tagged.verified ?>= true');
     });
     test('anyLessThan', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.verified.anyLessThan(.val(true)),
       ).toString();
 
-      expect(expr, "tagged.verified ?< true");
+      expect(expr, 'tagged.verified ?< true');
     });
     test('anyLessThanOrEqual', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.verified.anyLessThanOrEqual(.val(true)),
       ).toString();
 
-      expect(expr, "tagged.verified ?<= true");
+      expect(expr, 'tagged.verified ?<= true');
     });
     test('anyLike', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.verified.anyLike(.val(true)),
       ).toString();
 
-      expect(expr, "tagged.verified ?~ true");
+      expect(expr, 'tagged.verified ?~ true');
     });
     test('anyNotLike', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.verified.anyNotLike(.val(true)),
       ).toString();
 
-      expect(expr, "tagged.verified ?!~ true");
+      expect(expr, 'tagged.verified ?!~ true');
     });
   });
 
@@ -974,21 +974,21 @@ void main() {
     });
     test('anyEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.homepage.anyEqual(.val("https://www.google.com")),
+        (f) => f.tagged.homepage.anyEqual(.val('https://www.google.com')),
       ).toString();
 
       expect(expr, "tagged.homepage ?= 'https://www.google.com'");
     });
     test('anyNotEqual', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.homepage.anyNotEqual(.val("https://www.google.com")),
+        (f) => f.tagged.homepage.anyNotEqual(.val('https://www.google.com')),
       ).toString();
 
       expect(expr, "tagged.homepage ?!= 'https://www.google.com'");
     });
     test('anyGreaterThan', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.homepage.anyGreaterThan(.val("https://www.google.com")),
+        (f) => f.tagged.homepage.anyGreaterThan(.val('https://www.google.com')),
       ).toString();
 
       expect(expr, "tagged.homepage ?> 'https://www.google.com'");
@@ -996,7 +996,7 @@ void main() {
     test('anyGreaterThanOrEqual', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.homepage.anyGreaterThanOrEqual(
-          .val("https://www.google.com"),
+          .val('https://www.google.com'),
         ),
       ).toString();
 
@@ -1004,7 +1004,7 @@ void main() {
     });
     test('anyLessThan', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.homepage.anyLessThan(.val("https://www.google.com")),
+        (f) => f.tagged.homepage.anyLessThan(.val('https://www.google.com')),
       ).toString();
 
       expect(expr, "tagged.homepage ?< 'https://www.google.com'");
@@ -1012,7 +1012,7 @@ void main() {
     test('anyLessThanOrEqual', () {
       var expr = PostsDto.filter(
         (f) => f.tagged.homepage.anyLessThanOrEqual(
-          .val("https://www.google.com"),
+          .val('https://www.google.com'),
         ),
       ).toString();
 
@@ -1020,14 +1020,14 @@ void main() {
     });
     test('anyLike', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.homepage.anyLike(.val("https://www.google.com")),
+        (f) => f.tagged.homepage.anyLike(.val('https://www.google.com')),
       ).toString();
 
       expect(expr, "tagged.homepage ?~ 'https://www.google.com'");
     });
     test('anyNotLike', () {
       var expr = PostsDto.filter(
-        (f) => f.tagged.homepage.anyNotLike(.val("https://www.google.com")),
+        (f) => f.tagged.homepage.anyNotLike(.val('https://www.google.com')),
       ).toString();
 
       expect(expr, "tagged.homepage ?!~ 'https://www.google.com'");
@@ -1565,7 +1565,7 @@ void main() {
       var expr = PostsDto.filter(
         (f) => f.tagged.length().equal(.val(3)),
       ).toString();
-      expect(expr, "tagged:length = 3");
+      expect(expr, 'tagged:length = 3');
     });
   });
 

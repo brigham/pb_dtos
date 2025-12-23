@@ -46,7 +46,7 @@ class ComparisonBuilder<D extends Dto<D>, V> {
 
   ComparisonBuilder._(this.operand1, [this.handler]);
 
-  ComparisonBuilder.field(DtoTypedField<D, V> field, [this.handler])
+  ComparisonBuilder.field(DtoFilterableField<D, V> field, [this.handler])
     : operand1 = DtoFieldOperand<D, V>(field);
 
   ComparisonBuilder.literal(V? value, [this.handler])
@@ -66,7 +66,7 @@ class ComparisonBuilder<D extends Dto<D>, V> {
 
   ComparisonBuilder<D, String> lower() {
     return ComparisonBuilder._(
-      ModifiedDtoFieldOperand<D, V, String>(operand1, "lower"),
+      ModifiedDtoFieldOperand<D, V, String>(operand1, 'lower'),
       handler,
     );
   }
@@ -140,12 +140,12 @@ class MultivalComparisonBuilder<D extends Dto<D>, V>
   MultivalComparisonBuilder._(super.operand1, [super.handler]) : super._();
 
   ComparisonBuilder<D, num> length() {
-    var operand = ModifiedDtoFieldOperand<D, V, num>(operand1, "length");
+    var operand = ModifiedDtoFieldOperand<D, V, num>(operand1, 'length');
     return ComparisonBuilder._(operand, handler);
   }
 
   ComparisonBuilder<D, V> each() {
-    var operand = ModifiedDtoFieldOperand<D, V, V>(operand1, "each");
+    var operand = ModifiedDtoFieldOperand<D, V, V>(operand1, 'each');
     return ComparisonBuilder._(operand, handler);
   }
 

@@ -6,10 +6,10 @@ import 'generated_sample/users_dto.dart';
 
 void filters() {
   var expression = PostsDto.filter(
-    (f) => f.poster.roles.permissions.name.anyEqual(.val("donuts.favorite")),
+    (f) => f.poster.roles.permissions.name.anyEqual(.val('donuts.favorite')),
   );
   var permissionsTerminalPath = PostsDto.filter(
-    (f) => f.poster.roles.permissions.anyEqual(.val(RelationDto("abcdef"))),
+    (f) => f.poster.roles.permissions.anyEqual(.val(RelationDto('abcdef'))),
   );
   var usersWhoUploadedSixAndSeven = UsersDto.filter(
     (f) => f.postsViaPoster.reviewStars
@@ -25,8 +25,8 @@ void filters() {
   );
   var vote = FriendsDto.filter(
     (f) => f
-      ..requester.equal(.val(RelationDto("abcdef")))
-      ..accepter.equal(.val(RelationDto("ghijkl"))),
+      ..requester.equal(.val(RelationDto('abcdef')))
+      ..accepter.equal(.val(RelationDto('ghijkl'))),
   );
   var likedOwnPost = PostsDto.filter(
     (f) => f..tagged.anyEqual(.field(f.poster)),
@@ -113,15 +113,15 @@ void fields() {
 }
 
 void main() {
-  print("Filters\n#######\n");
+  print('Filters\n#######\n');
   filters();
 
-  print("\nSorts\n#######\n");
+  print('\nSorts\n#######\n');
   sorts();
 
-  print("\nExpands\n#######\n");
+  print('\nExpands\n#######\n');
   expands();
 
-  print("\nFields\n#######\n");
+  print('\nFields\n#######\n');
   fields();
 }

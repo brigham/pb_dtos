@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pocketbase/pocketbase.dart' show RecordModel;
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
@@ -14,37 +14,48 @@ import 'package:http/http.dart' as http;
 part 'permissions_dto.freezed.dart';
 part 'permissions_dto.g.dart';
 
-enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
-  name_<String>(
+enum PermissionsDtoFieldEnum<V, A>
+    implements DtoTypedField<PermissionsDto, V, A> {
+  name_<String, String>(
     'name',
     DtoTextFieldSettings(
       required: true,
-      autogeneratePattern: "",
+      autogeneratePattern: '',
       min: 1,
       max: 0,
-      pattern: "",
+      pattern: '',
     ),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     DtoTextFieldSettings(
       required: true,
-      autogeneratePattern: "[a-z0-9]{15}",
+      autogeneratePattern: '[a-z0-9]{15}',
       min: 15,
       max: 15,
-      pattern: r"^[a-z0-9]+$",
+      pattern: r'^[a-z0-9]+$',
     ),
   );
 
   const PermissionsDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(PermissionsDto dto) {
+  A get(PermissionsDto dto) {
     switch (this) {
       case .name_:
-        return dto.name as V;
+        return dto.name as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  PermissionsDto copyWith(PermissionsDto dto, A value) {
+    switch (this) {
+      case .name_:
+        return dto.copyWith(name: value as String);
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 
@@ -118,9 +129,9 @@ class PermissionsDto with _$PermissionsDto implements Dto<PermissionsDto> {
     return select;
   }
 
-  PermissionsDto({required this.name, this.id = "", this.expand});
+  PermissionsDto({required this.name, this.id = '', this.expand});
 
-  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: "")
+  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: '')
   @override
   final String name;
   @JsonKey(toJson: Dto.optionalStringToJson)

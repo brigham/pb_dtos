@@ -15,9 +15,9 @@ Future<PocketBaseProcess> _startPocketBase() async {
   // Start PocketBase.
   print('Starting PocketBase...');
   var launchConfig = LaunchConfig.obtain(
-    templateDir: "test/test_schema",
+    templateDir: 'test/test_schema',
     obtain: ObtainConfig(
-      githubTag: "v0.29.3",
+      githubTag: 'v0.29.3',
       downloadDir: p.join(env['HOME']!, 'develop', 'pocketbase'),
     ),
     stdout: '/dev/null',
@@ -32,10 +32,10 @@ Future<void> preWork() async {
   print('Running DTO generator...');
   final generatorConfig = DumpSchemaConfig(
     outputDir: 'test/generated_sample',
-    pocketbaseUrl: "http://127.0.0.1:8698",
+    pocketbaseUrl: 'http://127.0.0.1:8698',
     credentials: CredentialsConfig(
-      email: "test@example.com",
-      password: "1234567890",
+      email: 'test@example.com',
+      password: '1234567890',
     ),
   );
 
@@ -59,8 +59,8 @@ Future<void> preWork() async {
   final fixResult = await Process.run(
     'dart',
     ['fix', '--apply', 'test/generated_sample'],
-    stdoutEncoding: .getByName("UTF-8"),
-    stderrEncoding: .getByName("UTF-8"),
+    stdoutEncoding: .getByName('UTF-8'),
+    stderrEncoding: .getByName('UTF-8'),
   );
   if (fixResult.exitCode != 0) {
     print('fix stdout:\n${fixResult.stdout}');
@@ -84,12 +84,12 @@ void main(List<String> arguments) async {
   try {
     await preWork();
     // Launch the tests
-    final testArgs = ["test", "--tags", "postgen", "--run-skipped"];
+    final testArgs = ['test', '--tags', 'postgen', '--run-skipped'];
     if (argResults.wasParsed('coverage-path')) {
       testArgs.add('--coverage-path=${argResults['coverage-path']}');
     }
     testArgs.addAll(argResults.rest);
-    Process tests = await Process.start("dart", testArgs);
+    Process tests = await Process.start('dart', testArgs);
     tests.stdout.transform(SystemEncoding().decoder).listen(print);
     tests.stderr.transform(SystemEncoding().decoder).listen(print);
     exitCode = await tests.exitCode;

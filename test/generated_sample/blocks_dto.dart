@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pocketbase/pocketbase.dart' show RecordModel;
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
@@ -16,9 +16,9 @@ part 'blocks_dto.freezed.dart';
 part 'blocks_dto.g.dart';
 
 enum BlocksTypeEnum {
-  mute("mute"),
-  block("block"),
-  $unset("");
+  mute('mute'),
+  block('block'),
+  $unset('');
 
   final String value;
   const BlocksTypeEnum(this.value);
@@ -26,59 +26,73 @@ enum BlocksTypeEnum {
   String toString() => value;
 }
 
-enum BlocksDtoFieldEnum<V> implements DtoTypedField<BlocksDto, V> {
-  blocker<RelationDto<UsersDto>>(
+enum BlocksDtoFieldEnum<V, A> implements DtoTypedField<BlocksDto, V, A> {
+  blocker<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'blocker',
     DtoRelationFieldSettings(
       required: true,
-      collectionId: "_pb_users_auth_",
+      collectionId: '_pb_users_auth_',
       cascadeDelete: false,
       minSelect: 1,
       maxSelect: 1,
     ),
   ),
-  blocked<RelationDto<UsersDto>>(
+  blocked<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'blocked',
     DtoRelationFieldSettings(
       required: true,
-      collectionId: "_pb_users_auth_",
+      collectionId: '_pb_users_auth_',
       cascadeDelete: false,
       minSelect: 1,
       maxSelect: 1,
     ),
   ),
-  type<BlocksTypeEnum>(
+  type<BlocksTypeEnum, BlocksTypeEnum>(
     'type',
     DtoSelectFieldSettings(
       required: true,
-      values: ["mute", "block"],
+      values: ['mute', 'block'],
       maxSelect: 1,
     ),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     DtoTextFieldSettings(
       required: true,
-      autogeneratePattern: "[a-z0-9]{15}",
+      autogeneratePattern: '[a-z0-9]{15}',
       min: 15,
       max: 15,
-      pattern: r"^[a-z0-9]+$",
+      pattern: r'^[a-z0-9]+$',
     ),
   );
 
   const BlocksDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(BlocksDto dto) {
+  A get(BlocksDto dto) {
     switch (this) {
       case .blocker:
-        return dto.blocker as V;
+        return dto.blocker as A;
       case .blocked:
-        return dto.blocked as V;
+        return dto.blocked as A;
       case .type:
-        return dto.type as V;
+        return dto.type as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  BlocksDto copyWith(BlocksDto dto, A value) {
+    switch (this) {
+      case .blocker:
+        return dto.copyWith(blocker: value as RelationDto<UsersDto>);
+      case .blocked:
+        return dto.copyWith(blocked: value as RelationDto<UsersDto>);
+      case .type:
+        return dto.copyWith(type: value as BlocksTypeEnum);
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 
@@ -160,10 +174,10 @@ class BlocksDto with _$BlocksDto implements Dto<BlocksDto> {
   }
 
   BlocksDto({
-    this.blocker = const RelationDto<UsersDto>(""),
-    this.blocked = const RelationDto<UsersDto>(""),
+    this.blocker = const RelationDto<UsersDto>(''),
+    this.blocked = const RelationDto<UsersDto>(''),
     required this.type,
-    this.id = "",
+    this.id = '',
     this.expand,
   });
 

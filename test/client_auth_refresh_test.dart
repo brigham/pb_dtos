@@ -1,4 +1,6 @@
-@Tags(["postgen"])
+@Tags(['postgen'])
+library;
+
 import 'package:http/http.dart' as http;
 import 'package:pb_dtos/pocketbase_api_client.dart';
 import 'package:test/test.dart';
@@ -27,7 +29,7 @@ void main() {
         } catch (e) {
           print('Connection error: $e');
         }
-        await Future.delayed(const Duration(seconds: 1));
+        await Future<void>.delayed(const Duration(seconds: 1));
       }
 
       if (!serverReady) {
@@ -43,7 +45,7 @@ void main() {
       // Assuming 'users' collection is open for registration or we use the superuser to create one first.
 
       // We'll use the superuser to create a user first to ensure it exists.
-      var adminApi = PocketBaseApiClient(api.raw.baseUrl);
+      var adminApi = PocketBaseApiClient(api.raw.baseURL);
       await adminApi.raw
           .collection('_superusers')
           .authWithPassword('test@example.com', '1234567890');
@@ -63,7 +65,7 @@ void main() {
       );
 
       // 2. Auth with password as the new user
-      var userApi = PocketBaseApiClient(api.raw.baseUrl);
+      var userApi = PocketBaseApiClient(api.raw.baseURL);
       var loggedInUser = await userApi.authWithPassword(
         UsersDto.meta(),
         email,

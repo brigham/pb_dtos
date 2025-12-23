@@ -28,8 +28,8 @@ import 'package:http/http.dart' as http;
 part 'follows_dto.freezed.dart';
 part 'follows_dto.g.dart';
 
-enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
-  follower<RelationDto<UsersDto>>(
+enum FollowsDtoFieldEnum<V, A> implements DtoTypedField<FollowsDto, V, A> {
+  follower<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'follower',
     const DtoRelationFieldSettings(
       required: true,
@@ -39,7 +39,7 @@ enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
       maxSelect: 1,
     ),
   ),
-  following<RelationDto<UsersDto>>(
+  following<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'following',
     const DtoRelationFieldSettings(
       required: true,
@@ -49,7 +49,7 @@ enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
       maxSelect: 1,
     ),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     const DtoTextFieldSettings(
       required: true,
@@ -63,14 +63,26 @@ enum FollowsDtoFieldEnum<V> implements DtoTypedField<FollowsDto, V> {
   const FollowsDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(FollowsDto dto) {
+  A get(FollowsDto dto) {
     switch (this) {
       case .follower:
-        return dto.follower as V;
+        return dto.follower as A;
       case .following:
-        return dto.following as V;
+        return dto.following as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  FollowsDto copyWith(FollowsDto dto, A value) {
+    switch (this) {
+      case .follower:
+        return dto.copyWith(follower: value as RelationDto<UsersDto>);
+      case .following:
+        return dto.copyWith(following: value as RelationDto<UsersDto>);
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 

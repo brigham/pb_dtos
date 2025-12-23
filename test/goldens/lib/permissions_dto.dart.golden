@@ -28,8 +28,9 @@ import 'package:http/http.dart' as http;
 part 'permissions_dto.freezed.dart';
 part 'permissions_dto.g.dart';
 
-enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
-  name_<String>(
+enum PermissionsDtoFieldEnum<V, A>
+    implements DtoTypedField<PermissionsDto, V, A> {
+  name_<String, String>(
     'name',
     const DtoTextFieldSettings(
       required: true,
@@ -39,7 +40,7 @@ enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
       pattern: "",
     ),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     const DtoTextFieldSettings(
       required: true,
@@ -53,12 +54,22 @@ enum PermissionsDtoFieldEnum<V> implements DtoTypedField<PermissionsDto, V> {
   const PermissionsDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(PermissionsDto dto) {
+  A get(PermissionsDto dto) {
     switch (this) {
       case .name_:
-        return dto.name as V;
+        return dto.name as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  PermissionsDto copyWith(PermissionsDto dto, A value) {
+    switch (this) {
+      case .name_:
+        return dto.copyWith(name: value as String);
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 

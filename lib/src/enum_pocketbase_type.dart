@@ -12,7 +12,7 @@ class SelectPocketbaseType extends PocketbaseTypeBase {
   const SelectPocketbaseType();
 
   String _enumName(CollectionSchema collection, CollectionField field) {
-    return "${camelize(collection.model.name)}${camelize(field.name)}Enum";
+    return '${camelize(collection.model.name)}${camelize(field.name)}Enum';
   }
 
   @override
@@ -22,14 +22,15 @@ class SelectPocketbaseType extends PocketbaseTypeBase {
     CollectionField field,
   ) {
     var enumName = _enumName(collection, field);
-    List<dynamic> allValues = field.data['values'];
-    var enumValues = allValues.map((value) => '$value("$value")').join(", ");
+    List<String> allValues = (field.data['values'] as List<dynamic>)
+        .cast<String>();
+    var enumValues = allValues.map((value) => '$value("$value")').join(', ');
     return {
       enumName:
-          "enum $enumName { "
-          "$enumValues, \$unset(\"\"); final String value; "
-          "const $enumName(this.value);"
-          "@override String toString() => this.value;  }\n",
+          'enum $enumName { '
+          '$enumValues, \$unset(""); final String value; '
+          'const $enumName(this.value);'
+          '@override String toString() => this.value;  }\n',
     };
   }
 
@@ -39,7 +40,7 @@ class SelectPocketbaseType extends PocketbaseTypeBase {
     CollectionSchema collection,
     CollectionField field,
   ) {
-    return (field.data['required'] ?? true);
+    return ((field.data['required'] as bool?) ?? true);
   }
 
   @override
@@ -48,12 +49,12 @@ class SelectPocketbaseType extends PocketbaseTypeBase {
     CollectionSchema collection,
     CollectionField field,
   ) {
-    if (field.data['maxSelect'] > 1) {
+    if ((field.data['maxSelect'] as int) > 1) {
       return 'List<${_enumName(collection, field)}>';
-    } else if ((field.data['required'] ?? true)) {
+    } else if (((field.data['required'] as bool?) ?? true)) {
       return _enumName(collection, field);
     } else {
-      return "${_enumName(collection, field)}?";
+      return '${_enumName(collection, field)}?';
     }
   }
 
@@ -63,12 +64,12 @@ class SelectPocketbaseType extends PocketbaseTypeBase {
     CollectionSchema collection,
     CollectionField field,
   ) {
-    if (field.data['maxSelect'] > 1) {
+    if ((field.data['maxSelect'] as int) > 1) {
       return 'const []';
-    } else if ((field.data['required'] ?? true)) {
-      return "${_enumName(collection, field)}.\$unset";
+    } else if (((field.data['required'] as bool?) ?? true)) {
+      return '${_enumName(collection, field)}.\$unset';
     } else {
-      return "null";
+      return 'null';
     }
   }
 

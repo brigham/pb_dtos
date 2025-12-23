@@ -41,8 +41,8 @@ enum UsersZodiacEnum {
   String toString() => this.value;
 }
 
-enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
-  id<String>(
+enum UsersDtoFieldEnum<V, A> implements DtoTypedField<UsersDto, V, A> {
+  id<String, String>(
     'id',
     const DtoTextFieldSettings(
       required: true,
@@ -52,11 +52,11 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
       pattern: r"^[a-z0-9]+$",
     ),
   ),
-  password<String>(
+  password<String, String>(
     'password',
     const DtoPasswordFieldSettings(required: true, pattern: "", min: 8, max: 0),
   ),
-  email<String>(
+  email<String, String>(
     'email',
     const DtoEmailFieldSettings(
       required: true,
@@ -64,12 +64,12 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
       onlyDomains: [],
     ),
   ),
-  emailVisibility<bool>(
+  emailVisibility<bool, bool>(
     'emailVisibility',
     const DtoBoolFieldSettings(required: false),
   ),
-  verified<bool>('verified', const DtoBoolFieldSettings(required: false)),
-  name_<String>(
+  verified<bool, bool>('verified', const DtoBoolFieldSettings(required: false)),
+  name_<String, String>(
     'name',
     const DtoTextFieldSettings(
       required: false,
@@ -79,7 +79,7 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
       pattern: "",
     ),
   ),
-  avatar<FileDto>(
+  avatar<FileDto, FileDto?>(
     'avatar',
     const DtoFileFieldSettings(
       required: false,
@@ -96,7 +96,7 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
       protected: false,
     ),
   ),
-  roles<RelationDto<RolesDto>>(
+  roles<RelationDto<RolesDto>, List<RelationDto<RolesDto>>>(
     'roles',
     const DtoRelationFieldSettings(
       required: false,
@@ -106,11 +106,11 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
       maxSelect: 999,
     ),
   ),
-  birthday<DateTime>(
+  birthday<DateTime, DateTime?>(
     'birthday',
     const DtoDateFieldSettings(required: false, min: null, max: null),
   ),
-  homepage<String>(
+  homepage<String, String>(
     'homepage',
     const DtoURLFieldSettings(
       required: false,
@@ -118,19 +118,19 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
       onlyDomains: [],
     ),
   ),
-  metadata<dynamic>(
+  metadata<dynamic, dynamic>(
     'metadata',
     const DtoJSONFieldSettings(required: false, maxSize: 0),
   ),
-  biography<dynamic>(
+  biography<dynamic, dynamic>(
     'biography',
     const DtoJSONFieldSettings(required: false, maxSize: 0),
   ),
-  hometown<GeopointDto>(
+  hometown<GeopointDto, GeopointDto>(
     'hometown',
     const DtoGeoPointFieldSettings(required: false),
   ),
-  zodiac<UsersZodiacEnum>(
+  zodiac<UsersZodiacEnum, UsersZodiacEnum?>(
     'zodiac',
     const DtoSelectFieldSettings(
       required: false,
@@ -138,11 +138,11 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
       maxSelect: 0,
     ),
   ),
-  created<DateTime>(
+  created<DateTime, DateTime?>(
     'created',
     const DtoAutodateFieldSettings(onCreate: true, onUpdate: false),
   ),
-  updated<DateTime>(
+  updated<DateTime, DateTime?>(
     'updated',
     const DtoAutodateFieldSettings(onCreate: true, onUpdate: true),
   );
@@ -150,40 +150,78 @@ enum UsersDtoFieldEnum<V> implements DtoTypedField<UsersDto, V> {
   const UsersDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(UsersDto dto) {
+  A get(UsersDto dto) {
     switch (this) {
       case .id:
-        return dto.id as V;
+        return dto.id as A;
       case .password:
-        return dto.password as V;
+        return dto.password as A;
       case .email:
-        return dto.email as V;
+        return dto.email as A;
       case .emailVisibility:
-        return dto.emailVisibility as V;
+        return dto.emailVisibility as A;
       case .verified:
-        return dto.verified as V;
+        return dto.verified as A;
       case .name_:
-        return dto.name as V;
+        return dto.name as A;
       case .avatar:
-        return dto.avatar as V;
+        return dto.avatar as A;
       case .roles:
-        return dto.roles as V;
+        return dto.roles as A;
       case .birthday:
-        return dto.birthday as V;
+        return dto.birthday as A;
       case .homepage:
-        return dto.homepage as V;
+        return dto.homepage as A;
       case .metadata:
-        return dto.metadata as V;
+        return dto.metadata as A;
       case .biography:
-        return dto.biography as V;
+        return dto.biography as A;
       case .hometown:
-        return dto.hometown as V;
+        return dto.hometown as A;
       case .zodiac:
-        return dto.zodiac as V;
+        return dto.zodiac as A;
       case .created:
-        return dto.created as V;
+        return dto.created as A;
       case .updated:
-        return dto.updated as V;
+        return dto.updated as A;
+    }
+  }
+
+  @override
+  UsersDto copyWith(UsersDto dto, A value) {
+    switch (this) {
+      case .id:
+        return dto.copyWith(id: value as String);
+      case .password:
+        return dto.copyWith(password: value as String);
+      case .email:
+        return dto.copyWith(email: value as String);
+      case .emailVisibility:
+        return dto.copyWith(emailVisibility: value as bool);
+      case .verified:
+        return dto.copyWith(verified: value as bool);
+      case .name_:
+        return dto.copyWith(name: value as String);
+      case .avatar:
+        return dto.copyWith(avatar: value as FileDto?);
+      case .roles:
+        return dto.copyWith(roles: value as List<RelationDto<RolesDto>>);
+      case .birthday:
+        return dto.copyWith(birthday: value as DateTime?);
+      case .homepage:
+        return dto.copyWith(homepage: value as String);
+      case .metadata:
+        return dto.copyWith(metadata: value as dynamic);
+      case .biography:
+        return dto.copyWith(biography: value as dynamic);
+      case .hometown:
+        return dto.copyWith(hometown: value as GeopointDto);
+      case .zodiac:
+        return dto.copyWith(zodiac: value as UsersZodiacEnum?);
+      case .created:
+        return dto.copyWith(created: value as DateTime?);
+      case .updated:
+        return dto.copyWith(updated: value as DateTime?);
     }
   }
 

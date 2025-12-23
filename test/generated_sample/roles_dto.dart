@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pocketbase/pocketbase.dart' show RecordModel;
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
@@ -15,49 +15,63 @@ import 'package:http/http.dart' as http;
 part 'roles_dto.freezed.dart';
 part 'roles_dto.g.dart';
 
-enum RolesDtoFieldEnum<V> implements DtoTypedField<RolesDto, V> {
-  name_<String>(
+enum RolesDtoFieldEnum<V, A> implements DtoTypedField<RolesDto, V, A> {
+  name_<String, String>(
     'name',
     DtoTextFieldSettings(
       required: true,
-      autogeneratePattern: "",
+      autogeneratePattern: '',
       min: 1,
       max: 0,
-      pattern: "",
+      pattern: '',
     ),
   ),
-  permissions<RelationDto<PermissionsDto>>(
+  permissions<RelationDto<PermissionsDto>, List<RelationDto<PermissionsDto>>>(
     'permissions',
     DtoRelationFieldSettings(
       required: false,
-      collectionId: "pbc_3709660955",
+      collectionId: 'pbc_3709660955',
       cascadeDelete: false,
       minSelect: 0,
       maxSelect: 999,
     ),
   ),
-  id<String>(
+  id<String, String>(
     'id',
     DtoTextFieldSettings(
       required: true,
-      autogeneratePattern: "[a-z0-9]{15}",
+      autogeneratePattern: '[a-z0-9]{15}',
       min: 15,
       max: 15,
-      pattern: r"^[a-z0-9]+$",
+      pattern: r'^[a-z0-9]+$',
     ),
   );
 
   const RolesDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(RolesDto dto) {
+  A get(RolesDto dto) {
     switch (this) {
       case .name_:
-        return dto.name as V;
+        return dto.name as A;
       case .permissions:
-        return dto.permissions as V;
+        return dto.permissions as A;
       case .id:
-        return dto.id as V;
+        return dto.id as A;
+    }
+  }
+
+  @override
+  RolesDto copyWith(RolesDto dto, A value) {
+    switch (this) {
+      case .name_:
+        return dto.copyWith(name: value as String);
+      case .permissions:
+        return dto.copyWith(
+          permissions: value as List<RelationDto<PermissionsDto>>,
+        );
+      case .id:
+        return dto.copyWith(id: value as String);
     }
   }
 
@@ -136,11 +150,11 @@ class RolesDto with _$RolesDto implements Dto<RolesDto> {
   RolesDto({
     required this.name,
     this.permissions = const [],
-    this.id = "",
+    this.id = '',
     this.expand,
   });
 
-  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: "")
+  @JsonKey(toJson: Dto.optionalStringToJson, defaultValue: '')
   @override
   final String name;
   @override

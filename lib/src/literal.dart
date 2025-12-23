@@ -8,12 +8,12 @@ void _toLiteral(dynamic obj, StringBuffer builder) {
       builder.write(b);
     case String s:
       _toStringLiteral(s, builder);
-    case List l:
+    case List<dynamic> l:
       _toListLiteral(l, builder);
-    case Map m:
+    case Map<dynamic, dynamic> m:
       _toMapLiteral(m, builder);
     default:
-      throw FormatException("Unsupported type: $obj");
+      throw FormatException('Unsupported type: $obj');
   }
 }
 
@@ -48,7 +48,7 @@ final Pattern sqPattern = RegExp(r"[\r\n\t\\']");
 void _toStringLiteral(String s, StringBuffer builder) {
   bool containsDoubleQuote = s.contains('"');
   bool containsSingleQuote = s.contains("'");
-  bool containsDollar = s.contains(r"$");
+  bool containsDollar = s.contains(r'$');
   bool useDoubleQuote = !containsDoubleQuote || containsSingleQuote;
   var escPattern = useDoubleQuote ? dqPattern : sqPattern;
   String wrapper = useDoubleQuote ? '"' : "'";
@@ -69,14 +69,14 @@ void _toStringLiteral(String s, StringBuffer builder) {
           builder.write(r'\"');
         case "'":
           builder.write(r"\'");
-        case "\n":
-          builder.write(r"\n");
-        case "\r":
-          builder.write(r"\r");
-        case "\t":
-          builder.write(r"\t");
-        case "\\":
-          builder.write(r"\\");
+        case '\n':
+          builder.write(r'\n');
+        case '\r':
+          builder.write(r'\r');
+        case '\t':
+          builder.write(r'\t');
+        case '\\':
+          builder.write(r'\\');
       }
       curr = next + 1;
     }

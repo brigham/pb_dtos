@@ -16,7 +16,7 @@ class RelationDto<O extends Dto<O>> with _$RelationDto<O> {
   }
 
   String? toJson() {
-    if (id == "") {
+    if (id == '') {
       return null;
     }
     return id;

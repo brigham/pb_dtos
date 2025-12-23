@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import "package:pocketbase/pocketbase.dart" show RecordModel;
+import 'package:pocketbase/pocketbase.dart' show RecordModel;
 import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_field.dart';
 import 'package:pb_dtos/pb/dto/relation_dto.dart';
@@ -15,50 +15,62 @@ import 'package:http/http.dart' as http;
 part 'private_profiles_dto.freezed.dart';
 part 'private_profiles_dto.g.dart';
 
-enum PrivateProfilesDtoFieldEnum<V>
-    implements DtoTypedField<PrivateProfilesDto, V> {
-  id<String>(
+enum PrivateProfilesDtoFieldEnum<V, A>
+    implements DtoTypedField<PrivateProfilesDto, V, A> {
+  id<String, String>(
     'id',
     DtoTextFieldSettings(
       required: true,
-      autogeneratePattern: "[a-z0-9]{15}",
+      autogeneratePattern: '[a-z0-9]{15}',
       min: 15,
       max: 15,
-      pattern: r"^[a-z0-9]+$",
+      pattern: r'^[a-z0-9]+$',
     ),
   ),
-  user<RelationDto<UsersDto>>(
+  user<RelationDto<UsersDto>, RelationDto<UsersDto>>(
     'user',
     DtoRelationFieldSettings(
       required: true,
-      collectionId: "_pb_users_auth_",
+      collectionId: '_pb_users_auth_',
       cascadeDelete: true,
       minSelect: 1,
       maxSelect: 1,
     ),
   ),
-  note<String>(
+  note<String, String>(
     'note',
     DtoTextFieldSettings(
       required: false,
-      autogeneratePattern: "",
+      autogeneratePattern: '',
       min: 0,
       max: 0,
-      pattern: "",
+      pattern: '',
     ),
   );
 
   const PrivateProfilesDtoFieldEnum(this.pbName, this.settings);
 
   @override
-  V get(PrivateProfilesDto dto) {
+  A get(PrivateProfilesDto dto) {
     switch (this) {
       case .id:
-        return dto.id as V;
+        return dto.id as A;
       case .user:
-        return dto.user as V;
+        return dto.user as A;
       case .note:
-        return dto.note as V;
+        return dto.note as A;
+    }
+  }
+
+  @override
+  PrivateProfilesDto copyWith(PrivateProfilesDto dto, A value) {
+    switch (this) {
+      case .id:
+        return dto.copyWith(id: value as String);
+      case .user:
+        return dto.copyWith(user: value as RelationDto<UsersDto>);
+      case .note:
+        return dto.copyWith(note: value as String);
     }
   }
 
@@ -142,9 +154,9 @@ class PrivateProfilesDto
   }
 
   PrivateProfilesDto({
-    this.id = "",
-    this.user = const RelationDto<UsersDto>(""),
-    this.note = "",
+    this.id = '',
+    this.user = const RelationDto<UsersDto>(''),
+    this.note = '',
     this.expand,
   });
 

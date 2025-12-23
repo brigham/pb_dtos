@@ -12,8 +12,8 @@ part 'posts_dto_expand.g.dart';
 
 enum PostsDtoExpandEnum<V>
     implements DtoExpandEnum<PostsDto>, DtoFilterableField<PostsDto, V> {
-  poster<RelationDto<UsersDto>>("poster"),
-  tagged<RelationDto<UsersDto>>("tagged");
+  poster<RelationDto<UsersDto>>('poster'),
+  tagged<RelationDto<UsersDto>>('tagged');
 
   const PostsDtoExpandEnum(this.pbName);
 

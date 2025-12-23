@@ -14,7 +14,7 @@ enum PermissionsDtoExpandEnum<V>
     implements
         DtoExpandEnum<PermissionsDto>,
         DtoFilterableField<PermissionsDto, V> {
-  rolesViaPermissions<RelationDto<RolesDto>>("roles_via_permissions");
+  rolesViaPermissions<RelationDto<RolesDto>>('roles_via_permissions');
 
   const PermissionsDtoExpandEnum(this.pbName);
 
