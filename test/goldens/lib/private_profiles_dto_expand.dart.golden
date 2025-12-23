@@ -34,19 +34,13 @@ part 'private_profiles_dto_expand.g.dart';
 enum PrivateProfilesDtoExpandEnum<V>
     implements
         DtoExpandEnum<PrivateProfilesDto>,
-        DtoTypedField<PrivateProfilesDto, V> {
+        DtoFilterableField<PrivateProfilesDto, V> {
   user<RelationDto<UsersDto>>("user");
 
   const PrivateProfilesDtoExpandEnum(this.pbName);
 
   @override
-  V get(PrivateProfilesDto dto) => throw UnimplementedError();
-
-  @override
   final String pbName;
-
-  @override
-  DtoFieldSettings? get settings => null;
 }
 
 class PrivateProfilesDtoExpand<D extends Dto<D>>

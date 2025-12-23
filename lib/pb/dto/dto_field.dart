@@ -6,8 +6,6 @@ import 'relation_dto.dart';
 
 abstract class DtoField<D extends Dto<D>> {
   String get pbName;
-
-  DtoFieldSettings? get settings;
 }
 
 sealed class DtoFieldSettings {
@@ -172,8 +170,13 @@ class DtoGeoPointFieldSettings extends DtoFieldSettings {
     : super('geoPoint', required: required);
 }
 
-abstract class DtoTypedField<D extends Dto<D>, V> extends DtoField<D> {
+abstract class DtoFilterableField<D extends Dto<D>, V> extends DtoField<D> {}
+
+abstract class DtoTypedField<D extends Dto<D>, V>
+    extends DtoFilterableField<D, V> {
   V get(D dto);
+
+  DtoFieldSettings? get settings;
 }
 
 abstract class DtoFieldSelect<D extends Dto<D>> {
@@ -209,7 +212,7 @@ abstract class DtoFieldSelectBase<D extends Dto<D>> extends DtoFieldSelect<D> {
   @protected
   FS $addRelation<V extends Dto<V>, FS extends DtoFieldSelectBase<V>>(
     FS Function(List<FieldChain> parts, FieldChain fieldChain) creator,
-    DtoTypedField<D, RelationDto<V>> relation,
+    DtoFilterableField<D, RelationDto<V>> relation,
   ) {
     return creator($parts, $fieldChain.extend(relation.pbName));
   }

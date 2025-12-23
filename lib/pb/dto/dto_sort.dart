@@ -136,13 +136,13 @@ abstract class DtoSortBase<D extends Dto<D>, N extends Dto<N>>
   DtoSortBase(this.delegate);
 
   @protected
-  void addField<V>(DtoTypedField<N, V> field, bool desc) {
+  void addField<V>(DtoFilterableField<N, V> field, bool desc) {
     delegate.add<N>(field.pbName, false).complete(desc);
   }
 
   @protected
   DtoSortDelegate<V> addRelation<V extends Dto<V>>(
-    DtoTypedField<N, RelationDto<V>> relation,
+    DtoFilterableField<N, RelationDto<V>> relation,
   ) {
     return delegate.add(relation.pbName, false);
   }

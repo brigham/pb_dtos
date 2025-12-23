@@ -20,7 +20,7 @@ sealed class FilterOperand<D extends Dto<D>, V> {
 }
 
 class DtoFieldOperand<D extends Dto<D>, V> extends FilterOperand<D, V> {
-  final DtoTypedField<D, V> field;
+  final DtoFilterableField<D, V> field;
 
   DtoFieldOperand(this.field);
 
@@ -32,14 +32,14 @@ class DtoFieldOperand<D extends Dto<D>, V> extends FilterOperand<D, V> {
 
 sealed class FieldPath<S extends Dto<S>, N extends Dto<N>> {
   FieldPath<S, N2> extend<N2 extends Dto<N2>>(
-    DtoTypedField<N, RelationDto<N2>> field,
+    DtoFilterableField<N, RelationDto<N2>> field,
   );
 
   FieldPath<S, N2> extendMultiple<N2 extends Dto<N2>>(
-    DtoTypedField<N, RelationDto<N2>> field,
+    DtoFilterableField<N, RelationDto<N2>> field,
   );
 
-  TerminalFieldPath<S, N, V> terminate<V>(DtoTypedField<N, V> field) {
+  TerminalFieldPath<S, N, V> terminate<V>(DtoFilterableField<N, V> field) {
     return TerminalFieldPath(this, field);
   }
 
@@ -67,20 +67,20 @@ sealed class FieldPath<S extends Dto<S>, N extends Dto<N>> {
 
 class SoloFieldPath<S extends Dto<S>, N extends Dto<N>>
     extends FieldPath<S, N> {
-  final DtoTypedField<S, RelationDto<N>> field;
+  final DtoFilterableField<S, RelationDto<N>> field;
 
   SoloFieldPath(this.field);
 
   @override
   FieldPath<S, N2> extend<N2 extends Dto<N2>>(
-    DtoTypedField<N, RelationDto<N2>> field,
+    DtoFilterableField<N, RelationDto<N2>> field,
   ) {
     return ExtendedFieldPath(this, field);
   }
 
   @override
   FieldPath<S, N2> extendMultiple<N2 extends Dto<N2>>(
-    DtoTypedField<N, RelationDto<N2>> field,
+    DtoFilterableField<N, RelationDto<N2>> field,
   ) {
     return ExtendedMultipleFieldPath(this, field);
   }
@@ -98,20 +98,20 @@ class SoloFieldPath<S extends Dto<S>, N extends Dto<N>>
 class ExtendedFieldPath<S extends Dto<S>, P extends Dto<P>, N extends Dto<N>>
     extends FieldPath<S, N> {
   final FieldPath<S, P> parent;
-  final DtoTypedField<P, RelationDto<N>> field;
+  final DtoFilterableField<P, RelationDto<N>> field;
 
   ExtendedFieldPath(this.parent, this.field);
 
   @override
   FieldPath<S, N2> extend<N2 extends Dto<N2>>(
-    DtoTypedField<N, RelationDto<N2>> field,
+    DtoFilterableField<N, RelationDto<N2>> field,
   ) {
     return ExtendedFieldPath(this, field);
   }
 
   @override
   FieldPath<S, N2> extendMultiple<N2 extends Dto<N2>>(
-    DtoTypedField<N, RelationDto<N2>> field,
+    DtoFilterableField<N, RelationDto<N2>> field,
   ) {
     return ExtendedMultipleFieldPath(this, field);
   }
@@ -133,20 +133,20 @@ class ExtendedMultipleFieldPath<
 >
     extends FieldPath<S, N> {
   final FieldPath<S, P> parent;
-  final DtoTypedField<P, RelationDto<N>> field;
+  final DtoFilterableField<P, RelationDto<N>> field;
 
   ExtendedMultipleFieldPath(this.parent, this.field);
 
   @override
   FieldPath<S, N2> extend<N2 extends Dto<N2>>(
-    DtoTypedField<N, RelationDto<N2>> field,
+    DtoFilterableField<N, RelationDto<N2>> field,
   ) {
     return ExtendedFieldPath(this, field);
   }
 
   @override
   FieldPath<S, N2> extendMultiple<N2 extends Dto<N2>>(
-    DtoTypedField<N, RelationDto<N2>> field,
+    DtoFilterableField<N, RelationDto<N2>> field,
   ) {
     return ExtendedMultipleFieldPath(this, field);
   }
@@ -163,7 +163,7 @@ class ExtendedMultipleFieldPath<
 
 class TerminalFieldPath<S extends Dto<S>, P extends Dto<P>, V> {
   final FieldPath<S, P>? parent;
-  final DtoTypedField<P, V> field;
+  final DtoFilterableField<P, V> field;
 
   TerminalFieldPath(this.parent, this.field);
 

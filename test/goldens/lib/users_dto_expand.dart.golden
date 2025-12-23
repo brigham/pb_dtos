@@ -32,7 +32,7 @@ part 'users_dto_expand.freezed.dart';
 part 'users_dto_expand.g.dart';
 
 enum UsersDtoExpandEnum<V>
-    implements DtoExpandEnum<UsersDto>, DtoTypedField<UsersDto, V> {
+    implements DtoExpandEnum<UsersDto>, DtoFilterableField<UsersDto, V> {
   roles<RelationDto<RolesDto>>("roles"),
   followsViaFollower<RelationDto<FollowsDto>>("follows_via_follower"),
   followsViaFollowing<RelationDto<FollowsDto>>("follows_via_following"),
@@ -49,13 +49,7 @@ enum UsersDtoExpandEnum<V>
   const UsersDtoExpandEnum(this.pbName);
 
   @override
-  V get(UsersDto dto) => throw UnimplementedError();
-
-  @override
   final String pbName;
-
-  @override
-  DtoFieldSettings? get settings => null;
 }
 
 class UsersDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, UsersDto> {

@@ -32,20 +32,14 @@ part 'friends_dto_expand.freezed.dart';
 part 'friends_dto_expand.g.dart';
 
 enum FriendsDtoExpandEnum<V>
-    implements DtoExpandEnum<FriendsDto>, DtoTypedField<FriendsDto, V> {
+    implements DtoExpandEnum<FriendsDto>, DtoFilterableField<FriendsDto, V> {
   requester<RelationDto<UsersDto>>("requester"),
   accepter<RelationDto<UsersDto>>("accepter");
 
   const FriendsDtoExpandEnum(this.pbName);
 
   @override
-  V get(FriendsDto dto) => throw UnimplementedError();
-
-  @override
   final String pbName;
-
-  @override
-  DtoFieldSettings? get settings => null;
 }
 
 class FriendsDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, FriendsDto> {

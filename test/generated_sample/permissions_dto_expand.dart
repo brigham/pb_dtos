@@ -11,19 +11,15 @@ part 'permissions_dto_expand.freezed.dart';
 part 'permissions_dto_expand.g.dart';
 
 enum PermissionsDtoExpandEnum<V>
-    implements DtoExpandEnum<PermissionsDto>, DtoTypedField<PermissionsDto, V> {
+    implements
+        DtoExpandEnum<PermissionsDto>,
+        DtoFilterableField<PermissionsDto, V> {
   rolesViaPermissions<RelationDto<RolesDto>>("roles_via_permissions");
 
   const PermissionsDtoExpandEnum(this.pbName);
 
   @override
-  V get(PermissionsDto dto) => throw UnimplementedError();
-
-  @override
   final String pbName;
-
-  @override
-  DtoFieldSettings? get settings => null;
 }
 
 class PermissionsDtoExpand<D extends Dto<D>>

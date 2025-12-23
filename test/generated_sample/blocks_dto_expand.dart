@@ -11,20 +11,14 @@ part 'blocks_dto_expand.freezed.dart';
 part 'blocks_dto_expand.g.dart';
 
 enum BlocksDtoExpandEnum<V>
-    implements DtoExpandEnum<BlocksDto>, DtoTypedField<BlocksDto, V> {
+    implements DtoExpandEnum<BlocksDto>, DtoFilterableField<BlocksDto, V> {
   blocker<RelationDto<UsersDto>>("blocker"),
   blocked<RelationDto<UsersDto>>("blocked");
 
   const BlocksDtoExpandEnum(this.pbName);
 
   @override
-  V get(BlocksDto dto) => throw UnimplementedError();
-
-  @override
   final String pbName;
-
-  @override
-  DtoFieldSettings? get settings => null;
 }
 
 class BlocksDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, BlocksDto> {

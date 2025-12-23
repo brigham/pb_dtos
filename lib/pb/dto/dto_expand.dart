@@ -81,7 +81,7 @@ abstract class DtoExpandBase<D extends Dto<D>, N extends Dto<N>>
 
   @protected
   DtoExpandDelegate<V> addRelation<V extends Dto<V>>(
-    DtoTypedField<N, RelationDto<V>> relation,
+    DtoFilterableField<N, RelationDto<V>> relation,
   ) => delegate.add<V>(relation.pbName, false);
 
   @protected

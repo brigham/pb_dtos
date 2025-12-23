@@ -11,20 +11,14 @@ part 'posts_dto_expand.freezed.dart';
 part 'posts_dto_expand.g.dart';
 
 enum PostsDtoExpandEnum<V>
-    implements DtoExpandEnum<PostsDto>, DtoTypedField<PostsDto, V> {
+    implements DtoExpandEnum<PostsDto>, DtoFilterableField<PostsDto, V> {
   poster<RelationDto<UsersDto>>("poster"),
   tagged<RelationDto<UsersDto>>("tagged");
 
   const PostsDtoExpandEnum(this.pbName);
 
   @override
-  V get(PostsDto dto) => throw UnimplementedError();
-
-  @override
   final String pbName;
-
-  @override
-  DtoFieldSettings? get settings => null;
 }
 
 class PostsDtoExpand<D extends Dto<D>> extends DtoExpandBase<D, PostsDto> {

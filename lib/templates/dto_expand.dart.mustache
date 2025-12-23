@@ -22,7 +22,7 @@ part '{{collection.name}}_dto_expand.freezed.dart';
 part '{{collection.name}}_dto_expand.g.dart';
 
 {{#has_relations}}
-    enum {{dto_expand_class_name}}Enum<V> implements DtoExpandEnum<{{class_name}}>, DtoTypedField<{{class_name}}, V> {
+    enum {{dto_expand_class_name}}Enum<V> implements DtoExpandEnum<{{class_name}}>, DtoFilterableField<{{class_name}}, V> {
     {{#relations}}
         {{snake_name}}<RelationDto<{{solo_type}}>>("{{name}}"),
     {{/relations}}
@@ -34,13 +34,7 @@ part '{{collection.name}}_dto_expand.g.dart';
     const {{dto_expand_class_name}}Enum(this.pbName);
 
     @override
-    V get({{class_name}} dto) => throw UnimplementedError();
-
-    @override
     final String pbName;
-
-    @override
-    DtoFieldSettings? get settings => null;
     }
 
     class {{class_name}}Expand<D extends Dto<D>> extends DtoExpandBase<D, {{class_name}}> {
