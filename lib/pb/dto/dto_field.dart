@@ -170,14 +170,22 @@ class DtoGeoPointFieldSettings extends DtoFieldSettings {
     : super('geoPoint', required: required);
 }
 
+/// Ties the filterable field type to the field.
+///
+/// Specifically, if the field is multiple, this will be the singular version.
 abstract class DtoFilterableField<D extends Dto<D>, V> extends DtoField<D> {}
 
-abstract class DtoTypedField<D extends Dto<D>, V, A>
-    extends DtoFilterableField<D, V> {
+/// Ties the actual field type to the field.
+///
+/// Specifically, if the field is multiple, this will be the plural version.
+abstract class DtoSettableField<D extends Dto<D>, A> extends DtoField<D> {
   A get(D dto);
 
   D copyWith(D dto, A value);
+}
 
+abstract class DtoTypedField<D extends Dto<D>, V, A>
+    implements DtoFilterableField<D, V>, DtoSettableField<D, A> {
   DtoFieldSettings? get settings;
 }
 
