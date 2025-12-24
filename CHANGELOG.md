@@ -1,3 +1,7 @@
+# 0.11.1
+
+* Make the field type tree cleaner to enable generic entities.
+
 # 0.11.0
 
 * Generic getter on DtoTypedField.
