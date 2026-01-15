@@ -47,6 +47,10 @@ class PocketbaseType extends PocketbaseTypeBase {
       case (true, _, _) || (_, _, true):
         return false;
       case (_, true, _):
+        var autogeneratePattern = field.data['autogeneratePattern'];
+        if (autogeneratePattern is String && autogeneratePattern.isNotEmpty) {
+          return false;
+        }
         return true;
       case _:
         return false;

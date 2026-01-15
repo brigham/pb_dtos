@@ -328,7 +328,19 @@ class PostsDto with _$PostsDto implements Dto<PostsDto> {
       _$PostsDtoFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$PostsDtoToJson(this);
+  Map<String, dynamic> toJson() {
+    final json = _$PostsDtoToJson(this);
+    if (_idAutogenerate != null) {
+      json['id:autogenerate'] = _idAutogenerate;
+    }
+    return json;
+  }
+
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? _idAutogenerate;
+
+  set idAutogenerate(String? value) => _idAutogenerate = value;
 
   @override
   List<Future<http.MultipartFile>> toFiles() =>

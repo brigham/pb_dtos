@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$RolesDto {
 
- String get name; List<RelationDto<PermissionsDto>> get permissions; String get id; RolesExpandDto? get expand;
+ String get name; List<RelationDto<PermissionsDto>> get permissions; String get id; RolesExpandDto? get expand; String? get _idAutogenerate; set _idAutogenerate(String? value);
 /// Create a copy of RolesDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $RolesDtoCopyWith<RolesDto> get copyWith => _$RolesDtoCopyWithImpl<RolesDto>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RolesDto&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.permissions, permissions)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is RolesDto&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.permissions, permissions)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other._idAutogenerate, _idAutogenerate) || other._idAutogenerate == _idAutogenerate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(permissions),id,expand);
+int get hashCode => Object.hash(runtimeType,name,const DeepCollectionEquality().hash(permissions),id,expand,_idAutogenerate);
 
 @override
 String toString() {
-  return 'RolesDto(name: $name, permissions: $permissions, id: $id, expand: $expand)';
+  return 'RolesDto(name: $name, permissions: $permissions, id: $id, expand: $expand, _idAutogenerate: $_idAutogenerate)';
 }
 
 

@@ -304,6 +304,10 @@ class DartDtoDumper extends Dumper {
                 'text',
                 'editor',
               }.contains(field.type),
+              'has_autogenerate':
+                  field.type == 'text' &&
+                  (field.data['autogeneratePattern'] as String? ?? '')
+                      .isNotEmpty,
             };
           })
           .toList(),

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FollowsDto {
 
- RelationDto<UsersDto> get follower; RelationDto<UsersDto> get following; String get id; FollowsExpandDto? get expand;
+ RelationDto<UsersDto> get follower; RelationDto<UsersDto> get following; String get id; FollowsExpandDto? get expand; String? get _idAutogenerate; set _idAutogenerate(String? value);
 /// Create a copy of FollowsDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $FollowsDtoCopyWith<FollowsDto> get copyWith => _$FollowsDtoCopyWithImpl<Follows
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FollowsDto&&(identical(other.follower, follower) || other.follower == follower)&&(identical(other.following, following) || other.following == following)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FollowsDto&&(identical(other.follower, follower) || other.follower == follower)&&(identical(other.following, following) || other.following == following)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other._idAutogenerate, _idAutogenerate) || other._idAutogenerate == _idAutogenerate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,follower,following,id,expand);
+int get hashCode => Object.hash(runtimeType,follower,following,id,expand,_idAutogenerate);
 
 @override
 String toString() {
-  return 'FollowsDto(follower: $follower, following: $following, id: $id, expand: $expand)';
+  return 'FollowsDto(follower: $follower, following: $following, id: $id, expand: $expand, _idAutogenerate: $_idAutogenerate)';
 }
 
 

@@ -173,7 +173,19 @@ class FollowsDto with _$FollowsDto implements Dto<FollowsDto> {
       _$FollowsDtoFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$FollowsDtoToJson(this);
+  Map<String, dynamic> toJson() {
+    final json = _$FollowsDtoToJson(this);
+    if (_idAutogenerate != null) {
+      json['id:autogenerate'] = _idAutogenerate;
+    }
+    return json;
+  }
+
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? _idAutogenerate;
+
+  set idAutogenerate(String? value) => _idAutogenerate = value;
 
   @override
   List<Future<http.MultipartFile>> toFiles() => const [];

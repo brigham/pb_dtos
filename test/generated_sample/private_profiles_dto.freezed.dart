@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PrivateProfilesDto {
 
- String get id; RelationDto<UsersDto> get user; String get note; PrivateProfilesExpandDto? get expand;
+ String get id; RelationDto<UsersDto> get user; String get note; PrivateProfilesExpandDto? get expand; String? get _idAutogenerate; set _idAutogenerate(String? value);
 /// Create a copy of PrivateProfilesDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $PrivateProfilesDtoCopyWith<PrivateProfilesDto> get copyWith => _$PrivateProfile
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PrivateProfilesDto&&(identical(other.id, id) || other.id == id)&&(identical(other.user, user) || other.user == user)&&(identical(other.note, note) || other.note == note)&&(identical(other.expand, expand) || other.expand == expand));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PrivateProfilesDto&&(identical(other.id, id) || other.id == id)&&(identical(other.user, user) || other.user == user)&&(identical(other.note, note) || other.note == note)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other._idAutogenerate, _idAutogenerate) || other._idAutogenerate == _idAutogenerate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,user,note,expand);
+int get hashCode => Object.hash(runtimeType,id,user,note,expand,_idAutogenerate);
 
 @override
 String toString() {
-  return 'PrivateProfilesDto(id: $id, user: $user, note: $note, expand: $expand)';
+  return 'PrivateProfilesDto(id: $id, user: $user, note: $note, expand: $expand, _idAutogenerate: $_idAutogenerate)';
 }
 
 

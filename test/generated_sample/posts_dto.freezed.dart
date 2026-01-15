@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$PostsDto {
 
- RelationDto<UsersDto> get poster; String get message; FileDto? get photo; String get link; GeopointDto get location; num get reviewStars; List<RelationDto<UsersDto>> get tagged; bool get draft; DateTime? get scheduled; PostsVisibilityEnum? get visibility; DateTime? get created; dynamic get metadata; String get id; PostsExpandDto? get expand;
+ RelationDto<UsersDto> get poster; String get message; FileDto? get photo; String get link; GeopointDto get location; num get reviewStars; List<RelationDto<UsersDto>> get tagged; bool get draft; DateTime? get scheduled; PostsVisibilityEnum? get visibility; DateTime? get created; dynamic get metadata; String get id; PostsExpandDto? get expand; String? get _idAutogenerate; set _idAutogenerate(String? value);
 /// Create a copy of PostsDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $PostsDtoCopyWith<PostsDto> get copyWith => _$PostsDtoCopyWithImpl<PostsDto>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostsDto&&(identical(other.poster, poster) || other.poster == poster)&&(identical(other.message, message) || other.message == message)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.link, link) || other.link == link)&&(identical(other.location, location) || other.location == location)&&(identical(other.reviewStars, reviewStars) || other.reviewStars == reviewStars)&&const DeepCollectionEquality().equals(other.tagged, tagged)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.scheduled, scheduled) || other.scheduled == scheduled)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&(identical(other.created, created) || other.created == created)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is PostsDto&&(identical(other.poster, poster) || other.poster == poster)&&(identical(other.message, message) || other.message == message)&&(identical(other.photo, photo) || other.photo == photo)&&(identical(other.link, link) || other.link == link)&&(identical(other.location, location) || other.location == location)&&(identical(other.reviewStars, reviewStars) || other.reviewStars == reviewStars)&&const DeepCollectionEquality().equals(other.tagged, tagged)&&(identical(other.draft, draft) || other.draft == draft)&&(identical(other.scheduled, scheduled) || other.scheduled == scheduled)&&(identical(other.visibility, visibility) || other.visibility == visibility)&&(identical(other.created, created) || other.created == created)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other._idAutogenerate, _idAutogenerate) || other._idAutogenerate == _idAutogenerate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,poster,message,photo,link,location,reviewStars,const DeepCollectionEquality().hash(tagged),draft,scheduled,visibility,created,const DeepCollectionEquality().hash(metadata),id,expand);
+int get hashCode => Object.hash(runtimeType,poster,message,photo,link,location,reviewStars,const DeepCollectionEquality().hash(tagged),draft,scheduled,visibility,created,const DeepCollectionEquality().hash(metadata),id,expand,_idAutogenerate);
 
 @override
 String toString() {
-  return 'PostsDto(poster: $poster, message: $message, photo: $photo, link: $link, location: $location, reviewStars: $reviewStars, tagged: $tagged, draft: $draft, scheduled: $scheduled, visibility: $visibility, created: $created, metadata: $metadata, id: $id, expand: $expand)';
+  return 'PostsDto(poster: $poster, message: $message, photo: $photo, link: $link, location: $location, reviewStars: $reviewStars, tagged: $tagged, draft: $draft, scheduled: $scheduled, visibility: $visibility, created: $created, metadata: $metadata, id: $id, expand: $expand, _idAutogenerate: $_idAutogenerate)';
 }
 
 

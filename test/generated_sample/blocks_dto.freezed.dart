@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BlocksDto {
 
- RelationDto<UsersDto> get blocker; RelationDto<UsersDto> get blocked; BlocksTypeEnum get type; String get id; BlocksExpandDto? get expand;
+ RelationDto<UsersDto> get blocker; RelationDto<UsersDto> get blocked; BlocksTypeEnum get type; String get id; BlocksExpandDto? get expand; String? get _idAutogenerate; set _idAutogenerate(String? value);
 /// Create a copy of BlocksDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $BlocksDtoCopyWith<BlocksDto> get copyWith => _$BlocksDtoCopyWithImpl<BlocksDto>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BlocksDto&&(identical(other.blocker, blocker) || other.blocker == blocker)&&(identical(other.blocked, blocked) || other.blocked == blocked)&&(identical(other.type, type) || other.type == type)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BlocksDto&&(identical(other.blocker, blocker) || other.blocker == blocker)&&(identical(other.blocked, blocked) || other.blocked == blocked)&&(identical(other.type, type) || other.type == type)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other._idAutogenerate, _idAutogenerate) || other._idAutogenerate == _idAutogenerate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,blocker,blocked,type,id,expand);
+int get hashCode => Object.hash(runtimeType,blocker,blocked,type,id,expand,_idAutogenerate);
 
 @override
 String toString() {
-  return 'BlocksDto(blocker: $blocker, blocked: $blocked, type: $type, id: $id, expand: $expand)';
+  return 'BlocksDto(blocker: $blocker, blocked: $blocked, type: $type, id: $id, expand: $expand, _idAutogenerate: $_idAutogenerate)';
 }
 
 

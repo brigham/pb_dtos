@@ -173,7 +173,26 @@ class {{class_name}} with _${{class_name}} implements Dto<{{class_name}}> {
       _${{class_name}}FromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _${{class_name}}ToJson(this);
+  Map<String, dynamic> toJson() {
+    final json = _${{class_name}}ToJson(this);
+    {{#fields}}
+    {{#has_autogenerate}}
+    if (_{{snake_name}}Autogenerate != null) {
+      json['{{name}}:autogenerate'] = _{{snake_name}}Autogenerate;
+    }
+    {{/has_autogenerate}}
+    {{/fields}}
+    return json;
+  }
+
+  {{#fields}}
+  {{#has_autogenerate}}
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? _{{snake_name}}Autogenerate;
+
+  set {{snake_name}}Autogenerate(String? value) => _{{snake_name}}Autogenerate = value;
+  {{/has_autogenerate}}
+  {{/fields}}
 
   @override
   List<Future<http.MultipartFile>> toFiles() => {{^has_files}}const{{/has_files}} [
