@@ -1,3 +1,7 @@
+# 0.12.0
+
+* Upgrade pb_obtain version.
+
 # 0.11.1
 
 * Make the field type tree cleaner to enable generic entities.

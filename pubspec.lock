@@ -509,10 +509,10 @@ packages:
     dependency: "direct main"
     description:
       name: pb_obtain
-      sha256: b987064d5d7622bf569b36aacd585bf04c5497b4e5b4225c7dd4fcc03abb248a
+      sha256: e485553b36e711ca37097dd30a39c2e2806f918811d88f0049ff349b6f632c81
       url: "https://pub.dev"
     source: hosted
-    version: "0.7.5"
+    version: "0.8.1"
   pocketbase:
     dependency: "direct main"
     description:
