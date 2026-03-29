@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$FriendsDto {
 
- RelationDto<UsersDto> get requester; RelationDto<UsersDto> get accepter; FriendsStateEnum get state; String get id; FriendsExpandDto? get expand;
+ RelationDto<UsersDto> get requester; RelationDto<UsersDto> get accepter; FriendsStateEnum get state; String get id; FriendsExpandDto? get expand; String? get _idAutogenerate; set _idAutogenerate(String? value);
 /// Create a copy of FriendsDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $FriendsDtoCopyWith<FriendsDto> get copyWith => _$FriendsDtoCopyWithImpl<Friends
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FriendsDto&&(identical(other.requester, requester) || other.requester == requester)&&(identical(other.accepter, accepter) || other.accepter == accepter)&&(identical(other.state, state) || other.state == state)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FriendsDto&&(identical(other.requester, requester) || other.requester == requester)&&(identical(other.accepter, accepter) || other.accepter == accepter)&&(identical(other.state, state) || other.state == state)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other._idAutogenerate, _idAutogenerate) || other._idAutogenerate == _idAutogenerate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,requester,accepter,state,id,expand);
+int get hashCode => Object.hash(runtimeType,requester,accepter,state,id,expand,_idAutogenerate);
 
 @override
 String toString() {
-  return 'FriendsDto(requester: $requester, accepter: $accepter, state: $state, id: $id, expand: $expand)';
+  return 'FriendsDto(requester: $requester, accepter: $accepter, state: $state, id: $id, expand: $expand, _idAutogenerate: $_idAutogenerate)';
 }
 
 

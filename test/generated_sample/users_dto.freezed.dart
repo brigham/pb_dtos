@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UsersDto {
 
- String get id; String get password; String get email; bool get emailVisibility; bool get verified; String get name; FileDto? get avatar; List<RelationDto<RolesDto>> get roles; DateTime? get birthday; String get homepage; dynamic get metadata; dynamic get biography; GeopointDto get hometown; UsersZodiacEnum? get zodiac; DateTime? get created; DateTime? get updated; UsersExpandDto? get expand; String? get passwordConfirm;
+ String get id; String get password; String get email; bool get emailVisibility; bool get verified; String get name; FileDto? get avatar; List<RelationDto<RolesDto>> get roles; DateTime? get birthday; String get homepage; dynamic get metadata; dynamic get biography; GeopointDto get hometown; UsersZodiacEnum? get zodiac; DateTime? get created; DateTime? get updated; UsersExpandDto? get expand; String? get passwordConfirm; String? get _idAutogenerate; set _idAutogenerate(String? value);
 /// Create a copy of UsersDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $UsersDtoCopyWith<UsersDto> get copyWith => _$UsersDtoCopyWithImpl<UsersDto>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersDto&&(identical(other.id, id) || other.id == id)&&(identical(other.password, password) || other.password == password)&&(identical(other.email, email) || other.email == email)&&(identical(other.emailVisibility, emailVisibility) || other.emailVisibility == emailVisibility)&&(identical(other.verified, verified) || other.verified == verified)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&const DeepCollectionEquality().equals(other.roles, roles)&&(identical(other.birthday, birthday) || other.birthday == birthday)&&(identical(other.homepage, homepage) || other.homepage == homepage)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.biography, biography)&&(identical(other.hometown, hometown) || other.hometown == hometown)&&(identical(other.zodiac, zodiac) || other.zodiac == zodiac)&&(identical(other.created, created) || other.created == created)&&(identical(other.updated, updated) || other.updated == updated)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other.passwordConfirm, passwordConfirm) || other.passwordConfirm == passwordConfirm));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UsersDto&&(identical(other.id, id) || other.id == id)&&(identical(other.password, password) || other.password == password)&&(identical(other.email, email) || other.email == email)&&(identical(other.emailVisibility, emailVisibility) || other.emailVisibility == emailVisibility)&&(identical(other.verified, verified) || other.verified == verified)&&(identical(other.name, name) || other.name == name)&&(identical(other.avatar, avatar) || other.avatar == avatar)&&const DeepCollectionEquality().equals(other.roles, roles)&&(identical(other.birthday, birthday) || other.birthday == birthday)&&(identical(other.homepage, homepage) || other.homepage == homepage)&&const DeepCollectionEquality().equals(other.metadata, metadata)&&const DeepCollectionEquality().equals(other.biography, biography)&&(identical(other.hometown, hometown) || other.hometown == hometown)&&(identical(other.zodiac, zodiac) || other.zodiac == zodiac)&&(identical(other.created, created) || other.created == created)&&(identical(other.updated, updated) || other.updated == updated)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other.passwordConfirm, passwordConfirm) || other.passwordConfirm == passwordConfirm)&&(identical(other._idAutogenerate, _idAutogenerate) || other._idAutogenerate == _idAutogenerate));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,password,email,emailVisibility,verified,name,avatar,const DeepCollectionEquality().hash(roles),birthday,homepage,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(biography),hometown,zodiac,created,updated,expand,passwordConfirm);
+int get hashCode => Object.hashAll([runtimeType,id,password,email,emailVisibility,verified,name,avatar,const DeepCollectionEquality().hash(roles),birthday,homepage,const DeepCollectionEquality().hash(metadata),const DeepCollectionEquality().hash(biography),hometown,zodiac,created,updated,expand,passwordConfirm,_idAutogenerate]);
 
 @override
 String toString() {
-  return 'UsersDto(id: $id, password: $password, email: $email, emailVisibility: $emailVisibility, verified: $verified, name: $name, avatar: $avatar, roles: $roles, birthday: $birthday, homepage: $homepage, metadata: $metadata, biography: $biography, hometown: $hometown, zodiac: $zodiac, created: $created, updated: $updated, expand: $expand, passwordConfirm: $passwordConfirm)';
+  return 'UsersDto(id: $id, password: $password, email: $email, emailVisibility: $emailVisibility, verified: $verified, name: $name, avatar: $avatar, roles: $roles, birthday: $birthday, homepage: $homepage, metadata: $metadata, biography: $biography, hometown: $hometown, zodiac: $zodiac, created: $created, updated: $updated, expand: $expand, passwordConfirm: $passwordConfirm, _idAutogenerate: $_idAutogenerate)';
 }
 
 

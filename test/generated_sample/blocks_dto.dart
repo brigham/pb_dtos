@@ -205,7 +205,19 @@ class BlocksDto with _$BlocksDto implements Dto<BlocksDto> {
       _$BlocksDtoFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$BlocksDtoToJson(this);
+  Map<String, dynamic> toJson() {
+    final json = _$BlocksDtoToJson(this);
+    if (_idAutogenerate != null) {
+      json['id:autogenerate'] = _idAutogenerate;
+    }
+    return json;
+  }
+
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? _idAutogenerate;
+
+  set idAutogenerate(String? value) => _idAutogenerate = value;
 
   @override
   List<Future<http.MultipartFile>> toFiles() => const [];

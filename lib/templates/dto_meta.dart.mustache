@@ -1,10 +1,22 @@
+import 'package:pb_dtos/pb/dto/dto.dart';
 import 'package:pb_dtos/pb/dto/dto_meta.dart';
 import 'package:pocketbase/pocketbase.dart';
 import '{{collection.name}}_dto.dart';
 import '{{collection.name}}_dto_filter.dart';
+{{#has_relations}}
 import '{{collection.name}}_dto_expand.dart';
+{{/has_relations}}
+{{^has_relations}}
+import 'package:pb_dtos/pb/dto/dto_expand.dart';
+{{/has_relations}}
 import '{{collection.name}}_dto_sort.dart';
 import '{{collection.name}}_dto_field_select.dart';
+
+{{^has_relations}}
+class {{class_name}}Expand<D extends Dto<D>> extends DtoExpandBase<D, {{class_name}}> {
+  {{class_name}}Expand() : super.root();
+}
+{{/has_relations}}
 
 class {{class_name}}Meta extends DtoMeta<{{class_name}}, {{class_name}}Filter, {{class_name}}Expand<{{class_name}}>, {{class_name}}Sort<{{class_name}}>, {{class_name}}FieldSelect<{{class_name}}>> {
     const {{class_name}}Meta();

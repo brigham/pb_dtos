@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'permissions_dto.dart';
+part of 'autogen_posts_patch_dto.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -11,42 +11,41 @@ part of 'permissions_dto.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
-
 /// @nodoc
-mixin _$PermissionsDto {
+mixin _$AutogenPostsPatchDto {
 
- String get name; String get id; PermissionsExpandDto? get expand; String? get _idAutogenerate; set _idAutogenerate(String? value);
-/// Create a copy of PermissionsDto
+ String? get slug; set slug(String? value); String? get title; set title(String? value);
+/// Create a copy of AutogenPostsPatchDto
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$PermissionsDtoCopyWith<PermissionsDto> get copyWith => _$PermissionsDtoCopyWithImpl<PermissionsDto>(this as PermissionsDto, _$identity);
+$AutogenPostsPatchDtoCopyWith<AutogenPostsPatchDto> get copyWith => _$AutogenPostsPatchDtoCopyWithImpl<AutogenPostsPatchDto>(this as AutogenPostsPatchDto, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PermissionsDto&&(identical(other.name, name) || other.name == name)&&(identical(other.id, id) || other.id == id)&&(identical(other.expand, expand) || other.expand == expand)&&(identical(other._idAutogenerate, _idAutogenerate) || other._idAutogenerate == _idAutogenerate));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AutogenPostsPatchDto&&(identical(other.slug, slug) || other.slug == slug)&&(identical(other.title, title) || other.title == title));
 }
 
-@JsonKey(includeFromJson: false, includeToJson: false)
+
 @override
-int get hashCode => Object.hash(runtimeType,name,id,expand,_idAutogenerate);
+int get hashCode => Object.hash(runtimeType,slug,title);
 
 @override
 String toString() {
-  return 'PermissionsDto(name: $name, id: $id, expand: $expand, _idAutogenerate: $_idAutogenerate)';
+  return 'AutogenPostsPatchDto(slug: $slug, title: $title)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $PermissionsDtoCopyWith<$Res>  {
-  factory $PermissionsDtoCopyWith(PermissionsDto value, $Res Function(PermissionsDto) _then) = _$PermissionsDtoCopyWithImpl;
+abstract mixin class $AutogenPostsPatchDtoCopyWith<$Res>  {
+  factory $AutogenPostsPatchDtoCopyWith(AutogenPostsPatchDto value, $Res Function(AutogenPostsPatchDto) _then) = _$AutogenPostsPatchDtoCopyWithImpl;
 @useResult
 $Res call({
- String name, String id, PermissionsExpandDto? expand
+ String? slug, String? title
 });
 
 
@@ -54,29 +53,28 @@ $Res call({
 
 }
 /// @nodoc
-class _$PermissionsDtoCopyWithImpl<$Res>
-    implements $PermissionsDtoCopyWith<$Res> {
-  _$PermissionsDtoCopyWithImpl(this._self, this._then);
+class _$AutogenPostsPatchDtoCopyWithImpl<$Res>
+    implements $AutogenPostsPatchDtoCopyWith<$Res> {
+  _$AutogenPostsPatchDtoCopyWithImpl(this._self, this._then);
 
-  final PermissionsDto _self;
-  final $Res Function(PermissionsDto) _then;
+  final AutogenPostsPatchDto _self;
+  final $Res Function(AutogenPostsPatchDto) _then;
 
-/// Create a copy of PermissionsDto
+/// Create a copy of AutogenPostsPatchDto
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? id = null,Object? expand = freezed,}) {
-  return _then(PermissionsDto(
-name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,expand: freezed == expand ? _self.expand : expand // ignore: cast_nullable_to_non_nullable
-as PermissionsExpandDto?,
+@pragma('vm:prefer-inline') @override $Res call({Object? slug = freezed,Object? title = freezed,}) {
+  return _then(AutogenPostsPatchDto(
+slug: freezed == slug ? _self.slug : slug // ignore: cast_nullable_to_non_nullable
+as String?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,
   ));
 }
 
 }
 
 
-/// Adds pattern-matching-related methods to [PermissionsDto].
-extension PermissionsDtoPatterns on PermissionsDto {
+/// Adds pattern-matching-related methods to [AutogenPostsPatchDto].
+extension AutogenPostsPatchDtoPatterns on AutogenPostsPatchDto {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:

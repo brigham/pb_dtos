@@ -173,7 +173,19 @@ class RolesDto with _$RolesDto implements Dto<RolesDto> {
       _$RolesDtoFromJson(json);
 
   @override
-  Map<String, dynamic> toJson() => _$RolesDtoToJson(this);
+  Map<String, dynamic> toJson() {
+    final json = _$RolesDtoToJson(this);
+    if (_idAutogenerate != null) {
+      json['id:autogenerate'] = _idAutogenerate;
+    }
+    return json;
+  }
+
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  String? _idAutogenerate;
+
+  set idAutogenerate(String? value) => _idAutogenerate = value;
 
   @override
   List<Future<http.MultipartFile>> toFiles() => const [];
